@@ -39,19 +39,24 @@
 ## 👀 프로젝트 주요 기능 <추후 수정 예정>
 
 - 화상 채팅
-- 히든미션 게임
+- ? 찍기
 - 라이어 게임
-- 통아저씨 게임
-- 제비뽑기
+- 랜덤뽑기
 - 건배 기능
 - 특정인 클로즈업
 - 투표 기능
 - 업다운
-- 병뚜껑 꼬다리 딱밤
 
 ## 📕 Ground Rule
 
 > [Ground Rule](https://colossal-playroom-b51.notion.site/v1-0-0-ebba1117a39945748a4084beb3ed2981)
+
+## 🎨 WireFrame
+
+> [WireFrame](https://www.figma.com/file/A8f3IsRebQP2AAgRWnJ0cb/sooltreaming?node-id=0%3A1)
+
+![image](https://user-images.githubusercontent.com/14370441/139093650-a829a7de-c304-4e72-9f81-98223cf4ff12.png)
+
 
 ## 💩 배포링크
 
