@@ -110,7 +110,7 @@
 
 > [WireFrame](https://www.figma.com/file/A8f3IsRebQP2AAgRWnJ0cb/sooltreaming?node-id=0%3A1)
 
-![image](https://user-images.githubusercontent.com/14370441/139093650-a829a7de-c304-4e72-9f81-98223cf4ff12.png)
+![image](https://user-images.githubusercontent.com/55688122/139286653-6498c96e-7a74-4ad5-94c8-bdfcf06f73e7.png)
 
 ## 💩 배포링크
 
