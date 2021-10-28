@@ -1,19 +1,48 @@
-<h1 align="center"> 🍻 SOOLtreaming </h1>
+<div align="center">
+  <img src="https://user-images.githubusercontent.com/55688122/139244556-af43e974-4eab-4d1a-be8e-2c0f6e72ea80.png" width=300/>
+</div>
+
+<h1 align="center"> 🍻 Sooltreaming </h1>
 
 <div align="end">
-    <a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2021%2Fweb12-sooltreaming&count_bg=%233D61C8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
+    <a href="https://github.com/boostcampwm-2021/web12-sooltreaming"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2021%2Fweb12-sooltreaming&count_bg=%233D61C8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/></a>
+</div>
+
+<div align="center">
+<a href="https://colossal-playroom-b51.notion.site/Sooltreaming-beefac80018d40bb988832b34d1421c4">
+  👉 Notion Project Page 바로가기 👈
+</a>
+&nbsp
+</div>
+
+<div align="center">
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/WebRTC-333333?style=flat-square&logo=webrtc&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socket.io&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/Passport-34E27A?style=flat-square&logo=passport&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white"/>
+&nbsp
+<img src="https://img.shields.io/badge/nCloud-03C75A?style=flat-square&logo=naver&logoColor=white"/>
 </div>
 
 ## 🧎 제작사 주당즈 멤버
 
 | <a href="https://github.com/yeon52"><img src="https://avatars.githubusercontent.com/yeon52" width=100/><br><center>J081\_박가연</center></a> | <a href="https://github.com/alittlekitten"><img src="https://avatars.githubusercontent.com/alittlekitten" width=100/><br> <center>J125\_오석호</center></a> | <a href="https://github.com/jyo-jyo"><img src="https://avatars.githubusercontent.com/jyo-jyo" width=100/><br><center>J200\_조현정</center></a> | <a href="https://github.com/pyo-sh"><img src="https://avatars.githubusercontent.com/pyo-sh" width=100/><br> <center>J212\_표석훈</center></a> |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
-
-## ⭐ 프로젝트 페이지
-
-> [👉 Notion Project Page 바로가기 👈](https://colossal-playroom-b51.notion.site/Sooltreaming-beefac80018d40bb988832b34d1421c4)
-
-![image](https://user-images.githubusercontent.com/14370441/138671918-604c2555-a7b5-44bc-93fe-f6642e0d6092.png)
 
 ## 🍓 기획 의도
 
@@ -23,9 +52,10 @@
 
 술 게임, 술자ㄹㅣ를 호시타ㅁ탐 기회를 노려온 당신의 **DRAEM**....
 
-![image](https://user-images.githubusercontent.com/14370441/138673328-6b8c55cb-14d3-48f8-956c-c78ee9ad1499.png)
-
-**\* will be coem **TRUE**...... \***
+<div align="center">
+<img src="https://user-images.githubusercontent.com/14370441/138673328-6b8c55cb-14d3-48f8-956c-c78ee9ad1499.png"/>
+<h3>will be coe...m(?) TRUE......</h3>
+</div>
 
 저희 주.당.즈 가.
 
