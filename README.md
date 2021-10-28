@@ -17,28 +17,28 @@
         <a href="https://github.com/yeon52">
           <img src="https://avatars.githubusercontent.com/yeon52" width=100/>
           <br>
-          <center>J081\_박가연</center>
+          <center>J081_박가연</center>
         </a>
       </td>
       <td>
         <a href="https://github.com/alittlekitten">
           <img src="https://avatars.githubusercontent.com/alittlekitten" width=100/>
           <br>
-          <center>J125\_오석호</center>
+          <center>J125_오석호</center>
         </a>
       </td>
       <td>
         <a href="https://github.com/jyo-jyo">
           <img src="https://avatars.githubusercontent.com/jyo-jyo" width=100/>
           <br>
-          <center>J200\_조현정</center>
+          <center>J200_조현정</center>
         </a>
       </td>
       <td>
         <a href="https://github.com/pyo-sh">
           <img src="https://avatars.githubusercontent.com/pyo-sh" width=100/>
           <br>
-          <center>J212\_표석훈</center>
+          <center>J212_표석훈</center>
         </a>
       </td>
     </tr>
@@ -48,25 +48,15 @@
 <div align="center">
   </br>
   <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/WebRTC-333333?style=flat-square&logo=webrtc&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socket.io&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/Passport-34E27A?style=flat-square&logo=passport&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white"/>
-  &nbsp
   <img src="https://img.shields.io/badge/nCloud-03C75A?style=flat-square&logo=naver&logoColor=white"/>
   </br>
 </div>
