@@ -9,13 +9,6 @@
 </div>
 
 <div align="center">
-<a href="https://colossal-playroom-b51.notion.site/Sooltreaming-beefac80018d40bb988832b34d1421c4">
-  👉 Notion Project Page 바로가기 👈
-</a>
-&nbsp
-</div>
-
-<div align="center">
 <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/>
 &nbsp
 <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
@@ -37,6 +30,12 @@
 <img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white"/>
 &nbsp
 <img src="https://img.shields.io/badge/nCloud-03C75A?style=flat-square&logo=naver&logoColor=white"/>
+</div>
+
+<div align="center">
+<a href="https://colossal-playroom-b51.notion.site/Sooltreaming-beefac80018d40bb988832b34d1421c4">
+  👉 Notion Project Page 바로가기 👈
+</a>
 </div>
 
 ## 🧎 제작사 주당즈 멤버
