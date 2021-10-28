@@ -1,0 +1,11 @@
+# node_modules
+/client/node_modules
+/server/node_modules
+
+# environments
+/client/.env
+/server/.env
+
+# package-lock.json
+/client/package-lock.json
+/server/package-lock.json

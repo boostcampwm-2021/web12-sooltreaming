@@ -7,7 +7,7 @@
 ## 🧎 제작사 주당즈 멤버
 
 | <a href="https://github.com/yeon52"><img src="https://avatars.githubusercontent.com/yeon52" width=100/><br><center>J081\_박가연</center></a> | <a href="https://github.com/alittlekitten"><img src="https://avatars.githubusercontent.com/alittlekitten" width=100/><br> <center>J125\_오석호</center></a> | <a href="https://github.com/jyo-jyo"><img src="https://avatars.githubusercontent.com/jyo-jyo" width=100/><br><center>J200\_조현정</center></a> | <a href="https://github.com/pyo-sh"><img src="https://avatars.githubusercontent.com/pyo-sh" width=100/><br> <center>J212\_표석훈</center></a> |
-| --- | --- | --- | --- |
+| -------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ## ⭐ 프로젝트 페이지
 
@@ -25,12 +25,11 @@
 
 ![image](https://user-images.githubusercontent.com/14370441/138673328-6b8c55cb-14d3-48f8-956c-c78ee9ad1499.png)
 
-*** will be coem **TRUE**...... ***
+**\* will be coem **TRUE**...... \***
 
 저희 주.당.즈 가.
 
 당신의 꾸믈. 이루어 드리겟. 습ㄴ;다.
-
 
 ## 🌱 프로젝트 소개
 
@@ -56,7 +55,6 @@
 > [WireFrame](https://www.figma.com/file/A8f3IsRebQP2AAgRWnJ0cb/sooltreaming?node-id=0%3A1)
 
 ![image](https://user-images.githubusercontent.com/14370441/139093650-a829a7de-c304-4e72-9f81-98223cf4ff12.png)
-
 
 ## 💩 배포링크
 
