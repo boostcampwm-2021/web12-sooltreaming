@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import Loader from './loader';
 import http from 'http';
