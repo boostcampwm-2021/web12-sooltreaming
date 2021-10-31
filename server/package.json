@@ -10,11 +10,14 @@
     "@types/express": "^4.17.13",
     "@types/morgan": "^1.9.3",
     "@types/node": "^16.11.6",
+    "@types/tunnel-ssh": "^4.1.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^10.0.0",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "mongoose": "^6.0.12",
+    "morgan": "~1.9.1",
+    "tunnel-ssh": "^4.1.6"
   },
   "devDependencies": {
     "nodemon": "^2.0.14",
