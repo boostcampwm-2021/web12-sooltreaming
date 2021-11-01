@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec ts-node app.ts"
+    "start": "nodemon --exec ts-node -r tsconfig-paths/register app.ts"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
@@ -17,6 +17,7 @@
     "express": "~4.16.1",
     "mongoose": "^6.0.12",
     "morgan": "~1.9.1",
+    "tsconfig-paths": "^3.11.0",
     "tunnel-ssh": "^4.1.6"
   },
   "devDependencies": {

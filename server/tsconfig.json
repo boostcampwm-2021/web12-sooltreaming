@@ -3,9 +3,14 @@
     "module": "commonjs",
     "esModuleInterop": true, // export default가 없어도 사용 가능
     "target": "es6",
-    "noImplicitAny": true,
+    "noImplicitAny": false, // AnyScript
     "moduleResolution": "node",
     "sourceMap": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "paths": {
+      "/*": ["./*"],
+      "@api/*": ["./api/*"],
+      "@models/*": ["./models/*"]
+    }
   }
 }

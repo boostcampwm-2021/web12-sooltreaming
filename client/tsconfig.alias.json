@@ -3,12 +3,12 @@
     "baseUrl": "./src",
     "paths": {
       "/*": ["./*"],
-      "@api/*": ["./*"],
-      "@components/*": ["./*"],
-      "@hooks/*": ["./*"],
-      "@pages/*": ["./*"],
-      "@socket/*": ["./*"],
-      "@utils/*": ["./*"]
+      "@api/*": ["./api/*"],
+      "@components/*": ["./components/*"],
+      "@hooks/*": ["./hooks/*"],
+      "@pages/*": ["./pages/*"],
+      "@socket/*": ["./socket/*"],
+      "@utils/*": ["./utils/*"]
     }
   }
 }
