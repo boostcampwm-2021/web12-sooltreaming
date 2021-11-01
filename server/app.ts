@@ -2,12 +2,12 @@ import 'dotenv/config';
 import express from 'express';
 import Loader from './loader';
 import http from 'http';
-import testRouter from './api/v1/test';
+import apiRouter from './api';
 
 const app = express();
 Loader(app);
 
-app.use('/test', testRouter);
+app.use('/api', apiRouter);
 
 const port = process.env.PORT || '5000';
 app.set('port', port);

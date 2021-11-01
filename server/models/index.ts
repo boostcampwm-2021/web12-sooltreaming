@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import User from './User';
 
 const dbConfig = {
   host: process.env.DB_HOST,
