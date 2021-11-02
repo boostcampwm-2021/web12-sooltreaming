@@ -63,6 +63,10 @@
 
 <div align="center">
   <h3>
+    <a href="http://115.85.181.24/">
+      🍺 배포 페이지 바로가기 🍺
+    </a>
+    <br><br>
     <a href="https://colossal-playroom-b51.notion.site/Sooltreaming-beefac80018d40bb988832b34d1421c4">
       👉 Notion Project Page 바로가기 👈
     </a>
