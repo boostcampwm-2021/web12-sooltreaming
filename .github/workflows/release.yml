@@ -1,0 +1,35 @@
+name: autoDeploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PWD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd ${{ secrets.SSH_REPOSITORY }}
+            git fetch --all
+            git reset --hard origin/main
+            cd ./client
+            npm install
+            rm -rf build
+            npm run build
+            nginx -s reload
+            cd ../server
+            npm install
+            rm -rf build
+            npx tsc
+            pm2 kill
+            pm2 start ./build/app.js --node-args="-r ./tsconfig-paths-bootstrap.js"
