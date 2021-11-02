@@ -116,10 +116,6 @@
 
 ![image](https://user-images.githubusercontent.com/55688122/139286653-6498c96e-7a74-4ad5-94c8-bdfcf06f73e7.png)
 
-## 💩 배포링크
-
-> 나중에
-
 ## 🎥 시연영상
 
 > 나중에
