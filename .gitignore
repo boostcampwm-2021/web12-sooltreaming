@@ -9,3 +9,7 @@
 # package-lock.json
 /client/package-lock.json
 /server/package-lock.json
+
+# building files
+/client/build/
+/server/build/
