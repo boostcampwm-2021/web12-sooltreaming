@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "esModuleInterop": true, // export default가 없어도 사용 가능
+    "esModuleInterop": true,
     "target": "es6",
-    "noImplicitAny": false, // AnyScript
+    "noImplicitAny": false,
     "moduleResolution": "node",
     "sourceMap": true,
+    "outDir": "./build",
     "baseUrl": ".",
     "paths": {
       "/*": ["./*"],
