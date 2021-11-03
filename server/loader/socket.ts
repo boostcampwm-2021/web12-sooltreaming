@@ -1,4 +1,6 @@
 import { Socket, Server } from 'socket.io';
+import chatting from '/controller/socket/chatting';
+import entring from '/controller/socket/entering';
 import chatRoomController from '/controller/socket/chatRoomController';
 
 function socketLoader(server, app): any {
@@ -13,6 +15,8 @@ function socketLoader(server, app): any {
   io.on('connection', (socket: Socket) => {
     console.log('socket connection!!', socket.id);
 
+    chatting(socket);
+    entring(socket);
     chatRoomController(socket, rooms);
 
     socket.on('disconnect', () => {

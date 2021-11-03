@@ -1,4 +1,6 @@
 import io from 'socket.io-client';
+import message from './message';
+import user from './user';
 import chatRoom from './chatRoom';
 
 function Socket() {
@@ -11,6 +13,8 @@ function Socket() {
   return {
     connect: () => socket.connect(),
     disconnect: () => socket.disconnect(),
+    message: message(socket),
+    user: user(socket),
     chatRoom: chatRoom(socket),
   };
 }
