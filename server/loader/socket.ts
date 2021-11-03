@@ -1,4 +1,6 @@
 import { Socket, Server } from 'socket.io';
+import chatting from '/controller/socket/chatting';
+import entring from '/controller/socket/entering';
 
 interface Chat {
   message: string;
@@ -19,7 +21,8 @@ function socketLoader(server, app): any {
     socket.on('send_message', (chat: Chat) => {
       socket.broadcast.to(chat.room_id).emit('receive_message', chat);
     });
-
+    chatting(socket);
+    entring(socket);
     socket.on('disconnect', () => {
       console.log('disconnect socket!!' + socket.id);
     });
