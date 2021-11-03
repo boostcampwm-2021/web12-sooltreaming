@@ -1,0 +1,15 @@
+export const Color = {
+  primary1: '#BED297',
+  primary2: '#EBEFD6',
+  primary3: '#9DB589',
+  error: '#FF8988',
+  titleActive: '#176842',
+  body: '#5C5C5C',
+  lable: '#888888',
+  placeholder: '#888888',
+  line: '#D9DBC8',
+  background: '#FCFFFC',
+  white: '#FFFFFF',
+  offWhite: '#F6F6F6',
+  point: '#A06000',
+};
