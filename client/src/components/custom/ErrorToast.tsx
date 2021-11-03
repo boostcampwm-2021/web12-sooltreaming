@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useRecoilState } from 'recoil';
-import { errorMessageState } from '@src/store/error';
+import { errorMessageState } from '@src/store/message';
 
 const ErrorToast: React.FC = () => {
   const [errorMessage, setErrorMessage] = useRecoilState(errorMessageState);

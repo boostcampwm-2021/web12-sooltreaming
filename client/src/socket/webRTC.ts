@@ -4,13 +4,12 @@ const OFFER = 'offer';
 const ANSWER = 'answer';
 const webRTC =
   (socket) =>
-  ({ myPeerConnection, roomCode }) => {
-    socket.connect();
+  ({ myPeerConnection, chatRoomCode }) => {
     socket.on(ENTER_USER, async () => {
       console.log('welcome, peer연결');
       const offer = await myPeerConnection.createOffer();
       myPeerConnection.setLocalDescription(offer);
-      socket.emit(OFFER, offer, roomCode);
+      socket.emit(OFFER, offer, chatRoomCode);
     });
 
     socket.on(OFFER, async (offer) => {
@@ -18,7 +17,7 @@ const webRTC =
       myPeerConnection.setRemoteDescription(offer);
       const answer = await myPeerConnection.createAnswer();
       myPeerConnection.setLocalDescription(answer);
-      socket.emit(ANSWER, answer, roomCode);
+      socket.emit(ANSWER, answer, chatRoomCode);
     });
 
     socket.on(ANSWER, (answer) => {

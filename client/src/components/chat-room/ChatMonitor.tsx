@@ -1,16 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import Socket from '@socket/socket';
 
-const ChatMonitor: React.FC = () => {
-  const roomCode = '123'; //임시
+type ChatFormPropTypes = {
+  chatRoomCode: String;
+};
+
+const ChatMonitor: React.FC<ChatFormPropTypes> = ({ chatRoomCode }) => {
   useEffect(() => {
     const socket = Socket;
     peerConnection().then(() => {
-      socket.webRTC({ myPeerConnection, roomCode }).joinRoom(roomCode);
+      socket.webRTC({ myPeerConnection, chatRoomCode }).joinRoom(chatRoomCode);
     });
-    return () => {
-      socket.disconnect();
-    };
   }, []);
 
   let myStream;
