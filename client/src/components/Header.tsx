@@ -3,7 +3,7 @@ import { HeaderWrapper, HeaderLogo, HeaderUser } from './Header.style.js';
 import { useRecoilValue } from 'recoil';
 import { userState } from '@src/store/user';
 
-const Header = () => {
+const Header: React.FC = () => {
   const { id, nickname } = useRecoilValue(userState);
 
   return (
