@@ -1,15 +1,32 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Socket from '@socket/socket';
+import { ChatWrapper } from './Chat.style';
+import { useRecoilState } from 'recoil';
+import { chatCountState } from '@src/store/message';
+import ChatForm from '@components/chat-room/ChatForm';
 
 const Chat: React.FC = () => {
-  useEffect(() => {
-    const socket = Socket;
+  const emits = useRef({});
+  const [chatLog, setChatLog] = useState([]);
+  const [unCheckCount, setUnCheckCount] = useRecoilState(chatCountState);
 
-    return () => {
-      socket.disconnect();
-    };
+  useEffect(() => {
+    // should be deleted
+    Socket.connect();
+    // -----------------
+    emits.current = Socket.message({ setChatLog });
   }, []);
-  return <div className="Chat"></div>;
+
+  return (
+    <ChatWrapper>
+      {chatLog.map(({ message, date, index }) => (
+        <div key={index}>
+          {message}/{date}
+        </div>
+      ))}
+      <ChatForm emits={emits} />
+    </ChatWrapper>
+  );
 };
 
 export default Chat;
