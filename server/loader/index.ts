@@ -1,10 +1,11 @@
-import pipe from '../utils/pipe';
-import basicLoader from './basic';
 import mongoLoader from './mongo';
+import basicLoader from './basic';
+import socketLoader from './socket';
 
-function Loader(app: any): any {
-  pipe(basicLoader)(app);
-  pipe(mongoLoader)(app);
+function Loader({ server, app }: any): any {
+  mongoLoader();
+  basicLoader(app);
+  socketLoader(server, app);
 }
 
 export default Loader;
