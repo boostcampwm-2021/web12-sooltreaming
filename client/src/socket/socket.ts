@@ -1,22 +1,17 @@
 import io from 'socket.io-client';
+import webRTC from './webRTC';
 
-function Socket() {
+const Socket = () => {
   const socket = io('http://localhost:5000', {
     closeOnBeforeunload: false,
     withCredentials: true,
   });
-
-  function connect() {
-    if (!socket.connected) socket.connect();
-  }
-  function disconnect() {
-    socket.disconnect();
-  }
+  socket.disconnect();
 
   return {
-    connect,
-    disconnect,
+    connect: () => socket.connect(),
+    disconnect: () => socket.disconnect(),
+    webRTC: webRTC(socket),
   };
-}
-
+};
 export default Socket();
