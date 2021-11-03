@@ -17,7 +17,7 @@ const ChatForm: React.FC<ChatFormPropTypes> = ({ emits }) => {
     <ChatFormWrapper onSubmit={(e) => e.preventDefault()}>
       <input value={message ?? ''} onChange={(e) => setMessage(e?.target?.value ?? '')} />
       <button onClick={onSubmitMessage}>
-        <img src="images/paper-plane.svg" />
+        <img src="/images/paper-plane.svg" alt="" />
       </button>
     </ChatFormWrapper>
   );

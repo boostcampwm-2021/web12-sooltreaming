@@ -3,6 +3,7 @@ import { LobbyWrapper, LobbyInput, LobbyButton, LobbyTitle } from './Lobby.style
 import { RouteComponentProps } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { errorMessageState } from '@src/store/message';
+import Header from '@src/components/Header';
 import socket from '@socket/socket';
 
 const Lobby: React.FunctionComponent<RouteComponentProps> = (props) => {
@@ -27,6 +28,7 @@ const Lobby: React.FunctionComponent<RouteComponentProps> = (props) => {
 
   return (
     <LobbyWrapper>
+      <Header />
       <LobbyTitle>
         오늘도 적당히 음주하세요!
         <span> 화상ㅊㅐ팅 </span>

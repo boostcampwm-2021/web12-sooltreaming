@@ -14,7 +14,7 @@ const App: React.FC = () => {
       <GlobalStyle />
       <BrowserRouter>
         <Switch>
-          <Route exact path="/lobby" component={Lobby} />
+          <Route exact path="/" component={Lobby} />
           <Route exact path="/chatRoom/:code" component={ChatRoom} />
           <Route component={() => <Redirect to="/" />} />
         </Switch>

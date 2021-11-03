@@ -11,9 +11,6 @@ const Chat: React.FC = () => {
   const [unCheckCount, setUnCheckCount] = useRecoilState(chatCountState);
 
   useEffect(() => {
-    // should be deleted
-    Socket.connect();
-    // -----------------
     emits.current = Socket.message({ setChatLog });
   }, []);
 
