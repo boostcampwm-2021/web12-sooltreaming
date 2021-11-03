@@ -24,4 +24,8 @@ router.get('/', async function (req, res, next) {
   }
 });
 
+router.get('/error', function (req, res, next) {
+  next({ message: 'hi', status: 404 });
+});
+
 export default router;
