@@ -3,7 +3,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 
-function basicLoader(app: any): any {
+const basicLoader = (app) => {
   app.use(
     cors({
       origin: [`http://${process.env.FRONT_HOST}:${process.env.FRONT_PORT}`],
