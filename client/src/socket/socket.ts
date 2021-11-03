@@ -1,6 +1,7 @@
 import io from 'socket.io-client';
 import message from './message';
 import user from './user';
+import chatRoom from './chatRoom';
 
 function Socket() {
   const socket = io('http://localhost:5000', {
@@ -14,6 +15,7 @@ function Socket() {
     disconnect: () => socket.disconnect(),
     message: message(socket),
     user: user(socket),
+    chatRoom: chatRoom(socket),
   };
 }
 
