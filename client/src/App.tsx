@@ -1,6 +1,7 @@
 import React from 'react';
 import GlobalStyle from './GlobalStyle';
 import ErrorToast from '@components/custom/ErrorToast';
+import Chat from '@components/chat-room/Chat';
 import { useSetRecoilState } from 'recoil';
 import { errorMessageState } from '@src/store/error';
 
@@ -17,6 +18,7 @@ const App: React.FC = () => {
           setMessage(target?.value ?? '');
         }}
       />
+      <Chat />
       <ErrorToast />
       됐다
     </div>
