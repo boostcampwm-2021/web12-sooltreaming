@@ -5,8 +5,9 @@ import user from './user';
 
 const Socket = () => {
   const socket = io('http://localhost:5000', {
-    closeOnBeforeunload: false,
-    withCredentials: true,
+    transports: ['websocket'],
+    upgrade: false,
+    forceNew: true,
   });
   socket.disconnect();
 

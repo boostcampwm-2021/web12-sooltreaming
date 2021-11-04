@@ -27,6 +27,7 @@ const socketLoader = (server, app): any => {
     cors: {
       origin: `http://${process.env.FRONT_HOST}:${process.env.FRONT_PORT}`,
       credentials: true,
+      methods: ['GET', 'POST'],
     },
   });
   const rooms: roomType = {};
