@@ -7,6 +7,7 @@ import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { errorMessageState } from '@src/store/message';
 import { userState } from '@src/store/user';
 import { Wrapper, VideoSection } from './ChatRoom.style';
+import customRTC from '@utils/customRTC';
 
 const ChatRoom: React.FunctionComponent = () => {
   const setMessage = useSetRecoilState(errorMessageState);
@@ -15,7 +16,27 @@ const ChatRoom: React.FunctionComponent = () => {
   const { code } = useParams();
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
+  // 임시 코드 ---------------------
+  const [stream, setStream] = useState<any>(null);
 
+  useEffect(() => {
+    customRTC.getVideos().then((videos) => {
+      const majorVideo = videos[0];
+      if (!majorVideo) return;
+      customRTC.getVideoTrack(majorVideo.deviceId).then((videoTrack) => {
+        customRTC.getAudios().then((audios) => {
+          const majorAudios = audios[0];
+          if (!majorVideo) return;
+          customRTC.getAudioTrack(majorAudios.deviceId).then((audioTrack) => {
+            let stream1 = customRTC.createStream({ audioTrack, videoTrack });
+            console.log(stream1);
+            setStream(stream1);
+          });
+        });
+      });
+    });
+  }, []);
+  // -------------------------------
   const errorControl = (message) => {
     setMessage(message);
     history.push('/');
@@ -36,9 +57,7 @@ const ChatRoom: React.FunctionComponent = () => {
 
   return (
     <Wrapper>
-      <VideoSection>
-        <ChatMonitor chatRoomCode={code} />
-      </VideoSection>
+      <VideoSection>{stream ? <ChatMonitor users={users} stream={stream} /> : <></>}</VideoSection>
       <ChatMenu menuType={menuType} setMenuType={setMenuType} />
     </Wrapper>
   );

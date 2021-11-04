@@ -10,7 +10,7 @@ const user = (socket: Socket) => (closure: any) => {
   const { errorControl, setUsers, myID } = closure;
 
   socket.on(ENTER_ALL_USER, (allUsers) => {
-    setUsers(allUsers);
+    setUsers({ ...allUsers });
   });
   socket.on(ENTER_ONE_USER, (data) => {
     setUsers((prev) => ({ ...prev, ...data }));

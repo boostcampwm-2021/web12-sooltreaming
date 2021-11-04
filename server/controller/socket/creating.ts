@@ -12,7 +12,7 @@ const createRoomCode = (rooms: Object) => {
   return code;
 };
 
-const creating = ({ socket, rooms }) => {
+const creating = ({ io, socket, rooms }) => {
   socket.on(CREATE_REQUEST, (user) => {
     const roomCode = createRoomCode(rooms);
     rooms[roomCode] = {
@@ -23,7 +23,7 @@ const creating = ({ socket, rooms }) => {
     socket.emit(CREATE_SUCCESS, { roomCode });
   });
 
-  return { socket, rooms };
+  return { io, socket, rooms };
 };
 
 export default creating;

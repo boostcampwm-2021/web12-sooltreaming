@@ -1,24 +1,18 @@
-const Signaling = ({ socket, rooms }) => {
-  socket.on('joinRoom', (roomCode) => {
-    console.log('룸참여');
-    socket.join(roomCode);
-    socket.to(roomCode).emit('welcome', rooms);
-  });
-
-  socket.on('offer', (offer, roomCode) => {
+const Signaling = ({ io, socket, rooms }) => {
+  socket.on('offer', ({ offer, receiverSID, senderSID }) => {
     console.log('offer전송');
-    socket.to(roomCode).emit('offer', offer);
+    io.to(receiverSID).emit('offer', { offer, targetSID: senderSID });
   });
 
-  socket.on('answer', (answer, roomCode) => {
+  socket.on('answer', ({ answer, receiverSID, senderSID }) => {
     console.log('answer전송');
-    socket.to(roomCode).emit('answer', answer);
+    io.to(receiverSID).emit('answer', { answer, targetSID: senderSID });
   });
 
-  socket.on('ice', (ice, roomCode) => {
-    socket.to(roomCode).emit('ice', ice);
+  socket.on('ice', ({ candidate, receiverSID, senderSID }) => {
+    io.to(receiverSID).emit('ice', { candidate, targetSID: senderSID });
   });
-  return { socket, rooms };
+  return { io, socket, rooms };
 };
 
 export default Signaling;
