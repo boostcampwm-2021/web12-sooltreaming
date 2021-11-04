@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { COLOR } from '@src/Constant';
 
-export const ChatItemWrapper = styled.div<{ isSelf: boolean }>`
+export const Wrapper = styled.div<{ isSelf: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: ${(props) => (props.isSelf ? 'flex-end' : 'flex-start')};
 `;
 
-export const ChatItemUserInfo = styled.div<{ isSelf: boolean }>`
+export const UserSection = styled.section<{ isSelf: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
@@ -22,7 +22,7 @@ export const ChatItemUserInfo = styled.div<{ isSelf: boolean }>`
   }
 `;
 
-export const ChatItemImage = styled.div`
+export const CircleDiv = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -43,7 +43,7 @@ export const ChatItemImage = styled.div`
   }
 `;
 
-export const ChatItemUserId = styled.span`
+export const NameSpan = styled.span`
   margin: auto 8px;
   font-weight: bold;
   font-size: 12px;
@@ -55,7 +55,7 @@ export const ChatItemUserId = styled.span`
   white-space: nowrap;
 `;
 
-export const ChatItemMessage = styled.p<{ isSelf: boolean }>`
+export const MsgContent = styled.p<{ isSelf: boolean }>`
   padding: 8px;
   margin: 12px 6px;
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@src/Constant';
 
-export const ChatWrapper = styled.div`
+export const Wrapper = styled.div`
   flex: 1 1 auto;
   padding: 0 20;
   display: flex;
@@ -10,9 +10,9 @@ export const ChatWrapper = styled.div`
   overflow: hidden;
 `;
 
-export const ChatWindow = styled.div`
+export const MessageList = styled.ul`
   flex: 1 1 auto;
-  padding-right: 8px;
+  padding: 0 8px 0 0;
   margin: 10px 5px 10px;
 
   overflow-x: hidden;

@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  ChatMenuWrapper,
-  ChatMenuTopBar,
-  ChatCloseButton,
-} from '@components/chat-room/ChatMenu.style';
+import { Wrapper, TopBar, CloseButton } from '@components/chat-room/ChatMenu.style';
 import Chat from '@components/chat-room/Chat';
 
 type ChatMenuPropTypes = {
@@ -23,13 +19,13 @@ const RouteMenu = ({ menuType }) => {
 const ChatMenu: React.FC<ChatMenuPropTypes> = ({ menuType, setMenuType }) => {
   if (!menuType) return <></>;
   return (
-    <ChatMenuWrapper>
-      <ChatMenuTopBar>
+    <Wrapper>
+      <TopBar>
         <span>{menuType}</span>
-        <ChatCloseButton onClick={() => setMenuType('')}></ChatCloseButton>
-      </ChatMenuTopBar>
+        <CloseButton onClick={() => setMenuType('')}></CloseButton>
+      </TopBar>
       <RouteMenu menuType={menuType} />
-    </ChatMenuWrapper>
+    </Wrapper>
   );
 };
 

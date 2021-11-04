@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@src/Constant';
 
-export const ChatMenuWrapper = styled.div`
+export const Wrapper = styled.div`
   flex: 0 0 auto;
   width: 320px;
   height: 100%;
@@ -10,7 +10,7 @@ export const ChatMenuWrapper = styled.div`
   flex-direction: column;
 `;
 
-export const ChatMenuTopBar = styled.div`
+export const TopBar = styled.div`
   flex: 0 0 auto;
   width: 100%;
   height: 58px;
@@ -31,7 +31,7 @@ export const ChatMenuTopBar = styled.div`
   }
 `;
 
-export const ChatCloseButton = styled.button`
+export const CloseButton = styled.button`
   width: 23px;
   height: 23px;
   padding: 0;

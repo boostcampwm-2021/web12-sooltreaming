@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, INPUT_STYLE, BTN_STYLE } from '@src/Constant';
 
-export const LobbyWrapper = styled.div`
+export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
 
@@ -13,7 +13,20 @@ export const LobbyWrapper = styled.div`
   background-color: ${COLOR.background};
 `;
 
-export const LobbyInput = styled.input`
+export const TitleDiv = styled.div`
+  margin-bottom: 100px;
+  font-size: 48px;
+  font-weight: 700;
+  color: ${COLOR.titleActive};
+  user-select: none;
+  white-space: nowrap;
+
+  & > span {
+    color: ${COLOR.point};
+  }
+`;
+
+export const CodeInput = styled.input`
   ${INPUT_STYLE}
   width: 100%;
   max-width: 616px;
@@ -28,7 +41,7 @@ export const LobbyInput = styled.input`
   text-align: center;
 `;
 
-export const LobbyButton = styled.button`
+export const BigButton = styled.button`
   ${BTN_STYLE}
   width: 100%;
   max-width: 469px;
@@ -42,17 +55,4 @@ export const LobbyButton = styled.button`
   font-size: 32px;
   font-weight: 500px;
   border-radius: 100px;
-`;
-
-export const LobbyTitle = styled.div`
-  margin-bottom: 100px;
-  font-size: 48px;
-  font-weight: 700;
-  color: ${COLOR.titleActive};
-  user-select: none;
-  white-space: nowrap;
-
-  & > span {
-    color: ${COLOR.point};
-  }
 `;

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, INPUT_STYLE } from '@src/Constant';
 
-export const ChatFormWrapper = styled.form`
+export const SendingForm = styled.form`
   flex: 0 0 auto;
   width: 100%;
   height: 52px;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Socket from '@socket/socket';
-import { ChatWrapper, ChatWindow } from './Chat.style';
+import { Wrapper, MessageList } from './Chat.style';
 import { useRecoilState } from 'recoil';
 import { chatCountState } from '@src/store/message';
 import ChatItem from '@components/chat-room/ChatItem';
@@ -10,7 +10,7 @@ type ChatPropTypes = {};
 
 const Chat: React.FC<ChatPropTypes> = ({}) => {
   const emits = useRef({});
-  const chatWindow = useRef<HTMLDivElement>(null);
+  const chatWindow = useRef<HTMLUListElement>(null);
   const [chatLog, setChatLog] = useState([]);
   const [unCheckCount, setUnCheckCount] = useRecoilState(chatCountState);
 
@@ -29,14 +29,14 @@ const Chat: React.FC<ChatPropTypes> = ({}) => {
   }, []);
 
   return (
-    <ChatWrapper>
-      <ChatWindow ref={chatWindow}>
+    <Wrapper>
+      <MessageList ref={chatWindow}>
         {chatLog.map(({ message, date }, index) => (
           <ChatItem isSelf={true} message={message} date={date} key={index} />
         ))}
-      </ChatWindow>
+      </MessageList>
       <ChatForm emits={emits} />
-    </ChatWrapper>
+    </Wrapper>
   );
 };
 

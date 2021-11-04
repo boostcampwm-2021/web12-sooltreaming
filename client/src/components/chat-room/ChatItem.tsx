@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  ChatItemWrapper,
-  ChatItemUserInfo,
-  ChatItemImage,
-  ChatItemUserId,
-  ChatItemMessage,
-} from './ChatItem.style';
+import { Wrapper, UserSection, CircleDiv, NameSpan, MsgContent } from './ChatItem.style';
 
 type ChatItemPropTypes = {
   isSelf: boolean;
@@ -15,16 +9,16 @@ type ChatItemPropTypes = {
 
 const ChatItem: React.FC<ChatItemPropTypes> = ({ isSelf, message, date }) => {
   return (
-    <ChatItemWrapper isSelf={isSelf}>
-      <ChatItemUserInfo isSelf={isSelf}>
-        <ChatItemImage>
+    <Wrapper isSelf={isSelf}>
+      <UserSection isSelf={isSelf}>
+        <CircleDiv>
           <img src={undefined || '/images/human.svg'} alt="User-Image" />
-        </ChatItemImage>
-        <ChatItemUserId>{undefined || 'judangs'}</ChatItemUserId>
+        </CircleDiv>
+        <NameSpan>{undefined || 'judangs'}</NameSpan>
         <span>{date}</span>
-      </ChatItemUserInfo>
-      <ChatItemMessage isSelf={isSelf}>{message}</ChatItemMessage>
-    </ChatItemWrapper>
+      </UserSection>
+      <MsgContent isSelf={isSelf}>{message}</MsgContent>
+    </Wrapper>
   );
 };
 
