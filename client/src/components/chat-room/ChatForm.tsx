@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChatFormWrapper } from './ChatForm.style';
+import { SendingForm } from './ChatForm.style';
 
 type ChatFormPropTypes = {
   emits: any;
@@ -14,12 +14,12 @@ const ChatForm: React.FC<ChatFormPropTypes> = ({ emits }) => {
   };
 
   return (
-    <ChatFormWrapper onSubmit={(e) => e.preventDefault()}>
+    <SendingForm onSubmit={(e) => e.preventDefault()}>
       <input value={message ?? ''} onChange={(e) => setMessage(e?.target?.value ?? '')} />
       <button onClick={onSubmitMessage}>
         <img src="/images/paper-plane.svg" alt="" />
       </button>
-    </ChatFormWrapper>
+    </SendingForm>
   );
 };
 

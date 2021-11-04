@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@src/Constant';
 
-export const HeaderWrapper = styled.div`
+export const Wrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -17,7 +17,7 @@ export const HeaderWrapper = styled.div`
   background-color: ${COLOR.primary2};
 `;
 
-export const HeaderLogo = styled.a`
+export const LogoLink = styled.a`
   display: flex;
   align-items: center;
   cursor: pointer;
@@ -38,7 +38,7 @@ export const HeaderLogo = styled.a`
   }
 `;
 
-export const HeaderUser = styled.a`
+export const UserLink = styled.a`
   display: flex;
   align-items: center;
   cursor: pointer;

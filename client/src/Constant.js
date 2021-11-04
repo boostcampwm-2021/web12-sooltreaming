@@ -5,7 +5,7 @@ export const COLOR = {
   primary2: '#EBEFD6',
   primary3: '#9DB589',
   error: '#FF8988',
-  titleActive: '#176842',
+  titleActive: '#006737',
   body: '#5C5C5C',
   lable: '#888888',
   placeholder: '#888888',
@@ -14,6 +14,7 @@ export const COLOR = {
   white: '#FFFFFF',
   offWhite: '#F6F6F6',
   point: '#A06000',
+  black: '#000000',
 };
 
 export const INPUT_STYLE = css`
