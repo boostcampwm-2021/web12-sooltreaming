@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, INPUT_STYLE, BTN_STYLE } from '@src/Constant';
+import { INPUT_STYLE } from '@src/Constant';
 
 export const ChatWrapper = styled.div``;
 
