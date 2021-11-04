@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 import Socket from '@socket/socket';
 
 type ChatFormPropTypes = {
@@ -7,10 +7,19 @@ type ChatFormPropTypes = {
 
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ chatRoomCode }) => {
   useEffect(() => {
-    peerConnection().then(() => {
-      const socket = Socket.webRTC({ myPeerConnection, chatRoomCode });
-      socket.joinRoom();
+    const initPeer = async () => {
+      await peerConnection();
+      const socket = Socket.webRTC({ myPeerConnection, chatRoomCode }).joinRoom();
+      return socket;
+    };
+    let socket: any;
+    initPeer().then((sock) => {
+      socket = sock;
     });
+
+    return () => {
+      socket?.disconnecting();
+    };
   }, []);
 
   let myStream;
@@ -57,20 +66,19 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ chatRoomCode }) => {
     myPeerConnection.addEventListener('addstream', handleAddStream);
   };
 
-  const handelMute = () => {
+  const handleMute = useCallback(() => {
     if (muteButtonRef && muteButtonRef.current)
       muteButtonRef.current.innerText = isMute ? '음소거' : '음소거 해제';
     isMute = !isMute;
-    console.log(myStream, 'handleMute');
-    myStream.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
-  };
+    if (myStream) myStream.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
+  }, [myStream]);
 
-  const handleCamera = () => {
+  const handleCamera = useCallback(() => {
     if (cameraOffButtonRef && cameraOffButtonRef.current)
       cameraOffButtonRef.current.innerText = isCameraOff ? '영상 켜기' : '영상 끄기';
     isCameraOff = !isCameraOff;
-    myStream.getVideoTracks().forEach((track) => (track.enabled = !track.enabled));
-  };
+    if (myStream) myStream.getVideoTracks().forEach((track) => (track.enabled = !track.enabled));
+  }, [myStream]);
 
   const handleCandidate = (e: any) => {
     Socket.webRTC({ myPeerConnection, chatRoomCode }).sendCandidate(e.candidate);
@@ -81,14 +89,31 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ chatRoomCode }) => {
   };
   return (
     <>
-      <video className="myFace" ref={myFaceRef} autoPlay></video>
-      <button ref={muteButtonRef} onClick={handelMute}>
+      <video
+        className="myFace"
+        ref={myFaceRef}
+        width="400"
+        height="400"
+        autoPlay
+        playsInline
+      ></video>
+      <button ref={muteButtonRef} onClick={handleMute}>
         음소거
       </button>
       <button ref={cameraOffButtonRef} onClick={handleCamera}>
         영상 끄기
       </button>
-      <video className="peerFace" ref={peerFaceRef} autoPlay></video>
+      <select className="camera">
+        <option value="device">카메라명</option>
+      </select>
+      <video
+        className="peerFace"
+        ref={peerFaceRef}
+        width="400"
+        height="400"
+        autoPlay
+        playsInline
+      ></video>
     </>
   );
 };

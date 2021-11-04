@@ -2,7 +2,7 @@ const Signaling = ({ socket, rooms }) => {
   socket.on('joinRoom', (roomCode) => {
     console.log('룸참여');
     socket.join(roomCode);
-    socket.to(roomCode).emit('welcome');
+    socket.to(roomCode).emit('welcome', rooms);
   });
 
   socket.on('offer', (offer, roomCode) => {
@@ -16,7 +16,6 @@ const Signaling = ({ socket, rooms }) => {
   });
 
   socket.on('ice', (ice, roomCode) => {
-    console.log('ice전송');
     socket.to(roomCode).emit('ice', ice);
   });
   return { socket, rooms };

@@ -7,7 +7,7 @@ const ICE = 'ice';
 const webRTC =
   (socket) =>
   ({ myPeerConnection, chatRoomCode }) => {
-    socket.on(ENTER_USER, async () => {
+    socket.on(ENTER_USER, async (rooms) => {
       console.log('welcome, peer연결');
       const offer = await myPeerConnection.createOffer();
       myPeerConnection.setLocalDescription(offer);
@@ -40,9 +40,17 @@ const webRTC =
       socket.emit(ICE, candidate, chatRoomCode);
     };
 
+    const diconnecting = () => {
+      socket.off(ENTER_USER);
+      socket.off(ANSWER);
+      socket.off(OFFER);
+      socket.off(ICE);
+    };
+
     return {
-      joinRoom: joinRoom,
-      sendCandidate: sendCandidate,
+      joinRoom,
+      sendCandidate,
+      diconnecting,
     };
   };
 

@@ -12,7 +12,11 @@ const message = (socket: Socket) => (closure: any) => {
 
   const sendMessage = (chat) => socket.emit(PASSING_MESSAGE, chat);
 
-  return { sendMessage };
+  const disconnecting = () => {
+    socket.off(RECEIVE_MESSAGE);
+  };
+
+  return { sendMessage, disconnecting };
 };
 
 export default message;

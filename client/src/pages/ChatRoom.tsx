@@ -23,11 +23,13 @@ const ChatRoom: React.FunctionComponent = () => {
 
   useEffect(() => {
     Socket.connect();
-    Socket.user({ errorControl, setUsers, myID: user }).joinRoom({
+    const functions = Socket.user({ errorControl, setUsers, myID: user });
+    functions.joinRoom({
       chatRoomCode: code,
       user,
     });
     return () => {
+      functions?.disconnecting();
       Socket.disconnect();
     };
   }, []);
