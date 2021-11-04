@@ -8,6 +8,7 @@ const chatting = ({ socket, rooms }) => {
   socket.on(PASSING_MESSAGE, (msg) => {
     const messageData = {
       ...msg,
+      sid: socket.id,
       date: getTimeString(),
     };
     socket.emit(RECEIVE_MESSAGE, messageData);

@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 
-const CREATE_ROOM = 'CREATE_ROOM';
-const JOIN_ROOM = 'JOIN_ROOM';
+const CREATE_REQUEST = 'CREATE_REQUEST';
+const CREATE_SUCCESS = 'CREATE_SUCCESS';
 
 const createRoomCode = (rooms: Object) => {
   let code;
@@ -11,19 +11,16 @@ const createRoomCode = (rooms: Object) => {
   }
   return code;
 };
+
 const creating = ({ socket, rooms }) => {
-  socket.on(CREATE_ROOM, (user) => {
-    const sid = socket.id;
+  socket.on(CREATE_REQUEST, (user) => {
     const roomCode = createRoomCode(rooms);
     rooms[roomCode] = {
-      hostID: sid,
+      hostID: null,
       isOpen: true,
-      users: {
-        [sid]: user,
-      },
+      users: {},
     };
-    socket.join(roomCode);
-    socket.emit(JOIN_ROOM, roomCode);
+    socket.emit(CREATE_SUCCESS, { roomCode });
   });
 
   return { socket, rooms };
