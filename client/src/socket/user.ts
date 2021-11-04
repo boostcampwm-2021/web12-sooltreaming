@@ -10,7 +10,7 @@ const user = (socket: Socket) => (closure: any) => {
   const { errorControl, setUsers, myID } = closure;
 
   socket.on(ENTER_ALL_USER, (allUsers) => {
-    setUsers(allUsers);
+    setUsers({ ...allUsers });
   });
   socket.on(ENTER_ONE_USER, (data) => {
     setUsers((prev) => ({ ...prev, ...data }));
@@ -30,7 +30,14 @@ const user = (socket: Socket) => (closure: any) => {
 
   const joinRoom = (myData) => socket.emit(JOIN_ROOM, myData);
 
-  return { joinRoom };
+  const disconnecting = () => {
+    socket.off(ENTER_ALL_USER);
+    socket.off(ENTER_ONE_USER);
+    socket.off(EXIT_ROOM_USER);
+    socket.off(JOIN_ROOM_ERROR);
+  };
+
+  return { joinRoom, disconnecting };
 };
 
 export default user;

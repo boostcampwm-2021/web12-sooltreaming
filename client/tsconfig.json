@@ -24,6 +24,7 @@
   },
   "include": [
     "src",
-    "craco.config.js"
+    "craco.config.js",
+    "../server/controller/socket/socket.type.ts"
   ]
 }

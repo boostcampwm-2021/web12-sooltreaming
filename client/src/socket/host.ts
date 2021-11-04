@@ -10,7 +10,11 @@ const host = (socket: Socket) => (closure: any) => {
 
   const createRoom = () => socket.emit(CREATE_REQUEST);
 
-  return { createRoom };
+  const disconnecting = () => {
+    socket.off(CREATE_SUCCESS);
+  };
+
+  return { createRoom, disconnecting };
 };
 
 export default host;

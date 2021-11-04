@@ -1,95 +1,92 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Socket from '@socket/socket';
+import customRTC from '@utils/customRTC';
 
 type ChatFormPropTypes = {
-  chatRoomCode: String;
+  users: any;
+  stream: any;
 };
 
-const ChatMonitor: React.FC<ChatFormPropTypes> = ({ chatRoomCode }) => {
+const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
+  const [isVideoOn, setIsVideoOn] = useState<boolean>(false);
+  const [isAudioOn, setIsAudioOn] = useState<boolean>(false);
+  const [peerConnections, setPeerConnections] = useState([]);
+  const [streams, setStreams] = useState({});
+
+  const myVideoRef = useRef<HTMLVideoElement>(null);
+
   useEffect(() => {
-    peerConnection().then(() => {
-      const socket = Socket.webRTC({ myPeerConnection, chatRoomCode });
-      socket.joinRoom();
-    });
+    // 내 영상 출력하기
+    if (myVideoRef && myVideoRef.current) myVideoRef.current.srcObject = stream as MediaProvider;
+    console.log(stream);
+    // Socket으로 Peer Connection 만들기
+    const webRTCSocket = Socket.webRTC({ setStreams, myStream: stream });
+    return () => {
+      webRTCSocket.disconnecting();
+    };
   }, []);
 
-  let myStream;
-  let isMute = false;
-  let isCameraOff = false;
-  let myPeerConnection;
-  const myFaceRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    stream?.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
+  }, [isVideoOn]);
+  useEffect(() => {
+    stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
+  }, [isAudioOn]);
+
   const peerFaceRef = useRef<HTMLVideoElement>(null);
-  const muteButtonRef = useRef<HTMLButtonElement>(null);
-  const cameraOffButtonRef = useRef<HTMLButtonElement>(null);
 
-  const getMedia = async () => {
-    try {
-      myStream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: true,
-      });
-      if (!myFaceRef.current) return;
-      myFaceRef.current.srcObject = myStream ? myStream : null;
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const handleAddStream = (e: any) => {
+  //   console.log('stream이벤트');
+  //   if (peerFaceRef && peerFaceRef.current) peerFaceRef.current.srcObject = e.stream;
+  // };
 
-  const peerConnection = async () => {
-    await getMedia();
-    myPeerConnection = new RTCPeerConnection({
-      iceServers: [
-        {
-          urls: [
-            'stun:stun.l.google.com:19302',
-            'stun:stun1.l.google.com:19302',
-            'stun:stun2.l.google.com:19302',
-            'stun:stun3.l.google.com:19302',
-            'stun:stun4.l.google.com:19302',
-          ],
-        },
-      ],
-    });
-    myStream.getTracks().forEach((track) => {
-      myPeerConnection.addTrack(track, myStream);
-    });
-    myPeerConnection.addEventListener('icecandidate', handleCandidate);
-    myPeerConnection.addEventListener('addstream', handleAddStream);
-  };
+  // const handleCandidate = (e: any) => {
+  //   Socket.webRTC({ myPeerConnection, chatRoomCode }).sendCandidate(e.candidate);
+  // };
 
-  const handelMute = () => {
-    if (muteButtonRef && muteButtonRef.current)
-      muteButtonRef.current.innerText = isMute ? '음소거' : '음소거 해제';
-    isMute = !isMute;
-    console.log(myStream, 'handleMute');
-    myStream.getAudioTracks().forEach((track) => (track.enabled = !track.enabled));
-  };
-
-  const handleCamera = () => {
-    if (cameraOffButtonRef && cameraOffButtonRef.current)
-      cameraOffButtonRef.current.innerText = isCameraOff ? '영상 켜기' : '영상 끄기';
-    isCameraOff = !isCameraOff;
-    myStream.getVideoTracks().forEach((track) => (track.enabled = !track.enabled));
-  };
-
-  const handleCandidate = (e: any) => {
-    Socket.webRTC({ myPeerConnection, chatRoomCode }).sendCandidate(e.candidate);
-  };
-
-  const handleAddStream = (e: any) => {
-    if (peerFaceRef && peerFaceRef.current) peerFaceRef.current.srcObject = e.stream;
-  };
   return (
     <>
-      <video className="myFace" ref={myFaceRef} autoPlay></video>
-      <button ref={muteButtonRef} onClick={handelMute}>
-        음소거
+      <video
+        className="myFace"
+        ref={myVideoRef}
+        width="400"
+        height="400"
+        autoPlay
+        playsInline
+      ></video>
+      <button onClick={() => setIsAudioOn((prev) => !prev)}>
+        {isAudioOn ? '음소거' : '음소거 해제'}
       </button>
-      <button ref={cameraOffButtonRef} onClick={handleCamera}>
-        영상 끄기
+      <button onClick={() => setIsVideoOn((prev) => !prev)}>
+        {isVideoOn ? '영상 켜기' : '영상 끄기'}
       </button>
-      <video className="peerFace" ref={peerFaceRef} autoPlay></video>
+      <select className="camera">
+        <option value="device">카메라명</option>
+      </select>
+      {Object.values(streams).map((otherStream) => {
+        return <OtherVideo srcObject={otherStream} />;
+      })}
     </>
+  );
+};
+
+const OtherVideo = ({ srcObject }) => {
+  const otherRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (!otherRef.current) return;
+    otherRef.current.srcObject = srcObject ? srcObject : null;
+  }, [srcObject]);
+
+  return (
+    <video
+      ref={otherRef}
+      className="peerFace"
+      width="400"
+      height="400"
+      autoPlay
+      playsInline
+    ></video>
   );
 };
 

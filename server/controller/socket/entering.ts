@@ -6,8 +6,9 @@ const ENTER_ALL_USER = 'ENTER_ALL_USER';
 const ENTER_ONE_USER = 'ENTER_ONE_USER';
 const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
 const CHANGE_HOST = 'CHANGE_HOST';
+const NEED_OFFERS = 'need offers';
 
-const entering = ({ socket, rooms }: { socket: Socket; rooms: any }) => {
+const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: any }) => {
   let code = '';
   socket.on(JOIN_ROOM, ({ chatRoomCode, user }) => {
     if (!(chatRoomCode in rooms)) return socket.emit(JOIN_ROOM_ERROR, '존재하지 않는 방입니다.');
@@ -16,6 +17,7 @@ const entering = ({ socket, rooms }: { socket: Socket; rooms: any }) => {
     if (!Object.keys(rooms[code].users).length) rooms[code].hostID = sid;
     rooms[code].users[sid] = user;
     socket.join(code);
+    socket.emit(NEED_OFFERS, rooms[code].users);
     socket.emit(ENTER_ALL_USER, rooms[code].users);
     socket.broadcast.emit(ENTER_ONE_USER, { [sid]: user });
   });
@@ -37,7 +39,7 @@ const entering = ({ socket, rooms }: { socket: Socket; rooms: any }) => {
     }
   });
 
-  return { socket, rooms };
+  return { io, socket, rooms };
 };
 
 export default entering;

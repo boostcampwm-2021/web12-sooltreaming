@@ -6,8 +6,9 @@ import host from './host';
 
 const Socket = () => {
   const socket = io('http://localhost:5000', {
-    closeOnBeforeunload: false,
-    withCredentials: true,
+    transports: ['websocket'],
+    upgrade: false,
+    forceNew: true,
   });
   socket.disconnect();
 

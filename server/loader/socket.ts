@@ -27,6 +27,7 @@ const socketLoader = (server, app): any => {
     cors: {
       origin: `http://${process.env.FRONT_HOST}:${process.env.FRONT_PORT}`,
       credentials: true,
+      methods: ['GET', 'POST'],
     },
   });
   const rooms: roomType = {};
@@ -34,7 +35,7 @@ const socketLoader = (server, app): any => {
   io.on('connection', (socket: Socket) => {
     console.log('socket connection!!', socket.id);
 
-    pipe(signaling, chatting, creating, entering)({ socket, rooms });
+    pipe(signaling, chatting, creating, entering)({ io, socket, rooms });
 
     socket.on('disconnect', () => {
       console.log('disconnect socket!!' + socket.id);

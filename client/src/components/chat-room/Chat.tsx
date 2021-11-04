@@ -26,7 +26,11 @@ const Chat: React.FC<ChatPropTypes> = ({}) => {
   }, [chatLog]);
 
   useEffect(() => {
-    emits.current = Socket.message({ setChatLog });
+    const functions = Socket.message({ setChatLog });
+    emits.current = functions;
+    return () => {
+      functions.disconnecting();
+    };
   }, []);
 
   return (
