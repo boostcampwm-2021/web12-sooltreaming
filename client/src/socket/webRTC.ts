@@ -2,6 +2,8 @@ const ENTER_USER = 'welcome';
 const JOIN_ROOM = 'joinRoom';
 const OFFER = 'offer';
 const ANSWER = 'answer';
+const ICE = 'ice';
+
 const webRTC =
   (socket) =>
   ({ myPeerConnection, chatRoomCode }) => {
@@ -21,17 +23,26 @@ const webRTC =
     });
 
     socket.on(ANSWER, (answer) => {
-      console.log(myPeerConnection);
-      console.log(answer);
       myPeerConnection.setRemoteDescription(answer);
       console.log('answer받음');
     });
 
-    const joinRoom = (data) => {
-      socket.emit(JOIN_ROOM, data);
+    socket.on(ICE, (ice) => {
+      console.log('received candidate');
+      myPeerConnection.addIceCandidate(ice);
+    });
+
+    const joinRoom = () => {
+      socket.emit(JOIN_ROOM, chatRoomCode);
     };
+
+    const sendCandidate = (candidate) => {
+      socket.emit(ICE, candidate, chatRoomCode);
+    };
+
     return {
       joinRoom: joinRoom,
+      sendCandidate: sendCandidate,
     };
   };
 
