@@ -13,6 +13,7 @@ const Chat: React.FC<ChatPropTypes> = ({}) => {
   const chatWindow = useRef<HTMLUListElement>(null);
   const [chatLog, setChatLog] = useState([]);
   const [unCheckCount, setUnCheckCount] = useRecoilState(chatCountState);
+  const myID = Socket.getSID();
 
   const downScroll = () => {
     const refDom = chatWindow?.current;
@@ -31,8 +32,8 @@ const Chat: React.FC<ChatPropTypes> = ({}) => {
   return (
     <Wrapper>
       <MessageList ref={chatWindow}>
-        {chatLog.map(({ message, date }, index) => (
-          <ChatItem isSelf={true} message={message} date={date} key={index} />
+        {chatLog.map(({ sid, message, date }, index) => (
+          <ChatItem isSelf={myID === sid} message={message} date={date} key={index} />
         ))}
       </MessageList>
       <ChatForm emits={emits} />
