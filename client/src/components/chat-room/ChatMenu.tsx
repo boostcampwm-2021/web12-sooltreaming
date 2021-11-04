@@ -11,15 +11,16 @@ type ChatMenuPropTypes = {
   setMenuType: React.Dispatch<React.SetStateAction<string>>;
 };
 
+const RouteMenu = ({ menuType }) => {
+  switch (menuType) {
+    case '채팅':
+      return <Chat />;
+    default:
+      return <></>;
+  }
+};
+
 const ChatMenu: React.FC<ChatMenuPropTypes> = ({ menuType, setMenuType }) => {
-  const RouteMenu = ({ menuType }) => {
-    switch (menuType) {
-      case '채팅':
-        return <Chat />;
-      default:
-        return <></>;
-    }
-  };
   if (!menuType) return <></>;
   return (
     <ChatMenuWrapper>

@@ -10,12 +10,12 @@ const ChatRoom: React.FunctionComponent<RouteComponentProps> = (props) => {
   const [menuType, setMenuType] = useState<string>('채팅');
 
   useEffect(() => {
+    // Should be deleted
     Socket.connect();
-    // TODO 주소 검증, 사용자 검증
-
     return () => {
       Socket.disconnect();
     };
+    // -----------------
   }, [props]);
 
   return (
