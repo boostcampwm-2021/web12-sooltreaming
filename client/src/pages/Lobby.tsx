@@ -1,29 +1,23 @@
 import React, { useRef } from 'react';
 import { Wrapper, TitleDiv, CodeInput, BigButton } from './Lobby.style.js';
 import { RouteComponentProps } from 'react-router-dom';
-import { useSetRecoilState } from 'recoil';
-import { errorMessageState } from '@src/store/message';
 import Header from '@src/components/Header';
-import socket from '@socket/socket';
 
 const Lobby: React.FunctionComponent<RouteComponentProps> = (props) => {
   const nickname = 'hostname';
   const chatRoomCodeInput = useRef<HTMLInputElement>(null);
-  const setMessage = useSetRecoilState(errorMessageState);
+
+  const pushState = (roomCode) => {
+    props.history.push(`/chatRoom/${roomCode}`);
+  };
 
   const joinChatRoom = () => {
     const roomCode = chatRoomCodeInput.current?.value;
-    socket.connect();
-    socket
-      .chatRoom({ setMessage, history: props.history })
-      .emitChatRoom('join_chat_room', { nickname, roomCode });
+    pushState(roomCode);
   };
 
   const createChatRoom = () => {
-    socket.connect();
-    socket
-      .chatRoom({ setMessage, history: props.history })
-      .emitChatRoom('create_chat_room', { nickname });
+    pushState(undefined);
   };
 
   return (
