@@ -4,7 +4,7 @@ import { getTimeString } from '/utils/time';
 const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 const PASSING_MESSAGE = 'PASSING_MESSAGE';
 
-const chatting = (socket: Socket) => {
+const chatting = ({ socket, rooms }) => {
   socket.on(PASSING_MESSAGE, (msg) => {
     const messageData = {
       ...msg,
@@ -13,7 +13,7 @@ const chatting = (socket: Socket) => {
     socket.emit(RECEIVE_MESSAGE, messageData);
     socket.broadcast.emit(RECEIVE_MESSAGE, messageData);
   });
-  return socket;
+  return { socket, rooms };
 };
 
 export default chatting;
