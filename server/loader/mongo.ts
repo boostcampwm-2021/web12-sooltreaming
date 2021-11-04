@@ -8,7 +8,7 @@ const dbConfig = {
   pwd: process.env.DB_PASSWORD,
 };
 
-function mongoLoader() {
+const mongoLoader = () => {
   initMongo(dbConfig);
 }
 

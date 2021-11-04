@@ -1,25 +1,25 @@
 import React from 'react';
 import GlobalStyle from './GlobalStyle';
 import ErrorToast from '@components/custom/ErrorToast';
-import { useSetRecoilState } from 'recoil';
-import { errorMessageState } from '@src/store/error';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import Lobby from '@pages/Lobby';
+import CreateRoom from '@pages/CreateRoom';
+import ChatRoom from '@pages/ChatRoom';
 
 const App: React.FC = () => {
-  const setMessage = useSetRecoilState(errorMessageState);
-
   return (
-    <div className="App">
+    <>
       <GlobalStyle />
-      <input
-        onKeyPress={(e: any) => {
-          const { key, target } = e;
-          if (key !== 'Enter') return;
-          setMessage(target?.value ?? '');
-        }}
-      />
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Lobby} />
+          <Route exact path="/create" component={CreateRoom} />
+          <Route exact path="/chatRoom/:code" component={ChatRoom} />
+          <Route component={() => <Redirect to="/" />} />
+        </Switch>
+      </BrowserRouter>
       <ErrorToast />
-      됐다
-    </div>
+    </>
   );
 };
 

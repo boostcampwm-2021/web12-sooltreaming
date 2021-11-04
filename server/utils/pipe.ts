@@ -1,6 +1,6 @@
-function pipe(...functions: any): any {
-  return (first_value: any) =>
-    functions.reduce((prev_value: any, func: any) => func(prev_value), first_value);
+const pipe = (...functions) => {
+  return (first_value) =>
+    functions.reduce((prev_value, func) => func(prev_value), first_value);
 }
 
 export default pipe;
