@@ -1,6 +1,4 @@
-import { Socket } from 'socket.io';
-
-const Signaling = (socket: Socket) => {
+const Signaling = ({ socket, rooms }) => {
   socket.on('joinRoom', (roomCode) => {
     console.log('룸참여');
     socket.join(roomCode);
@@ -21,7 +19,7 @@ const Signaling = (socket: Socket) => {
     console.log('ice전송');
     socket.to(roomCode).emit('ice', ice);
   });
-  return socket;
+  return { socket, rooms };
 };
 
 export default Signaling;

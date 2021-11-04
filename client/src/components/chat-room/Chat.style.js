@@ -1,22 +1,32 @@
 import styled from 'styled-components';
-import { COLOR, INPUT_STYLE, BTN_STYLE } from '@src/Constant';
+import { COLOR } from '@src/Constant';
 
-export const ChatWrapper = styled.div``;
-
-export const ChatForm = styled.div`
+export const Wrapper = styled.div`
+  flex: 1 1 auto;
+  padding: 0 20;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  background-color: ${COLOR.primary2};
+  overflow: hidden;
+`;
 
-  & > input {
-    ${INPUT_STYLE}
+export const MessageList = styled.ul`
+  flex: 1 1 auto;
+  padding: 0 8px 0 0;
+  margin: 10px 5px 10px;
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+  word-wrap: break-word;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 16px;
+    border-radius: 10px;
+    background: ${COLOR.line};
   }
-  & > button {
-    width: 28px;
-    height: 28px;
-    padding: 0;
-    margin: 0;
-    border: none;
-    background-color: transparent;
+  &::-webkit-scrollbar-thumb {
+    background-color: ${COLOR.primary3};
+    border-radius: 10px;
   }
 `;

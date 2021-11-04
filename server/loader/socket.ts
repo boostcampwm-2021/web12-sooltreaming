@@ -1,10 +1,26 @@
 import { Socket, Server } from 'socket.io';
 import signaling from '../controller/socket/signaling';
-import pipe from 'utils/pipe';
-
 import chatting from '/controller/socket/chatting';
 import entering from '/controller/socket/entering';
-import chatRoomController from '/controller/socket/chatRoomController';
+import creating from '/controller/socket/creating';
+
+import pipe from 'utils/pipe';
+
+type roomType = {
+  [code: string]: {
+    hostID: string;
+    isOpen: boolean;
+    users: {
+      [sid: string]: {
+        uid: string;
+        nickname: string;
+        imgURL: string;
+        videoID: string;
+        audioID: string;
+      };
+    };
+  };
+};
 
 const socketLoader = (server, app): any => {
   const io = new Server(server, {
@@ -13,13 +29,12 @@ const socketLoader = (server, app): any => {
       credentials: true,
     },
   });
-  const rooms = {};
+  const rooms: roomType = {};
 
   io.on('connection', (socket: Socket) => {
     console.log('socket connection!!', socket.id);
 
-    pipe(signaling, chatting, entering)(socket);
-    chatRoomController(socket, rooms);
+    pipe(signaling, chatting, creating, entering)({ socket, rooms });
 
     socket.on('disconnect', () => {
       console.log('disconnect socket!!' + socket.id);
