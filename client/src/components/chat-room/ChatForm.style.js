@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, INPUT_STYLE } from '@src/Constant';
+import { COLOR, INPUT_STYLE } from '@constant/style';
 
 export const SendingForm = styled.form`
   flex: 0 0 auto;
