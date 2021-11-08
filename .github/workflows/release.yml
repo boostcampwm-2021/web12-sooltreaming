@@ -33,3 +33,14 @@ jobs:
             npx tsc
             pm2 kill
             pm2 start ./build/app.js --node-args="-r ./tsconfig-paths-bootstrap.js"
+
+      - name: send result to slack
+        uses: 8398a7/action-slack@v3
+        with:
+          status: ${{job.status}}
+          fields: repo,message,commit,author,action,took
+          author_name: testRepo
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
