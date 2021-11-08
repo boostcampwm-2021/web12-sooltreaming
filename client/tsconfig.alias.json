@@ -8,6 +8,7 @@
       "@hooks/*": ["./hooks/*"],
       "@pages/*": ["./pages/*"],
       "@socket/*": ["./socket/*"],
+      "@store/*": ["./store/*"],
       "@utils/*": ["./utils/*"]
     }
   }

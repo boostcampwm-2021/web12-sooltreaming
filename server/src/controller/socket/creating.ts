@@ -12,7 +12,7 @@ const createRoomCode = (rooms: Object) => {
   return code;
 };
 
-const creating = ({ io, socket, rooms }) => {
+const creating = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: any }) => {
   socket.on(CREATE_REQUEST, (user) => {
     const roomCode = createRoomCode(rooms);
     rooms[roomCode] = {

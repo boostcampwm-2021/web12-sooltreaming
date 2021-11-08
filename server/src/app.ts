@@ -1,8 +1,8 @@
 import 'dotenv/config';
 import express from 'express';
-import Loader from './loader';
+import Loader from '@src/loader';
 import http from 'http';
-import apiRouter from './api';
+import apiRouter from '@src/api';
 
 const app = express();
 const server = http.createServer(app);
