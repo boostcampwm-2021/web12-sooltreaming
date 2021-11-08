@@ -1,78 +1,107 @@
-<div align="center">
-  <img src="https://user-images.githubusercontent.com/55688122/139244556-af43e974-4eab-4d1a-be8e-2c0f6e72ea80.png" width=300/>
-</div>
-
-<h1 align="center"> 🍻 Sooltreaming </h1>
-
-<div align="end">
-    <a href="https://github.com/boostcampwm-2021/web12-sooltreaming">
+<div>
+  <img align="left" src="https://user-images.githubusercontent.com/55688122/140643992-8ecd6dc4-0939-4775-9ed0-1874d1459986.png" width="120"/>
+  <div align="right">
+    <a align="right" href="https://github.com/boostcampwm-2021/web12-sooltreaming">
       <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2021%2Fweb12-sooltreaming&count_bg=%233D61C8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
     </a>
+    <h1 align="left">
+      <font align="left" size="6" color="#006937"> 🍻 Sooltreaming</font>
+    </h1>
+    <div align="left">
+      <img src="https://img.shields.io/github/issues-raw/boostcampwm-2021/web12-sooltreaming?color=176842">
+      <img src="https://img.shields.io/github/issues-closed-raw/boostcampwm-2021/web12-sooltreaming?color=red">
+      <img src="https://img.shields.io/github/issues-pr-raw/boostcampwm-2021/web12-sooltreaming?color=176842">
+      <img src="https://img.shields.io/github/issues-pr-closed-raw/boostcampwm-2021/web12-sooltreaming?color=red">
+    </div>
+  </div>
 </div>
 
-<div align="center">
-  <table>
-    <tr>
-      <td>
-        <a href="https://github.com/yeon52">
-          <img src="https://avatars.githubusercontent.com/yeon52" width=100/>
-          <br>
-          <center>J081_박가연</center>
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/alittlekitten">
-          <img src="https://avatars.githubusercontent.com/alittlekitten" width=100/>
-          <br>
-          <center>J125_오석호</center>
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/jyo-jyo">
-          <img src="https://avatars.githubusercontent.com/jyo-jyo" width=100/>
-          <br>
-          <center>J200_조현정</center>
-        </a>
-      </td>
-      <td>
-        <a href="https://github.com/pyo-sh">
-          <img src="https://avatars.githubusercontent.com/pyo-sh" width=100/>
-          <br>
-          <center>J212_표석훈</center>
-        </a>
-      </td>
-    </tr>
-  </table>
-</div>
+<hr/>
 
-<div align="center">
-  </br>
-  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/>
-  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
-  <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white"/>
-  <img src="https://img.shields.io/badge/WebRTC-333333?style=flat-square&logo=webrtc&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socket.io&logoColor=white"/>
-  <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Passport-34E27A?style=flat-square&logo=passport&logoColor=white"/>
-  <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
-  <img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white"/>
-  <img src="https://img.shields.io/badge/nCloud-03C75A?style=flat-square&logo=naver&logoColor=white"/>
-  </br>
-</div>
+<table>
+  <tr>
+    <td>
+      <a href="https://github.com/yeon52">
+        <img src="https://avatars.githubusercontent.com/yeon52" width="100"/>
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/alittlekitten">
+        <img src="https://avatars.githubusercontent.com/alittlekitten" width="100"/>
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/jyo-jyo">
+        <img src="https://avatars.githubusercontent.com/jyo-jyo" width="100"/>
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/pyo-sh">
+        <img src="https://avatars.githubusercontent.com/pyo-sh" width="100"/>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/yeon52">
+        J081_박가연
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/yeon52">
+        J125_오석호
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/yeon52">
+        J200_조현정
+      </a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/yeon52">
+        J212_표석훈
+      </a>
+    </td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <td><span>기술 스택</span></td>
+    <td>
+      <div>
+        <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=white"/>
+        <img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=typescript&logoColor=white"/>
+        <img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=react&logoColor=white"/>
+        <img src="https://img.shields.io/badge/WebRTC-333333?style=flat-square&logo=webrtc&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Socket.io-010101?style=flat-square&logo=socket.io&logoColor=white"/>
+        <img src="https://img.shields.io/badge/StyledComponents-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Express-000000?style=flat-square&logo=express&logoColor=white"/>
+        <img src="https://img.shields.io/badge/Passport-34E27A?style=flat-square&logo=passport&logoColor=white"/>
+        <img src="https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white"/>
+        <img src="https://img.shields.io/badge/NGINX-009639?style=flat-square&logo=nginx&logoColor=white"/>
+        <img src="https://img.shields.io/badge/nCloud-03C75A?style=flat-square&logo=naver&logoColor=white"/>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td>배포 페이지</td>
+    <td>
+      <a href="http://115.85.181.24/">
+        👉 배포 페이지 바로가기
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>노션</td>
+    <td>
+      <a href="https://colossal-playroom-b51.notion.site/Sooltreaming-beefac80018d40bb988832b34d1421c4">
+        👉 Notion Project 바로가기
+      </a>
+    </td>
+  </tr>
+<table>
 
-<div align="center">
-  <h3>
-    <a href="http://115.85.181.24/">
-      🍺 배포 페이지 바로가기 🍺
-    </a>
-    <br><br>
-    <a href="https://colossal-playroom-b51.notion.site/Sooltreaming-beefac80018d40bb988832b34d1421c4">
-      👉 Notion Project Page 바로가기 👈
-    </a>
-  </h3>
-  </br>
-</div>
+<br/>
 
 ## 🍓 기획 의도
 
