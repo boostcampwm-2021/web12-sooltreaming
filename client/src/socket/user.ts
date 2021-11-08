@@ -19,7 +19,6 @@ const user = (socket: Socket) => (closure: any) => {
     if (socket.id !== id)
       setUsers((prev) => {
         const data = { ...prev };
-        console.log(data);
         delete data[id];
         return data;
       });

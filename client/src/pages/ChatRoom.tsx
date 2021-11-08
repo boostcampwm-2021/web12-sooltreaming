@@ -29,7 +29,6 @@ const ChatRoom: React.FunctionComponent = () => {
           if (!majorVideo) return;
           customRTC.getAudioTrack(majorAudios.deviceId).then((audioTrack) => {
             let stream1 = customRTC.createStream({ audioTrack, videoTrack });
-            console.log(stream1);
             setStream(stream1);
           });
         });
