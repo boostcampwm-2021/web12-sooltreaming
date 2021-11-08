@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Socket from '@socket/socket';
-import customRTC from '@utils/customRTC';
 
 type ChatFormPropTypes = {
   users: any;
@@ -10,7 +9,6 @@ type ChatFormPropTypes = {
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
   const [isVideoOn, setIsVideoOn] = useState<boolean>(false);
   const [isAudioOn, setIsAudioOn] = useState<boolean>(false);
-  const [peerConnections, setPeerConnections] = useState([]);
   const [streams, setStreams] = useState({});
 
   const myVideoRef = useRef<HTMLVideoElement>(null);
@@ -18,7 +16,6 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
   useEffect(() => {
     // 내 영상 출력하기
     if (myVideoRef && myVideoRef.current) myVideoRef.current.srcObject = stream as MediaProvider;
-    console.log(stream);
     // Socket으로 Peer Connection 만들기
     const webRTCSocket = Socket.webRTC({ setStreams, myStream: stream });
     return () => {
@@ -32,17 +29,6 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
   useEffect(() => {
     stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
   }, [isAudioOn]);
-
-  const peerFaceRef = useRef<HTMLVideoElement>(null);
-
-  // const handleAddStream = (e: any) => {
-  //   console.log('stream이벤트');
-  //   if (peerFaceRef && peerFaceRef.current) peerFaceRef.current.srcObject = e.stream;
-  // };
-
-  // const handleCandidate = (e: any) => {
-  //   Socket.webRTC({ myPeerConnection, chatRoomCode }).sendCandidate(e.candidate);
-  // };
 
   return (
     <>

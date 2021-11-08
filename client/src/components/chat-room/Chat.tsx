@@ -16,7 +16,7 @@ const Chat: React.FC<ChatPropTypes> = ({}) => {
   const myID = Socket.getSID();
 
   const downScroll = () => {
-    const refDom = chatWindow?.current;
+    const refDom = chatWindow.current;
     if (!refDom) return;
     refDom.scrollTop = refDom.scrollHeight;
   };

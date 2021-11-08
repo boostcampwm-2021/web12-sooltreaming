@@ -13,9 +13,7 @@ const webRTC =
     // 2. offer 요청
     const peerConnections = {};
 
-    // 망할 함수
     const sendCandidate = (targetSID) => (e: any) => {
-      console.log(e);
       socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
     };
 
@@ -37,7 +35,6 @@ const webRTC =
 
     // 이후에 접속한 사람의 Offer 받기
     socket.on(OFFER, async ({ offer, targetSID }) => {
-      console.log('offer받음');
       const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
       peer.addEventListener('icecandidate', sendCandidate(targetSID));
       peer.addEventListener('addstream', (e: any) => {
@@ -48,7 +45,6 @@ const webRTC =
       peer.setLocalDescription(answer);
 
       peerConnections[targetSID] = peer;
-      console.log(peer);
       socket.emit(ANSWER, { answer, receiverSID: targetSID, senderSID: socket.id });
     });
 
@@ -57,12 +53,10 @@ const webRTC =
       const peer = peerConnections[targetSID];
       if (!peer) throw new Error('INVALID PEER');
       peer.setRemoteDescription(answer);
-      console.log('answer받음');
     });
 
     // Candidate 받아서 처리
     socket.on(ICE, ({ candidate, targetSID }) => {
-      console.log('received candidate');
       peerConnections[targetSID].addIceCandidate(candidate);
     });
 

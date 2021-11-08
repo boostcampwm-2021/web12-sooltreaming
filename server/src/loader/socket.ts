@@ -1,12 +1,12 @@
 import { Socket, Server } from 'socket.io';
-import signaling from '../controller/socket/signaling';
-import chatting from '/controller/socket/chatting';
-import entering from '/controller/socket/entering';
-import creating from '/controller/socket/creating';
+import signaling from '@controller/socket/signaling';
+import chatting from '@controller/socket/chatting';
+import entering from '@controller/socket/entering';
+import creating from '@controller/socket/creating';
 
-import pipe from 'utils/pipe';
+import pipe from '@utils/pipe';
 
-type roomType = {
+export type roomType = {
   [code: string]: {
     hostID: string;
     isOpen: boolean;

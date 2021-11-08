@@ -29,7 +29,6 @@ const ChatRoom: React.FunctionComponent = () => {
           if (!majorVideo) return;
           customRTC.getAudioTrack(majorAudios.deviceId).then((audioTrack) => {
             let stream1 = customRTC.createStream({ audioTrack, videoTrack });
-            console.log(stream1);
             setStream(stream1);
           });
         });
@@ -50,13 +49,15 @@ const ChatRoom: React.FunctionComponent = () => {
       user,
     });
     return () => {
-      functions?.disconnecting();
+      functions.disconnecting();
       Socket.disconnect();
     };
   }, []);
 
   return (
     <Wrapper>
+      {/* 비동기로 stream을 불러와서 임시로 chatmonitor를 안불러왔음 (오류 안내려고) */}
+      {/* stream이 없어도 chatmonitor가 오류없이 동작하도록 만들어야함 */}
       <VideoSection>{stream ? <ChatMonitor users={users} stream={stream} /> : <></>}</VideoSection>
       <ChatMenu menuType={menuType} setMenuType={setMenuType} />
     </Wrapper>

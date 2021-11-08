@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import type { roomType } from '@loader/socket';
 
 const JOIN_ROOM = 'JOIN_ROOM';
 const JOIN_ROOM_ERROR = 'JOIN_ROOM_ERROR';
@@ -8,7 +9,7 @@ const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
 const CHANGE_HOST = 'CHANGE_HOST';
 const NEED_OFFERS = 'need offers';
 
-const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: any }) => {
+const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   let code = '';
   socket.on(JOIN_ROOM, ({ chatRoomCode, user }) => {
     if (!(chatRoomCode in rooms)) return socket.emit(JOIN_ROOM_ERROR, '존재하지 않는 방입니다.');
