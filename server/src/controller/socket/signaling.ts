@@ -1,6 +1,7 @@
 import { Socket } from 'socket.io';
+import type { roomType } from '@loader/socket';
 
-const Signaling = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: any }) => {
+const Signaling = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   socket.on('offer', ({ offer, receiverSID, senderSID }) => {
     io.to(receiverSID).emit('offer', { offer, targetSID: senderSID });
   });

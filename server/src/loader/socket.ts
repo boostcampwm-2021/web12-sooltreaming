@@ -6,7 +6,7 @@ import creating from '@controller/socket/creating';
 
 import pipe from '@utils/pipe';
 
-type roomType = {
+export type roomType = {
   [code: string]: {
     hostID: string;
     isOpen: boolean;
