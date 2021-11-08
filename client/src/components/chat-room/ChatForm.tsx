@@ -16,7 +16,7 @@ const ChatForm: React.FC<ChatFormPropTypes> = ({ emits }) => {
 
   return (
     <SendingForm onSubmit={(e) => e.preventDefault()}>
-      <input value={message ?? ''} onChange={(e) => setMessage(e?.target?.value ?? '')} />
+      <input value={message ?? ''} onChange={({ target }) => setMessage(target?.value ?? '')} />
       <button onClick={onSubmitMessage}>
         <PaperPlaneIcon />
       </button>
