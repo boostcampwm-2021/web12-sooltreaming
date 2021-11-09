@@ -9,6 +9,7 @@ import { videoState, audioState } from '@src/store/device';
 import { userState } from '@src/store/user';
 import { Wrapper, VideoSection } from './ChatRoom.style';
 import customRTC from '@utils/customRTC';
+import Loading from '@components/custom/Loading';
 
 const ChatRoom: React.FunctionComponent = () => {
   const history = useHistory();
@@ -19,6 +20,7 @@ const ChatRoom: React.FunctionComponent = () => {
   const videoInfo = useRecoilValue(videoState);
   const audioInfo = useRecoilValue(audioState);
 
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
   const [stream, setStream] = useState<MediaStream>(new MediaStream());
@@ -27,8 +29,9 @@ const ChatRoom: React.FunctionComponent = () => {
     const initStream = async () => {
       const videoTrack = await customRTC.getVideoTrack(videoInfo?.deviceId);
       const audioTrack = await customRTC.getAudioTrack(audioInfo?.deviceId);
-      const createdStream = customRTC.createStream({ videoTrack, audioTrack });
+      const createdStream = await customRTC.createStream({ videoTrack, audioTrack });
       setStream(createdStream);
+      setIsLoading(false);
     };
     initStream();
   }, []);
@@ -39,23 +42,21 @@ const ChatRoom: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
+    if (isLoading) return;
     Socket.connect();
     const functions = Socket.user({ errorControl, setUsers, myID: user });
     functions.joinRoom({
       chatRoomCode: code,
       user,
     });
-    return () => {
-      functions.disconnecting();
-      Socket.disconnect();
-    };
-  }, []);
+  }, [isLoading]);
 
+  if (isLoading) return <Loading />;
   return (
     <Wrapper>
-      {/* 비동기로 stream을 불러와서 임시로 chatmonitor를 안불러왔음 (오류 안내려고) */}
-      {/* stream이 없어도 chatmonitor가 오류없이 동작하도록 만들어야함 */}
-      <VideoSection>{stream ? <ChatMonitor users={users} stream={stream} /> : <></>}</VideoSection>
+      <VideoSection>
+        <ChatMonitor users={users} stream={stream} />
+      </VideoSection>
       <ChatMenu menuType={menuType} setMenuType={setMenuType} />
     </Wrapper>
   );

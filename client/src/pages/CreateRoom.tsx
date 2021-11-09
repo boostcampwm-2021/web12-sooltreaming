@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { Wrapper, Loading } from './CreateRoom.style';
 import { useHistory } from 'react-router-dom';
 import Socket from '@socket/socket';
 import { useSetRecoilState } from 'recoil';
 import { errorMessageState } from '@src/store/message';
+import Loading from '@components/custom/Loading';
 
 const CreateRoom: React.FunctionComponent = () => {
   const setMessage = useSetRecoilState(errorMessageState);
@@ -30,13 +30,7 @@ const CreateRoom: React.FunctionComponent = () => {
     };
   }, []);
 
-  return (
-    <Wrapper>
-      <Loading>
-        <img src="/images/logo.png" alt="logo" />
-      </Loading>
-    </Wrapper>
-  );
+  return <Loading />;
 };
 
 export default CreateRoom;
