@@ -10,7 +10,7 @@ const Header: React.FC = () => {
   return (
     <Wrapper>
       <LogoLink href="/">
-        <img src="images/logo.png" />
+        <img src="/images/logo.png" />
         <span>Sooltreaming</span>
       </LogoLink>
       <UserLink>

@@ -18,6 +18,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "deploy": "craco build && nginx -s reload",
     "test": "craco test",
     "eject": "craco eject"
   },
