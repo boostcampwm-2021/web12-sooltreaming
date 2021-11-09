@@ -3,7 +3,8 @@
   "version": "0.2.0",
   "private": true,
   "scripts": {
-    "start": "nodemon --exec ts-node -r tsconfig-paths/register ./src/app.ts"
+    "start": "nodemon --exec ts-node -r tsconfig-paths/register ./src/app.ts",
+    "deploy": "npx tsc && pm2 start ./build/app.js --node-args='-r ./tsconfig-paths-bootstrap.js'"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
