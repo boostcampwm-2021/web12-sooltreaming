@@ -1,6 +1,6 @@
 import React from 'react';
 import { Wrapper, UserSection, CircleDiv, NameSpan, MsgContent } from './ChatItem.style';
-
+import { HumanIcon } from '@components/icons';
 type ChatItemPropTypes = {
   isSelf: boolean;
   message: string;
@@ -12,7 +12,7 @@ const ChatItem: React.FC<ChatItemPropTypes> = ({ isSelf, message, date }) => {
     <Wrapper isSelf={isSelf}>
       <UserSection isSelf={isSelf}>
         <CircleDiv>
-          <img src={undefined || '/images/human.svg'} alt="User-Image" />
+          <HumanIcon />
         </CircleDiv>
         <NameSpan>{undefined || 'judangs'}</NameSpan>
         <span>{date}</span>

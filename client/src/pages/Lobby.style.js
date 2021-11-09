@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, INPUT_STYLE, BTN_STYLE } from '@src/Constant';
+import { COLOR, INPUT_STYLE, BTN_STYLE } from '@constant/style';
 
 export const Wrapper = styled.div`
   width: 100%;

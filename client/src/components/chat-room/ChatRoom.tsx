@@ -5,38 +5,34 @@ import ChatMenu from '@components/chat-room/ChatMenu';
 import ChatMonitor from '@components/chat-room/ChatMonitor';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { errorMessageState } from '@src/store/message';
+import { videoState, audioState } from '@src/store/device';
 import { userState } from '@src/store/user';
 import { Wrapper, VideoSection } from './ChatRoom.style';
 import customRTC from '@utils/customRTC';
 
 const ChatRoom: React.FunctionComponent = () => {
-  const setMessage = useSetRecoilState(errorMessageState);
-  const user = useRecoilValue(userState);
   const history = useHistory();
   const { code } = useParams();
+
+  const setMessage = useSetRecoilState(errorMessageState);
+  const user = useRecoilValue(userState);
+  const videoInfo = useRecoilValue(videoState);
+  const audioInfo = useRecoilValue(audioState);
+
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
-  // 임시 코드 ---------------------
-  const [stream, setStream] = useState<any>(null);
+  const [stream, setStream] = useState<MediaStream>(new MediaStream());
 
   useEffect(() => {
-    customRTC.getVideos().then((videos) => {
-      const majorVideo = videos[0];
-      if (!majorVideo) return;
-      customRTC.getVideoTrack(majorVideo.deviceId).then((videoTrack) => {
-        customRTC.getAudios().then((audios) => {
-          const majorAudios = audios[0];
-          if (!majorVideo) return;
-          customRTC.getAudioTrack(majorAudios.deviceId).then((audioTrack) => {
-            let stream1 = customRTC.createStream({ audioTrack, videoTrack });
-            console.log(stream1);
-            setStream(stream1);
-          });
-        });
-      });
-    });
+    const initStream = async () => {
+      const videoTrack = await customRTC.getVideoTrack(videoInfo?.deviceId);
+      const audioTrack = await customRTC.getAudioTrack(audioInfo?.deviceId);
+      const createdStream = customRTC.createStream({ videoTrack, audioTrack });
+      setStream(createdStream);
+    };
+    initStream();
   }, []);
-  // -------------------------------
+
   const errorControl = (message) => {
     setMessage(message);
     history.push('/');
@@ -50,13 +46,15 @@ const ChatRoom: React.FunctionComponent = () => {
       user,
     });
     return () => {
-      functions?.disconnecting();
+      functions.disconnecting();
       Socket.disconnect();
     };
   }, []);
 
   return (
     <Wrapper>
+      {/* 비동기로 stream을 불러와서 임시로 chatmonitor를 안불러왔음 (오류 안내려고) */}
+      {/* stream이 없어도 chatmonitor가 오류없이 동작하도록 만들어야함 */}
       <VideoSection>{stream ? <ChatMonitor users={users} stream={stream} /> : <></>}</VideoSection>
       <ChatMenu menuType={menuType} setMenuType={setMenuType} />
     </Wrapper>

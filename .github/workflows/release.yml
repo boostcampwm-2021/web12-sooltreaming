@@ -25,14 +25,12 @@ jobs:
             cd ./client
             npm install
             rm -rf build
-            npm run build
-            nginx -s reload
+            npm run deploy
             cd ../server
             npm install
-            rm -rf build
-            npx tsc
             pm2 kill
-            pm2 start ./build/app.js --node-args="-r ./tsconfig-paths-bootstrap.js"
+            rm -rf build
+            npm run deploy
 
       - name: send result to slack
         uses: 8398a7/action-slack@v3

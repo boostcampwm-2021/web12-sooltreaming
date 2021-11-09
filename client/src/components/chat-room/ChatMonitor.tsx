@@ -1,26 +1,24 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Socket from '@socket/socket';
-import customRTC from '@utils/customRTC';
+import { useRecoilState } from 'recoil';
+import { videoActiveState, audioActiveState } from '@src/store/device';
 
 type ChatFormPropTypes = {
   users: any;
-  stream: any;
+  stream: MediaStream;
 };
 
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
-  const [isVideoOn, setIsVideoOn] = useState<boolean>(false);
-  const [isAudioOn, setIsAudioOn] = useState<boolean>(false);
-  const [peerConnections, setPeerConnections] = useState([]);
+  const socket = useRef<any>(null);
+  const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
+  const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
   const [streams, setStreams] = useState({});
-
   const myVideoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
-    // 내 영상 출력하기
-    if (myVideoRef && myVideoRef.current) myVideoRef.current.srcObject = stream as MediaProvider;
-    console.log(stream);
     // Socket으로 Peer Connection 만들기
-    const webRTCSocket = Socket.webRTC({ setStreams, myStream: stream });
+    const webRTCSocket = Socket.webRTC({ setStreams, stream });
+    socket.current = webRTCSocket;
     return () => {
       webRTCSocket.disconnecting();
     };
@@ -32,17 +30,13 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
   useEffect(() => {
     stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
   }, [isAudioOn]);
-
-  const peerFaceRef = useRef<HTMLVideoElement>(null);
-
-  // const handleAddStream = (e: any) => {
-  //   console.log('stream이벤트');
-  //   if (peerFaceRef && peerFaceRef.current) peerFaceRef.current.srcObject = e.stream;
-  // };
-
-  // const handleCandidate = (e: any) => {
-  //   Socket.webRTC({ myPeerConnection, chatRoomCode }).sendCandidate(e.candidate);
-  // };
+  useEffect(() => {
+    if (!socket.current || !myVideoRef.current) return;
+    socket.current.changeStream(stream);
+    myVideoRef.current.srcObject = stream;
+    stream?.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
+    stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
+  }, [stream]);
 
   return (
     <>
@@ -58,7 +52,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
         {isAudioOn ? '음소거' : '음소거 해제'}
       </button>
       <button onClick={() => setIsVideoOn((prev) => !prev)}>
-        {isVideoOn ? '영상 켜기' : '영상 끄기'}
+        {isVideoOn ? '영상 끄기' : '영상 켜기'}
       </button>
       <select className="camera">
         <option value="device">카메라명</option>

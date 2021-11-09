@@ -1,9 +1,10 @@
 import { Socket } from 'socket.io';
+import type { roomType } from '@loader/socket';
 
 const CREATE_REQUEST = 'CREATE_REQUEST';
 const CREATE_SUCCESS = 'CREATE_SUCCESS';
 
-const createRoomCode = (rooms: Object) => {
+const createRoomCode = (rooms: roomType) => {
   let code;
   while (true) {
     code = Math.random().toString(16).substr(2, 5);
@@ -12,7 +13,7 @@ const createRoomCode = (rooms: Object) => {
   return code;
 };
 
-const creating = ({ io, socket, rooms }) => {
+const creating = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   socket.on(CREATE_REQUEST, (user) => {
     const roomCode = createRoomCode(rooms);
     rooms[roomCode] = {

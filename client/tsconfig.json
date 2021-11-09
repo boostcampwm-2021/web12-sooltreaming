@@ -24,7 +24,9 @@
   },
   "include": [
     "src",
-    "craco.config.js",
-    "../server/controller/socket/socket.type.ts"
+    "craco.config.js"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }

@@ -5,6 +5,8 @@ export const COLOR = {
   primary2: '#EBEFD6',
   primary3: '#9DB589',
   error: '#FF8988',
+  lightError: '#FFD4D3',
+  darkError: '#CD6766',
   titleActive: '#006737',
   body: '#5C5C5C',
   lable: '#888888',
@@ -44,5 +46,24 @@ export const BTN_STYLE = css`
   }
   &:disabled {
     background-color: ${COLOR.primary2};
+  }
+`;
+
+export const CANCLE_BTN_STYLE = css`
+  padding: 0;
+  margin: 0;
+  background-color: ${COLOR.error};
+  color: ${COLOR.white};
+  border: 2px solid transparent;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${COLOR.darkError};
+  }
+  &:focus {
+    border: 2px solid ${COLOR.lightError};
+  }
+  &:disabled {
+    background-color: ${COLOR.lightError};
   }
 `;

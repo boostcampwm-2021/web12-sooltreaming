@@ -1,4 +1,4 @@
-import initMongo from '../models';
+import initMongo from '@src/models';
 
 const dbConfig = {
   host: process.env.DB_HOST,
@@ -10,6 +10,6 @@ const dbConfig = {
 
 const mongoLoader = () => {
   initMongo(dbConfig);
-}
+};
 
 export default mongoLoader;

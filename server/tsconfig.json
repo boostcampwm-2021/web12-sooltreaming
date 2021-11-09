@@ -8,11 +8,16 @@
     "sourceMap": true,
     "removeComments": true,
     "outDir": "./build",
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "/*": ["./*"],
+      "@src/*": ["./*"],
       "@api/*": ["./api/*"],
-      "@models/*": ["./models/*"]
+      "@controller/*": ["./controller/*"],
+      "@loader/*": ["./loader/*"],
+      "@models/*": ["./models/*"],
+      "@utils/*": ["./utils/*"]
     }
-  }
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }

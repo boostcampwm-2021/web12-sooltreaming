@@ -5,9 +5,11 @@
       "@src/*": ["./*"],
       "@api/*": ["./api/*"],
       "@components/*": ["./components/*"],
+      "@constant/*": ["./constant/*"],
       "@hooks/*": ["./hooks/*"],
       "@pages/*": ["./pages/*"],
       "@socket/*": ["./socket/*"],
+      "@store/*": ["./store/*"],
       "@utils/*": ["./utils/*"]
     }
   }
