@@ -31,6 +31,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
     stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
   }, [isAudioOn]);
   useEffect(() => {
+    console.log(socket.current);
     if (!socket.current || !myVideoRef.current) return;
     socket.current.changeStream(stream);
     myVideoRef.current.srcObject = stream;

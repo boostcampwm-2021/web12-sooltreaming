@@ -15,7 +15,8 @@ const webRTC =
     let myStream = stream;
 
     const sendCandidate = (targetSID) => (e: any) => {
-      socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
+      if (e?.candidate)
+        socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
     };
 
     socket.on(NEED_OFFERS, (users) => {
@@ -27,11 +28,12 @@ const webRTC =
           setStreams((prev) => ({ ...prev, [sid]: e.stream }));
         });
         const offer = await peer.createOffer();
-        peer.setLocalDescription(offer);
+        await peer.setLocalDescription(offer);
 
         peerConnections[sid] = peer;
         socket.emit(OFFER, { offer, receiverSID: sid, senderSID: socket.id });
-      }, {});
+        console.log('오퍼보냄');
+      });
     });
 
     // 이후에 접속한 사람의 Offer 받기
@@ -41,12 +43,13 @@ const webRTC =
       peer.addEventListener('addstream', (e: any) => {
         setStreams((prev) => ({ ...prev, [targetSID]: e.stream }));
       });
-      peer.setRemoteDescription(offer);
+      await peer.setRemoteDescription(offer);
       const answer = await peer.createAnswer();
-      peer.setLocalDescription(answer);
+      await peer.setLocalDescription(answer);
 
       peerConnections[targetSID] = peer;
       socket.emit(ANSWER, { answer, receiverSID: targetSID, senderSID: socket.id });
+      console.log('앤써보냄');
     });
 
     // Offer에 대한 답장 받기
@@ -58,7 +61,7 @@ const webRTC =
 
     // Candidate 받아서 처리
     socket.on(ICE, ({ candidate, targetSID }) => {
-      peerConnections[targetSID].addIceCandidate(candidate);
+      if (peerConnections[targetSID]) peerConnections[targetSID].addIceCandidate(candidate);
     });
 
     const changeStream = (newStream) => {
@@ -68,9 +71,9 @@ const webRTC =
       Object.values(peerConnections).forEach((peer: any) => {
         const senders = peer.getSenders();
         const videoSender = senders.find((sender) => sender.track.kind === 'video');
-        videoSender.replaceTrack(videoTrack);
+        if (videoSender) videoSender.replaceTrack(videoTrack);
         const audioSender = senders.find((sender) => sender.track.kind === 'audio');
-        audioSender.replaceTrack(audioTrack);
+        if (audioSender) audioSender.replaceTrack(audioTrack);
       });
     };
 
@@ -78,6 +81,9 @@ const webRTC =
       socket.off(ANSWER);
       socket.off(OFFER);
       socket.off(ICE);
+      Object.values(peerConnections).forEach((peer: any) => {
+        peer.close();
+      });
     };
 
     return {

@@ -16,7 +16,7 @@ const spin = keyframes`
 `;
 const loadingSize = 300;
 
-export const Loading = styled.div`
+export const LoadingDiv = styled.div`
   z-index: 1;
   width: ${loadingSize}px;
   height: ${loadingSize}px;
