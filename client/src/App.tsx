@@ -5,7 +5,6 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Lobby from '@pages/Lobby';
 import Setting from '@pages/Setting';
 import CreateRoom from '@pages/CreateRoom';
-import ChatRoom from '@pages/ChatRoom';
 
 const App: React.FC = () => {
   return (
@@ -14,9 +13,8 @@ const App: React.FC = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path="/" component={Lobby} />
-          <Route exact path="/setting" component={Setting} />
           <Route exact path="/create" component={CreateRoom} />
-          <Route exact path="/chatRoom/:code" component={ChatRoom} />
+          <Route exact path="/chatRoom/:code" component={Setting} />
           <Route component={() => <Redirect to="/" />} />
         </Switch>
       </BrowserRouter>

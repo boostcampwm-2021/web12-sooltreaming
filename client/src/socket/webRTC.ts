@@ -7,11 +7,12 @@ const ICE = 'ice';
 
 const webRTC =
   (socket) =>
-  ({ setStreams, myStream }) => {
+  ({ setStreams, stream }) => {
     // 처음 들어왔을 때 받은 유저 정보로
     // 1. peer 생성 후
     // 2. offer 요청
     const peerConnections = {};
+    let myStream = stream;
 
     const sendCandidate = (targetSID) => (e: any) => {
       socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
@@ -60,6 +61,19 @@ const webRTC =
       peerConnections[targetSID].addIceCandidate(candidate);
     });
 
+    const changeStream = (newStream) => {
+      myStream = newStream;
+      const videoTrack = myStream.getVideoTracks()[0];
+      const audioTrack = myStream.getAudioTracks()[0];
+      Object.values(peerConnections).forEach((peer: any) => {
+        const senders = peer.getSenders();
+        const videoSender = senders.find((sender) => sender.track.kind === 'video');
+        videoSender.replaceTrack(videoTrack);
+        const audioSender = senders.find((sender) => sender.track.kind === 'audio');
+        audioSender.replaceTrack(audioTrack);
+      });
+    };
+
     const disconnecting = () => {
       socket.off(ANSWER);
       socket.off(OFFER);
@@ -67,6 +81,7 @@ const webRTC =
     };
 
     return {
+      changeStream,
       disconnecting,
     };
   };
