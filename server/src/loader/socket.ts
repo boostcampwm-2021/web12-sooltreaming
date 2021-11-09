@@ -22,10 +22,13 @@ export type roomType = {
   };
 };
 
+const HOST = process.env.FRONT_HOST;
+const PORT = process.env.FRONT_PORT;
+
 const socketLoader = (server, app): any => {
   const io = new Server(server, {
     cors: {
-      origin: `http://${process.env.FRONT_HOST}:${process.env.FRONT_PORT}`,
+      origin: `http://${HOST}${!PORT ? '' : ':'}${PORT}`,
       credentials: true,
       methods: ['GET', 'POST'],
     },
