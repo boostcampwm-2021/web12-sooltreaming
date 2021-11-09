@@ -20,7 +20,6 @@ const webRTC =
     };
 
     socket.on(NEED_OFFERS, (users) => {
-      console.log(users);
       Object.keys(users).forEach(async (sid) => {
         if (sid === socket.id) return;
         const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
@@ -33,7 +32,6 @@ const webRTC =
 
         peerConnections[sid] = peer;
         socket.emit(OFFER, { offer, receiverSID: sid, senderSID: socket.id });
-        console.log('오퍼보냄');
       });
     });
 
@@ -50,7 +48,6 @@ const webRTC =
 
       peerConnections[targetSID] = peer;
       socket.emit(ANSWER, { answer, receiverSID: targetSID, senderSID: socket.id });
-      console.log('앤써보냄');
     });
 
     // Offer에 대한 답장 받기

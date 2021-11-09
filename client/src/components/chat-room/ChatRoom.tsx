@@ -14,7 +14,6 @@ import Loading from '@components/custom/Loading';
 const ChatRoom: React.FunctionComponent = () => {
   const history = useHistory();
   const { code } = useParams();
-  console.log(code);
 
   const setMessage = useSetRecoilState(errorMessageState);
   const user = useRecoilValue(userState);
