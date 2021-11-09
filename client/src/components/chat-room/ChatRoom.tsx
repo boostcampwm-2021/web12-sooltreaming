@@ -43,17 +43,14 @@ const ChatRoom: React.FunctionComponent = () => {
   };
 
   useEffect(() => {
+    if (isLoading) return;
     Socket.connect();
     const functions = Socket.user({ errorControl, setUsers, myID: user });
     functions.joinRoom({
       chatRoomCode: code,
       user,
     });
-    return () => {
-      functions.disconnecting();
-      Socket.disconnect();
-    };
-  }, []);
+  }, [isLoading]);
 
   if (isLoading) return <Loading />;
   return (

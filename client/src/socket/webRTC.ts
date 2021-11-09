@@ -20,6 +20,7 @@ const webRTC =
     };
 
     socket.on(NEED_OFFERS, (users) => {
+      console.log(users);
       Object.keys(users).forEach(async (sid) => {
         if (sid === socket.id) return;
         const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
