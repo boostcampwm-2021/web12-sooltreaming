@@ -10,6 +10,7 @@ import { userState } from '@src/store/user';
 import { Wrapper, VideoSection } from './ChatRoom.style';
 import customRTC from '@utils/customRTC';
 import Loading from '@components/custom/Loading';
+import CanvasScreen from '@components/animation/CanvasScreen';
 
 const ChatRoom: React.FunctionComponent = () => {
   const history = useHistory();
@@ -54,6 +55,7 @@ const ChatRoom: React.FunctionComponent = () => {
   if (isLoading) return <Loading />;
   return (
     <Wrapper>
+      <CanvasScreen />
       <VideoSection>
         <ChatMonitor users={users} stream={stream} />
       </VideoSection>
