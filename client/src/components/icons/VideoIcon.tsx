@@ -1,9 +1,16 @@
 import React from 'react';
 import type { iconPropsType } from '@components/icons';
 
-const VideoIcon = ({ width, height, fill, stroke }: iconPropsType): React.ReactElement => {
+const VideoIcon = ({
+  className,
+  width,
+  height,
+  fill,
+  stroke,
+}: iconPropsType): React.ReactElement => {
   return (
     <svg
+      className={className ?? ''}
       width={width ?? 42}
       height={height ?? 23}
       viewBox="0 0 42 23"

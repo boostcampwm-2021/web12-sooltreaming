@@ -1,9 +1,10 @@
 import React from 'react';
 import type { iconPropsType } from '@components/icons';
 
-const MicIcon = ({ width, height, fill, stroke }: iconPropsType): React.ReactElement => {
+const MicIcon = ({ className, width, height, fill, stroke }: iconPropsType): React.ReactElement => {
   return (
     <svg
+      className={className ?? ''}
       width={width ?? 17}
       height={height ?? 32}
       viewBox="0 0 17 32"
