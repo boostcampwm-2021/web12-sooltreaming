@@ -1,9 +1,16 @@
 import React from 'react';
 import type { iconPropsType } from '@components/icons';
 
-const DownIcon = ({ width, height, fill, stroke }: iconPropsType): React.ReactElement => {
+const DownIcon = ({
+  className,
+  width,
+  height,
+  fill,
+  stroke,
+}: iconPropsType): React.ReactElement => {
   return (
     <svg
+      className={className ?? ''}
       width={width ?? 18}
       height={height ?? 10}
       viewBox="0 0 18 10"
