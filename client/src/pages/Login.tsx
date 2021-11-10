@@ -1,5 +1,8 @@
 import React from 'react';
-import { Wrapper, LogoDiv, LoginButton, ButtonsDiv, TitleDiv } from './Login.style';
+import { Wrapper, LogoDiv, LoginLink, ButtonsDiv, TitleDiv } from './Login.style';
+import { GITHUB_ID } from '@constant/envs';
+
+const githubUrl = `https://github.com/login/oauth/authorize?client_id=${GITHUB_ID}`;
 
 const Login: React.FC = () => {
   return (
@@ -9,12 +12,12 @@ const Login: React.FC = () => {
         <span>Sooltreaming</span>
       </LogoDiv>
       <ButtonsDiv>
-        <LoginButton>
+        <LoginLink href={githubUrl}>
           <img src={'/images/github-login.png'} />
-        </LoginButton>
-        <LoginButton>
+        </LoginLink>
+        <LoginLink href="">
           <img src={'/images/naver-login.png'} />
-        </LoginButton>
+        </LoginLink>
       </ButtonsDiv>
       <TitleDiv>
         재ㅁㅣ있는 술자.ㄹㅣ;를 위한

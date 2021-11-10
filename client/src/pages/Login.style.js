@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { COLOR, INPUT_STYLE, BTN_STYLE } from '@constant/style';
+import { COLOR } from '@constant/style';
 
 const flexColumnCenter = css`
   display: flex;
@@ -40,7 +40,7 @@ export const ButtonsDiv = styled.div`
   margin: 50px 0;
 `;
 
-export const LoginButton = styled.button`
+export const LoginLink = styled.a`
   width: 312px;
   height: 65px;
   padding: 0;
