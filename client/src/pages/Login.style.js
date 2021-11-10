@@ -63,7 +63,6 @@ export const LoginButton = styled.button`
 export const TitleDiv = styled.div`
   text-align: center;
 
-  margin-bottom: 100px;
   font-size: 48px;
   font-weight: 700;
   color: ${COLOR.titleActive};
