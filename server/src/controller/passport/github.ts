@@ -1,9 +1,6 @@
 import GitHubStrategy from 'passport-github';
 import User from '@models/User';
-
-const clientID = process.env.GITHUB_ID;
-const clientSecret = process.env.GITHUB_SECRET;
-const callbackURL = process.env.GITHUB_CALLBACK_URL;
+import { GITHUB_ID, GITHUB_SECRET, GITHUB_CALLBACK_URL } from '@src/constant';
 
 type profileType = {
   login: string;
@@ -12,9 +9,9 @@ type profileType = {
 
 const gitHubStrategy = new GitHubStrategy.Strategy(
   {
-    clientID,
-    clientSecret,
-    callbackURL,
+    clientID: GITHUB_ID,
+    clientSecret: GITHUB_SECRET,
+    callbackURL: GITHUB_CALLBACK_URL,
   },
   async (_accessToken, _refreshToken, profile, cb) => {
     try {

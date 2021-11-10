@@ -3,8 +3,8 @@ import signaling from '@controller/socket/signaling';
 import chatting from '@controller/socket/chatting';
 import entering from '@controller/socket/entering';
 import creating from '@controller/socket/creating';
-
 import pipe from '@utils/pipe';
+import { FRONT_BASE_URL } from '@src/constant';
 
 export type roomType = {
   [code: string]: {
@@ -22,13 +22,10 @@ export type roomType = {
   };
 };
 
-const HOST = process.env.FRONT_HOST;
-const PORT = process.env.FRONT_PORT;
-
 const socketLoader = (server, app): any => {
   const io = new Server(server, {
     cors: {
-      origin: `http://${HOST}${!PORT ? '' : ':'}${PORT}`,
+      origin: FRONT_BASE_URL,
       credentials: true,
       methods: ['GET', 'POST'],
     },

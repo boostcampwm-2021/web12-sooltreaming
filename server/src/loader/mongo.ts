@@ -1,11 +1,12 @@
 import initMongo from '@src/models';
+import { DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASSWORD } from '@src/constant';
 
 const dbConfig = {
-  host: process.env.DB_HOST,
-  port: process.env.DB_PORT,
-  dbName: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  pwd: process.env.DB_PASSWORD,
+  host: DB_HOST,
+  port: DB_PORT,
+  dbName: DB_NAME,
+  user: DB_USER,
+  pwd: DB_PASSWORD,
 };
 
 const mongoLoader = () => {
