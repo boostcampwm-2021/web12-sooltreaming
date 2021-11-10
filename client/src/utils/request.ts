@@ -1,7 +1,6 @@
-const host = process.env.REACT_APP_BACK_HOST;
-const port = process.env.REACT_APP_BACK_PORT;
-const version = process.env.REACT_APP_BACK_VERSION;
-const baseUrl = `http://${host}:${port}/api/${version}/`;
+import { BACK_BASE_URL, BACK_VERSION } from '@constant/envs';
+
+const BASE_URL = `${BACK_BASE_URL}/api/${BACK_VERSION}`;
 
 interface fetchParams {
   url: string;
@@ -14,15 +13,17 @@ interface fetchParams {
 const customFetch =
   (method: string) =>
   async ({ url, body, headerOptions, options }: fetchParams) => {
-    const resolve = await fetch(`${baseUrl}/${url}`, {
+    const init = {
       ...(options ?? {}),
       method,
+      credentials: 'include' as RequestCredentials,
       headers: {
         ...(headerOptions ?? {}),
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(body ?? {}),
-    });
+    };
+    if (method === 'POST' || method === 'PATCH') init['body'] = JSON.stringify(body ?? {});
+    const resolve = await fetch(`${BASE_URL}${url}`, init);
     const { status } = resolve;
     const json = await resolve.json();
     return { json, status };
