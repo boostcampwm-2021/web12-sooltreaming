@@ -8,4 +8,7 @@ const getBackBaseUrl = () => {
 };
 
 export const BACK_BASE_URL = getBackBaseUrl();
+export const BACK_VERSION = process.env.REACT_APP_BACK_VERSION;
 export const GITHUB_ID = process.env.REACT_APP_GITHUB_ID;
+export const NAVER_ID = process.env.REACT_APP_NAVER_ID;
+export const NAVER_REDIRECT_URL = `${BACK_BASE_URL}/api/${BACK_VERSION}/auth/naver`;
