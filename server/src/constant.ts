@@ -9,7 +9,7 @@ const getFrontBaseUrl = (): string => {
   return `${PROTOCOL}://${FRONT_HOST}${_PORT}`;
 };
 export const FRONT_BASE_URL = getFrontBaseUrl();
-export const AUTH_REDIRECT_URL = `${FRONT_BASE_URL}/`;
+export const AUTH_REDIRECT_URL = `${FRONT_BASE_URL}`;
 
 export const DB_HOST = process.env.DB_HOST;
 export const DB_PORT = process.env.DB_PORT;
