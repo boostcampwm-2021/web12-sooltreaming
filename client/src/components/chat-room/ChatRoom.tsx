@@ -1,19 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Socket from '@socket/socket';
-import ChatMenu from '@components/chat-room/ChatMenu';
+import Menu from '@components/chat-room/Menu';
 import ChatMonitor from '@components/chat-room/ChatMonitor';
+import ControlBar from '@components/chat-room/ControlBar';
 import { useSetRecoilState, useRecoilValue } from 'recoil';
 import { errorMessageState } from '@src/store/message';
 import { userState } from '@src/store/user';
-import { Wrapper, VideoSection } from './ChatRoom.style';
+import { Wrapper, VideoSection, ColumnDiv } from './ChatRoom.style';
 
-type ChatRoomType = {
+type ChatRoomTypes = {
   stream: MediaStream;
   setStream: any;
 };
 
-const ChatRoom: React.FunctionComponent<ChatRoomType> = ({ stream, setStream }) => {
+export type MenuPropTypes = {
+  menuType: string;
+  setMenuType: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream, setStream }) => {
   const history = useHistory();
   const { code } = useParams();
 
@@ -38,10 +44,13 @@ const ChatRoom: React.FunctionComponent<ChatRoomType> = ({ stream, setStream }) 
 
   return (
     <Wrapper>
-      <VideoSection>
-        <ChatMonitor users={users} stream={stream} />
-      </VideoSection>
-      <ChatMenu menuType={menuType} setMenuType={setMenuType} />
+      <ColumnDiv>
+        <VideoSection>
+          <ChatMonitor users={users} stream={stream} />
+        </VideoSection>
+        <ControlBar menuType={menuType} setMenuType={setMenuType} />
+      </ColumnDiv>
+      <Menu menuType={menuType} setMenuType={setMenuType} />
     </Wrapper>
   );
 };
