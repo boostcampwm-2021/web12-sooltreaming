@@ -20,6 +20,10 @@ const webRTC =
     };
 
     const deleteStream = (userRef = myStream) => {
+      myStream.getTracks().forEach((track) => {
+        track.stop();
+        userRef.removeTrack(track);
+      });
       Object.values(peerConnections).forEach((peer: any) => {
         peer.removeStream(userRef);
         peer.close();
@@ -91,14 +95,6 @@ const webRTC =
         return prev;
       });
     });
-
-    /**
- * document.getElementById("closeButton").addEventListener("click", function(event) {
-  pc.removeStream(videoStream);
-  pc.close();
-}, false);
- * 
- */
 
     const disconnecting = () => {
       socket.off(ANSWER);

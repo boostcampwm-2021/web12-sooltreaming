@@ -1,13 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Wrapper, Column, VideoBox } from './SettingWindow.style.js';
 import { useRecoilStateLoadable, useRecoilState } from 'recoil';
 import { videoState, audioState, videoActiveState, audioActiveState } from '@src/store/device';
 import SettingMenu from './SettingMenu';
 import { VideoIcon, MicIcon } from '@components/icons';
 import customRTC from '@utils/customRTC';
-import { useHistory } from 'react-router-dom';
 
-const SettingModal: React.FunctionComponent = () => {
+type settingModalType = {
+  stream: MediaStream;
+};
+
+const SettingModal: React.FunctionComponent<settingModalType> = ({ stream }) => {
   const previewFace = useRef<HTMLVideoElement>(null);
   const [videos, setVideos] = useState<MediaDeviceInfo[]>([]);
   const [audios, setAudios] = useState<MediaDeviceInfo[]>([]);
@@ -17,19 +20,15 @@ const SettingModal: React.FunctionComponent = () => {
   const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
 
   useEffect(() => {
-    const initDevice = async () => {
-      const medias = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: true,
-      });
-      if (previewFace.current) previewFace.current.srcObject = medias;
+    const settingMedia = async () => {
+      if (previewFace.current) previewFace.current.srcObject = stream;
       const videoDevices = await customRTC.getVideos();
       const audioDevices = await customRTC.getAudios();
       setVideos(videoDevices);
       setAudios(audioDevices);
     };
-    initDevice();
-  }, []);
+    settingMedia();
+  }, [stream]);
 
   useEffect(() => {
     if (!previewFace.current || !previewFace.current.srcObject) return;
