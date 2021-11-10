@@ -43,10 +43,6 @@ const ChatRoom: React.FunctionComponent = () => {
     history.push('/');
   };
 
-  const cheers = (e) => {
-    if (isCheers === false) setIsCheers(true);
-  };
-
   useEffect(() => {
     if (isLoading) return;
     Socket.connect();
@@ -56,6 +52,16 @@ const ChatRoom: React.FunctionComponent = () => {
       user,
     });
   }, [isLoading]);
+
+  const cheers = (e) => {
+    if (isCheers === false) {
+      const functions = Socket.animation({ setIsCheers });
+      functions.activateCheers();
+      return () => {
+        functions.disconnecting();
+      };
+    }
+  };
 
   if (isLoading) return <Loading />;
   return (
