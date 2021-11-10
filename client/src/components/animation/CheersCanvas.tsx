@@ -9,12 +9,12 @@ const CheersCanvas = ({ isCheers, setIsCheers }) => {
   const canvas = canvasRef.current;
   const ctx = canvas?.getContext('2d');
 
-  const CheersAnimationNum = 2; // GIF 애니메이션의 수
+  const CheersGifNum = 2; // GIF 애니메이션의 수
 
-  let myGif = GIF();
-  let gifURL;
+  let myGif: any = GIF();
+  let gifURL: any;
 
-  const drawImage = (image, x, y, scale, rot) => {
+  const drawImage = (image: any, x: number, y: number, scale: number, rot: number) => {
     if (ctx) {
       ctx.setTransform(scale, 0, 0, scale, x, y); // 수평확대/축소, 수직경사, 수평경사, 수직확대/축소, 수평이동, 수직이동
       ctx.rotate(rot); // 회전
@@ -30,17 +30,21 @@ const CheersCanvas = ({ isCheers, setIsCheers }) => {
 
   const update = () => {
     if (ctx && canvas) {
+      // transform값 초기화
       ctx.setTransform(1, 0, 0, 1, 0, 0);
+      // 창 크기 변했을 때 w,h 조정
       if (w !== window.innerWidth || h !== window.innerHeight) {
         cw = (w = canvas.width = window.innerWidth) / 2;
         ch = (h = canvas.height = window.innerHeight) / 2;
       } else {
+        // 기존 내용 지우기
         ctx.clearRect(0, 0, w, h);
       }
       if (myGif && myGif.lastFrame !== null)
+        // 이미지 새로 그려주기
         drawImage((myGif.lastFrame as any).image, cw, ch, 1, 0);
     }
-    requestAnimationFrame(update);
+    requestAnimationFrame(update); // 연속된 이미지 보여주기
   };
 
   // resize시 canvas의 크기 상태를 변경하는 부분
@@ -52,7 +56,7 @@ const CheersCanvas = ({ isCheers, setIsCheers }) => {
 
   // 랜덤한 gif사진을 뽑아서 출력
   const randomSelect = () => {
-    const randomNum = Math.floor(Math.random() * CheersAnimationNum) + 1;
+    const randomNum = Math.floor(Math.random() * CheersGifNum) + 1;
     gifURL = `/images/beer-cheers${randomNum}.gif`;
     myGif.load(gifURL);
     if (isCheers) {
