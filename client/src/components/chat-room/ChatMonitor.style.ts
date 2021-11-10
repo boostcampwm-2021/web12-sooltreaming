@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
 
 export const Video = styled.video<{ count: number }>`
   min-width: 200px;
-  width: calc(100% / ${(props) => (props.count === 2 ? 2 : Math.ceil(props.count / 2))});
+  max-width: calc(100% / ${(props) => (props.count === 2 ? 2 : Math.ceil(props.count / 2))});
   min-height: 100px;
   height: ${(props) => (props.count > 2 ? 50 : 100)}%;
 
