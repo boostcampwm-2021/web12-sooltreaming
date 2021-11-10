@@ -19,6 +19,32 @@ const webRTC =
         socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
     };
 
+    const deleteStream = (userRef = myStream) => {
+      myStream.getTracks().forEach((track) => {
+        track.stop();
+        userRef.removeTrack(track);
+      });
+      Object.values(peerConnections).forEach((peer: any) => {
+        peer.removeStream(userRef);
+        peer.close();
+      });
+
+      socket.disconnect();
+    };
+
+    const changeStream = (newStream) => {
+      myStream = newStream;
+      const videoTrack = myStream.getVideoTracks()[0];
+      const audioTrack = myStream.getAudioTracks()[0];
+      Object.values(peerConnections).forEach((peer: any) => {
+        const senders = peer.getSenders();
+        const videoSender = senders.find((sender) => sender.track.kind === 'video');
+        if (videoSender) videoSender.replaceTrack(videoTrack);
+        const audioSender = senders.find((sender) => sender.track.kind === 'audio');
+        if (audioSender) audioSender.replaceTrack(audioTrack);
+      });
+    };
+
     socket.on(NEED_OFFERS, (users) => {
       Object.keys(users).forEach(async (sid) => {
         if (sid === socket.id) return;
@@ -62,26 +88,19 @@ const webRTC =
       if (peerConnections[targetSID]) peerConnections[targetSID].addIceCandidate(candidate);
     });
 
-    const changeStream = (newStream) => {
-      myStream = newStream;
-      const videoTrack = myStream.getVideoTracks()[0];
-      const audioTrack = myStream.getAudioTracks()[0];
-      Object.values(peerConnections).forEach((peer: any) => {
-        const senders = peer.getSenders();
-        const videoSender = senders.find((sender) => sender.track.kind === 'video');
-        if (videoSender) videoSender.replaceTrack(videoTrack);
-        const audioSender = senders.find((sender) => sender.track.kind === 'audio');
-        if (audioSender) audioSender.replaceTrack(audioTrack);
+    socket.on('EXIT_ROOM_USER', (sid) => {
+      console.log('EXIT_ROOM_USER');
+      setStreams((prev) => {
+        delete prev[sid];
+        return prev;
       });
-    };
+    });
 
     const disconnecting = () => {
       socket.off(ANSWER);
       socket.off(OFFER);
       socket.off(ICE);
-      Object.values(peerConnections).forEach((peer: any) => {
-        peer.close();
-      });
+      deleteStream();
     };
 
     return {
