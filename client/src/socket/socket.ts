@@ -3,13 +3,10 @@ import webRTC from './webRTC';
 import message from './message';
 import user from './user';
 import host from './host';
-
-const PROTOCOL = process.env.REACT_APP_DEPLOYMENT === 'production' ? 'https' : 'http';
-const HOST = process.env.REACT_APP_BACK_HOST || '';
-const PORT = process.env.REACT_APP_BACK_PORT || '';
+import { BACK_BASE_URL } from '@constant/envs';
 
 const Socket = () => {
-  const socket = io(`${PROTOCOL}://${HOST}${!PORT ? '' : ':'}${PORT}`, {
+  const socket = io(BACK_BASE_URL, {
     transports: ['websocket'],
     upgrade: false,
     forceNew: true,
