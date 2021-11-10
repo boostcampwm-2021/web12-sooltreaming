@@ -10,7 +10,7 @@ import { userState } from '@src/store/user';
 import { Wrapper, VideoSection } from './ChatRoom.style';
 import customRTC from '@utils/customRTC';
 import Loading from '@components/custom/Loading';
-import CanvasScreen from '@components/animation/CanvasScreen';
+import CheersCanvas from '@src/components/animation/CheersCanvas';
 
 const ChatRoom: React.FunctionComponent = () => {
   const history = useHistory();
@@ -25,6 +25,7 @@ const ChatRoom: React.FunctionComponent = () => {
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
   const [stream, setStream] = useState<MediaStream>(new MediaStream());
+  const [isCheers, setIsCheers] = useState<boolean>(false);
 
   useEffect(() => {
     const initStream = async () => {
@@ -42,6 +43,10 @@ const ChatRoom: React.FunctionComponent = () => {
     history.push('/');
   };
 
+  const cheers = (e) => {
+    if (isCheers === false) setIsCheers(true);
+  };
+
   useEffect(() => {
     if (isLoading) return;
     Socket.connect();
@@ -54,13 +59,16 @@ const ChatRoom: React.FunctionComponent = () => {
 
   if (isLoading) return <Loading />;
   return (
-    <Wrapper>
-      <CanvasScreen />
-      <VideoSection>
-        <ChatMonitor users={users} stream={stream} />
-      </VideoSection>
-      <ChatMenu menuType={menuType} setMenuType={setMenuType} />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <CheersCanvas isCheers={isCheers} setIsCheers={setIsCheers} />
+        <VideoSection>
+          <ChatMonitor users={users} stream={stream} />
+        </VideoSection>
+        <ChatMenu menuType={menuType} setMenuType={setMenuType} />
+      </Wrapper>
+      <button onClick={cheers}>건배</button>
+    </>
   );
 };
 
