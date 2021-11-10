@@ -37,14 +37,14 @@ export const LogoDiv = styled.div`
 
 export const ButtonsDiv = styled.div`
   ${flexColumnCenter}
-  margin: 40px 0;
+  margin: 50px 0;
 `;
 
 export const LoginButton = styled.button`
   width: 312px;
   height: 65px;
   padding: 0;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   overflow: hidden;
 
   display: flex;
@@ -57,6 +57,7 @@ export const LoginButton = styled.button`
 
   & > img {
     width: 100%;
+    -webkit-user-drag: none;
   }
 `;
 
