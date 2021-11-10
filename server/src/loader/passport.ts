@@ -1,5 +1,6 @@
 import passport from 'passport';
 import gitHubStrategy from '@controller/passport/github';
+import naverStrategy from '@controller/passport/naver';
 import User from '@models/User';
 import type { ObjectId } from 'mongoose';
 
@@ -16,6 +17,7 @@ const passportLoader = (app) => {
 
   // 전략 설정
   passport.use(gitHubStrategy);
+  passport.use(naverStrategy);
 
   app.use(passport.initialize());
   app.use(passport.session());

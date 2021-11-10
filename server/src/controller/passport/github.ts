@@ -1,17 +1,17 @@
 import GitHubStrategy from 'passport-github';
 import User from '@models/User';
-import { GITHUB_ID, GITHUB_SECRET, GITHUB_CALLBACK_URL } from '@src/constant';
+import { GITHUB_ID, GITHUB_SECRET, OAUTH_CALLBACK_URL } from '@src/constant';
 
-type profileType = {
+interface profileType {
   login: string;
   avatar_url: string;
-};
+}
 
 const gitHubStrategy = new GitHubStrategy.Strategy(
   {
     clientID: GITHUB_ID,
     clientSecret: GITHUB_SECRET,
-    callbackURL: GITHUB_CALLBACK_URL,
+    callbackURL: OAUTH_CALLBACK_URL,
   },
   async (_accessToken, _refreshToken, profile, cb) => {
     try {

@@ -19,6 +19,10 @@ export const DB_PASSWORD = process.env.DB_PASSWORD;
 
 export const GITHUB_ID = process.env.GITHUB_ID;
 export const GITHUB_SECRET = process.env.GITHUB_SECRET;
-export const GITHUB_CALLBACK_URL = process.env.GITHUB_CALLBACK_URL;
+
+export const NAVER_ID = process.env.NAVER_ID;
+export const NAVER_SECRET = process.env.NAVER_SECRET;
+
+export const OAUTH_CALLBACK_URL = process.env.OAUTH_CALLBACK_URL;
 
 export const SESSION_SECRET = process.env.SESSION_SECRET;
