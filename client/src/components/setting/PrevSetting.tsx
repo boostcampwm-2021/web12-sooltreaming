@@ -1,12 +1,12 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Wrapper, Column, PreviewFace } from './PrevSetting.style';
-import { useRecoilStateLoadable, useRecoilState } from 'recoil';
-import { videoState, audioState, videoActiveState, audioActiveState } from '@src/store/device';
+import { useRecoilState } from 'recoil';
+import { videoActiveState, audioActiveState } from '@src/store/device';
 import { VideoIcon, MicIcon } from '@components/icons';
-import customRTC from '@utils/customRTC';
 import SettingMenu from '@components/setting/SettingMenu';
-
 import Loading from '@components/custom/Loading';
+
+import useSetting from '@src/hooks/useSetting';
 
 type PrevSettingType = {
   stream: MediaStream;
@@ -14,60 +14,23 @@ type PrevSettingType = {
 };
 
 const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStream }) => {
+  const {
+    videos,
+    audios,
+    selectedVideo,
+    setSelectedVideo,
+    selectedAudio,
+    setSelectedAudio,
+    isLoading,
+  } = useSetting(stream);
+
   const previewFace = useRef<HTMLVideoElement>(null);
-  const [videos, setVideos] = useState<MediaDeviceInfo[]>([]);
-  const [audios, setAudios] = useState<MediaDeviceInfo[]>([]);
-  const [selectedVideo, setSelectedVideo] = useRecoilStateLoadable(videoState);
-  const [selectedAudio, setSelectedAudio] = useRecoilStateLoadable(audioState);
   const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
   const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const settingMedia = async () => {
-      const videoDevices = await customRTC.getVideos();
-      const audioDevices = await customRTC.getAudios();
-      setIsLoading(false);
-      setVideos(videoDevices);
-      setAudios(audioDevices);
-    };
-    settingMedia();
-  }, []);
 
   useEffect(() => {
     if (!isLoading && previewFace.current) previewFace.current.srcObject = stream;
   }, [isLoading]);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const updateVideoStream = async () => {
-      stream.getVideoTracks().forEach((track) => {
-        track.stop();
-        stream.removeTrack(track);
-      });
-      const newVideoTrack = await customRTC.getVideoTrack(selectedVideo.contents.deviceId);
-      if (!newVideoTrack) return;
-      stream.addTrack(newVideoTrack);
-    };
-    updateVideoStream();
-  }, [selectedVideo]);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const updateAudioStream = async () => {
-      stream.getVideoTracks().forEach((track) => {
-        track.stop();
-        stream.removeTrack(track);
-      });
-      const newAudioTrack = await customRTC.getVideoTrack(selectedAudio.contents.deviceId);
-      if (!newAudioTrack) return;
-      stream.addTrack(newAudioTrack);
-    };
-    updateAudioStream();
-  }, [selectedAudio]);
 
   useEffect(() => {
     if (!previewFace.current || !previewFace.current.srcObject) return;
@@ -75,6 +38,13 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStre
       .getVideoTracks()
       .forEach((track) => (track.enabled = isVideoOn));
   }, [isVideoOn]);
+
+  useEffect(() => {
+    if (!previewFace.current || !previewFace.current.srcObject) return;
+    (previewFace.current.srcObject as MediaStream)
+      .getAudioTracks()
+      .forEach((track) => (track.enabled = isAudioOn));
+  }, [isAudioOn]);
 
   if (!(selectedVideo.state === 'hasValue' && selectedAudio.state === 'hasValue')) return <></>;
 
