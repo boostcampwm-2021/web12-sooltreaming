@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-interface User {
+export type UserType = {
   githubId: string;
   naverId: string;
   nickname: string;
@@ -20,9 +20,9 @@ interface User {
   sendFriend: Array<String>;
   receiveFriend: Array<String>;
   friend: Array<String>;
-}
+};
 
-const userSchema = new Schema<User>(
+const userSchema = new Schema<UserType>(
   {
     // User
     githubId: String,
@@ -93,4 +93,4 @@ const userSchema = new Schema<User>(
   { timestamps: true },
 );
 
-export default model<User>('User', userSchema);
+export default model<UserType>('User', userSchema);
