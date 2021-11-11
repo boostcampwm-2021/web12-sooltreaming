@@ -14,12 +14,20 @@ export const Wrapper = styled.div`
 export const Div = styled.div`
   display: flex;
   justify-content: center;
-  svg {
-    cursor: pointer;
-    margin: 0 5px;
+`;
 
-    &: hover {
+export const Button = styled.button`
+  background-color: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  &: hover {
+    & > svg {
       padding: 2px;
     }
+  }
+  & > svg {
+    pointer-events: none;
   }
 `;
