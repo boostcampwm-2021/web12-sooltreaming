@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import { Wrapper, TitleDiv, CodeInput, BigButton } from './Lobby.style.js';
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootState } from '@src/store';
 import Header from '@src/components/Header';
-import { useRecoilValue } from 'recoil';
-import { userNicknameState } from '@store/user';
 
 const Lobby: React.FunctionComponent = () => {
   const history = useHistory();
-  const nickname = useRecoilValue(userNicknameState);
+  const nickname = useSelector((state: RootState) => state.user.nickname);
   const chatRoomCodeInput = useRef<HTMLInputElement>(null);
 
   const joinChatRoom = () => {

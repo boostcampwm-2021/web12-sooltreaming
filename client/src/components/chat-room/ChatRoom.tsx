@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@src/store';
+import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 import Menu from '@components/chat-room/Menu';
 import ChatMonitor from '@components/chat-room/ChatMonitor';
 import ControlBar from '@components/chat-room/ControlBar';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { errorMessageState } from '@src/store/message';
-import { userState } from '@src/store/user';
 import { Wrapper, VideoSection, ColumnDiv } from './ChatRoom.style';
 import AnimationScreen from '@src/components/animation/AnimationScreen';
 
@@ -33,14 +33,15 @@ const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
   const history = useHistory();
   const { code } = useParams();
 
-  const setMessage = useSetRecoilState(errorMessageState);
-  const user = useRecoilValue(userState);
+  const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
+  const user = { id, imgUrl, nickname };
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
   const [isCheers, setIsCheers] = useState<boolean>(false);
 
   const errorControl = (message) => {
-    setMessage(message);
+    const dispatch = useDispatch();
+    dispatch(setNoticeMessage({ errorMessage: message }));
     history.push('/');
   };
 

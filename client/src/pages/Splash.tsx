@@ -1,30 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useRecoilState } from 'recoil';
-import { userState } from '@store/user';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@src/store';
+import { userLoginRequest } from '@store/user';
 import Loading from '@components/custom/Loading';
 import ServerError from '@components/custom/ServerError';
-import { loginWithSession } from '@api/user';
 
 const Splash: React.FC = ({ children }) => {
+  const dispatch = useDispatch();
+  const { id: userId, isLoadingUser, errorStatus } = useSelector((state: RootState) => state.user);
   const [isFirst, setIsFirst] = useState<boolean>(true);
-  const [errorStatus, setErrorStatus] = useState('');
-  const [userInfo, setUserInfo] = useRecoilState(userState);
-  const isLoggedIn = !!userInfo.id;
+  const hasError = !!errorStatus;
+  const isLoggedIn = !!userId;
 
   useEffect(() => {
-    loginWithSession()
-      .then((data) => {
-        setUserInfo(data);
-        setIsFirst(false);
-      })
-      .catch(({ message }) => {
-        if (message === '401') setIsFirst(false);
-        else setErrorStatus(message);
-      });
+    dispatch(userLoginRequest({}));
   }, []);
 
-  if (!!errorStatus) return <ServerError status={errorStatus} />;
+  useEffect(() => {
+    if (isLoadingUser) setIsFirst(false);
+  }, [isLoadingUser]);
+
+  if (hasError) return <ServerError status={errorStatus} />;
   if (isFirst) return <Loading />;
   if (!isLoggedIn) return <Redirect to="/login" />;
   return <>{children}</>;
