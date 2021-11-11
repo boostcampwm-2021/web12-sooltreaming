@@ -3,7 +3,6 @@ import { COLOR, BTN_STYLE } from '@constant/style';
 
 export const ToggleButton = styled.div`
   width: 45px;
-  margin-right: 10px;
   background-color: none;
   background: none;
   border: none;

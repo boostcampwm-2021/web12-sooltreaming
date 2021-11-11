@@ -12,7 +12,9 @@ export const Wrapper = styled.div`
 `;
 
 export const Div = styled.div`
-  & > svg {
+  display: flex;
+  justify-content: center;
+  svg {
     cursor: pointer;
     margin: 0 5px;
 
