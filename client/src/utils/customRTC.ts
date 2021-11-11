@@ -1,4 +1,14 @@
 const customRTC = () => {
+  const initStream = async () => {
+    const newStream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: true,
+    });
+    newStream?.getVideoTracks().forEach((track) => (track.enabled = false));
+    newStream?.getAudioTracks().forEach((track) => (track.enabled = false));
+    return newStream;
+  };
+
   const getVideos = async () => {
     const devices = await navigator.mediaDevices.enumerateDevices();
     const videos = devices.filter(({ kind }) => kind === 'videoinput');
@@ -75,6 +85,7 @@ const customRTC = () => {
   };
 
   return {
+    initStream,
     getVideos,
     getAudios,
     getVideoTrack,
