@@ -64,7 +64,10 @@ const ChatRoom: React.FunctionComponent = () => {
 
   const cheers = (e) => {
     if (isCheers) return;
-    activateCheers.current();
+    activateCheers.current({
+      chatRoomCode: code,
+      user,
+    });
   };
 
   if (isLoading) return <Loading />;
@@ -75,7 +78,7 @@ const ChatRoom: React.FunctionComponent = () => {
         <VideoSection>
           <ChatMonitor users={users} stream={stream} />
         </VideoSection>
-        <ChatMenu menuType={menuType} setMenuType={setMenuType} />
+        <ChatMenu menuType={menuType} setMenuType={setMenuType} code={code} user={user} />
       </Wrapper>
       <button onClick={cheers}>건배</button>
     </>
