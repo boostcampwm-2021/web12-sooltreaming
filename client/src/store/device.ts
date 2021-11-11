@@ -16,7 +16,7 @@ const initialState: DeviceStateType = {
   audioInfo: null,
   videoDevices: [],
   audioDevices: [],
-  isLoading: false,
+  isLoading: true,
 };
 
 export const [SET_VIDEO_POWER, setVideoPower] =

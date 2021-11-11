@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Wrapper, Column, PreviewFace } from './PrevSetting.style';
+import { useDispatch } from 'react-redux';
+import { setVideoInfo, setAudioInfo, setVideoPower, setAudioPower } from '@store/device';
 import { VideoIcon, MicIcon } from '@components/icons';
 import SettingMenu from '@components/setting/SettingMenu';
 import Loading from '@components/custom/Loading';
@@ -12,20 +14,10 @@ type PrevSettingType = {
 };
 
 const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
-  const {
-    videos,
-    audios,
-    selectedVideo,
-    setSelectedVideo,
-    selectedAudio,
-    setSelectedAudio,
-    isLoading,
-    isVideoOn,
-    isAudioOn,
-    setIsVideoOn,
-    setIsAudioOn,
-  } = useSetting(stream);
+  const { isVideoOn, isAudioOn, videoInfo, audioInfo, videoDevices, audioDevices, isLoading } =
+    useSetting(stream);
 
+  const dispatch = useDispatch();
   const previewFace = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -46,8 +38,6 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
       .forEach((track) => (track.enabled = isAudioOn));
   }, [isAudioOn]);
 
-  if (!(selectedVideo.state === 'hasValue' && selectedAudio.state === 'hasValue')) return <></>;
-
   return isLoading ? (
     <Loading />
   ) : (
@@ -56,19 +46,27 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
       <Column>
         <SettingMenu
           isDeviceOn={isVideoOn}
-          setIsDeviceOn={setIsVideoOn}
+          setIsDeviceOn={() => {
+            dispatch(setVideoPower({ isVideoOn: !isVideoOn }));
+          }}
           Icon={VideoIcon}
-          menuList={videos}
-          selected={selectedVideo.contents}
-          setSelected={setSelectedVideo}
+          menuList={videoDevices}
+          selected={videoInfo}
+          setSelected={(item) => {
+            dispatch(setVideoInfo({ videoInfo: item }));
+          }}
         />
         <SettingMenu
           isDeviceOn={isAudioOn}
-          setIsDeviceOn={setIsAudioOn}
+          setIsDeviceOn={() => {
+            dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
+          }}
           Icon={MicIcon}
-          menuList={audios}
-          selected={selectedAudio.contents}
-          setSelected={setSelectedAudio}
+          menuList={audioDevices}
+          selected={audioInfo}
+          setSelected={(item) => {
+            dispatch(setAudioInfo({ audioInfo: item }));
+          }}
         />
       </Column>
     </Wrapper>

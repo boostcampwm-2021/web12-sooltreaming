@@ -9,7 +9,7 @@ import {
 import { loginWithSession } from '@api/user';
 
 // 로그인
-async function UserLoginAPI({ email, password }: any) {
+async function UserLoginAPI({}: any) {
   const data = await loginWithSession();
   return data;
 }
@@ -18,7 +18,7 @@ function* LogInUser(action: ReturnType<typeof userLoginRequest>) {
     const result: UserStateType = yield call(UserLoginAPI, action.payload);
     yield put(userLoginSuccess(result));
   } catch ({ message }) {
-    yield put(userLoginFailure(message));
+    yield put(userLoginFailure({ message: message as string }));
   }
 }
 function* watchLogInUser() {

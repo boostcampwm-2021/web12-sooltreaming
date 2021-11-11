@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { COLOR, BTN_STYLE } from '@constant/style';
 
 export const ToggleButton = styled.div`
   width: 45px;
@@ -15,8 +14,8 @@ export const ToggleButton = styled.div`
 export const IconDiv = styled.div`
   position: absolute;
 
-  &: hover {
-    & svg {
+  &:hover {
+    svg {
       padding: 2px;
     }
     cursor: pointer;

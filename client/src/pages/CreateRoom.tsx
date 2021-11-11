@@ -6,10 +6,10 @@ import Socket from '@socket/socket';
 import Loading from '@components/custom/Loading';
 
 const CreateRoom: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    const dispatch = useDispatch();
     Socket.connect();
 
     const waiting = setTimeout(() => {

@@ -29,6 +29,7 @@ export type MenuPropTypes = {
 };
 
 const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
+  const dispatch = useDispatch();
   const activateCheers = useRef<any>(() => {});
   const history = useHistory();
   const { code } = useParams();
@@ -40,7 +41,6 @@ const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
   const [isCheers, setIsCheers] = useState<boolean>(false);
 
   const errorControl = (message) => {
-    const dispatch = useDispatch();
     dispatch(setNoticeMessage({ errorMessage: message }));
     history.push('/');
   };

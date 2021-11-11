@@ -8,10 +8,10 @@ import ServerError from '@components/custom/ServerError';
 
 const Splash: React.FC = ({ children }) => {
   const dispatch = useDispatch();
-  const { id: userId, isLoadingUser, errorStatus } = useSelector((state: RootState) => state.user);
+  const { id, isLoadingUser, errorStatus } = useSelector((state: RootState) => state.user);
   const [isFirst, setIsFirst] = useState<boolean>(true);
   const hasError = !!errorStatus;
-  const isLoggedIn = !!userId;
+  const isLoggedIn = !!id;
 
   useEffect(() => {
     dispatch(userLoginRequest({}));
@@ -22,7 +22,7 @@ const Splash: React.FC = ({ children }) => {
   }, [isLoadingUser]);
 
   if (hasError) return <ServerError status={errorStatus} />;
-  if (isFirst) return <Loading />;
+  if (isFirst || isLoadingUser) return <Loading />;
   if (!isLoggedIn) return <Redirect to="/login" />;
   return <>{children}</>;
 };

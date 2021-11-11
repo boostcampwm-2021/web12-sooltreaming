@@ -1,8 +1,10 @@
 import React from 'react';
 import DeviceToggleButton from '@components/setting/DeviceToggleButton';
 import type { ControlBarPropTypes } from '@components/chat-room/ChatRoom';
-import { useRecoilState } from 'recoil';
-import { videoActiveState, audioActiveState } from '@src/store/device';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@src/store';
+import { setVideoPower, setAudioPower } from '@store/device';
+
 import {
   HostIcon,
   GameIcon,
@@ -22,8 +24,8 @@ const IconButton = (Icon: React.ReactNode, className: string) => {
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
 const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, setMenuType }) => {
-  const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
-  const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
+  const dispatch = useDispatch();
+  const { isVideoOn, isAudioOn } = useSelector((state: RootState) => state.device);
 
   const MENU = {
     클로즈업: () => {},
@@ -48,8 +50,20 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, setMenuType 
         {IconButton(<ChatIcon />, '채팅')}
         {IconButton(<SettingIcon />, '설정')}
 
-        <DeviceToggleButton Icon={VideoIcon} isDeviceOn={isVideoOn} setIsDeviceOn={setIsVideoOn} />
-        <DeviceToggleButton Icon={MicIcon} isDeviceOn={isAudioOn} setIsDeviceOn={setIsAudioOn} />
+        <DeviceToggleButton
+          Icon={VideoIcon}
+          isDeviceOn={isVideoOn}
+          setIsDeviceOn={() => {
+            dispatch(setVideoPower({ isVideoOn: !isVideoOn }));
+          }}
+        />
+        <DeviceToggleButton
+          Icon={MicIcon}
+          isDeviceOn={isAudioOn}
+          setIsDeviceOn={() => {
+            dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
+          }}
+        />
       </Div>
 
       <Div>

@@ -1,5 +1,7 @@
 import React from 'react';
 import { Wrapper, Column } from './RoomSetting.style';
+import { useDispatch } from 'react-redux';
+import { setVideoInfo, setAudioInfo } from '@store/device';
 import SettingDropdown from '@components/setting/SettingDropdown';
 import useSetting from '@src/hooks/useSetting';
 
@@ -8,17 +10,8 @@ type RoomSettingType = {
 };
 
 const RoomSetting: React.FunctionComponent<RoomSettingType> = ({ stream }) => {
-  const {
-    videos,
-    audios,
-    selectedVideo,
-    setSelectedVideo,
-    selectedAudio,
-    setSelectedAudio,
-    isLoading,
-  } = useSetting(stream);
-
-  if (!(selectedVideo.state === 'hasValue' && selectedAudio.state === 'hasValue')) return <></>;
+  const { videoInfo, audioInfo, videoDevices, audioDevices, isLoading } = useSetting(stream);
+  const dispatch = useDispatch();
 
   return (
     <Wrapper>
@@ -27,14 +20,18 @@ const RoomSetting: React.FunctionComponent<RoomSettingType> = ({ stream }) => {
       ) : (
         <Column>
           <SettingDropdown
-            menuList={videos}
-            selected={selectedVideo.contents}
-            setSelected={setSelectedVideo}
+            menuList={videoDevices}
+            selected={videoInfo}
+            setSelected={(item) => {
+              dispatch(setVideoInfo({ videoInfo: item }));
+            }}
           />
           <SettingDropdown
-            menuList={audios}
-            selected={selectedAudio.contents}
-            setSelected={setSelectedAudio}
+            menuList={audioDevices}
+            selected={audioInfo}
+            setSelected={(item) => {
+              dispatch(setAudioInfo({ audioInfo: item }));
+            }}
           />
         </Column>
       )}
