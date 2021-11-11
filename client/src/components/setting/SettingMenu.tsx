@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Wrapper } from './SettingMenu.style';
 import DeviceToggleButton from '@components/setting/DeviceToggleButton';
 import SettingDropdown from '@components/setting/SettingDropdown';

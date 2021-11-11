@@ -56,6 +56,12 @@ export const UserLink = styled.a`
     background-color: ${COLOR.white};
     border-radius: 50%;
     border: 2px solid ${COLOR.line};
+    overflow: hidden;
+
+    & > img {
+      width: 100%;
+      height: 100%;
+    }
   }
 
   & > span {

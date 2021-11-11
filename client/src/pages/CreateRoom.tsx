@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
-import { useSetRecoilState } from 'recoil';
-import { errorMessageState } from '@src/store/message';
 import Loading from '@components/custom/Loading';
 
 const CreateRoom: React.FunctionComponent = () => {
-  const setMessage = useSetRecoilState(errorMessageState);
+  const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
     Socket.connect();
 
     const waiting = setTimeout(() => {
-      setMessage('방을 생성하지 못 했습니다.');
+      dispatch(setNoticeMessage({ errorMessage: '방을 생성하지 못 했습니다.' }));
       history.replace('/');
     }, 5000);
     const joining = ({ roomCode }) => {

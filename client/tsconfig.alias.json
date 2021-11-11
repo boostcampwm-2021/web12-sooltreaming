@@ -10,6 +10,7 @@
       "@pages/*": ["./pages/*"],
       "@socket/*": ["./socket/*"],
       "@store/*": ["./store/*"],
+      "@sagas/*": ["./sagas/*"],
       "@utils/*": ["./utils/*"]
     }
   }

@@ -14,7 +14,12 @@ const QuestionMark: React.FC<QuestionMarkPropTypes> = ({ identifier, disappearSe
       disappearSelf(identifier);
     }, 1900);
   }, []);
-  return <QuestionImg x={x} y={y} />;
+  return (
+    <>
+      <QuestionImg x={x} y={y} />
+      <audio src="/audios/mia-ping.mp3" autoPlay></audio>
+    </>
+  );
 };
 
 export default QuestionMark;

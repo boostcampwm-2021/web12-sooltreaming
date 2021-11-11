@@ -1,5 +1,5 @@
 <div>
-  <img align="left" src="https://user-images.githubusercontent.com/55688122/140643992-8ecd6dc4-0939-4775-9ed0-1874d1459986.png" width="120"/>
+  <img align="left" src="https://user-images.githubusercontent.com/55688122/140643992-8ecd6dc4-0939-4775-9ed0-1874d1459986.png" width="160"/>
   <div align="right">
     <a align="right" href="https://github.com/boostcampwm-2021/web12-sooltreaming">
       <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fboostcampwm-2021%2Fweb12-sooltreaming&count_bg=%233D61C8&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=hits&edge_flat=false"/>
@@ -16,7 +16,32 @@
   </div>
 </div>
 
-<hr/>
+<br/>
+<bt/>
+
+<div align="center"> 
+<h3>코시국에 즐거운 술자리 문화 형성을 위해서 화상채팅과 온라인 술게임을 제공하는 애플리케이션</h3>
+</div>
+
+<br/>
+<br/>
+
+**코시국**에 어떻ㄱㅔ **술**을 드시고 계십ㄴ까 ❓
+
+**MT, OT** 그리ㅂ지 않으. 십니까 ❓
+
+술 게임, 술자ㄹㅣ를 호시타ㅁ탐 기회를 노려온 당신의 **DRAEM**....
+
+<div align="center">
+<img src="https://user-images.githubusercontent.com/14370441/138673328-6b8c55cb-14d3-48f8-956c-c78ee9ad1499.png"/>
+<h3>will be coe...m(?) TRUE......</h3>
+</div>
+
+저희 주.당.즈 가.
+
+당신의 꾸믈. 이루어 드리겟. 습ㄴ;다.
+
+<br/>
 
 <table>
   <tr>
@@ -86,7 +111,7 @@
   <tr>
     <td>배포 페이지</td>
     <td>
-      <a href="http://115.85.181.24/">
+      <a href="https://sooltreaming.kro.kr/">
         👉 배포 페이지 바로가기
       </a>
     </td>
@@ -103,47 +128,15 @@
 
 <br/>
 
-## 🍓 기획 의도
+## 👀 프로젝트 주요 기능
 
-**코시국**에 어떻ㄱㅔ **술**을 드시고 계십ㄴ까 ❓
+<img src="https://user-images.githubusercontent.com/55688122/141358150-4e49f4bf-fa12-447f-a75a-e0ad526fb65f.png"/>
 
-**MT, OT** 그리ㅂ지 않으. 십니까 ❓
-
-술 게임, 술자ㄹㅣ를 호시타ㅁ탐 기회를 노려온 당신의 **DRAEM**....
-
-<div align="center">
-<img src="https://user-images.githubusercontent.com/14370441/138673328-6b8c55cb-14d3-48f8-956c-c78ee9ad1499.png"/>
-<h3>will be coe...m(?) TRUE......</h3>
-</div>
-
-저희 주.당.즈 가.
-
-당신의 꾸믈. 이루어 드리겟. 습ㄴ;다.
-
-## 🌱 프로젝트 소개
-
-- 코시국에 즐거운 술자리 문화 형성을 위해서 화상채팅과 온라인 술게임을 제공하는 애플리케이션입니다!
-
-## 👀 프로젝트 주요 기능 <추후 수정 예정>
-
-- 화상 채팅
-- ? 찍기
-- 라이어 게임
-- 랜덤뽑기
-- 건배 기능
-- 특정인 클로즈업
-- 투표 기능
-- 업다운
-
-## 📕 Ground Rule
-
-> [Ground Rule](https://colossal-playroom-b51.notion.site/v1-0-0-ebba1117a39945748a4084beb3ed2981)
-
-## 🎨 WireFrame
-
-> [WireFrame](https://www.figma.com/file/A8f3IsRebQP2AAgRWnJ0cb/sooltreaming?node-id=0%3A1)
+## 🎨 [WireFrame](https://www.figma.com/file/A8f3IsRebQP2AAgRWnJ0cb/sooltreaming?node-id=0%3A1)
 
 ![image](https://user-images.githubusercontent.com/55688122/139286653-6498c96e-7a74-4ad5-94c8-bdfcf06f73e7.png)
+
+## 📕 [Ground Rule](https://colossal-playroom-b51.notion.site/7f0b1f767ec845d5abfc20301c7fd76d)
 
 ## 🎥 시연영상
 

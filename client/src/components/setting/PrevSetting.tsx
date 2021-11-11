@@ -1,73 +1,28 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Wrapper, Column, PreviewFace } from './PrevSetting.style';
-import { useRecoilStateLoadable, useRecoilState } from 'recoil';
-import { videoState, audioState, videoActiveState, audioActiveState } from '@src/store/device';
+import { useDispatch } from 'react-redux';
+import { setVideoInfo, setAudioInfo, setVideoPower, setAudioPower } from '@store/device';
 import { VideoIcon, MicIcon } from '@components/icons';
-import customRTC from '@utils/customRTC';
 import SettingMenu from '@components/setting/SettingMenu';
-
 import Loading from '@components/custom/Loading';
+
+import useSetting from '@src/hooks/useSetting';
 
 type PrevSettingType = {
   stream: MediaStream;
   setStream: any;
 };
 
-const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStream }) => {
+const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
+  const { isVideoOn, isAudioOn, videoInfo, audioInfo, videoDevices, audioDevices, isLoading } =
+    useSetting(stream);
+
+  const dispatch = useDispatch();
   const previewFace = useRef<HTMLVideoElement>(null);
-  const [videos, setVideos] = useState<MediaDeviceInfo[]>([]);
-  const [audios, setAudios] = useState<MediaDeviceInfo[]>([]);
-  const [selectedVideo, setSelectedVideo] = useRecoilStateLoadable(videoState);
-  const [selectedAudio, setSelectedAudio] = useRecoilStateLoadable(audioState);
-  const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
-  const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
-
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    const settingMedia = async () => {
-      const videoDevices = await customRTC.getVideos();
-      const audioDevices = await customRTC.getAudios();
-      setIsLoading(false);
-      setVideos(videoDevices);
-      setAudios(audioDevices);
-    };
-    settingMedia();
-  }, []);
 
   useEffect(() => {
     if (!isLoading && previewFace.current) previewFace.current.srcObject = stream;
   }, [isLoading]);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const updateVideoStream = async () => {
-      stream.getVideoTracks().forEach((track) => {
-        track.stop();
-        stream.removeTrack(track);
-      });
-      const newVideoTrack = await customRTC.getVideoTrack(selectedVideo.contents.deviceId);
-      if (!newVideoTrack) return;
-      stream.addTrack(newVideoTrack);
-    };
-    updateVideoStream();
-  }, [selectedVideo]);
-
-  useEffect(() => {
-    if (isLoading) return;
-
-    const updateAudioStream = async () => {
-      stream.getVideoTracks().forEach((track) => {
-        track.stop();
-        stream.removeTrack(track);
-      });
-      const newAudioTrack = await customRTC.getVideoTrack(selectedAudio.contents.deviceId);
-      if (!newAudioTrack) return;
-      stream.addTrack(newAudioTrack);
-    };
-    updateAudioStream();
-  }, [selectedAudio]);
 
   useEffect(() => {
     if (!previewFace.current || !previewFace.current.srcObject) return;
@@ -76,7 +31,12 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStre
       .forEach((track) => (track.enabled = isVideoOn));
   }, [isVideoOn]);
 
-  if (!(selectedVideo.state === 'hasValue' && selectedAudio.state === 'hasValue')) return <></>;
+  useEffect(() => {
+    if (!previewFace.current || !previewFace.current.srcObject) return;
+    (previewFace.current.srcObject as MediaStream)
+      .getAudioTracks()
+      .forEach((track) => (track.enabled = isAudioOn));
+  }, [isAudioOn]);
 
   return isLoading ? (
     <Loading />
@@ -86,19 +46,27 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStre
       <Column>
         <SettingMenu
           isDeviceOn={isVideoOn}
-          setIsDeviceOn={setIsVideoOn}
+          setIsDeviceOn={() => {
+            dispatch(setVideoPower({ isVideoOn: !isVideoOn }));
+          }}
           Icon={VideoIcon}
-          menuList={videos}
-          selected={selectedVideo.contents}
-          setSelected={setSelectedVideo}
+          menuList={videoDevices}
+          selected={videoInfo}
+          setSelected={(item) => {
+            dispatch(setVideoInfo({ videoInfo: item }));
+          }}
         />
         <SettingMenu
           isDeviceOn={isAudioOn}
-          setIsDeviceOn={setIsAudioOn}
+          setIsDeviceOn={() => {
+            dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
+          }}
           Icon={MicIcon}
-          menuList={audios}
-          selected={selectedAudio.contents}
-          setSelected={setSelectedAudio}
+          menuList={audioDevices}
+          selected={audioInfo}
+          setSelected={(item) => {
+            dispatch(setAudioInfo({ audioInfo: item }));
+          }}
         />
       </Column>
     </Wrapper>

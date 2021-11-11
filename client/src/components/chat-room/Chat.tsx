@@ -1,21 +1,19 @@
 import React, { useEffect, useState, useRef } from 'react';
 import Socket from '@socket/socket';
 import { Wrapper, MessageList } from './Chat.style';
-import { useRecoilState } from 'recoil';
-import { chatCountState } from '@src/store/message';
 import ChatItem from '@components/chat-room/ChatItem';
 import ChatForm from '@components/chat-room/ChatForm';
 
 type ChatPropTypes = {
   code: string;
   user: object;
+  users: any;
 };
 
-const Chat: React.FC<ChatPropTypes> = ({ code, user }) => {
+const Chat: React.FC<ChatPropTypes> = ({ code, user, users }) => {
   const emits = useRef<any>(() => {});
   const chatWindow = useRef<HTMLUListElement>(null);
   const [chatLog, setChatLog] = useState([]);
-  const [unCheckCount, setUnCheckCount] = useRecoilState(chatCountState);
   const myID = Socket.getSID();
 
   const downScroll = () => {
@@ -41,7 +39,14 @@ const Chat: React.FC<ChatPropTypes> = ({ code, user }) => {
     <Wrapper>
       <MessageList ref={chatWindow}>
         {chatLog.map(({ sid, msg, date }, index) => (
-          <ChatItem isSelf={myID === sid} message={msg} date={date} key={index} />
+          <ChatItem
+            isSelf={myID === sid}
+            message={msg}
+            date={date}
+            key={index}
+            users={users}
+            sid={sid}
+          />
         ))}
       </MessageList>
       <ChatForm emits={emits} code={code} user={user} />

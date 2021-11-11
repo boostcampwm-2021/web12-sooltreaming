@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { useRecoilState } from 'recoil';
-import { errorMessageState } from '@src/store/message';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@src/store';
+import { setNoticeMessage } from '@store/notice';
 
 const ErrorToast: React.FC = () => {
-  const [errorMessage, setErrorMessage] = useRecoilState(errorMessageState);
+  const dispatch = useDispatch();
+  const errorMessage = useSelector((state: RootState) => state.notice.errorMessage);
   const [displayMessage, setDisplayMessage] = useState<string>('');
   const [previousAct, setPreviousAct] = useState<ReturnType<typeof setTimeout> | null>(null);
 
@@ -18,7 +20,7 @@ const ErrorToast: React.FC = () => {
     const closeMethod = setTimeout(activeMessage, 1500);
     setPreviousAct(closeMethod);
     setDisplayMessage(errorMessage);
-    setErrorMessage('');
+    dispatch(setNoticeMessage({ errorMessage: '' }));
   }, [errorMessage]);
 
   if (!displayMessage) return <></>;

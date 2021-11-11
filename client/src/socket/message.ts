@@ -14,6 +14,7 @@ const message = (socket: Socket) => (closure: any) => {
 
   const sendMessage = (mydata) => {
     socket.emit(PASSING_MESSAGE, mydata);
+    console.log(mydata, 'test');
   };
   const disconnecting = () => {
     socket.off(RECEIVE_MESSAGE);
