@@ -11,7 +11,6 @@ const Splash: React.FC = ({ children }) => {
   const [errorStatus, setErrorStatus] = useState('');
   const [userInfo, setUserInfo] = useRecoilState(userState);
   const isLoggedIn = !!userInfo.id;
-  console.log(userInfo, isLoggedIn);
 
   useEffect(() => {
     loginWithSession()

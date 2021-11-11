@@ -5,12 +5,12 @@ import { userState } from '@src/store/user';
 import { HumanIcon } from '@components/icons';
 
 const Header: React.FC = () => {
-  const { id, nickname } = useRecoilValue(userState);
+  const { nickname, imgUrl } = useRecoilValue(userState);
 
   return (
     <Wrapper>
       <LogoLink href="/">
-        <img src="/images/logo.png" />
+        <img src={imgUrl || '/images/logo.png'} />
         <span>Sooltreaming</span>
       </LogoLink>
       <UserLink>
