@@ -10,6 +10,7 @@ export const Wrapper = styled.div`
 export const ScreenImg = styled.img`
   width: 100%;
   height: 100%;
+  display: none;
 `;
 
 export const QuestionList = styled.div`
