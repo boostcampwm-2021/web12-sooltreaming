@@ -4,6 +4,8 @@ import message from './message';
 import user from './user';
 import host from './host';
 import { BACK_BASE_URL } from '@constant/envs';
+import animation from './animation';
+import questionmark from './questionmark';
 
 const Socket = () => {
   const socket = io(BACK_BASE_URL, {
@@ -21,6 +23,8 @@ const Socket = () => {
     message: message(socket),
     user: user(socket),
     host: host(socket),
+    animation: animation(socket),
+    questionmark: questionmark(socket),
   };
 };
 export default Socket();

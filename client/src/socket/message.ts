@@ -5,13 +5,16 @@ const PASSING_MESSAGE = 'PASSING_MESSAGE';
 
 const message = (socket: Socket) => (closure: any) => {
   const { setChatLog } = closure;
-
+  console.log(socket, '채팅소켓');
   socket.on(RECEIVE_MESSAGE, (chat) => {
-    setChatLog((prev) => [...prev, { ...chat }]);
+    setChatLog((prev) => {
+      return [...prev, { ...chat }];
+    });
   });
 
-  const sendMessage = (chat) => socket.emit(PASSING_MESSAGE, chat);
-
+  const sendMessage = (mydata) => {
+    socket.emit(PASSING_MESSAGE, mydata);
+  };
   const disconnecting = () => {
     socket.off(RECEIVE_MESSAGE);
   };

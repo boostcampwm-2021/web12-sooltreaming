@@ -4,13 +4,19 @@ import { PaperPlaneIcon } from '@components/icons';
 
 type ChatFormPropTypes = {
   emits: any;
+  code: string;
+  user: object;
 };
 
-const ChatForm: React.FC<ChatFormPropTypes> = ({ emits }) => {
+const ChatForm: React.FC<ChatFormPropTypes> = ({ emits, code, user }) => {
   const [message, setMessage] = useState<string>('');
 
-  const onSubmitMessage = () => {
-    emits.current?.sendMessage({ message });
+  const onSubmitMessage = (e) => {
+    emits.current({
+      msg: message,
+      chatRoomCode: code,
+      user,
+    });
     setMessage('');
   };
 
