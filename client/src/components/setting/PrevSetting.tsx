@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { Wrapper, Column, PreviewFace } from './SettingWindow.style.js';
+import { Wrapper, Column, PreviewFace } from './PrevSetting.style';
 import { useRecoilStateLoadable, useRecoilState } from 'recoil';
 import { videoState, audioState, videoActiveState, audioActiveState } from '@src/store/device';
 import { VideoIcon, MicIcon } from '@components/icons';
@@ -8,12 +8,12 @@ import SettingMenu from '@components/setting/SettingMenu';
 
 import Loading from '@components/custom/Loading';
 
-type settingModalType = {
+type PrevSettingType = {
   stream: MediaStream;
   setStream: any;
 };
 
-const SettingModal: React.FunctionComponent<settingModalType> = ({ stream, setStream }) => {
+const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStream }) => {
   const previewFace = useRef<HTMLVideoElement>(null);
   const [videos, setVideos] = useState<MediaDeviceInfo[]>([]);
   const [audios, setAudios] = useState<MediaDeviceInfo[]>([]);
@@ -105,4 +105,4 @@ const SettingModal: React.FunctionComponent<settingModalType> = ({ stream, setSt
   );
 };
 
-export default SettingModal;
+export default PrevSetting;
