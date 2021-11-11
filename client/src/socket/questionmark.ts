@@ -7,7 +7,9 @@ const questionmark = (socket: Socket) => (closure: any) => {
   let count = 0;
 
   socket.on(QUESTION, ({ x, y }) => {
+    const mia = new Audio(`/audios/mia-ping.mp3`);
     setMarks((prev) => {
+      mia.play();
       count++;
       return { ...prev, [count]: { x, y } };
     });
