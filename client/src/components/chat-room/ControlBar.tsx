@@ -20,18 +20,18 @@ import {
 import { Wrapper, Div } from '@components/chat-room/ControlBar.style';
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
-const ControlBar: React.FC<ControlBarPropTypes> = ({ setMenuType }) => {
+const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, setMenuType }) => {
   const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
   const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
 
   const MENU = {
     클로즈업: {},
-    건배: {},
+    건배: onClickCheers,
   };
   const selectedMenu = ({ target }) => {
     const menuName = target.className.baseVal;
     if (!menuName) return;
-    MENU[menuName] || setMenuType((prev) => (prev === menuName ? '' : menuName));
+    (MENU[menuName] || setMenuType((prev) => (prev === menuName ? '' : menuName)))();
   };
 
   return (

@@ -15,6 +15,7 @@ type ChatRoomTypes = {
 };
 
 export type ControlBarPropTypes = {
+  onClickCheers: any;
   menuType: string;
   setMenuType: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -23,6 +24,8 @@ export type MenuPropTypes = {
   stream: MediaStream;
   menuType: string;
   setMenuType: React.Dispatch<React.SetStateAction<string>>;
+  code: string;
+  user: object;
 };
 
 const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
@@ -73,9 +76,9 @@ const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
           <ChatMonitor users={users} stream={stream} />
           <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} code={code} user={user} />
         </VideoSection>
-        <ControlBar menuType={menuType} setMenuType={setMenuType} />
+        <ControlBar onClickCheers={cheers} menuType={menuType} setMenuType={setMenuType} />
       </ColumnDiv>
-      <Menu stream={stream} menuType={menuType} setMenuType={setMenuType} />
+      <Menu stream={stream} menuType={menuType} setMenuType={setMenuType} code={code} user={user} />
     </Wrapper>
   );
 };

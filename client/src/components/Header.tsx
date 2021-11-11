@@ -10,13 +10,11 @@ const Header: React.FC = () => {
   return (
     <Wrapper>
       <LogoLink href="/">
-        <img src={imgUrl || '/images/logo.png'} />
+        <img src={'/images/logo.png'} />
         <span>Sooltreaming</span>
       </LogoLink>
       <UserLink>
-        <div className="User-Profile">
-          <HumanIcon />
-        </div>
+        <div className="User-Profile">{!imgUrl ? <HumanIcon /> : <img src={imgUrl} />}</div>
         <span>{nickname || 'judangs'}</span>
       </UserLink>
     </Wrapper>
