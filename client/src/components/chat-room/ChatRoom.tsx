@@ -11,15 +11,20 @@ import { Wrapper, VideoSection, ColumnDiv } from './ChatRoom.style';
 
 type ChatRoomTypes = {
   stream: MediaStream;
-  setStream: any;
 };
 
-export type MenuPropTypes = {
+export type ControlBarPropTypes = {
   menuType: string;
   setMenuType: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream, setStream }) => {
+export type MenuPropTypes = {
+  stream: MediaStream;
+  menuType: string;
+  setMenuType: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
   const history = useHistory();
   const { code } = useParams();
 
@@ -50,7 +55,7 @@ const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream, setStream })
         </VideoSection>
         <ControlBar menuType={menuType} setMenuType={setMenuType} />
       </ColumnDiv>
-      <Menu menuType={menuType} setMenuType={setMenuType} />
+      <Menu stream={stream} menuType={menuType} setMenuType={setMenuType} />
     </Wrapper>
   );
 };
