@@ -10,4 +10,5 @@ export const Wrapper = styled.div`
 
 export const VideoSection = styled.section`
   flex: 1 1 auto;
+  overflow: hidden;
 `;

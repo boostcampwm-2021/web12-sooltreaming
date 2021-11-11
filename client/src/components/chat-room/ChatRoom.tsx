@@ -10,7 +10,7 @@ import { userState } from '@src/store/user';
 import { Wrapper, VideoSection } from './ChatRoom.style';
 import customRTC from '@utils/customRTC';
 import Loading from '@components/custom/Loading';
-import CheersCanvas from '@src/components/animation/CheersCanvas';
+import AnimationScreen from '@src/components/animation/AnimationScreen';
 
 const ChatRoom: React.FunctionComponent = () => {
   const activateCheers = useRef<any>(() => {});
@@ -74,9 +74,9 @@ const ChatRoom: React.FunctionComponent = () => {
   return (
     <>
       <Wrapper>
-        <CheersCanvas isCheers={isCheers} setIsCheers={setIsCheers} />
         <VideoSection>
           <ChatMonitor users={users} stream={stream} />
+          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} />
         </VideoSection>
         <ChatMenu menuType={menuType} setMenuType={setMenuType} code={code} user={user} />
       </Wrapper>

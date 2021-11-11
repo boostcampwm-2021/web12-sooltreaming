@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Socket from '@socket/socket';
 import { useRecoilState } from 'recoil';
 import { videoActiveState, audioActiveState } from '@src/store/device';
+import { Wrapper } from './ChatMonitor.style';
 
 type ChatFormPropTypes = {
   users: any;
@@ -39,7 +40,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
   }, [stream]);
 
   return (
-    <>
+    <Wrapper>
       <video
         className="myFace"
         ref={myVideoRef}
@@ -60,7 +61,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
       {Object.values(streams).map((otherStream) => {
         return <OtherVideo srcObject={otherStream} />;
       })}
-    </>
+    </Wrapper>
   );
 };
 
