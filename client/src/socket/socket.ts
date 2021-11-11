@@ -4,6 +4,7 @@ import message from './message';
 import user from './user';
 import host from './host';
 import animation from './animation';
+import questionmark from './questionmark';
 
 const PROTOCOL = process.env.REACT_APP_DEPLOYMENT === 'production' ? 'https' : 'http';
 const HOST = process.env.REACT_APP_BACK_HOST || '';
@@ -26,6 +27,7 @@ const Socket = () => {
     user: user(socket),
     host: host(socket),
     animation: animation(socket),
+    questionmark: questionmark(socket),
   };
 };
 export default Socket();

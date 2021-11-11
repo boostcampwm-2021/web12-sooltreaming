@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Wrapper, ScreenImg, QuestionList } from './AnimationScreen.style';
 import QuestionMark from './QuestionMark';
+import Socket from '@socket/socket';
 
 const CHEERS_GIF_NUM = 2;
 const LISTED_GIF = ['/images/beer-cheers1.gif', '/images/beer-cheers2.gif'];
@@ -8,16 +9,23 @@ const LISTED_GIF = ['/images/beer-cheers1.gif', '/images/beer-cheers2.gif'];
 type AnimationScreenPropsType = {
   isCheers: any;
   setIsCheers: any;
+  code: string;
+  user: object;
 };
 
 type MarkType = {
   [key: number]: { x: number; y: number };
 };
 
-const AnimationScreen: React.FC<AnimationScreenPropsType> = ({ isCheers, setIsCheers }) => {
+const AnimationScreen: React.FC<AnimationScreenPropsType> = ({
+  isCheers,
+  setIsCheers,
+  code,
+  user,
+}) => {
+  const question = useRef<any>(() => {});
   const screenRef = useRef<HTMLImageElement>(null);
   const [marks, setMarks] = useState<MarkType>({});
-  const [count, setCount] = useState<number>(0);
 
   // 랜덤한 gif사진을 뽑아서 출력
   const randomDisplay = () => {
@@ -45,13 +53,23 @@ const AnimationScreen: React.FC<AnimationScreenPropsType> = ({ isCheers, setIsCh
     randomDisplay();
   }, [isCheers]);
 
+  useEffect(() => {
+    const functions = Socket.questionmark({ setMarks });
+    question.current = functions.questionMark;
+    return () => {
+      functions.disconnecting();
+    };
+  }, []);
+
   const onClickScreen = (e) => {
     e.preventDefault();
     const { clientX: x, clientY: y } = e;
-    setMarks((prev) => {
-      return { ...prev, [count]: { x, y } };
+    question.current({
+      x,
+      y,
+      chatRoomCode: code,
+      user,
     });
-    setCount((prev) => prev + 1);
   };
 
   const disappearSelf = (id) => {
@@ -65,15 +83,17 @@ const AnimationScreen: React.FC<AnimationScreenPropsType> = ({ isCheers, setIsCh
   return (
     <Wrapper onContextMenu={onClickScreen}>
       <QuestionList>
-        {Object.entries(marks).map(([key, { x, y }]) => (
-          <QuestionMark
-            key={`Question-${key}`}
-            identifier={key}
-            disappearSelf={disappearSelf}
-            x={x}
-            y={y}
-          />
-        ))}
+        {Object.entries(marks).map(([key, { x, y }]) => {
+          return (
+            <QuestionMark
+              key={`Question-${key}`}
+              identifier={key}
+              disappearSelf={disappearSelf}
+              x={x}
+              y={y}
+            />
+          );
+        })}
       </QuestionList>
       <ScreenImg ref={screenRef} />
     </Wrapper>
