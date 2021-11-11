@@ -1,37 +1,71 @@
-import { atom, selector } from 'recoil';
+import { createAction } from '@hooks/redux';
 
-export type UserTypes = {
+// State
+export type UserStateType = {
   id: string;
-  nickname: string;
   imgUrl: string;
+  nickname: string;
+  isLoadingUser: boolean;
+  errorStatus: string;
+};
+const initialState: UserStateType = {
+  id: '',
+  imgUrl: '',
+  nickname: '',
+  isLoadingUser: false,
+  errorStatus: '',
 };
 
-export const userIDState = atom<string>({
-  key: 'userIDState',
-  default: '',
-});
+export type FailureType = { message: string };
+export type UserType = {
+  id: string;
+  imgUrl: string;
+  nickname: string;
+};
+// 세션으로 로그인 요청하는 Types / Actions
+export const [USER_LOGIN_REQUEST, userLoginRequest] = createAction<{}>('USER_LOGIN_REQUEST');
+export const [USER_LOGIN_SUCCESS, userLoginSuccess] = createAction<UserType>('USER_LOGIN_SUCCESS');
+export const [USER_LOGIN_FAILURE, userLoginFailure] =
+  createAction<FailureType>('USER_LOGIN_FAILURE');
 
-export const userNicknameState = atom<string>({
-  key: 'userNicknameState',
-  default: '',
-});
+// Actions -- Types
+type userAction =
+  | ReturnType<typeof userLoginRequest>
+  | ReturnType<typeof userLoginSuccess>
+  | ReturnType<typeof userLoginFailure>;
 
-export const userImageState = atom<string>({
-  key: 'userImageState',
-  default: '',
-});
+// Reducer
+function userReducer(state: UserStateType = initialState, action: userAction): UserStateType {
+  switch (action.type) {
+    case USER_LOGIN_REQUEST:
+      return {
+        ...state,
+        isLoadingUser: true,
+        errorStatus: '',
+      };
+    case USER_LOGIN_SUCCESS: {
+      const { id, imgUrl, nickname } = action.payload as UserType;
+      return {
+        ...state,
+        id,
+        imgUrl,
+        nickname,
+        isLoadingUser: false,
+        errorStatus: '',
+      };
+    }
+    case USER_LOGIN_FAILURE: {
+      let { message } = action.payload as FailureType;
+      if (message === '401') message = '';
+      return {
+        ...state,
+        isLoadingUser: false,
+        errorStatus: message,
+      };
+    }
+    default:
+      return state;
+  }
+}
 
-export const userState = selector<UserTypes>({
-  key: 'userState',
-  get: ({ get }) => ({
-    id: get(userIDState),
-    nickname: get(userNicknameState),
-    imgUrl: get(userImageState),
-  }),
-  // recoil 에서 DefaultValue를 지정함에 있어 오류 발생
-  set: ({ set }, newState: UserTypes | any) => {
-    set(userIDState, newState?.id ?? '');
-    set(userNicknameState, newState?.nickname ?? '');
-    set(userImageState, newState?.imgUrl ?? '');
-  },
-});
+export default userReducer;
