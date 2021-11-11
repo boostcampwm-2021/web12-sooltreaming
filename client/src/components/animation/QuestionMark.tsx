@@ -14,7 +14,7 @@ const QuestionMark: React.FC<QuestionMarkPropTypes> = ({ identifier, disappearSe
       disappearSelf(identifier);
     }, 1900);
   }, []);
-  return <QuestionImg src={`/images/question-mark.gif?${identifier}`} x={x} y={y} />;
+  return <QuestionImg x={x} y={y} />;
 };
 
 export default QuestionMark;
