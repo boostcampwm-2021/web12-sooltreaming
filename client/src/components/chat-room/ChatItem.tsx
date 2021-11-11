@@ -8,6 +8,7 @@ type ChatItemPropTypes = {
 };
 
 const ChatItem: React.FC<ChatItemPropTypes> = ({ isSelf, message, date }) => {
+  console.log(isSelf, message);
   return (
     <Wrapper isSelf={isSelf}>
       <UserSection isSelf={isSelf}>

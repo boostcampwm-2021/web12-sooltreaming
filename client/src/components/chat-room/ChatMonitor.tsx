@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Socket from '@socket/socket';
 import { useRecoilState } from 'recoil';
 import { videoActiveState, audioActiveState } from '@src/store/device';
+import { Wrapper } from './ChatMonitor.style';
 
 import { Video, Wrapper } from '@components/chat-room/ChatMonitor.style';
 
