@@ -1,5 +1,9 @@
-import React, { useState } from 'react';
-import type { MenuPropTypes } from '@components/chat-room/ChatRoom';
+import React from 'react';
+import DeviceToggleButton from '@components/setting/DeviceToggleButton';
+import type { ControlBarPropTypes } from '@components/chat-room/ChatRoom';
+import { useRecoilState } from 'recoil';
+import { videoActiveState, audioActiveState } from '@src/store/device';
+
 import {
   HostIcon,
   GameIcon,
@@ -16,11 +20,18 @@ import {
 import { Wrapper, Div } from '@components/chat-room/ControlBar.style';
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
-const ControlBar: React.FC<MenuPropTypes> = ({ setMenuType }) => {
+const ControlBar: React.FC<ControlBarPropTypes> = ({ setMenuType }) => {
+  const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
+  const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
+
+  const MENU = {
+    클로즈업: {},
+    건배: {},
+  };
   const selectedMenu = ({ target }) => {
     const menuName = target.className.baseVal;
     if (!menuName) return;
-    setMenuType((prev) => (prev === menuName ? '' : menuName));
+    MENU[menuName] || setMenuType((prev) => (prev === menuName ? '' : menuName));
   };
 
   return (
@@ -35,8 +46,8 @@ const ControlBar: React.FC<MenuPropTypes> = ({ setMenuType }) => {
         <ChatIcon className="채팅" />
         <SettingIcon className="설정" />
 
-        <VideoIcon className="비디오" />
-        <MicIcon className="마이크" />
+        <DeviceToggleButton Icon={VideoIcon} isDeviceOn={isVideoOn} setIsDeviceOn={setIsVideoOn} />
+        <DeviceToggleButton Icon={MicIcon} isDeviceOn={isAudioOn} setIsDeviceOn={setIsAudioOn} />
       </Div>
 
       <Div>
