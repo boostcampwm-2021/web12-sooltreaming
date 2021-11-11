@@ -15,7 +15,34 @@ const webRTC =
     let myStream = stream;
 
     const sendCandidate = (targetSID) => (e: any) => {
-      socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
+      if (e?.candidate)
+        socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
+    };
+
+    const deleteStream = (userRef = myStream) => {
+      myStream.getTracks().forEach((track) => {
+        track.stop();
+        userRef.removeTrack(track);
+      });
+      Object.values(peerConnections).forEach((peer: any) => {
+        peer.removeStream(userRef);
+        peer.close();
+      });
+
+      socket.disconnect();
+    };
+
+    const changeStream = (newStream) => {
+      myStream = newStream;
+      const videoTrack = myStream.getVideoTracks()[0];
+      const audioTrack = myStream.getAudioTracks()[0];
+      Object.values(peerConnections).forEach((peer: any) => {
+        const senders = peer.getSenders();
+        const videoSender = senders.find((sender) => sender.track.kind === 'video');
+        if (videoSender) videoSender.replaceTrack(videoTrack);
+        const audioSender = senders.find((sender) => sender.track.kind === 'audio');
+        if (audioSender) audioSender.replaceTrack(audioTrack);
+      });
     };
 
     socket.on(NEED_OFFERS, (users) => {
@@ -27,11 +54,11 @@ const webRTC =
           setStreams((prev) => ({ ...prev, [sid]: e.stream }));
         });
         const offer = await peer.createOffer();
-        peer.setLocalDescription(offer);
+        await peer.setLocalDescription(offer);
 
         peerConnections[sid] = peer;
         socket.emit(OFFER, { offer, receiverSID: sid, senderSID: socket.id });
-      }, {});
+      });
     });
 
     // 이후에 접속한 사람의 Offer 받기
@@ -41,9 +68,9 @@ const webRTC =
       peer.addEventListener('addstream', (e: any) => {
         setStreams((prev) => ({ ...prev, [targetSID]: e.stream }));
       });
-      peer.setRemoteDescription(offer);
+      await peer.setRemoteDescription(offer);
       const answer = await peer.createAnswer();
-      peer.setLocalDescription(answer);
+      await peer.setLocalDescription(answer);
 
       peerConnections[targetSID] = peer;
       socket.emit(ANSWER, { answer, receiverSID: targetSID, senderSID: socket.id });
@@ -58,26 +85,22 @@ const webRTC =
 
     // Candidate 받아서 처리
     socket.on(ICE, ({ candidate, targetSID }) => {
-      peerConnections[targetSID].addIceCandidate(candidate);
+      if (peerConnections[targetSID]) peerConnections[targetSID].addIceCandidate(candidate);
     });
 
-    const changeStream = (newStream) => {
-      myStream = newStream;
-      const videoTrack = myStream.getVideoTracks()[0];
-      const audioTrack = myStream.getAudioTracks()[0];
-      Object.values(peerConnections).forEach((peer: any) => {
-        const senders = peer.getSenders();
-        const videoSender = senders.find((sender) => sender.track.kind === 'video');
-        videoSender.replaceTrack(videoTrack);
-        const audioSender = senders.find((sender) => sender.track.kind === 'audio');
-        audioSender.replaceTrack(audioTrack);
+    socket.on('EXIT_ROOM_USER', (sid) => {
+      console.log('EXIT_ROOM_USER');
+      setStreams((prev) => {
+        delete prev[sid];
+        return prev;
       });
-    };
+    });
 
     const disconnecting = () => {
       socket.off(ANSWER);
       socket.off(OFFER);
       socket.off(ICE);
+      deleteStream();
     };
 
     return {

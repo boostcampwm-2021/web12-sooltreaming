@@ -3,11 +3,11 @@ import express from 'express';
 import Loader from '@src/loader';
 import http from 'http';
 import apiRouter from '@src/api';
+import { PORT } from '@src/constant';
 
 const app = express();
 const server = http.createServer(app);
-const port = process.env.PORT || '5000';
-app.set('port', port);
+app.set('port', PORT);
 
 Loader({ server, app });
 
@@ -19,5 +19,5 @@ function onListening(): void {
   console.log(bind);
 }
 
-server.listen(port);
+server.listen(PORT);
 server.on('listening', onListening);

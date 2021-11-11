@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Socket from '@socket/socket';
-import { useRecoilState } from 'recoil';
-import { videoActiveState, audioActiveState } from '@src/store/device';
+import { Wrapper, Video } from '@components/chat-room/ChatMonitor.style';
+import { useSelector } from 'react-redux';
+import { RootState } from '@src/store';
 
 type ChatFormPropTypes = {
   users: any;
@@ -10,10 +11,10 @@ type ChatFormPropTypes = {
 
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
   const socket = useRef<any>(null);
-  const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
-  const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
+  const { isVideoOn, isAudioOn } = useSelector((state: RootState) => state.device);
   const [streams, setStreams] = useState({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
+  let count = Object.values(streams).length + 1;
 
   useEffect(() => {
     // Socket으로 Peer Connection 만들기
@@ -39,32 +40,16 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
   }, [stream]);
 
   return (
-    <>
-      <video
-        className="myFace"
-        ref={myVideoRef}
-        width="400"
-        height="400"
-        autoPlay
-        playsInline
-      ></video>
-      <button onClick={() => setIsAudioOn((prev) => !prev)}>
-        {isAudioOn ? '음소거' : '음소거 해제'}
-      </button>
-      <button onClick={() => setIsVideoOn((prev) => !prev)}>
-        {isVideoOn ? '영상 끄기' : '영상 켜기'}
-      </button>
-      <select className="camera">
-        <option value="device">카메라명</option>
-      </select>
+    <Wrapper>
+      <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline></Video>
       {Object.values(streams).map((otherStream) => {
-        return <OtherVideo srcObject={otherStream} />;
+        return <OtherVideo count={count} srcObject={otherStream} />;
       })}
-    </>
+    </Wrapper>
   );
 };
 
-const OtherVideo = ({ srcObject }) => {
+const OtherVideo = ({ srcObject, count }) => {
   const otherRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -72,16 +57,7 @@ const OtherVideo = ({ srcObject }) => {
     otherRef.current.srcObject = srcObject ? srcObject : null;
   }, [srcObject]);
 
-  return (
-    <video
-      ref={otherRef}
-      className="peerFace"
-      width="400"
-      height="400"
-      autoPlay
-      playsInline
-    ></video>
-  );
+  return <Video count={count} ref={otherRef} className="peerFace" autoPlay playsInline></Video>;
 };
 
 export default ChatMonitor;

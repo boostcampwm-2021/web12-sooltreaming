@@ -7,9 +7,10 @@ const ENTER_ONE_USER = 'ENTER_ONE_USER';
 const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
 
 const user = (socket: Socket) => (closure: any) => {
-  const { errorControl, setUsers, myID } = closure;
+  const { errorControl, setUsers } = closure;
 
   socket.on(ENTER_ALL_USER, (allUsers) => {
+    console.log(allUsers);
     setUsers({ ...allUsers });
   });
   socket.on(ENTER_ONE_USER, (data) => {

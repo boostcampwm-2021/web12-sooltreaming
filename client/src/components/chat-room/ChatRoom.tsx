@@ -1,62 +1,93 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@src/store';
+import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
-import ChatMenu from '@components/chat-room/ChatMenu';
+import Menu from '@components/chat-room/Menu';
 import ChatMonitor from '@components/chat-room/ChatMonitor';
-import { useSetRecoilState, useRecoilValue } from 'recoil';
-import { errorMessageState } from '@src/store/message';
-import { videoState, audioState } from '@src/store/device';
-import { userState } from '@src/store/user';
-import { Wrapper, VideoSection } from './ChatRoom.style';
-import customRTC from '@utils/customRTC';
+import ControlBar from '@components/chat-room/ControlBar';
+import { Wrapper, VideoSection, ColumnDiv } from './ChatRoom.style';
+import AnimationScreen from '@src/components/animation/AnimationScreen';
 
-const ChatRoom: React.FunctionComponent = () => {
+type ChatRoomTypes = {
+  stream: MediaStream;
+};
+
+export type ControlBarPropTypes = {
+  onClickCheers: any;
+  menuType: string;
+  setMenuType: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export type MenuPropTypes = {
+  stream: MediaStream;
+  menuType: string;
+  setMenuType: React.Dispatch<React.SetStateAction<string>>;
+  code: string;
+  user: object;
+  users: any;
+};
+
+const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
+  const dispatch = useDispatch();
+  const activateCheers = useRef<any>(() => {});
   const history = useHistory();
   const { code } = useParams();
 
-  const setMessage = useSetRecoilState(errorMessageState);
-  const user = useRecoilValue(userState);
-  const videoInfo = useRecoilValue(videoState);
-  const audioInfo = useRecoilValue(audioState);
-
+  const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
+  const user = { id, imgUrl, nickname };
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
-  const [stream, setStream] = useState<MediaStream>(new MediaStream());
-
-  useEffect(() => {
-    const initStream = async () => {
-      const videoTrack = await customRTC.getVideoTrack(videoInfo?.deviceId);
-      const audioTrack = await customRTC.getAudioTrack(audioInfo?.deviceId);
-      const createdStream = customRTC.createStream({ videoTrack, audioTrack });
-      setStream(createdStream);
-    };
-    initStream();
-  }, []);
+  const [isCheers, setIsCheers] = useState<boolean>(false);
 
   const errorControl = (message) => {
-    setMessage(message);
+    dispatch(setNoticeMessage({ errorMessage: message }));
     history.push('/');
   };
 
   useEffect(() => {
     Socket.connect();
-    const functions = Socket.user({ errorControl, setUsers, myID: user });
+    const functions = Socket.user({ errorControl, setUsers });
     functions.joinRoom({
       chatRoomCode: code,
       user,
     });
+  }, []);
+
+  useEffect(() => {
+    const functions = Socket.animation({ setIsCheers });
+    activateCheers.current = functions.activateCheers;
     return () => {
       functions.disconnecting();
-      Socket.disconnect();
     };
   }, []);
 
+  const cheers = (e) => {
+    if (isCheers) return;
+    activateCheers.current({
+      chatRoomCode: code,
+      user,
+    });
+  };
+
   return (
     <Wrapper>
-      {/* 비동기로 stream을 불러와서 임시로 chatmonitor를 안불러왔음 (오류 안내려고) */}
-      {/* stream이 없어도 chatmonitor가 오류없이 동작하도록 만들어야함 */}
-      <VideoSection>{stream ? <ChatMonitor users={users} stream={stream} /> : <></>}</VideoSection>
-      <ChatMenu menuType={menuType} setMenuType={setMenuType} />
+      <ColumnDiv>
+        <VideoSection>
+          <ChatMonitor users={users} stream={stream} />
+          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} code={code} user={user} />
+        </VideoSection>
+        <ControlBar onClickCheers={cheers} menuType={menuType} setMenuType={setMenuType} />
+      </ColumnDiv>
+      <Menu
+        stream={stream}
+        menuType={menuType}
+        setMenuType={setMenuType}
+        code={code}
+        user={user}
+        users={users}
+      />
     </Wrapper>
   );
 };

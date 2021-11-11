@@ -6,14 +6,17 @@ const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
 const PASSING_MESSAGE = 'PASSING_MESSAGE';
 
 const chatting = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
-  socket.on(PASSING_MESSAGE, (msg) => {
+  socket.on(PASSING_MESSAGE, ({ msg, chatRoomCode, user }) => {
+    let code = '';
+    code = chatRoomCode;
     const messageData = {
-      ...msg,
+      msg,
       sid: socket.id,
       date: getTimeString(),
     };
+    console.log(messageData);
     socket.emit(RECEIVE_MESSAGE, messageData);
-    socket.broadcast.emit(RECEIVE_MESSAGE, messageData);
+    socket.to(code).emit(RECEIVE_MESSAGE, messageData);
   });
   return { io, socket, rooms };
 };

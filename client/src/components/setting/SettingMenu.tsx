@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import Dropdown from '@components/custom/Dropdown';
-import { DownIcon, XIcon } from '@components/icons';
-import { Wrapper, ToggleButton, MenuButton, MenuItem, IconDiv } from './SettingMenu.style';
-
+import React from 'react';
+import { Wrapper } from './SettingMenu.style';
+import DeviceToggleButton from '@components/setting/DeviceToggleButton';
+import SettingDropdown from '@components/setting/SettingDropdown';
 type settingMenuTypeProps = {
   menuList: MediaDeviceInfo[];
   selected: MediaDeviceInfo | any;
@@ -20,33 +19,10 @@ const SettingMenu: React.FC<settingMenuTypeProps> = ({
   setIsDeviceOn,
   Icon,
 }) => {
-  const choiceMenu = (toggleDropdown, item) => () => {
-    setSelected(item);
-    toggleDropdown();
-  };
-
   return (
     <Wrapper>
-      <ToggleButton onClick={() => setIsDeviceOn((prev) => !prev)}>
-        <IconDiv>{!isDeviceOn && <XIcon />}</IconDiv>
-        <IconDiv>
-          <Icon />
-        </IconDiv>
-      </ToggleButton>
-      <Dropdown
-        renderButton={() => (
-          <MenuButton>
-            <span>{selected.label}</span>
-            <DownIcon />
-          </MenuButton>
-        )}
-        renderItem={({ closeDropdown, item }) => (
-          <MenuItem key={item.label} onClick={choiceMenu(closeDropdown, item)}>
-            {item.label}
-          </MenuItem>
-        )}
-        itemList={menuList}
-      />
+      <DeviceToggleButton Icon={Icon} isDeviceOn={isDeviceOn} setIsDeviceOn={setIsDeviceOn} />
+      <SettingDropdown menuList={menuList} selected={selected} setSelected={setSelected} />
     </Wrapper>
   );
 };

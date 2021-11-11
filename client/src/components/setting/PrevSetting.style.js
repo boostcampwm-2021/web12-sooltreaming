@@ -15,7 +15,7 @@ export const Column = styled.div`
   flex-direction: column;
 `;
 
-export const VideoBox = styled.div`
+export const PreviewFace = styled.video`
   max-width: 469px;
   width: 100%;
   height: 250px;
@@ -28,6 +28,3 @@ export const VideoBox = styled.div`
 
   border: 1px solid black;
 `;
-
-
-
