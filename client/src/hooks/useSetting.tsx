@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import customRTC from '@utils/customRTC';
-import { useRecoilStateLoadable } from 'recoil';
+import { useRecoilStateLoadable, useRecoilState } from 'recoil';
 import { videoState, audioState } from '@src/store/device';
+import { videoActiveState, audioActiveState } from '@src/store/device';
 
 const useSetting = (stream: MediaStream) => {
   const [videos, setVideos] = useState<MediaDeviceInfo[]>([]);
@@ -9,6 +10,8 @@ const useSetting = (stream: MediaStream) => {
   const [selectedVideo, setSelectedVideo] = useRecoilStateLoadable(videoState);
   const [selectedAudio, setSelectedAudio] = useRecoilStateLoadable(audioState);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
+  const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
 
   useEffect(() => {
     const settingMedia = async () => {
@@ -30,6 +33,7 @@ const useSetting = (stream: MediaStream) => {
       });
       const newVideoTrack = await customRTC.getVideoTrack(selectedVideo.contents.deviceId);
       if (!newVideoTrack) return;
+      newVideoTrack.enabled = isVideoOn;
       stream.addTrack(newVideoTrack);
     };
     updateVideoStream();
@@ -44,6 +48,7 @@ const useSetting = (stream: MediaStream) => {
       });
       const newAudioTrack = await customRTC.getAudioTrack(selectedAudio.contents.deviceId);
       if (!newAudioTrack) return;
+      newAudioTrack.enabled = isAudioOn;
       stream.addTrack(newAudioTrack);
     };
     updateAudioStream();
@@ -58,6 +63,10 @@ const useSetting = (stream: MediaStream) => {
     setSelectedAudio,
     isLoading,
     setIsLoading,
+    isVideoOn,
+    isAudioOn,
+    setIsVideoOn,
+    setIsAudioOn,
   };
 };
 

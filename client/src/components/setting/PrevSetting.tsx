@@ -1,7 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Wrapper, Column, PreviewFace } from './PrevSetting.style';
-import { useRecoilState } from 'recoil';
-import { videoActiveState, audioActiveState } from '@src/store/device';
 import { VideoIcon, MicIcon } from '@components/icons';
 import SettingMenu from '@components/setting/SettingMenu';
 import Loading from '@components/custom/Loading';
@@ -13,7 +11,7 @@ type PrevSettingType = {
   setStream: any;
 };
 
-const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStream }) => {
+const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
   const {
     videos,
     audios,
@@ -22,11 +20,13 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream, setStre
     selectedAudio,
     setSelectedAudio,
     isLoading,
+    isVideoOn,
+    isAudioOn,
+    setIsVideoOn,
+    setIsAudioOn,
   } = useSetting(stream);
 
   const previewFace = useRef<HTMLVideoElement>(null);
-  const [isVideoOn, setIsVideoOn] = useRecoilState<boolean>(videoActiveState);
-  const [isAudioOn, setIsAudioOn] = useRecoilState<boolean>(audioActiveState);
 
   useEffect(() => {
     if (!isLoading && previewFace.current) previewFace.current.srcObject = stream;
