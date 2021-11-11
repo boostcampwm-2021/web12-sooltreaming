@@ -26,6 +26,7 @@ export type MenuPropTypes = {
   setMenuType: React.Dispatch<React.SetStateAction<string>>;
   code: string;
   user: object;
+  users: any;
 };
 
 const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
@@ -47,7 +48,7 @@ const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
 
   useEffect(() => {
     Socket.connect();
-    const functions = Socket.user({ errorControl, setUsers, myID: user });
+    const functions = Socket.user({ errorControl, setUsers });
     functions.joinRoom({
       chatRoomCode: code,
       user,
@@ -79,7 +80,14 @@ const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
         </VideoSection>
         <ControlBar onClickCheers={cheers} menuType={menuType} setMenuType={setMenuType} />
       </ColumnDiv>
-      <Menu stream={stream} menuType={menuType} setMenuType={setMenuType} code={code} user={user} />
+      <Menu
+        stream={stream}
+        menuType={menuType}
+        setMenuType={setMenuType}
+        code={code}
+        user={user}
+        users={users}
+      />
     </Wrapper>
   );
 };

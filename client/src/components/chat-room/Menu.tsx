@@ -1,26 +1,18 @@
 import React, { useMemo } from 'react';
 import type { MenuPropTypes } from '@components/chat-room/ChatRoom';
 
-import { Wrapper, TopBar, CloseButton } from '@components/chat-room/ChatMenu.style';
+import { Wrapper, TopBar, CloseButton } from '@components/chat-room/Menu.style';
 import Chat from '@components/chat-room/Chat';
 import RoomSetting from '@components/setting/RoomSetting';
 
-const Menu: React.FC<MenuPropTypes> = ({ code, user, stream, menuType, setMenuType }) => {
-  const MENU = useMemo(() => {
-    return {
-      방장: <></>,
-      게임: <></>,
-      참가자: <></>,
-      설정: <RoomSetting stream={stream} />,
-      채팅: <Chat code={code} user={user} />,
-      클로즈업: <></>,
-      건배: <></>,
-    };
-  }, []);
+const RouteMenu = ({ code, user, users, stream, menuType }) => {
+  if (menuType === '설정') return <RoomSetting stream={stream} />;
+  else if (menuType === '채팅') return <Chat code={code} user={user} users={users} />;
+  return <></>;
+};
 
-  const RouteMenu = ({ menuType }) => {
-    return MENU[menuType] || <></>;
-  };
+const Menu: React.FC<MenuPropTypes> = (props) => {
+  const { menuType, setMenuType } = props;
 
   if (!menuType) return <></>;
   return (
@@ -29,7 +21,7 @@ const Menu: React.FC<MenuPropTypes> = ({ code, user, stream, menuType, setMenuTy
         <span>{menuType}</span>
         <CloseButton onClick={() => setMenuType('')}></CloseButton>
       </TopBar>
-      <RouteMenu menuType={menuType} />
+      <RouteMenu {...props} />
     </Wrapper>
   );
 };
