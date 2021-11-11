@@ -4,11 +4,8 @@ const CHEERS = 'CHEERS';
 
 const animation = (socket: Socket) => (closure: any) => {
   const { setIsCheers } = closure;
-  console.log(setIsCheers);
-  console.log(socket, '접속소켓');
 
   socket.on(CHEERS, () => {
-    console.log('이벤트받았다~');
     setIsCheers(true);
     setTimeout(() => {
       setIsCheers(false);
