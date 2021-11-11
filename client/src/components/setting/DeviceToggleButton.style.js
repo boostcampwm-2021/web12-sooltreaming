@@ -14,4 +14,11 @@ export const ToggleButton = styled.div`
 
 export const IconDiv = styled.div`
   position: absolute;
+
+  &: hover {
+    & svg {
+      padding: 2px;
+    }
+    cursor: pointer;
+  }
 `;
