@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Socket from '@socket/socket';
 import ChatMenu from '@components/chat-room/ChatMenu';
@@ -13,6 +13,7 @@ import Loading from '@components/custom/Loading';
 import CheersCanvas from '@src/components/animation/CheersCanvas';
 
 const ChatRoom: React.FunctionComponent = () => {
+  const activateCheers = useRef<any>(() => {});
   const history = useHistory();
   const { code } = useParams();
 
@@ -53,14 +54,17 @@ const ChatRoom: React.FunctionComponent = () => {
     });
   }, [isLoading]);
 
+  useEffect(() => {
+    const functions = Socket.animation({ setIsCheers });
+    activateCheers.current = functions.activateCheers;
+    return () => {
+      functions.disconnecting();
+    };
+  }, []);
+
   const cheers = (e) => {
-    if (isCheers === false) {
-      const functions = Socket.animation({ setIsCheers });
-      functions.activateCheers();
-      return () => {
-        functions.disconnecting();
-      };
-    }
+    if (isCheers) return;
+    activateCheers.current();
   };
 
   if (isLoading) return <Loading />;
