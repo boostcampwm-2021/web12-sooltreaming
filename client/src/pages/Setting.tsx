@@ -5,6 +5,7 @@ import { Wrapper, Button, CancleButton, Row } from './Setting.style.js';
 import SettingWindow from '@components/setting/SettingWindow';
 import ChatRoom from '@components/chat-room/ChatRoom';
 import Loading from '@components/custom/Loading';
+import customRTC from '@src/utils/customRTC';
 
 const Setting: React.FunctionComponent = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -14,12 +15,9 @@ const Setting: React.FunctionComponent = () => {
 
   useEffect(() => {
     const initDevice = async () => {
-      const newStream = await navigator.mediaDevices.getUserMedia({
-        audio: false,
-        video: true,
-      });
-      setStream(newStream);
+      const newStream = await customRTC.initStream();
       setIsLoading(false);
+      setStream(newStream);
     };
     initDevice();
 
@@ -43,7 +41,7 @@ const Setting: React.FunctionComponent = () => {
   ) : isFirst ? (
     <Wrapper>
       <Header />
-      <SettingWindow stream={stream} />
+      <SettingWindow stream={stream} setStream={setStream} />
       <Row>
         <CancleButton onClick={cancle}>취소</CancleButton>
         <Button onClick={joining}>입장</Button>
