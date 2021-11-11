@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import Socket from '@socket/socket';
 import ChatMenu from '@components/chat-room/ChatMenu';
@@ -10,8 +10,10 @@ import { userState } from '@src/store/user';
 import { Wrapper, VideoSection } from './ChatRoom.style';
 import customRTC from '@utils/customRTC';
 import Loading from '@components/custom/Loading';
+import CheersCanvas from '@src/components/animation/CheersCanvas';
 
 const ChatRoom: React.FunctionComponent = () => {
+  const activateCheers = useRef<any>(() => {});
   const history = useHistory();
   const { code } = useParams();
 
@@ -24,6 +26,7 @@ const ChatRoom: React.FunctionComponent = () => {
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
   const [stream, setStream] = useState<MediaStream>(new MediaStream());
+  const [isCheers, setIsCheers] = useState<boolean>(false);
 
   useEffect(() => {
     const initStream = async () => {
@@ -51,14 +54,34 @@ const ChatRoom: React.FunctionComponent = () => {
     });
   }, [isLoading]);
 
+  useEffect(() => {
+    const functions = Socket.animation({ setIsCheers });
+    activateCheers.current = functions.activateCheers;
+    return () => {
+      functions.disconnecting();
+    };
+  }, []);
+
+  const cheers = (e) => {
+    if (isCheers) return;
+    activateCheers.current({
+      chatRoomCode: code,
+      user,
+    });
+  };
+
   if (isLoading) return <Loading />;
   return (
-    <Wrapper>
-      <VideoSection>
-        <ChatMonitor users={users} stream={stream} />
-      </VideoSection>
-      <ChatMenu menuType={menuType} setMenuType={setMenuType} />
-    </Wrapper>
+    <>
+      <Wrapper>
+        <CheersCanvas isCheers={isCheers} setIsCheers={setIsCheers} />
+        <VideoSection>
+          <ChatMonitor users={users} stream={stream} />
+        </VideoSection>
+        <ChatMenu menuType={menuType} setMenuType={setMenuType} code={code} user={user} />
+      </Wrapper>
+      <button onClick={cheers}>건배</button>
+    </>
   );
 };
 
