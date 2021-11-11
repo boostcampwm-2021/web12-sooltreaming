@@ -76,7 +76,7 @@ const ChatRoom: React.FunctionComponent = () => {
       <Wrapper>
         <VideoSection>
           <ChatMonitor users={users} stream={stream} />
-          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} />
+          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} code={code} user={user} />
         </VideoSection>
         <ChatMenu menuType={menuType} setMenuType={setMenuType} code={code} user={user} />
       </Wrapper>
