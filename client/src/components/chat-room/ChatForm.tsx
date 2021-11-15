@@ -12,12 +12,14 @@ const ChatForm: React.FC<ChatFormPropTypes> = ({ emits, code, user }) => {
   const [message, setMessage] = useState<string>('');
 
   const onSubmitMessage = (e) => {
-    emits.current({
-      msg: message,
-      chatRoomCode: code,
-      user,
-    });
-    setMessage('');
+    if (message) {
+      emits.current({
+        msg: message,
+        chatRoomCode: code,
+        user,
+      });
+      setMessage('');
+    }
   };
 
   return (
