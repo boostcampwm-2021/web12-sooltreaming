@@ -9,8 +9,10 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  &:first-child {
-    margin-bottom: 10px;
+  margin-bottom: 10px;
+
+  &:last-child {
+    margin-bottom: 0px;
   }
 `;
 

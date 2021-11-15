@@ -1,46 +1,42 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Wrapper, Column, PreviewFace } from './PrevSetting.style';
-import { useDispatch } from 'react-redux';
-import { setVideoInfo, setAudioInfo, setVideoPower, setAudioPower } from '@store/device';
-import { VideoIcon, MicIcon } from '@components/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@src/store';
+import {
+  requestVideoInfo,
+  requestAudioInfo,
+  requestSpeakerInfo,
+  setVideoPower,
+  setAudioPower,
+  setSpeakerPower,
+} from '@store/device';
+import { VideoIcon, MicIcon, SpeakerIcon } from '@components/icons';
 import SettingMenu from '@components/setting/SettingMenu';
-import Loading from '@components/custom/Loading';
+import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
+import useUpdateStream from '@hooks/useUpdateStream';
+import useToggleSpeaker from '@hooks/useToggleSpeaker';
 
-import useSetting from '@src/hooks/useSetting';
-
-type PrevSettingType = {
-  stream: MediaStream;
-  setStream: any;
-};
-
-const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
-  const { isVideoOn, isAudioOn, videoInfo, audioInfo, videoDevices, audioDevices, isLoading } =
-    useSetting(stream);
-
+const PrevSetting: React.FC = () => {
   const dispatch = useDispatch();
+  const {
+    isVideoOn,
+    isAudioOn,
+    isSpeakerOn,
+    videoInfo,
+    audioInfo,
+    speakerInfo,
+    videoDevices,
+    audioDevices,
+    speakerDevices,
+    stream,
+  } = useSelector((state: RootState) => state.device);
   const previewFace = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    if (!isLoading && previewFace.current) previewFace.current.srcObject = stream;
-  }, [isLoading]);
+  useUpdateSpeaker(previewFace);
+  useToggleSpeaker(previewFace);
+  useUpdateStream(previewFace, stream);
 
-  useEffect(() => {
-    if (!previewFace.current || !previewFace.current.srcObject) return;
-    (previewFace.current.srcObject as MediaStream)
-      .getVideoTracks()
-      .forEach((track) => (track.enabled = isVideoOn));
-  }, [isVideoOn]);
-
-  useEffect(() => {
-    if (!previewFace.current || !previewFace.current.srcObject) return;
-    (previewFace.current.srcObject as MediaStream)
-      .getAudioTracks()
-      .forEach((track) => (track.enabled = isAudioOn));
-  }, [isAudioOn]);
-
-  return isLoading ? (
-    <Loading />
-  ) : (
+  return (
     <Wrapper>
       <PreviewFace ref={previewFace} width="400" height="400" autoPlay playsInline />
       <Column>
@@ -53,7 +49,7 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
           menuList={videoDevices}
           selected={videoInfo}
           setSelected={(item) => {
-            dispatch(setVideoInfo({ videoInfo: item }));
+            dispatch(requestVideoInfo({ videoInfo: item, stream }));
           }}
         />
         <SettingMenu
@@ -65,7 +61,19 @@ const PrevSetting: React.FunctionComponent<PrevSettingType> = ({ stream }) => {
           menuList={audioDevices}
           selected={audioInfo}
           setSelected={(item) => {
-            dispatch(setAudioInfo({ audioInfo: item }));
+            dispatch(requestAudioInfo({ audioInfo: item, stream }));
+          }}
+        />
+        <SettingMenu
+          isDeviceOn={isSpeakerOn}
+          setIsDeviceOn={() => {
+            dispatch(setSpeakerPower({ isSpeakerOn: !isSpeakerOn }));
+          }}
+          Icon={SpeakerIcon}
+          menuList={speakerDevices}
+          selected={speakerInfo}
+          setSelected={(item) => {
+            dispatch(requestSpeakerInfo({ speakerInfo: item, stream }));
           }}
         />
       </Column>

@@ -9,8 +9,7 @@ const animation = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: room
   socket.on(CHEERS, ({ chatRoomCode, user }) => {
     let code = '';
     code = chatRoomCode;
-    socket.emit(CHEERS);
-    socket.to(code).emit(CHEERS);
+    io.emit(CHEERS);
   });
   return { io, socket, rooms };
 };

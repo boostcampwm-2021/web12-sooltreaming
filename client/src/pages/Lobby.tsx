@@ -12,7 +12,7 @@ const Lobby: React.FunctionComponent = () => {
 
   const joinChatRoom = () => {
     const roomCode = chatRoomCodeInput.current?.value;
-    history.push(`chatRoom/${roomCode}`);
+    if (roomCode !== '') history.push(`chatRoom/${roomCode}`);
   };
 
   const createChatRoom = () => {

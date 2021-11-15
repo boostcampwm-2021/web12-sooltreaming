@@ -1,42 +1,41 @@
 import React from 'react';
 import { Wrapper, Column } from './RoomSetting.style';
-import { useDispatch } from 'react-redux';
-import { setVideoInfo, setAudioInfo } from '@store/device';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@src/store';
+import { requestVideoInfo, requestAudioInfo, requestSpeakerInfo } from '@store/device';
 import SettingDropdown from '@components/setting/SettingDropdown';
-import useSetting from '@src/hooks/useSetting';
 
-type RoomSettingType = {
-  stream: MediaStream;
-};
-
-const RoomSetting: React.FunctionComponent<RoomSettingType> = ({ stream }) => {
-  const { videoInfo, audioInfo, videoDevices, audioDevices, isLoading } = useSetting(stream);
+const RoomSetting: React.FC = () => {
+  const { videoInfo, audioInfo, speakerInfo, videoDevices, audioDevices, speakerDevices, stream } =
+    useSelector((state: RootState) => state.device);
   const dispatch = useDispatch();
 
   return (
     <Wrapper>
-      {isLoading ? (
-        <></>
-      ) : (
-        <Column>
-          <SettingDropdown
-            menuList={videoDevices}
-            selected={videoInfo}
-            setSelected={(item) => {
-              dispatch(setVideoInfo({ videoInfo: item }));
-            }}
-          />
-          <SettingDropdown
-            menuList={audioDevices}
-            selected={audioInfo}
-            setSelected={(item) => {
-              dispatch(setAudioInfo({ audioInfo: item }));
-            }}
-          />
-        </Column>
-      )}
+      <Column>
+        <SettingDropdown
+          menuList={videoDevices}
+          selected={videoInfo}
+          setSelected={(item) => {
+            dispatch(requestVideoInfo({ videoInfo: item, stream }));
+          }}
+        />
+        <SettingDropdown
+          menuList={audioDevices}
+          selected={audioInfo}
+          setSelected={(item) => {
+            dispatch(requestAudioInfo({ audioInfo: item, stream }));
+          }}
+        />
+        <SettingDropdown
+          menuList={speakerDevices}
+          selected={speakerInfo}
+          setSelected={(item) => {
+            dispatch(requestSpeakerInfo({ speakerInfo: item, stream }));
+          }}
+        />
+      </Column>
     </Wrapper>
   );
 };
-
 export default RoomSetting;

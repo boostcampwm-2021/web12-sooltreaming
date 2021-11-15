@@ -39,9 +39,9 @@ const webRTC =
       Object.values(peerConnections).forEach((peer: any) => {
         const senders = peer.getSenders();
         const videoSender = senders.find((sender) => sender.track.kind === 'video');
-        if (videoSender) videoSender.replaceTrack(videoTrack);
+        if (videoTrack && videoSender) videoSender.replaceTrack(videoTrack);
         const audioSender = senders.find((sender) => sender.track.kind === 'audio');
-        if (audioSender) audioSender.replaceTrack(audioTrack);
+        if (audioTrack && audioSender) audioSender.replaceTrack(audioTrack);
       });
     };
 
