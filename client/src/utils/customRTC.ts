@@ -21,6 +21,12 @@ const customRTC = () => {
     return audios;
   };
 
+  const getSpeakers = async () => {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const speakers = devices.filter(({ kind }) => kind === 'audiooutput');
+    return speakers;
+  };
+
   const getVideoTrack = async (deviceId: string) => {
     try {
       if (!deviceId) throw new Error('Get VideoTracks: No Device ID');
@@ -88,6 +94,7 @@ const customRTC = () => {
     initStream,
     getVideos,
     getAudios,
+    getSpeakers,
     getVideoTrack,
     getAudioTrack,
     createStream,

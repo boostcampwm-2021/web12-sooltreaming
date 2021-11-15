@@ -6,7 +6,7 @@ import { requestVideoInfo, requestAudioInfo, requestSpeakerInfo } from '@store/d
 import SettingDropdown from '@components/setting/SettingDropdown';
 
 const RoomSetting: React.FC = () => {
-  const { videoInfo, audioInfo, videoDevices, audioDevices, stream } = useSelector(
+  const { videoInfo, audioInfo, videoDevices, audioDevices, speakerDevices, stream } = useSelector(
     (state: RootState) => state.device,
   );
   const dispatch = useDispatch();
@@ -26,6 +26,13 @@ const RoomSetting: React.FC = () => {
           selected={audioInfo}
           setSelected={(item) => {
             dispatch(requestAudioInfo({ audioInfo: item, stream }));
+          }}
+        />
+        <SettingDropdown
+          menuList={speakerDevices}
+          selected={speakerInfo}
+          setSelected={(item) => {
+            dispatch(requestSpeakerInfo({ speakerInfo: item, stream }));
           }}
         />
       </Column>

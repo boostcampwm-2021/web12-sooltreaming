@@ -3,6 +3,9 @@ import Socket from '@socket/socket';
 import { Wrapper, Video } from '@components/chat-room/ChatMonitor.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
+import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
+import useUpdateStream from '@hooks/useUpdateStream';
+import useToggleSpeaker from '@hooks/useToggleSpeaker';
 
 type ChatFormPropTypes = {
   users: any;
@@ -42,10 +45,9 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
 const OtherVideo = ({ srcObject, count }) => {
   const otherRef = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    if (!otherRef.current) return;
-    otherRef.current.srcObject = srcObject ? srcObject : null;
-  }, [srcObject]);
+  useUpdateSpeaker(otherRef);
+  useToggleSpeaker(otherRef);
+  useUpdateStream(otherRef, srcObject);
 
   return <Video count={count} ref={otherRef} className="peerFace" autoPlay playsInline></Video>;
 };

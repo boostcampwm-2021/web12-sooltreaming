@@ -24,10 +24,16 @@ async function loadInfosWithDevices({}) {
   const audioInfo = audioDevices[0] ?? null;
   const audioTrack = await customRTC.getAudioTrack(audioInfo?.deviceId || '');
 
+  const speakerDevices = await customRTC.getSpeakers();
+  const speakerInfo = speakerDevices[0] ?? null;
+  const stream = customRTC.createStream({ audioTrack, videoTrack });
+  return {
     videoDevices,
     videoInfo,
     audioDevices,
     audioInfo,
+    speakerDevices,
+    speakerInfo,
     stream,
   };
 }

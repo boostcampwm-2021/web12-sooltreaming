@@ -2,7 +2,7 @@ import React from 'react';
 import DeviceToggleButton from '@components/setting/DeviceToggleButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
-import { setVideoPower, setAudioPower } from '@store/device';
+import { setVideoPower, setAudioPower, setSpeakerPower } from '@store/device';
 
 import {
   HostIcon,
@@ -12,6 +12,7 @@ import {
   SettingIcon,
   VideoIcon,
   MicIcon,
+  SpeakerIcon,
   CloseUpIcon,
   CheersIcon,
 } from '@components/icons';
@@ -29,7 +30,7 @@ export type ControlBarPropTypes = {
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
 const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, setMenuType }) => {
   const dispatch = useDispatch();
-  const { isVideoOn, isAudioOn } = useSelector((state: RootState) => state.device);
+  const { isVideoOn, isAudioOn, isSpeakerOn } = useSelector((state: RootState) => state.device);
 
   const MENU = {
     클로즈업: () => {},
@@ -66,6 +67,13 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, setMenuType 
           isDeviceOn={isAudioOn}
           setIsDeviceOn={() => {
             dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
+          }}
+        />
+        <DeviceToggleButton
+          Icon={SpeakerIcon}
+          isDeviceOn={isSpeakerOn}
+          setIsDeviceOn={() => {
+            dispatch(setSpeakerPower({ isSpeakerOn: !isSpeakerOn }));
           }}
         />
       </Div>

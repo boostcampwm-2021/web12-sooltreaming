@@ -3,20 +3,26 @@ import { createAction } from '@hooks/redux';
 export type DeviceStateType = {
   isVideoOn: boolean;
   isAudioOn: boolean;
+  isSpeakerOn: boolean;
   videoInfo: MediaDeviceInfo | null;
   audioInfo: MediaDeviceInfo | null;
+  speakerInfo: MediaDeviceInfo | null;
   videoDevices: MediaDeviceInfo[];
   audioDevices: MediaDeviceInfo[];
+  speakerDevices: MediaDeviceInfo[];
   stream: MediaStream;
   isLoading: boolean;
 };
 const initialState: DeviceStateType = {
   isVideoOn: false,
   isAudioOn: false,
+  isSpeakerOn: true,
   videoInfo: null,
   audioInfo: null,
+  speakerInfo: null,
   videoDevices: [],
   audioDevices: [],
+  speakerDevices: [],
   stream: new MediaStream(),
   isLoading: true,
 };
@@ -25,6 +31,8 @@ export const [SET_VIDEO_POWER, setVideoPower] =
   createAction<{ isVideoOn: boolean }>('SET_VIDEO_POWER');
 export const [SET_AUDIO_POWER, setAudioPower] =
   createAction<{ isAudioOn: boolean }>('SET_AUDIO_POWER');
+export const [SET_SPEAKER_POWER, setSpeakerPower] =
+  createAction<{ isSpeakerOn: boolean }>('SET_SPEAKER_POWER');
 
 export const [REQUEST_VIDEO_INFO, requestVideoInfo] =
   createAction<{ videoInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_VIDEO_INFO');
@@ -34,12 +42,16 @@ export const [REQUEST_AUDIO_INFO, requestAudioInfo] =
   createAction<{ audioInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_AUDIO_INFO');
 export const [SUCCESS_AUDIO_INFO, successAudioInfo] =
   createAction<{ stream: MediaStream }>('SUCCESS_AUDIO_INFO');
+export const [REQUEST_SPEAKER_INFO, requestSpeakerInfo] =
+  createAction<{ speakerInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_SPEAKER_INFO');
 
 export type DeviceInitTypes = {
   videoInfo: MediaDeviceInfo | null;
   audioInfo: MediaDeviceInfo | null;
+  speakerInfo: MediaDeviceInfo | null;
   videoDevices: MediaDeviceInfo[];
   audioDevices: MediaDeviceInfo[];
+  speakerDevices: MediaDeviceInfo[];
   stream: MediaStream;
 };
 export const [REQUEST_INIT_INFO, requestInitInfo] = createAction<{}>('REQUEST_INIT_INFO');
@@ -54,6 +66,7 @@ type deviceAction =
   | ReturnType<typeof successVideoInfo>
   | ReturnType<typeof requestAudioInfo>
   | ReturnType<typeof successAudioInfo>
+  | ReturnType<typeof requestSpeakerInfo>
   | ReturnType<typeof requestInitInfo>
   | ReturnType<typeof successInitInfo>;
 
@@ -78,6 +91,13 @@ function deviceReducer(
         isAudioOn,
       };
     }
+    case SET_SPEAKER_POWER: {
+      const { isSpeakerOn } = action.payload as { isSpeakerOn: boolean };
+      return {
+        ...state,
+        isSpeakerOn,
+      };
+    }
     case REQUEST_VIDEO_INFO: {
       const { videoInfo } = action.payload as { videoInfo: MediaDeviceInfo };
       return {
@@ -90,6 +110,31 @@ function deviceReducer(
       return {
         ...state,
         audioInfo,
+      };
+    }
+    case REQUEST_SPEAKER_INFO: {
+      const { speakerInfo } = action.payload as { speakerInfo: MediaDeviceInfo };
+      return {
+        ...state,
+        speakerInfo,
+      };
+    }
+    case SUCCESS_VIDEO_INFO: {
+      const { stream } = action.payload as { stream: MediaStream };
+      const { isVideoOn } = state;
+      stream.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
+      return {
+        ...state,
+        stream,
+      };
+    }
+    case SUCCESS_AUDIO_INFO: {
+      const { stream } = action.payload as { stream: MediaStream };
+      const { isAudioOn } = state;
+      stream.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
+      return {
+        ...state,
+        stream,
       };
     }
     case REQUEST_INIT_INFO: {
