@@ -15,7 +15,7 @@ import customRTC from '@utils/customRTC';
 
 // 처음 디바이스 셋팅
 async function loadInfosWithDevices({}) {
-  const initStream = await customRTC.initStream();
+  await customRTC.initStream();
 
   const videoDevices = await customRTC.getVideos();
   const videoInfo = videoDevices[0] ?? null;

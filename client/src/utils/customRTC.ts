@@ -1,12 +1,20 @@
 const customRTC = () => {
   const initStream = async () => {
-    const newStream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: true,
-    });
-    newStream?.getVideoTracks().forEach((track) => (track.enabled = false));
-    newStream?.getAudioTracks().forEach((track) => (track.enabled = false));
-    return newStream;
+    try {
+      // 처음 권한 가져오기
+      const newStream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+        video: true,
+      });
+      // 사용중인 트랙은 종료시키자 (권한만이 목적)
+      newStream.getTracks().forEach((track) => {
+        track.stop();
+        newStream.removeTrack(track);
+      });
+      throw 'Got Permissioned!';
+    } catch (e) {
+      return true;
+    }
   };
 
   const getVideos = async () => {
