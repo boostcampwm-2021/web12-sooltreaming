@@ -3,6 +3,7 @@ import PaperPlaneIcon from '@components/icons/PaperPlaneIcon';
 import DownIcon from '@components/icons/DownIcon';
 import MicIcon from '@components/icons/MicIcon';
 import VideoIcon from '@components/icons/VideoIcon';
+import SpeakerIcon from '@components/icons/SpeakerIcon';
 import XIcon from '@components/icons/XIcon';
 
 import CheersIcon from '@components/icons/CheersIcon';
@@ -28,6 +29,7 @@ export {
   DownIcon,
   MicIcon,
   VideoIcon,
+  SpeakerIcon,
   XIcon,
   ChatIcon,
   CheersIcon,
