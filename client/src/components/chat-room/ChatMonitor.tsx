@@ -31,7 +31,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
 
   return (
     <Wrapper>
-      <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline></Video>
+      <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline muted></Video>
       {Object.values(streams).map((otherStream) => {
         return <OtherVideo count={count} srcObject={otherStream} />;
       })}
