@@ -1,5 +1,6 @@
+export const DEPLOYMENT = process.env.REACT_APP_DEPLOYMENT;
+
 const getBackBaseUrl = () => {
-  const DEPLOYMENT = process.env.REACT_APP_DEPLOYMENT;
   const _PORT = process.env.REACT_APP_BACK_PORT;
   const BACK_PORT = !_PORT ? '' : `:${_PORT}`;
   const BACK_HOST = process.env.REACT_APP_BACK_HOST || '';
