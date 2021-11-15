@@ -14,9 +14,7 @@ const chatting = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
       sid: socket.id,
       date: getTimeString(),
     };
-    console.log(messageData);
-    socket.emit(RECEIVE_MESSAGE, messageData);
-    socket.to(code).emit(RECEIVE_MESSAGE, messageData);
+    io.emit(RECEIVE_MESSAGE, messageData);
   });
   return { io, socket, rooms };
 };

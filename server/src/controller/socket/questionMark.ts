@@ -11,8 +11,7 @@ const questionMark = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: r
     console.log(x, y);
     let code = '';
     code = chatRoomCode;
-    socket.emit(QUESTION, { x, y });
-    socket.to(code).emit(QUESTION, { x, y });
+    io.to(code).emit(QUESTION, { x, y });
   });
   return { io, socket, rooms };
 };
