@@ -10,26 +10,7 @@ import ControlBar from '@components/chat-room/ControlBar';
 import { Wrapper, VideoSection, ColumnDiv } from './ChatRoom.style';
 import AnimationScreen from '@src/components/animation/AnimationScreen';
 
-type ChatRoomTypes = {
-  stream: MediaStream;
-};
-
-export type ControlBarPropTypes = {
-  onClickCheers: any;
-  menuType: string;
-  setMenuType: React.Dispatch<React.SetStateAction<string>>;
-};
-
-export type MenuPropTypes = {
-  stream: MediaStream;
-  menuType: string;
-  setMenuType: React.Dispatch<React.SetStateAction<string>>;
-  code: string;
-  user: object;
-  users: any;
-};
-
-const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
+const ChatRoom: React.FC = () => {
   const dispatch = useDispatch();
   const activateCheers = useRef<any>(() => {});
   const history = useHistory();
@@ -75,19 +56,12 @@ const ChatRoom: React.FunctionComponent<ChatRoomTypes> = ({ stream }) => {
     <Wrapper>
       <ColumnDiv>
         <VideoSection>
-          <ChatMonitor users={users} stream={stream} />
+          <ChatMonitor users={users} />
           <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} code={code} user={user} />
         </VideoSection>
-        <ControlBar onClickCheers={cheers} menuType={menuType} setMenuType={setMenuType} />
+        <ControlBar onClickCheers={cheers} setMenuType={setMenuType} />
       </ColumnDiv>
-      <Menu
-        stream={stream}
-        menuType={menuType}
-        setMenuType={setMenuType}
-        code={code}
-        user={user}
-        users={users}
-      />
+      <Menu menuType={menuType} setMenuType={setMenuType} code={code} user={user} users={users} />
     </Wrapper>
   );
 };

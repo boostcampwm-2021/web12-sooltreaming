@@ -1,6 +1,5 @@
 import React from 'react';
 import DeviceToggleButton from '@components/setting/DeviceToggleButton';
-import type { ControlBarPropTypes } from '@components/chat-room/ChatRoom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setVideoPower, setAudioPower } from '@store/device';
@@ -20,6 +19,11 @@ import { Wrapper, Div, Button } from '@components/chat-room/ControlBar.style';
 
 const IconButton = (Icon: React.ReactNode, className: string) => {
   return <Button className={className}>{Icon}</Button>;
+};
+
+export type ControlBarPropTypes = {
+  onClickCheers: any;
+  setMenuType: React.Dispatch<React.SetStateAction<string>>;
 };
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배

@@ -6,12 +6,11 @@ import { RootState } from '@src/store';
 
 type ChatFormPropTypes = {
   users: any;
-  stream: MediaStream;
 };
 
-const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
+const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
   const socket = useRef<any>(null);
-  const { isVideoOn, isAudioOn } = useSelector((state: RootState) => state.device);
+  const stream = useSelector((state: RootState) => state.device.stream);
   const [streams, setStreams] = useState({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
   let count = Object.values(streams).length + 1;
@@ -25,19 +24,10 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, stream }) => {
     };
   }, []);
 
-  useEffect(() => {
-    stream?.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
-  }, [isVideoOn]);
-  useEffect(() => {
-    stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
-  }, [isAudioOn]);
-  useEffect(() => {
-    if (!socket.current || !myVideoRef.current) return;
-    socket.current.changeStream(stream);
-    myVideoRef.current.srcObject = stream;
-    stream?.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
-    stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
-  }, [stream]);
+  const sendStream = () => {
+    socket.current?.changeStream(stream);
+  };
+  useUpdateStream(myVideoRef, stream, sendStream);
 
   return (
     <Wrapper>
