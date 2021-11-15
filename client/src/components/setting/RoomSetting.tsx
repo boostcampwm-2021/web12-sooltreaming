@@ -6,9 +6,8 @@ import { requestVideoInfo, requestAudioInfo, requestSpeakerInfo } from '@store/d
 import SettingDropdown from '@components/setting/SettingDropdown';
 
 const RoomSetting: React.FC = () => {
-  const { videoInfo, audioInfo, videoDevices, audioDevices, speakerDevices, stream } = useSelector(
-    (state: RootState) => state.device,
-  );
+  const { videoInfo, audioInfo, speakerInfo, videoDevices, audioDevices, speakerDevices, stream } =
+    useSelector((state: RootState) => state.device);
   const dispatch = useDispatch();
 
   return (
@@ -39,5 +38,4 @@ const RoomSetting: React.FC = () => {
     </Wrapper>
   );
 };
-
 export default RoomSetting;
