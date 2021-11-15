@@ -4,6 +4,7 @@ import QuestionMark from './QuestionMark';
 import Socket from '@socket/socket';
 
 const CHEERS_GIF_NUM = 2;
+const CHEERS_TIME = 5000;
 const LISTED_GIF = ['/images/beer-cheers1.gif', '/images/beer-cheers2.gif'];
 
 type AnimationScreenPropsType = {
@@ -44,7 +45,7 @@ const AnimationScreen: React.FC<AnimationScreenPropsType> = ({
         screenRef.current.src = '';
         screenRef.current.style.display = 'none';
       }
-    }, 5000);
+    }, CHEERS_TIME);
   };
 
   // 건배 boolean이 바뀌었는지 아닌지

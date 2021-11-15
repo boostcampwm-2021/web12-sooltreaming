@@ -10,13 +10,15 @@ type QuestionMarkPropTypes = {
   y: number;
 };
 
+const QUESTION_MARK_TIME = 1900;
+
 const QuestionMark: React.FC<QuestionMarkPropTypes> = ({ identifier, disappearSelf, x, y }) => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     setTimeout(() => {
       disappearSelf(identifier);
-    }, 1900);
+    }, QUESTION_MARK_TIME);
   }, []);
 
   useUpdateSpeaker(audioRef);
