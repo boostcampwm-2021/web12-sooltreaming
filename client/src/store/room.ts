@@ -10,30 +10,32 @@ const initialState: RoomStateType = {
 };
 
 // 확장성을 생각해 별도의 Type 지정
-type RoomType = {
+type RoomHostType = {
   hostId: string;
+  isOpen: boolean;
 };
 
 type IsOpenType = {
   isOpen: boolean;
 };
 
-export const [SET_HOSTID, setHostID] = createAction<RoomType>('SET_HOSTID');
+export const [SET_HOST, setHost] = createAction<RoomHostType>('SET_HOST');
 export const [SET_ISOPEN, setIsOpen] = createAction<IsOpenType>('SET_ISOPEN');
 export const [RESET_ROOM_INFO, resetRoomInfo] = createAction<{}>('RESET_ROOM_INFO');
 
-type roomAction = ReturnType<typeof setHostID> | ReturnType<typeof setIsOpen> | ReturnType<typeof resetRoomInfo> ;
+type roomAction = ReturnType<typeof setHost> | ReturnType<typeof setIsOpen> | ReturnType<typeof resetRoomInfo> ;
 
 function roomReducer(
   state: RoomStateType = initialState,
   action: roomAction,
 ): RoomStateType {
   switch (action.type) {
-    case SET_HOSTID: {
-      const { hostId } = action.payload as RoomType;
+    case SET_HOST: {
+      const { hostId, isOpen } = action.payload as RoomHostType;
       return {
         ...state,
         hostId,
+        isOpen,
       };
     }
     case SET_ISOPEN: {
