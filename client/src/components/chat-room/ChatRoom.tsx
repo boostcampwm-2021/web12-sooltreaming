@@ -3,6 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setNoticeMessage } from '@store/notice';
+import { resetRoomInfo, setHost } from '@store/room';
 import Socket from '@socket/socket';
 import Menu from '@components/chat-room/Menu';
 import ChatMonitor from '@components/chat-room/ChatMonitor';
@@ -41,6 +42,7 @@ const ChatRoom: React.FC = () => {
     activateCheers.current = functions.activateCheers;
     return () => {
       functions.disconnecting();
+      dispatch(resetRoomInfo({}));
     };
   }, []);
 
@@ -57,11 +59,11 @@ const ChatRoom: React.FC = () => {
       <ColumnDiv>
         <VideoSection>
           <ChatMonitor users={users} />
-          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} code={code} user={user} />
+          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} user={user} />
         </VideoSection>
         <ControlBar onClickCheers={cheers} setMenuType={setMenuType} />
       </ColumnDiv>
-      <Menu menuType={menuType} setMenuType={setMenuType} code={code} user={user} users={users} />
+      <Menu menuType={menuType} setMenuType={setMenuType} user={user} users={users} />
     </Wrapper>
   );
 };
