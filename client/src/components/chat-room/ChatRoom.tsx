@@ -23,7 +23,6 @@ const ChatRoom: React.FC = () => {
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
   const [isCheers, setIsCheers] = useState<boolean>(false);
-  const [isCloseup, setIsCloseup] = useState<boolean>(false);
   const [closeupUser, setCloseupUser] = useState<string>('');
   const errorControl = (message) => {
     dispatch(setNoticeMessage({ errorMessage: message }));
@@ -40,7 +39,7 @@ const ChatRoom: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const functions = Socket.animation({ setIsCheers, setCloseupUser, setIsCloseup });
+    const functions = Socket.animation({ setIsCheers, setCloseupUser });
     activateCheers.current = functions.activateCheers;
     activateCloseup.current = functions.activateCloseup;
     deactivateCloseup.current = functions.deactivateCloseup;
@@ -58,7 +57,7 @@ const ChatRoom: React.FC = () => {
   };
 
   const closeup = (e) => {
-    if (isCloseup) {
+    if (closeupUser) {
       deactivateCloseup.current({
         chatRoomCode: code,
       });
@@ -74,7 +73,7 @@ const ChatRoom: React.FC = () => {
     <Wrapper>
       <ColumnDiv>
         <VideoSection>
-          <ChatMonitor users={users} closeupUser={closeupUser} isCloseup={isCloseup} />
+          <ChatMonitor users={users} closeupUser={closeupUser} />
           <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} code={code} user={user} />
         </VideoSection>
         <ControlBar onClickCheers={cheers} onClickCloseup={closeup} setMenuType={setMenuType} />

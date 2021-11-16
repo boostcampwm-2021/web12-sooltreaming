@@ -4,7 +4,7 @@ const CHEERS = 'CHEERS';
 const CLOSEUP = 'CLOSEUP';
 const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 const animation = (socket: Socket) => (closure: any) => {
-  const { setIsCheers, setCloseupUser, setIsCloseup } = closure;
+  const { setIsCheers, setCloseupUser } = closure;
 
   socket.on(CHEERS, () => {
     setIsCheers(true);
@@ -15,12 +15,10 @@ const animation = (socket: Socket) => (closure: any) => {
 
   socket.on(CLOSEUP, (sid) => {
     setCloseupUser(sid);
-    setIsCloseup(true);
   });
 
   socket.on(CANCEL_CLOSEUP, () => {
     setCloseupUser('');
-    setIsCloseup(false);
   });
 
   const activateCheers = (mydata) => {

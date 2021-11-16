@@ -10,7 +10,6 @@ import useToggleSpeaker from '@hooks/useToggleSpeaker';
 type ChatFormPropTypes = {
   users: any;
   closeupUser: any;
-  isCloseup: any;
 };
 
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, closeupUser }) => {
