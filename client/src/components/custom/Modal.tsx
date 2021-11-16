@@ -11,19 +11,19 @@ type ModalPropTypes = {
   children: any;
   isOpen: boolean;
   relativePos?: ModalPosType;
-  absoultePos?: ModalPosType;
+  absolutePos?: ModalPosType;
 };
 
 const Modal: React.FunctionComponent<ModalPropTypes> = ({
   children,
   isOpen,
   relativePos = {},
-  absoultePos = {},
+  absolutePos = {},
 }) => {
   if (!isOpen) return <></>;
   return (
     <Wrapper pos={relativePos}>
-      <ContentDiv pos={absoultePos}>{children}</ContentDiv>
+      <ContentDiv pos={absolutePos}>{children}</ContentDiv>
     </Wrapper>
   );
 };
