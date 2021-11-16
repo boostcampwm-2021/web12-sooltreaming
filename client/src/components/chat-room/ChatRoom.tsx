@@ -9,6 +9,7 @@ import ChatMonitor from '@components/chat-room/ChatMonitor';
 import ControlBar from '@components/chat-room/ControlBar';
 import { Wrapper, VideoSection, ColumnDiv } from './ChatRoom.style';
 import AnimationScreen from '@src/components/animation/AnimationScreen';
+import Scaffold from '@components/chat-room/scaffold';
 
 const ChatRoom: React.FC = () => {
   const dispatch = useDispatch();
@@ -62,6 +63,7 @@ const ChatRoom: React.FC = () => {
         <ControlBar onClickCheers={cheers} setMenuType={setMenuType} />
       </ColumnDiv>
       <Menu menuType={menuType} setMenuType={setMenuType} code={code} user={user} users={users} />
+      <Scaffold />
     </Wrapper>
   );
 };
