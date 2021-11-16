@@ -136,7 +136,7 @@
 
 ![image](https://user-images.githubusercontent.com/55688122/139286653-6498c96e-7a74-4ad5-94c8-bdfcf06f73e7.png)
 
-## 📕 [Ground Rule](https://colossal-playroom-b51.notion.site/7f0b1f767ec845d5abfc20301c7fd76d)
+## 📕 [Ground Rule](https://colossal-playroom-b51.notion.site/v1-0-4-ebba1117a39945748a4084beb3ed2981)
 
 ## 🎥 시연영상
 
