@@ -13,6 +13,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
   let code = '';
   socket.on(JOIN_ROOM, ({ chatRoomCode, user }) => {
     if (!(chatRoomCode in rooms)) return socket.emit(JOIN_ROOM_ERROR, '존재하지 않는 방입니다.');
+    if(!rooms[chatRoomCode].isOpen) return socket.emit(JOIN_ROOM_ERROR, '입장이 제한된 방입니다.');
     code = chatRoomCode;
     const sid = socket.id;
     if (!Object.keys(rooms[code].users).length) rooms[code].hostID = sid;
