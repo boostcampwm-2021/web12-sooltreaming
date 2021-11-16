@@ -57,11 +57,11 @@ const ChatRoom: React.FC = () => {
       <ColumnDiv>
         <VideoSection>
           <ChatMonitor users={users} />
-          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} code={code} user={user} />
+          <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} user={user} />
         </VideoSection>
         <ControlBar onClickCheers={cheers} setMenuType={setMenuType} />
       </ColumnDiv>
-      <Menu menuType={menuType} setMenuType={setMenuType} code={code} user={user} users={users} />
+      <Menu menuType={menuType} setMenuType={setMenuType} user={user} users={users} />
     </Wrapper>
   );
 };

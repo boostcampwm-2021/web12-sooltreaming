@@ -15,6 +15,8 @@ import PeopleIcon from '@components/icons/PeopleIcon';
 import HostIcon from '@components/icons/HostIcon';
 import GameIcon from '@components/icons/GameIcon';
 
+import CopyIcon from '@components/icons/CopyIcon';
+
 export type iconPropsType = {
   className?: string;
   width?: number;
@@ -38,4 +40,5 @@ export {
   PeopleIcon,
   HostIcon,
   GameIcon,
+  CopyIcon
 };
