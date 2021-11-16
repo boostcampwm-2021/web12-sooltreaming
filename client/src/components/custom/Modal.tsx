@@ -2,14 +2,16 @@ import React from 'react';
 import { Wrapper, ContentDiv } from './Modal.style';
 
 export type ModalPosType = {
-  top?: number;
-  right?: number;
-  bottom?: number;
-  left?: number;
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
 };
 type ModalPropTypes = {
   children: any;
   isOpen: boolean;
+  renderCenter?: boolean;
+  isRelative?: boolean;
   relativePos?: ModalPosType;
   absolutePos?: ModalPosType;
 };
@@ -17,13 +19,23 @@ type ModalPropTypes = {
 const Modal: React.FunctionComponent<ModalPropTypes> = ({
   children,
   isOpen,
+  renderCenter = false,
+  isRelative = true,
   relativePos = {},
   absolutePos = {},
 }) => {
   if (!isOpen) return <></>;
+  if (!isRelative)
+    return (
+      <ContentDiv renderCenter={renderCenter} pos={absolutePos}>
+        {children}
+      </ContentDiv>
+    );
   return (
     <Wrapper pos={relativePos}>
-      <ContentDiv pos={absolutePos}>{children}</ContentDiv>
+      <ContentDiv renderCenter={renderCenter} pos={absolutePos}>
+        {children}
+      </ContentDiv>
     </Wrapper>
   );
 };
