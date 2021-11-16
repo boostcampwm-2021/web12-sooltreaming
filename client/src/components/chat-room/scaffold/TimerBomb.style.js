@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, INPUT_STYLE } from '@constant/style';
+import { COLOR } from '@constant/style';
 
 export const Wrapper = styled.div`
   width: 83px;
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   & > div {
     width: 60px;
     height: 60px;
-    margin: 18px 23px 5px 0;
+    margin: 16px 23px 7px 0;
     position: relative;
     top: -100%;
 
@@ -22,6 +22,7 @@ export const Wrapper = styled.div`
     align-items: center;
 
     font-size: 25px;
+    font-weight: bold;
     color: ${COLOR.white};
     user-select: none;
   }

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, INPUT_STYLE } from '@constant/style';
+import { COLOR } from '@constant/style';
 
 export const Header = styled.div`
   padding: 15px;

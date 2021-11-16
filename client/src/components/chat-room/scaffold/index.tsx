@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Header, PressSection } from './index.style.js';
 import Modal from '@components/custom/Modal';
 import TimerBomb from '@components/chat-room/scaffold/TimerBomb';
@@ -7,7 +7,7 @@ const Scaffold: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [target, setTarget] = useState<string>('');
 
-  const openJudgment = (id: any) => {
+  const openJudgment = () => {
     setIsOpen(true);
     setTarget('아무개');
   };
@@ -16,12 +16,6 @@ const Scaffold: React.FC = () => {
     setIsOpen(false);
     setTarget('');
   };
-
-  useEffect(() => {
-    setTimeout(() => {
-      closeJudgment();
-    }, 2000);
-  }, []);
 
   return (
     <>
@@ -39,10 +33,10 @@ const Scaffold: React.FC = () => {
           <TimerBomb />
         </Header>
         <PressSection>
-          <button>
+          <button onClick={closeJudgment}>
             <img src="/images/agree.png" alt="agree" />
           </button>
-          <button>
+          <button onClick={closeJudgment}>
             <img src="/images/disagree.png" alt="disagree" />
           </button>
         </PressSection>
