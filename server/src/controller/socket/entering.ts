@@ -20,7 +20,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     rooms[code].users[sid] = user;
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
-    io.emit(ENTER_ALL_USER, rooms[code].users);
+    io.emit(ENTER_ALL_USER, rooms[code].users, code);
   });
 
   socket.on('disconnect', () => {

@@ -60,6 +60,7 @@ const ChatRoom: React.FC = () => {
     if (closeupUser) {
       deactivateCloseup.current({
         chatRoomCode: code,
+        closeupUser,
       });
     } else {
       activateCloseup.current({

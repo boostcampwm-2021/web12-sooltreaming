@@ -24,6 +24,10 @@ const animation = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: room
     rooms[chatRoomCode].closeupUser = '';
     io.to(chatRoomCode).emit(CANCEL_CLOSEUP);
   });
+
+  socket.on(EXIST_CLOSEUP, ({ chatRoomCode, sid }) => {
+    io.to(sid).emit(EXIST_CLOSEUP, rooms[chatRoomCode].closeupUser);
+  });
   return { io, socket, rooms };
 };
 

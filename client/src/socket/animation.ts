@@ -3,6 +3,7 @@ import { Socket } from 'socket.io-client';
 const CHEERS = 'CHEERS';
 const CLOSEUP = 'CLOSEUP';
 const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
+const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
 const animation = (socket: Socket) => (closure: any) => {
   const { setIsCheers, setCloseupUser } = closure;
 
@@ -19,6 +20,10 @@ const animation = (socket: Socket) => (closure: any) => {
 
   socket.on(CANCEL_CLOSEUP, () => {
     setCloseupUser('');
+  });
+
+  socket.on(EXIST_CLOSEUP, (closeupUser) => {
+    setCloseupUser(closeupUser);
   });
 
   const activateCheers = (mydata) => {

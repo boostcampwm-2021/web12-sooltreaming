@@ -13,6 +13,7 @@ export type roomType = {
   [code: string]: {
     hostID: string;
     isOpen: boolean;
+    closeupUser: string;
     users: {
       [sid: string]: {
         uid: string;
