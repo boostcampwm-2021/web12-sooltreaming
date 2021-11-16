@@ -3,6 +3,8 @@ import { getTimeString } from '@utils/time';
 import type { roomType } from '@loader/socket';
 
 const CHEERS = 'CHEERS';
+const CLOSEUP = 'CLOSEUP';
+const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 const QUESTION_MARK = 'QUESTION_MARK';
 
 const animation = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
@@ -10,6 +12,14 @@ const animation = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: room
     let code = '';
     code = chatRoomCode;
     io.emit(CHEERS);
+  });
+
+  socket.on(CLOSEUP, ({ chatRoomCode, sid }) => {
+    io.to(chatRoomCode).emit(CLOSEUP, sid);
+  });
+
+  socket.on(CANCEL_CLOSEUP, (chatRoomCode) => {
+    io.to(chatRoomCode).emit(CANCEL_CLOSEUP);
   });
   return { io, socket, rooms };
 };

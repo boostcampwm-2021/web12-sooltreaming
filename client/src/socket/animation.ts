@@ -1,9 +1,10 @@
 import { Socket } from 'socket.io-client';
 
 const CHEERS = 'CHEERS';
-
+const CLOSEUP = 'CLOSEUP';
+const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 const animation = (socket: Socket) => (closure: any) => {
-  const { setIsCheers } = closure;
+  const { setIsCheers, setCloseupUser, setIsCloseup } = closure;
 
   socket.on(CHEERS, () => {
     setIsCheers(true);
@@ -12,15 +13,34 @@ const animation = (socket: Socket) => (closure: any) => {
     }, 5000);
   });
 
+  socket.on(CLOSEUP, (sid) => {
+    setCloseupUser(sid);
+    setIsCloseup(true);
+  });
+
+  socket.on(CANCEL_CLOSEUP, () => {
+    setCloseupUser('');
+    setIsCloseup(false);
+  });
+
   const activateCheers = (mydata) => {
     socket.emit(CHEERS, mydata);
   };
 
-  const disconnecting = () => {
-    socket.off(CHEERS);
+  const deactivateCloseup = (mydata) => {
+    socket.emit(CANCEL_CLOSEUP, mydata.chatRoomCode);
   };
 
-  return { activateCheers, disconnecting };
+  const activateCloseup = (mydata) => {
+    socket.emit(CLOSEUP, mydata);
+  };
+
+  const disconnecting = () => {
+    socket.off(CHEERS);
+    socket.off(CLOSEUP);
+  };
+
+  return { activateCheers, activateCloseup, deactivateCloseup, disconnecting };
 };
 
 export default animation;
