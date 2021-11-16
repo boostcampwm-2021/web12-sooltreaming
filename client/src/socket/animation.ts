@@ -36,6 +36,7 @@ const animation = (socket: Socket) => (closure: any) => {
   const disconnecting = () => {
     socket.off(CHEERS);
     socket.off(CLOSEUP);
+    socket.off(CANCEL_CLOSEUP);
   };
 
   return { activateCheers, activateCloseup, deactivateCloseup, disconnecting };

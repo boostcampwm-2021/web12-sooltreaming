@@ -16,6 +16,11 @@ export const Wrapper = styled.div`
     width: 100%;
     height: 100%;
   }
+
+  .mini {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 export const Video = styled.video<{ count: number }>`

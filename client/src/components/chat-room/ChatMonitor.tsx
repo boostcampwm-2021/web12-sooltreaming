@@ -17,7 +17,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, closeupUser }) => {
   const stream = useSelector((state: RootState) => state.device.stream);
   const [streams, setStreams] = useState({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
-  const className = Socket.getSID() === closeupUser ? 'myFace closeup' : 'myFace';
+  const className = closeupUser ? (Socket.getSID() === closeupUser ? 'closeup' : 'mini') : '';
   let count = Object.values(streams).length + 1;
 
   useEffect(() => {
@@ -45,16 +45,15 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, closeupUser }) => {
         muted
       ></Video>
       {Object.entries(streams).map(([sid, otherStream]) => {
-        const isCloseup = sid === closeupUser;
-        return <OtherVideo isCloseUp={isCloseup} count={count} srcObject={otherStream} />;
+        const peerClassName = closeupUser ? (sid === closeupUser ? 'closeup' : 'mini') : '';
+        return <OtherVideo className={peerClassName} count={count} srcObject={otherStream} />;
       })}
     </Wrapper>
   );
 };
 
-const OtherVideo = ({ isCloseUp, srcObject, count }) => {
+const OtherVideo = ({ className, srcObject, count }) => {
   const otherRef = useRef<HTMLVideoElement>(null);
-  const className = isCloseUp ? 'peerFace closeup' : 'peerFace';
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
   useUpdateStream(otherRef, srcObject);
