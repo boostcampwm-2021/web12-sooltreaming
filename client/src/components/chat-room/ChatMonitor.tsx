@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Socket from '@socket/socket';
-import { Wrapper, Video } from '@components/chat-room/ChatMonitor.style';
+import { Wrapper, VideoWrapper, Video, Image } from '@components/chat-room/ChatMonitor.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
@@ -11,9 +11,16 @@ type ChatFormPropTypes = {
   users: any;
 };
 
+type UserType = {
+  id: string;
+  imgUrl: string;
+  nickname: string;
+};
+
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
   const socket = useRef<any>(null);
   const stream = useSelector((state: RootState) => state.device.stream);
+  const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
   const [streams, setStreams] = useState({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
   let count = Object.values(streams).length + 1;
@@ -34,7 +41,11 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
 
   return (
     <Wrapper>
-      <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline muted></Video>
+      <VideoWrapper count={count}>
+        <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline muted></Video>
+        <Image count={count} className="myImg" src="/images/logo.png" isVideoOn={isVideoOn}></Image>
+      </VideoWrapper>
+
       {Object.values(streams).map((otherStream) => {
         return <OtherVideo count={count} srcObject={otherStream} />;
       })}
@@ -47,9 +58,22 @@ const OtherVideo = ({ srcObject, count }) => {
 
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
-  useUpdateStream(otherRef, srcObject);
+  useUpdateStream(otherRef, srcObject); // srcObject은 otherStream
+  const isVideoOn = srcObject.getVideoTracks()[0].enabled;
 
-  return <Video count={count} ref={otherRef} className="peerFace" autoPlay playsInline></Video>;
+  return (
+    <>
+      <VideoWrapper count={count}>
+        <Video count={count} ref={otherRef} className="peerFace" autoPlay playsInline></Video>
+        <Image
+          count={count}
+          src="/images/logo.png"
+          className="peerImg"
+          isVideoOn={isVideoOn}
+        ></Image>
+      </VideoWrapper>
+    </>
+  );
 };
 
 export default ChatMonitor;
