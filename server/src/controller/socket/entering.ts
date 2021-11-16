@@ -37,10 +37,10 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
         rooms[code].hostID = newHost;
         socket.broadcast.emit(CHANGE_HOST, newHost);
       }
-    }
-    if (rooms[code].closeupUser === socket.id) {
-      rooms[code].closeupUser = '';
-      io.to(code).emit(CANCEL_CLOSEUP);
+      if (rooms[code].closeupUser === sid) {
+        rooms[code].closeupUser = '';
+        io.to(code).emit(CANCEL_CLOSEUP);
+      }
     }
   });
 
