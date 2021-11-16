@@ -6,12 +6,25 @@ export const ModalContent: React.FC = ({ children }) => {
   return <div key={MODAL_CONTENT_KEY}>{children}</div>;
 };
 
+export type ModalPosType = {
+  top?: number;
+  right?: number;
+  bottom?: number;
+  left?: number;
+};
 type ModalPropTypes = {
   children: ReactNode[];
-  isOpen?: boolean;
+  isOpen: boolean;
+  relativePos?: ModalPosType;
+  absoultePos?: ModalPosType;
 };
 
-const Modal: React.FC<ModalPropTypes> = ({ children, isOpen }) => {
+const Modal: React.FC<ModalPropTypes> = ({
+  children,
+  isOpen,
+  relativePos = {},
+  absoultePos = {},
+}) => {
   if (!children?.length) <></>;
 
   const [contentChildren, otherChildren] = [...children].reduce(
@@ -33,9 +46,11 @@ const Modal: React.FC<ModalPropTypes> = ({ children, isOpen }) => {
   return (
     <>
       {otherChildren}
-      <Wrapper>
-        <ContentDiv>{contentChildren}</ContentDiv>
-      </Wrapper>
+      {isOpen && (
+        <Wrapper pos={relativePos}>
+          <ContentDiv pos={absoultePos}>{contentChildren}</ContentDiv>
+        </Wrapper>
+      )}
     </>
   );
 };

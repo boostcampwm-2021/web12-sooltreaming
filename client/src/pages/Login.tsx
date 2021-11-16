@@ -8,13 +8,6 @@ const naverUrl = `https://nid.naver.com/oauth2.0/authorize?response_type=code&cl
 const Login: React.FC = () => {
   return (
     <Wrapper>
-      <Modal>
-        <ModalContent>
-          <div>이건 모달창???????????</div>
-        </ModalContent>
-        <div>123</div>
-        <div>테스트</div>
-      </Modal>
       <LogoDiv>
         <img src="/images/logo.png" />
         <span>Sooltreaming</span>
