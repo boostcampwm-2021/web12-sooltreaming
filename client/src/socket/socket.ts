@@ -6,6 +6,7 @@ import host from './host';
 import { BACK_BASE_URL } from '@constant/envs';
 import animation from './animation';
 import questionmark from './questionmark';
+import roomControl from './roomControl';
 
 const Socket = () => {
   const socket = io(BACK_BASE_URL, {
@@ -25,6 +26,7 @@ const Socket = () => {
     host: host(socket),
     animation: animation(socket),
     questionmark: questionmark(socket),
+    roomControl: roomControl(socket),
   };
 };
 export default Socket();

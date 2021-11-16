@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import {useParams} from 'react-router-dom';
 import { Wrapper, ScreenImg, QuestionList } from './AnimationScreen.style';
 import QuestionMark from './QuestionMark';
 import Socket from '@socket/socket';
@@ -10,7 +11,6 @@ const LISTED_GIF = ['/images/beer-cheers1.gif', '/images/beer-cheers2.gif'];
 type AnimationScreenPropsType = {
   isCheers: any;
   setIsCheers: any;
-  code: string;
   user: object;
 };
 
@@ -21,9 +21,9 @@ type MarkType = {
 const AnimationScreen: React.FC<AnimationScreenPropsType> = ({
   isCheers,
   setIsCheers,
-  code,
   user,
 }) => {
+  const {code} = useParams();
   const question = useRef<any>(() => {});
   const screenRef = useRef<HTMLImageElement>(null);
   const [marks, setMarks] = useState<MarkType>({});
