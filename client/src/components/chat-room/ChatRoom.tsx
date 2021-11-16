@@ -28,9 +28,13 @@ const ChatRoom: React.FC = () => {
     history.push('/');
   };
 
+  const changeRoomHost = (hostId, isOpen) => {
+    dispatch(setHost({ hostId, isOpen }));
+  }
+
   useEffect(() => {
     Socket.connect();
-    const functions = Socket.user({ errorControl, setUsers });
+    const functions = Socket.user({ errorControl, setUsers, changeRoomHost });
     functions.joinRoom({
       chatRoomCode: code,
       user,

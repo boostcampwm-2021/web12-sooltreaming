@@ -16,7 +16,10 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     if(!rooms[chatRoomCode].isOpen) return socket.emit(JOIN_ROOM_ERROR, '입장이 제한된 방입니다.');
     code = chatRoomCode;
     const sid = socket.id;
-    if (!Object.keys(rooms[code].users).length) rooms[code].hostID = sid;
+    if (!Object.keys(rooms[code].users).length) {
+      rooms[code].hostID = sid;
+      socket.emit(CHANGE_HOST, rooms[code].isOpen);
+    }
     rooms[code].users[sid] = user;
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
@@ -35,7 +38,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
       if (rooms[code].hostID === sid) {
         const newHost = Object.keys(rooms[code].users)[0];
         rooms[code].hostID = newHost;
-        socket.broadcast.emit(CHANGE_HOST, newHost);
+        io.to(newHost).emit(CHANGE_HOST, rooms[code].isOpen);
       }
     }
   });
