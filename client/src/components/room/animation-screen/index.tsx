@@ -1,7 +1,6 @@
 import React, { useRef, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
 import { Wrapper, ScreenImg, QuestionList } from '@components/room/animation-screen/index.style';
-import QuestionMark from './QuestionMark';
+import QuestionMark from '@components/room/animation-screen/QuestionMark';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setIsCheers } from '@store/room';
@@ -13,9 +12,7 @@ const LISTED_GIF = ['/images/beer-cheers1.gif', '/images/beer-cheers2.gif'];
 
 const AnimationScreen: React.FC = () => {
   const dispatch = useDispatch();
-  const { code } = useParams();
   const screenRef = useRef<HTMLImageElement>(null);
-  const user = useSelector((state: RootState) => state.user);
   const isCheers = useSelector((state: RootState) => state.room.isCheers);
 
   const { marks, addQuestionMark } = useQuestionMark();

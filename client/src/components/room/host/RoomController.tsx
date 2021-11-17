@@ -12,7 +12,7 @@ import {
   DialogButton,
 } from './RoomController.style';
 
-const RoomController = () => {
+const RoomController: React.FC = () => {
   const code = useSelector((state: RootState) => state.room.roomCode);
   const isOpen = useSelector((state: RootState) => state.room.isOpen);
   const { toggleRoomEntry } = useRoomControl();

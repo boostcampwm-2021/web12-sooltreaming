@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import Socket from '@socket/socket';
 import { Wrapper, VideoWrapper, Video, Image } from '@components/room/monitor/index.style';
 import { useSelector } from 'react-redux';
@@ -13,7 +13,6 @@ type ChatFormPropTypes = {
 };
 
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ closeupUser }) => {
-  const users = useSelector((state: RootState) => state.room.users);
   const streams = useSelector((state: RootState) => state.room.streams);
   const stream = useSelector((state: RootState) => state.device.stream);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);

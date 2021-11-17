@@ -4,7 +4,7 @@ import { Wrapper } from '@components/room/host/index.style';
 import ParticipantController from '@components/room/host/ParticipantController';
 import RoomController from '@components/room/host/RoomController';
 
-const Host = () => {
+const Host: React.FC = () => {
   return (
     <Wrapper>
       <ParticipantController />
