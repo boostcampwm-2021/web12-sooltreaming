@@ -3,6 +3,9 @@ import DeviceToggleButton from '@components/setting/DeviceToggleButton';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setVideoPower, setAudioPower, setSpeakerPower } from '@store/device';
+import { setMenuType } from '@store/room';
+
+import useIsVideoOnOff from '@hooks/socket/useIsVideoOnOff';
 
 import {
   HostIcon,
@@ -25,16 +28,12 @@ const IconButton = (Icon: React.ReactNode, className: string) => {
 export type ControlBarPropTypes = {
   onClickCheers: any;
   onClickCloseup: any;
-  setMenuType: React.Dispatch<React.SetStateAction<string>>;
 };
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
-const ControlBar: React.FC<ControlBarPropTypes> = ({
-  onClickCheers,
-  onClickCloseup,
-  setMenuType,
-}) => {
+const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickCloseup }) => {
   const dispatch = useDispatch();
+  const menuType = useSelector((state: RootState) => state.room.menuType);
   const { isVideoOn, isAudioOn, isSpeakerOn } = useSelector((state: RootState) => state.device);
 
   const MENU = {
@@ -45,8 +44,13 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
     const menuName = target.classList[2];
     if (!menuName) return;
     if (MENU[menuName]) MENU[menuName]();
-    else setMenuType((prev) => (prev === menuName ? '' : menuName));
+    else {
+      const menu = menuType === menuName ? '' : menuName;
+      dispatch(setMenuType(menu));
+    }
   };
+
+  const { videoChange } = useIsVideoOnOff();
 
   return (
     <Wrapper onClick={selectedMenu}>
@@ -64,6 +68,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
           Icon={VideoIcon}
           isDeviceOn={isVideoOn}
           setIsDeviceOn={() => {
+            videoChange(!isVideoOn);
             dispatch(setVideoPower({ isVideoOn: !isVideoOn }));
           }}
         />
