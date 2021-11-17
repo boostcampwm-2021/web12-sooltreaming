@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Socket from '@socket/socket';
-import { Wrapper, VideoWrapper, Video, Image } from '@components/chat-room/ChatMonitor.style';
+import { Wrapper, VideoWrapper, Video, Image } from '@components/room/monitor/index.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
@@ -38,15 +38,8 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, closeupUser }) => {
 
   return (
     <Wrapper>
-      <VideoWrapper count={count}>
-        <Video
-          count={count}
-          className={className}
-          ref={myVideoRef}
-          autoPlay
-          playsInline
-          muted
-        ></Video>
+      <VideoWrapper count={count} className={className}>
+        <Video count={count} ref={myVideoRef} autoPlay playsInline muted></Video>
         <Image count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn}></Image>
       </VideoWrapper>
 
@@ -75,16 +68,10 @@ const OtherVideo = ({ className, srcObject, count, users, sid }) => {
   let imgUrl = users[sid].imgUrl;
   // map으로 하나씩 보내줄 떄 오는 sid: otherStream의 isVideoOn 정보는 users[sid].isVideoOn가 담고있지 않을까????
 
-  console.log(srcObject, '보이는영상');
-  console.log(users[sid], '유저정보');
-  console.log(sid, 'sid');
-  console.log(otherRef);
-  console.log(isVideoOn);
-
   return (
     <>
-      <VideoWrapper count={count}>
-        <Video count={count} ref={otherRef} className={className} autoPlay playsInline></Video>
+      <VideoWrapper count={count} className={className}>
+        <Video count={count} ref={otherRef} autoPlay playsInline></Video>
         <Image count={count} src={imgUrl} isVideoOn={isVideoOn}></Image>
       </VideoWrapper>
     </>

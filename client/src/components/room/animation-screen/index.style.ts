@@ -5,6 +5,8 @@ export const Wrapper = styled.div`
   width: 100%;
   height: 100%;
   top: -100%;
+
+  z-index: 2;
 `;
 
 export const ScreenImg = styled.img`

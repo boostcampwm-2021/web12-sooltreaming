@@ -1,12 +1,11 @@
 import React from 'react';
-
-import { Wrapper, TopBar, CloseButton } from '@components/chat-room/Menu.style';
-import Chat from '@components/chat-room/Chat';
+import { Wrapper, TopBar, CloseButton } from '@components/room/RoomMenu.style';
+import Chat from '@components/room/chat/';
 import RoomSetting from '@components/setting/RoomSetting';
-import Host from '@src/components/chat-room/host/Host';
-import Users from '@src/components/user/Users';
+import Host from '@components/room/host/';
+import Users from '@components/user/Users';
 
-export type MenuPropTypes = {
+export type RoomMenuPropTypes = {
   menuType: string;
   setMenuType: React.Dispatch<React.SetStateAction<string>>;
   user: object;
@@ -28,7 +27,7 @@ const RouteMenu = ({ user, users, menuType }) => {
   }
 };
 
-const Menu: React.FC<MenuPropTypes> = (props) => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = (props) => {
   const { menuType, setMenuType } = props;
 
   if (!menuType) return <></>;
@@ -43,4 +42,4 @@ const Menu: React.FC<MenuPropTypes> = (props) => {
   );
 };
 
-export default Menu;
+export default RoomMenu;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Wrapper } from './TimerBomb.style';
+import { Wrapper } from '@components/room/scaffold/TimerBomb.style';
 
 const SECOND_TO_MS = 1000;
 const VOTE_TIME = 60;

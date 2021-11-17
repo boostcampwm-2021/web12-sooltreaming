@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { SendingForm } from './ChatForm.style';
+import { SendingForm } from '@components/room/chat/ChatForm.style';
 import { PaperPlaneIcon } from '@components/icons';
 
 type ChatFormPropTypes = {

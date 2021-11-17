@@ -5,12 +5,12 @@ import { RootState } from '@src/store';
 import { setNoticeMessage } from '@store/notice';
 import { resetRoomInfo, setHost } from '@store/room';
 import Socket from '@socket/socket';
-import Menu from '@components/chat-room/Menu';
-import ChatMonitor from '@components/chat-room/ChatMonitor';
-import ControlBar from '@components/chat-room/ControlBar';
-import { Wrapper, VideoSection, ColumnDiv } from './ChatRoom.style';
-import AnimationScreen from '@src/components/animation/AnimationScreen';
-import Scaffold from '@components/chat-room/scaffold';
+import RoomMenu from '@components/room/RoomMenu';
+import ChatMonitor from '@components/room/monitor/';
+import ControlBar from '@components/room/ControlBar';
+import { Wrapper, VideoSection, ColumnDiv } from '@components/room/index.style';
+import AnimationScreen from '@components/room/animation-screen/';
+import Scaffold from '@components/room/scaffold';
 
 const ChatRoom: React.FC = () => {
   const dispatch = useDispatch();
@@ -101,7 +101,7 @@ const ChatRoom: React.FC = () => {
         </VideoSection>
         <ControlBar onClickCheers={cheers} onClickCloseup={closeup} setMenuType={setMenuType} />
       </ColumnDiv>
-      <Menu menuType={menuType} setMenuType={setMenuType} user={user} users={users} />
+      <RoomMenu menuType={menuType} setMenuType={setMenuType} user={user} users={users} />
       <Scaffold />
     </Wrapper>
   );

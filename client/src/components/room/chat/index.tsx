@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import Socket from '@socket/socket';
-import { Wrapper, MessageList } from './Chat.style';
-import ChatItem from '@components/chat-room/ChatItem';
-import ChatForm from '@components/chat-room/ChatForm';
+import { Wrapper, MessageList } from '@components/room/chat/index.style';
+import ChatItem from '@components/room/chat/ChatItem';
+import ChatForm from '@components/room/chat/ChatForm';
 
 type ChatPropTypes = {
   user: object;

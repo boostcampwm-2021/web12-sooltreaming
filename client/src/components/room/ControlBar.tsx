@@ -16,7 +16,7 @@ import {
   CloseUpIcon,
   CheersIcon,
 } from '@components/icons';
-import { Wrapper, Div, Button } from '@components/chat-room/ControlBar.style';
+import { Wrapper, Div, Button } from '@components/room/ControlBar.style';
 
 const IconButton = (Icon: React.ReactNode, className: string) => {
   return <Button className={className}>{Icon}</Button>;

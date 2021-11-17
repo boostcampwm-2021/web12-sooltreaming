@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
-import {useParams} from 'react-router-dom';
-import { Wrapper, ScreenImg, QuestionList } from './AnimationScreen.style';
+import { useParams } from 'react-router-dom';
+import { Wrapper, ScreenImg, QuestionList } from '@components/room/animation-screen/index.style';
 import QuestionMark from './QuestionMark';
 import Socket from '@socket/socket';
 
@@ -18,12 +18,8 @@ type MarkType = {
   [key: number]: { x: number; y: number };
 };
 
-const AnimationScreen: React.FC<AnimationScreenPropsType> = ({
-  isCheers,
-  setIsCheers,
-  user,
-}) => {
-  const {code} = useParams();
+const AnimationScreen: React.FC<AnimationScreenPropsType> = ({ isCheers, setIsCheers, user }) => {
+  const { code } = useParams();
   const question = useRef<any>(() => {});
   const screenRef = useRef<HTMLImageElement>(null);
   const [marks, setMarks] = useState<MarkType>({});

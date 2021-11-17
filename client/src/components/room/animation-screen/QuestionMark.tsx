@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { QuestionImg } from './QuestionMark.style';
+import { QuestionImg } from '@components/room/animation-screen/QuestionMark.style';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 

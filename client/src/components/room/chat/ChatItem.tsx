@@ -1,5 +1,11 @@
 import React from 'react';
-import { Wrapper, UserSection, CircleDiv, NameSpan, MsgContent } from './ChatItem.style';
+import {
+  Wrapper,
+  UserSection,
+  CircleDiv,
+  NameSpan,
+  MsgContent,
+} from '@components/room/chat/ChatItem.style';
 import { HumanIcon } from '@components/icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
