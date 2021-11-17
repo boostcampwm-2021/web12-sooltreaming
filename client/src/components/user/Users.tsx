@@ -7,12 +7,11 @@ import {
   ReqFriendButton,
 } from '@src/components/user/Users.style';
 import type { UserType } from '@store/user';
+import { useSelector } from 'react-redux';
+import { RootState } from '@src/store';
 
-type UsersPropTypes = {
-  users: { [key: string]: UserType };
-};
-
-const Users: React.FC<UsersPropTypes> = ({ users }) => {
+const Users: React.FC = () => {
+  const users = useSelector((state: RootState) => state.room.users);
   return (
     <Wrapper>
       {Object.values(users).map((user: UserType) => (
