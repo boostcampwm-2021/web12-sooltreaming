@@ -1,33 +1,42 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
+import type { TargetInfoType } from '@controller/socket/entering';
 
 const CHEERS = 'CHEERS';
 const CLOSEUP = 'CLOSEUP';
 const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
-const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
-const QUESTION_MARK = 'QUESTION_MARK';
 
-const animation = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
-  socket.on(CHEERS, ({ chatRoomCode, user }) => {
-    let code = '';
-    code = chatRoomCode;
+const animation = ({
+  io,
+  socket,
+  rooms,
+  targetInfo,
+}: {
+  io: any;
+  socket: Socket;
+  rooms: roomType;
+  targetInfo: TargetInfoType;
+}) => {
+  socket.on(CHEERS, ({ user }) => {
+    const { code } = targetInfo;
     io.to(code).emit(CHEERS);
   });
 
-  socket.on(CLOSEUP, ({ chatRoomCode, sid }) => {
-    rooms[chatRoomCode].closeupUser = sid;
-    io.to(chatRoomCode).emit(CLOSEUP, sid);
+  socket.on(CLOSEUP, () => {
+    const { code } = targetInfo;
+    if (!(code in rooms)) return;
+    rooms[code].closeupUser = socket.id;
+    io.to(code).emit(CLOSEUP, socket.id);
   });
 
-  socket.on(CANCEL_CLOSEUP, (chatRoomCode) => {
-    rooms[chatRoomCode].closeupUser = '';
-    io.to(chatRoomCode).emit(CANCEL_CLOSEUP);
+  socket.on(CANCEL_CLOSEUP, () => {
+    const { code } = targetInfo;
+    if (!(code in rooms)) return;
+    rooms[code].closeupUser = '';
+    io.to(code).emit(CANCEL_CLOSEUP);
   });
 
-  socket.on(EXIST_CLOSEUP, ({ chatRoomCode, sid }) => {
-    io.to(sid).emit(EXIST_CLOSEUP, rooms[chatRoomCode].closeupUser);
-  });
-  return { io, socket, rooms };
+  return { io, socket, rooms, targetInfo };
 };
 
 export default animation;
