@@ -3,6 +3,7 @@ import signaling from '@controller/socket/signaling';
 import chatting from '@controller/socket/chatting';
 import entering from '@controller/socket/entering';
 import creating from '@controller/socket/creating';
+import restricting from '@controller/socket/restricting';
 import animation from '@controller/socket/animation';
 import questionMark from '@controller/socket/questionMark';
 
@@ -14,6 +15,7 @@ export type roomType = {
   [code: string]: {
     hostID: string;
     isOpen: boolean;
+    closeupUser: string;
     users: {
       [sid: string]: {
         uid: string;

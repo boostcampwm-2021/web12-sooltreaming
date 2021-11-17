@@ -1,16 +1,17 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { useParams } from 'react-router-dom';
 import Socket from '@socket/socket';
 import { Wrapper, MessageList } from './Chat.style';
 import ChatItem from '@components/chat-room/ChatItem';
 import ChatForm from '@components/chat-room/ChatForm';
 
 type ChatPropTypes = {
-  code: string;
   user: object;
   users: any;
 };
 
-const Chat: React.FC<ChatPropTypes> = ({ code, user, users }) => {
+const Chat: React.FC<ChatPropTypes> = ({ user, users }) => {
+  const { code } = useParams();
   const emits = useRef<any>(() => {});
   const chatWindow = useRef<HTMLUListElement>(null);
   const [chatLog, setChatLog] = useState([]);

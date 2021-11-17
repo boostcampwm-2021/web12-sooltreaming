@@ -8,19 +8,24 @@ const ENTER_ONE_USER = 'ENTER_ONE_USER';
 const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
 const CHANGE_HOST = 'CHANGE_HOST';
 const NEED_OFFERS = 'need offers';
+const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 
 const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   let code = '';
   socket.on(JOIN_ROOM, ({ chatRoomCode, user, isVideoOn }) => {
     if (!(chatRoomCode in rooms)) return socket.emit(JOIN_ROOM_ERROR, '존재하지 않는 방입니다.');
+    if (!rooms[chatRoomCode].isOpen) return socket.emit(JOIN_ROOM_ERROR, '입장이 제한된 방입니다.');
     code = chatRoomCode;
     user['isVideoOn'] = isVideoOn;
     const sid = socket.id;
-    if (!Object.keys(rooms[code].users).length) rooms[code].hostID = sid;
+    if (!Object.keys(rooms[code].users).length) {
+      rooms[code].hostID = sid;
+      socket.emit(CHANGE_HOST, rooms[code].isOpen);
+    }
     rooms[code].users[sid] = user;
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
-    io.to(code).emit(ENTER_ALL_USER, rooms[code].users);
+    io.to(code).emit(ENTER_ALL_USER, rooms[code].users, code);
   });
 
   socket.on('disconnect', () => {
@@ -35,7 +40,11 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
       if (rooms[code].hostID === sid) {
         const newHost = Object.keys(rooms[code].users)[0];
         rooms[code].hostID = newHost;
-        socket.broadcast.emit(CHANGE_HOST, newHost);
+        io.to(newHost).emit(CHANGE_HOST, rooms[code].isOpen);
+      }
+      if (rooms[code].closeupUser === sid) {
+        rooms[code].closeupUser = '';
+        io.to(code).emit(CANCEL_CLOSEUP);
       }
     }
   });

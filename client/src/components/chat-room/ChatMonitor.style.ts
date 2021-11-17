@@ -8,6 +8,19 @@ export const Wrapper = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   background-color: ${COLOR.background};
+
+  .closeup {
+    position: absolute;
+    z-index: 0;
+    max-width: 100%;
+    width: 100%;
+    height: 100%;
+  }
+
+  .mini {
+    width: 200px;
+    height: 200px;
+  }
 `;
 
 export const VideoWrapper = styled.div<{ count: number }>`
@@ -17,7 +30,7 @@ export const VideoWrapper = styled.div<{ count: number }>`
   min-height: 100px;
   width: ${(props) => (props.count > 2 ? 50 : 100)}%;
   height: ${(props) => (props.count > 2 ? 50 : 100)}%;
-
+  z-index: 1;
   padding: 10px;
 `;
 

@@ -12,6 +12,7 @@ export const VideoSection = styled.section`
   position: relative;
   flex: 1 1 auto;
   overflow: hidden;
+  position: relative;
 `;
 
 export const ColumnDiv = styled(Wrapper)`

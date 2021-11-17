@@ -24,16 +24,21 @@ const IconButton = (Icon: React.ReactNode, className: string) => {
 
 export type ControlBarPropTypes = {
   onClickCheers: any;
+  onClickCloseup: any;
   setMenuType: React.Dispatch<React.SetStateAction<string>>;
 };
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
-const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, setMenuType }) => {
+const ControlBar: React.FC<ControlBarPropTypes> = ({
+  onClickCheers,
+  onClickCloseup,
+  setMenuType,
+}) => {
   const dispatch = useDispatch();
   const { isVideoOn, isAudioOn, isSpeakerOn } = useSelector((state: RootState) => state.device);
 
   const MENU = {
-    클로즈업: () => {},
+    클로즈업: onClickCloseup,
     건배: onClickCheers,
   };
   const selectedMenu = ({ target }) => {

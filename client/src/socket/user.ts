@@ -5,13 +5,16 @@ const JOIN_ROOM_ERROR = 'JOIN_ROOM_ERROR';
 const ENTER_ALL_USER = 'ENTER_ALL_USER';
 const ENTER_ONE_USER = 'ENTER_ONE_USER';
 const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
+const CHANGE_HOST = 'CHANGE_HOST';
+const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
 
 const user = (socket: Socket) => (closure: any) => {
-  const { errorControl, setUsers } = closure;
+  const { errorControl, setUsers, changeRoomHost } = closure;
 
-  socket.on(ENTER_ALL_USER, (allUsers) => {
-    console.log(allUsers, '전체유저');
+  socket.on(ENTER_ALL_USER, (allUsers, code) => {
+    console.log(allUsers);
     setUsers({ ...allUsers });
+    socket.emit(EXIST_CLOSEUP, { chatRoomCode: code, sid: socket.id });
   });
   socket.on(ENTER_ONE_USER, (data) => {
     setUsers((prev) => ({ ...prev, ...data }));
@@ -24,6 +27,10 @@ const user = (socket: Socket) => (closure: any) => {
         return data;
       });
   });
+  socket.on(CHANGE_HOST, (isOpen) => {
+    changeRoomHost(socket.id, isOpen);
+  });
+
   socket.on(JOIN_ROOM_ERROR, (errorMessage) => {
     errorControl(errorMessage);
   });
@@ -35,6 +42,7 @@ const user = (socket: Socket) => (closure: any) => {
     socket.off(ENTER_ONE_USER);
     socket.off(EXIT_ROOM_USER);
     socket.off(JOIN_ROOM_ERROR);
+    socket.off(CHANGE_HOST);
   };
 
   return { joinRoom, disconnecting };

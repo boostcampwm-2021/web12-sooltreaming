@@ -9,21 +9,17 @@ import useToggleSpeaker from '@hooks/useToggleSpeaker';
 
 type ChatFormPropTypes = {
   users: any;
+  closeupUser: any;
 };
 
-type UserType = {
-  id: string;
-  imgUrl: string;
-  nickname: string;
-};
-
-const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
+const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, closeupUser }) => {
   const socket = useRef<any>(null);
   const stream = useSelector((state: RootState) => state.device.stream);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
   const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
   const [streams, setStreams] = useState<{ [key: string]: MediaStream }>({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
+  const className = closeupUser ? (Socket.getSID() === closeupUser ? 'closeup' : 'mini') : '';
   let count = Object.values(streams).length + 1;
 
   useEffect(() => {
@@ -43,20 +39,35 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
   return (
     <Wrapper>
       <VideoWrapper count={count}>
-        <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline muted></Video>
+        <Video
+          count={count}
+          className={className}
+          ref={myVideoRef}
+          autoPlay
+          playsInline
+          muted
+        ></Video>
         <Image count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn}></Image>
       </VideoWrapper>
 
       {Object.entries(streams).map(([sid, otherStream]) => {
-        return <OtherVideo count={count} srcObject={otherStream} users={users} sid={sid} />;
+        const peerClassName = closeupUser ? (sid === closeupUser ? 'closeup' : 'mini') : '';
+        return (
+          <OtherVideo
+            count={count}
+            className={peerClassName}
+            srcObject={otherStream}
+            users={users}
+            sid={sid}
+          />
+        );
       })}
     </Wrapper>
   );
 };
 
-const OtherVideo = ({ srcObject, count, users, sid }) => {
+const OtherVideo = ({ className, srcObject, count, users, sid }) => {
   const otherRef = useRef<HTMLVideoElement>(null);
-
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
   useUpdateStream(otherRef, srcObject); // srcObject은 otherStream
@@ -73,7 +84,7 @@ const OtherVideo = ({ srcObject, count, users, sid }) => {
   return (
     <>
       <VideoWrapper count={count}>
-        <Video count={count} ref={otherRef} className="peerFace" autoPlay playsInline></Video>
+        <Video count={count} ref={otherRef} className={className} autoPlay playsInline></Video>
         <Image count={count} src={imgUrl} isVideoOn={isVideoOn}></Image>
       </VideoWrapper>
     </>
