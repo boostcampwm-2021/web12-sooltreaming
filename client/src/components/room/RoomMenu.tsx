@@ -4,22 +4,19 @@ import Chat from '@components/room/chat/';
 import RoomSetting from '@components/setting/RoomSetting';
 import Host from '@components/room/host/';
 import Users from '@components/user/Users';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '@src/store';
+import { setMenuType } from '@store/room';
 
-export type RoomMenuPropTypes = {
-  menuType: string;
-  setMenuType: React.Dispatch<React.SetStateAction<string>>;
-  user: object;
-  users: any;
-};
-
-const RouteMenu = ({ user, users, menuType }) => {
+const RouteMenu = () => {
+  const { menuType } = useSelector((state: RootState) => state.room);
   switch (menuType) {
     case '설정':
       return <RoomSetting />;
     case '채팅':
-      return <Chat user={user} users={users} />;
+      return <Chat />;
     case '참가자':
-      return <Users users={users} />;
+      return <Users />;
     case '방장':
       return <Host />;
     default:
@@ -27,17 +24,17 @@ const RouteMenu = ({ user, users, menuType }) => {
   }
 };
 
-const RoomMenu: React.FC<RoomMenuPropTypes> = (props) => {
-  const { menuType, setMenuType } = props;
-
+const RoomMenu: React.FC = () => {
+  const { menuType } = useSelector((state: RootState) => state.room);
+  const dispatch = useDispatch();
   if (!menuType) return <></>;
   return (
     <Wrapper>
       <TopBar>
         <span>{menuType}</span>
-        <CloseButton onClick={() => setMenuType('')}></CloseButton>
+        <CloseButton onClick={() => dispatch(setMenuType(''))}></CloseButton>
       </TopBar>
-      <RouteMenu {...props} />
+      <RouteMenu />
     </Wrapper>
   );
 };
