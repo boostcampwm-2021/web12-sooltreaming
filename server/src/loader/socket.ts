@@ -50,6 +50,7 @@ const socketLoader = (server, app): any => {
       animation,
       questionMark,
       videoChange,
+      restricting,
     )({ io, socket, rooms });
 
     socket.on('disconnect', () => {
