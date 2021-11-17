@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, Z_INDEX } from '@constant/style';
 import type { ModalPosType } from '@components/custom/Modal';
 
 const getPositionCSS = (pos: ModalPosType) => {
@@ -17,6 +17,7 @@ export const Wrapper = styled.div<{ pos: ModalPosType }>`
 
 export const ContentDiv = styled.div<{ renderCenter: boolean; pos: ModalPosType }>`
   position: absolute;
+  z-index: ${Z_INDEX.modal};
   ${(props) => getPositionCSS(props.pos)}
   padding: 10px;
   background-color: ${COLOR.background};

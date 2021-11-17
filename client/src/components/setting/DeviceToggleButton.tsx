@@ -1,6 +1,6 @@
 import React from 'react';
 import { XIcon } from '@components/icons';
-import { ToggleButton, IconDiv } from './DeviceToggleButton.style';
+import { ToggleButton, IconDiv } from '@components/setting/DeviceToggleButton.style';
 
 type DeviceToggleButtonTypes = {
   isDeviceOn: boolean;

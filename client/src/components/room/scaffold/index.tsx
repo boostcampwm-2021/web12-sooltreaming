@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Header, PressSection } from './index.style.js';
+import { Header, PressSection } from '@components/room/scaffold/index.style';
 import Modal from '@components/custom/Modal';
-import TimerBomb from '@components/chat-room/scaffold/TimerBomb';
+import TimerBomb from '@components/room/scaffold/TimerBomb';
 
 const Scaffold: React.FC = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

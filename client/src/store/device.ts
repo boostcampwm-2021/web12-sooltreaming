@@ -33,7 +33,6 @@ export const [SET_AUDIO_POWER, setAudioPower] =
   createAction<{ isAudioOn: boolean }>('SET_AUDIO_POWER');
 export const [SET_SPEAKER_POWER, setSpeakerPower] =
   createAction<{ isSpeakerOn: boolean }>('SET_SPEAKER_POWER');
-
 export const [REQUEST_VIDEO_INFO, requestVideoInfo] =
   createAction<{ videoInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_VIDEO_INFO');
 export const [SUCCESS_VIDEO_INFO, successVideoInfo] =

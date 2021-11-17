@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, Column } from './RoomSetting.style';
+import { Wrapper, Column } from '@components/setting/RoomSetting.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { requestVideoInfo, requestAudioInfo, requestSpeakerInfo } from '@store/device';
