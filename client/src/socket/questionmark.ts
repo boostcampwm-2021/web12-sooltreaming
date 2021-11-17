@@ -2,27 +2,27 @@ import { Socket } from 'socket.io-client';
 
 const QUESTION = 'QUESTION';
 
-const questionmark = (socket: Socket) => (closure: any) => {
-  const { setMarks } = closure;
+const questionMark = (socket: Socket) => (closure: any) => {
+  const { setMarks, removeQuestionMark } = closure;
   let count = 0;
 
   socket.on(QUESTION, ({ x, y }) => {
+    count++;
+    removeQuestionMark(count);
     setMarks((prev) => {
-      count++;
       return { ...prev, [count]: { x, y } };
     });
   });
 
-  const questionMark = (mydata) => {
-    console.log(mydata);
-    socket.emit(QUESTION, mydata);
+  const addQuestionMark = (position) => {
+    socket.emit(QUESTION, position);
   };
 
   const disconnecting = () => {
     socket.off(QUESTION);
   };
 
-  return { questionMark, disconnecting };
+  return { addQuestionMark, disconnecting };
 };
 
-export default questionmark;
+export default questionMark;

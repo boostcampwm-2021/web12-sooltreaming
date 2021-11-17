@@ -5,12 +5,12 @@ const CLOSEUP = 'CLOSEUP';
 const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
 const animation = (socket: Socket) => (closure: any) => {
-  const { setIsCheers, setCloseupUser } = closure;
+  const { updateCheers, setCloseupUser } = closure;
 
   socket.on(CHEERS, () => {
-    setIsCheers(true);
+    updateCheers(true);
     setTimeout(() => {
-      setIsCheers(false);
+      updateCheers(false);
     }, 5000);
   });
 
@@ -30,12 +30,12 @@ const animation = (socket: Socket) => (closure: any) => {
     socket.emit(CHEERS, mydata);
   };
 
-  const deactivateCloseup = (mydata) => {
-    socket.emit(CANCEL_CLOSEUP, mydata.chatRoomCode);
+  const deactivateCloseup = () => {
+    socket.emit(CANCEL_CLOSEUP);
   };
 
-  const activateCloseup = (mydata) => {
-    socket.emit(CLOSEUP, mydata);
+  const activateCloseup = () => {
+    socket.emit(CLOSEUP);
   };
 
   const disconnecting = () => {

@@ -7,7 +7,7 @@ const ICE = 'ice';
 
 const webRTC =
   (socket) =>
-  ({ setStreams, stream }) => {
+  ({ addStream, stream }) => {
     // 처음 들어왔을 때 받은 유저 정보로
     // 1. peer 생성 후
     // 2. offer 요청
@@ -19,7 +19,7 @@ const webRTC =
         socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
     };
 
-    const deleteStream = (userRef = myStream) => {
+    const exitUser = (userRef = myStream) => {
       myStream.getTracks().forEach((track) => {
         track.stop();
         userRef.removeTrack(track);
@@ -51,7 +51,7 @@ const webRTC =
         const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
         peer.addEventListener('icecandidate', sendCandidate(sid));
         peer.addEventListener('addstream', (e: any) => {
-          setStreams((prev) => ({ ...prev, [sid]: e.stream }));
+          addStream(sid, e.stream);
         });
         const offer = await peer.createOffer();
         await peer.setLocalDescription(offer);
@@ -66,7 +66,7 @@ const webRTC =
       const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
       peer.addEventListener('icecandidate', sendCandidate(targetSID));
       peer.addEventListener('addstream', (e: any) => {
-        setStreams((prev) => ({ ...prev, [targetSID]: e.stream }));
+        addStream(targetSID, e.stream);
       });
       await peer.setRemoteDescription(offer);
       const answer = await peer.createAnswer();
@@ -88,19 +88,11 @@ const webRTC =
       if (peerConnections[targetSID]) peerConnections[targetSID].addIceCandidate(candidate);
     });
 
-    socket.on('EXIT_ROOM_USER', (sid) => {
-      console.log('EXIT_ROOM_USER');
-      setStreams((prev) => {
-        delete prev[sid];
-        return prev;
-      });
-    });
-
     const disconnecting = () => {
       socket.off(ANSWER);
       socket.off(OFFER);
       socket.off(ICE);
-      deleteStream();
+      exitUser();
     };
 
     return {

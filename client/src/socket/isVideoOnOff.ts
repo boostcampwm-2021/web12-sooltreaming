@@ -3,19 +3,14 @@ import { Socket } from 'socket.io-client';
 const VIDEO_CHANGE = 'VIDEO_CHANGE';
 
 const isVideoOnOff = (socket: Socket) => (closure: any) => {
-  const { errorControl, users, setUsers } = closure;
+  const { errorControl, updateOtherVideo } = closure;
 
-  socket.on(VIDEO_CHANGE, (mydata) => {
-    const { sid, nowVideoOn } = mydata;
-    setUsers((prev) => {
-      const newUserData = { ...prev[sid], isVideoOn: nowVideoOn };
-      const newState = { ...prev, [sid]: newUserData };
-      return newState;
-    });
+  socket.on(VIDEO_CHANGE, ({ sid, isVideoOn }) => {
+    updateOtherVideo({ sid, isVideoOn });
   });
 
-  const videoChange = (mydata) => {
-    socket.emit(VIDEO_CHANGE, mydata);
+  const videoChange = (isVideoOn) => {
+    socket.emit(VIDEO_CHANGE, { isVideoOn });
   };
 
   const disconnecting = () => {
