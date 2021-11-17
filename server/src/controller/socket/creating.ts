@@ -19,6 +19,7 @@ const creating = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     rooms[roomCode] = {
       hostID: null,
       isOpen: true,
+      closeupUser: '',
       users: {},
     };
     socket.emit(CREATE_SUCCESS, { roomCode });

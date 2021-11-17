@@ -9,13 +9,15 @@ import useToggleSpeaker from '@hooks/useToggleSpeaker';
 
 type ChatFormPropTypes = {
   users: any;
+  closeupUser: any;
 };
 
-const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
+const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users, closeupUser }) => {
   const socket = useRef<any>(null);
   const stream = useSelector((state: RootState) => state.device.stream);
   const [streams, setStreams] = useState({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
+  const className = closeupUser ? (Socket.getSID() === closeupUser ? 'closeup' : 'mini') : '';
   let count = Object.values(streams).length + 1;
 
   useEffect(() => {
@@ -34,22 +36,29 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
 
   return (
     <Wrapper>
-      <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline muted></Video>
-      {Object.values(streams).map((otherStream) => {
-        return <OtherVideo count={count} srcObject={otherStream} />;
+      <Video
+        count={count}
+        className={className}
+        ref={myVideoRef}
+        autoPlay
+        playsInline
+        muted
+      ></Video>
+      {Object.entries(streams).map(([sid, otherStream]) => {
+        const peerClassName = closeupUser ? (sid === closeupUser ? 'closeup' : 'mini') : '';
+        return <OtherVideo className={peerClassName} count={count} srcObject={otherStream} />;
       })}
     </Wrapper>
   );
 };
 
-const OtherVideo = ({ srcObject, count }) => {
+const OtherVideo = ({ className, srcObject, count }) => {
   const otherRef = useRef<HTMLVideoElement>(null);
-
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
   useUpdateStream(otherRef, srcObject);
 
-  return <Video count={count} ref={otherRef} className="peerFace" autoPlay playsInline></Video>;
+  return <Video count={count} ref={otherRef} className={className} autoPlay playsInline></Video>;
 };
 
 export default ChatMonitor;
