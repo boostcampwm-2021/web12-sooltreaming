@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper } from './SettingMenu.style';
+import { Wrapper } from '@components/setting/SettingMenu.style';
 import DeviceToggleButton from '@components/setting/DeviceToggleButton';
 import SettingDropdown from '@components/setting/SettingDropdown';
 type settingMenuTypeProps = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Dropdown from '@components/custom/Dropdown';
 import { DownIcon } from '@components/icons';
-import { MenuButton, MenuItem } from './SettingDropdown.style';
+import { MenuButton, MenuItem } from '@components/setting/SettingDropdown.style';
 
 type settingDropdownTypeProps = {
   menuList: MediaDeviceInfo[];

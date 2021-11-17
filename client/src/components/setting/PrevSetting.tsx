@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Wrapper, Column, PreviewFace } from './PrevSetting.style';
+import { Wrapper, Column, PreviewFace } from '@components/setting/PrevSetting.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import {
