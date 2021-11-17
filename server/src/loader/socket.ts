@@ -21,9 +21,11 @@ export type roomType = {
         uid: string;
         nickname: string;
         imgURL: string;
-        videoID: string;
-        audioID: string;
-        isVideoOn: boolean;
+      };
+    };
+    usersDevices: {
+      [sid: string]: {
+        [deviceOn: string]: boolean;
       };
     };
   };
@@ -43,10 +45,10 @@ const socketLoader = (server, app): any => {
     console.log('socket connection!!', socket.id);
 
     pipe(
+      entering,
       signaling,
       chatting,
       creating,
-      entering,
       animation,
       questionMark,
       videoChange,
