@@ -1,14 +1,8 @@
-import React, { useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
 import { CopyIcon } from '@components/icons';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-
-import { setIsOpen } from '@store/room';
-import { setNoticeMessage } from '@store/notice';
-
-import Socket from '@socket/socket';
+import useRoomControl from '@hooks/socket/useRoomControl';
 
 import {
   Wrapper,
@@ -19,34 +13,15 @@ import {
 } from './RoomController.style';
 
 const RoomController = () => {
-  const dispatch = useDispatch();
-  const { code } = useParams();
+  const code = useSelector((state: RootState) => state.room.roomCode);
   const isOpen = useSelector((state: RootState) => state.room.isOpen);
-  const roomController = useRef<any>(() => {});
-
-  const errorControl = (message) => {
-    dispatch(setNoticeMessage({ errorMessage: message }));
-  };
+  const { toggleRoomEntry } = useRoomControl();
 
   const copyURL = () => {
     navigator.clipboard.writeText(window.location.href);
   };
 
-  const requestToggleIsOpen = () => {
-    roomController.current(code);
-  };
-
-  const toggleIsOpen = () => {
-    dispatch(setIsOpen({ isOpen: !isOpen }));
-  };
-
-  useEffect(() => {
-    const functions = Socket.roomControl({ errorControl, toggleIsOpen });
-    roomController.current = functions.toggleRoomEntry;
-    return () => {
-      functions.disconnecting();
-    };
-  });
+  const requestToggleIsOpen = () => toggleRoomEntry();
 
   return (
     <Wrapper>
