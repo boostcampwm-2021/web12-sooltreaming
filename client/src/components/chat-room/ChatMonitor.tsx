@@ -21,7 +21,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
   const socket = useRef<any>(null);
   const stream = useSelector((state: RootState) => state.device.stream);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
-  const [streams, setStreams] = useState({});
+  const [streams, setStreams] = useState<{ [key: string]: MediaStream }>({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
   let count = Object.values(streams).length + 1;
 
@@ -46,31 +46,34 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
         <Image count={count} className="myImg" src="/images/logo.png" isVideoOn={isVideoOn}></Image>
       </VideoWrapper>
 
-      {Object.values(streams).map((otherStream) => {
-        return <OtherVideo count={count} srcObject={otherStream} />;
+      {Object.entries(streams).map(([sid, otherStream]) => {
+        return <OtherVideo count={count} srcObject={otherStream} users={users} sid={sid} />;
       })}
     </Wrapper>
   );
 };
 
-const OtherVideo = ({ srcObject, count }) => {
+const OtherVideo = ({ srcObject, count, users, sid }) => {
   const otherRef = useRef<HTMLVideoElement>(null);
 
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
   useUpdateStream(otherRef, srcObject); // srcObject은 otherStream
-  const isVideoOn = srcObject.getVideoTracks()[0].enabled;
+  let isVideoOn = users[sid].isVideoOn;
+  let imgUrl = users[sid].imgUrl;
+  // map으로 하나씩 보내줄 떄 오는 sid: otherStream의 isVideoOn 정보는 users[sid].isVideoOn가 담고있지 않을까????
+
+  console.log(srcObject, '보이는영상');
+  console.log(users[sid], '유저정보');
+  console.log(sid, 'sid');
+  console.log(otherRef);
+  console.log(isVideoOn);
 
   return (
     <>
       <VideoWrapper count={count}>
         <Video count={count} ref={otherRef} className="peerFace" autoPlay playsInline></Video>
-        <Image
-          count={count}
-          src="/images/logo.png"
-          className="peerImg"
-          isVideoOn={isVideoOn}
-        ></Image>
+        <Image count={count} src={imgUrl} isVideoOn={isVideoOn}></Image>
       </VideoWrapper>
     </>
   );

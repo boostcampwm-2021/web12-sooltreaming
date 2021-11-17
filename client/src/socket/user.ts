@@ -10,7 +10,7 @@ const user = (socket: Socket) => (closure: any) => {
   const { errorControl, setUsers } = closure;
 
   socket.on(ENTER_ALL_USER, (allUsers) => {
-    console.log(allUsers);
+    console.log(allUsers, '전체유저');
     setUsers({ ...allUsers });
   });
   socket.on(ENTER_ONE_USER, (data) => {

@@ -21,6 +21,7 @@ const ChatRoom: React.FC = () => {
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
   const [isCheers, setIsCheers] = useState<boolean>(false);
+  const { isVideoOn } = useSelector((state: RootState) => state.device);
 
   const errorControl = (message) => {
     dispatch(setNoticeMessage({ errorMessage: message }));
@@ -33,6 +34,7 @@ const ChatRoom: React.FC = () => {
     functions.joinRoom({
       chatRoomCode: code,
       user,
+      isVideoOn,
     });
   }, []);
 
@@ -44,6 +46,18 @@ const ChatRoom: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const functions = Socket.isVideoOnOff({ errorControl, users, setUsers });
+    functions.videoChange({
+      sid: Socket.getSID(),
+      chatRoomCode: code,
+      nowVideoOn: isVideoOn,
+    });
+    return () => {
+      functions.disconnecting();
+    };
+  }, [isVideoOn]);
+
   const cheers = (e) => {
     if (isCheers) return;
     activateCheers.current({
@@ -51,6 +65,8 @@ const ChatRoom: React.FC = () => {
       user,
     });
   };
+
+  console.log(users);
 
   return (
     <Wrapper>

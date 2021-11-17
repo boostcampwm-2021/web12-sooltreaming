@@ -11,15 +11,16 @@ const NEED_OFFERS = 'need offers';
 
 const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   let code = '';
-  socket.on(JOIN_ROOM, ({ chatRoomCode, user }) => {
+  socket.on(JOIN_ROOM, ({ chatRoomCode, user, isVideoOn }) => {
     if (!(chatRoomCode in rooms)) return socket.emit(JOIN_ROOM_ERROR, '존재하지 않는 방입니다.');
     code = chatRoomCode;
+    user['isVideoOn'] = isVideoOn;
     const sid = socket.id;
     if (!Object.keys(rooms[code].users).length) rooms[code].hostID = sid;
     rooms[code].users[sid] = user;
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
-    io.emit(ENTER_ALL_USER, rooms[code].users);
+    io.to(code).emit(ENTER_ALL_USER, rooms[code].users);
   });
 
   socket.on('disconnect', () => {
