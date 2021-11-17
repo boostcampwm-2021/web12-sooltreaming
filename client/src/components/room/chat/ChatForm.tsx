@@ -1,19 +1,22 @@
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { SendingForm } from '@components/room/chat/ChatForm.style';
 import { PaperPlaneIcon } from '@components/icons';
+import { RootState } from '@src/store';
+import { useSelector } from 'react-redux';
 
 type ChatFormPropTypes = {
-  emits: any;
-  code: string;
-  user: object;
+  sendMessage: any;
 };
 
-const ChatForm: React.FC<ChatFormPropTypes> = ({ emits, code, user }) => {
+const ChatForm: React.FC<ChatFormPropTypes> = ({ sendMessage }) => {
+  const { code } = useParams();
   const [message, setMessage] = useState<string>('');
+  const user = useSelector((state: RootState) => state.user);
 
   const onSubmitMessage = (e) => {
     if (message) {
-      emits.current({
+      sendMessage({
         msg: message,
         chatRoomCode: code,
         user,
