@@ -21,6 +21,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
   const socket = useRef<any>(null);
   const stream = useSelector((state: RootState) => state.device.stream);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
+  const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
   const [streams, setStreams] = useState<{ [key: string]: MediaStream }>({});
   const myVideoRef = useRef<HTMLVideoElement>(null);
   let count = Object.values(streams).length + 1;
@@ -43,7 +44,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ users }) => {
     <Wrapper>
       <VideoWrapper count={count}>
         <Video count={count} className="myFace" ref={myVideoRef} autoPlay playsInline muted></Video>
-        <Image count={count} className="myImg" src="/images/logo.png" isVideoOn={isVideoOn}></Image>
+        <Image count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn}></Image>
       </VideoWrapper>
 
       {Object.entries(streams).map(([sid, otherStream]) => {
