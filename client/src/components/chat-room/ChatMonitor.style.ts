@@ -29,11 +29,14 @@ export const Video = styled.video<{ count: number }>`
   padding: 10px;
 `;
 
-export const Image = styled.img<{ count: number; isVideoOn: boolean }>`
+export const Image = styled.img<{
+  count: number;
+  isVideoOn: any;
+}>`
   position: absolute;
   width: 100%;
   height: 100%;
-  display: ${(props) => (props.isVideoOn ? 'none' : 'block')};
+  visibility: ${(props) => (props.isVideoOn ? 'hidden' : 'block')};
 
   padding: 10px;
 `;
