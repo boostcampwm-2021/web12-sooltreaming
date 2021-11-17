@@ -1,13 +1,13 @@
 import io from 'socket.io-client';
-import webRTC from './webRTC';
-import message from './message';
-import user from './user';
-import host from './host';
+import webRTC from '@socket/webRTC';
+import message from '@socket/message';
+import user from '@socket/user';
+import host from '@socket/host';
 import { BACK_BASE_URL } from '@constant/envs';
-import animation from './animation';
-import questionmark from './questionmark';
-import isVideoOnOff from './isVideoOnOff';
-import roomControl from './roomControl';
+import animation from '@socket/animation';
+import questionmark from '@socket/questionmark';
+import isVideoOnOff from '@socket/isVideoOnOff';
+import roomControl from '@socket/roomControl';
 
 const Socket = () => {
   const socket = io(BACK_BASE_URL, {

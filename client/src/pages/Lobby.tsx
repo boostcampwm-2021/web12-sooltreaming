@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Wrapper, TitleDiv, CodeInput, BigButton } from './Lobby.style.js';
+import { Wrapper, TitleDiv, CodeInput, BigButton } from '@pages/Lobby.style.js';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
