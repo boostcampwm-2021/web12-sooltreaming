@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, Z_INDEX } from '@constant/style';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -11,7 +11,7 @@ export const Wrapper = styled.div`
 
   .closeup {
     position: absolute;
-    z-index: 0;
+    z-index: ${Z_INDEX.closeUp};
     max-width: 100%;
     width: 100%;
     height: 100%;
@@ -30,7 +30,7 @@ export const VideoWrapper = styled.div<{ count: number }>`
   min-height: 100px;
   width: ${(props) => (props.count > 2 ? 50 : 100)}%;
   height: ${(props) => (props.count > 2 ? 50 : 100)}%;
-  z-index: 1;
+  z-index: ${Z_INDEX.camOn};
   padding: 10px;
 `;
 
@@ -52,4 +52,5 @@ export const Image = styled.img<{
   visibility: ${(props) => (props.isVideoOn ? 'hidden' : 'block')};
 
   padding: 10px;
+  z-index: ${Z_INDEX.camOff};
 `;
