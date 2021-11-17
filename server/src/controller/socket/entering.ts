@@ -8,6 +8,7 @@ const ENTER_ONE_USER = 'ENTER_ONE_USER';
 const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
 const CHANGE_HOST = 'CHANGE_HOST';
 const NEED_OFFERS = 'need offers';
+const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 
 const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   let code = '';
@@ -23,7 +24,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     rooms[code].users[sid] = user;
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
-    io.emit(ENTER_ALL_USER, rooms[code].users);
+    io.emit(ENTER_ALL_USER, rooms[code].users, code);
   });
 
   socket.on('disconnect', () => {
@@ -39,6 +40,10 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
         const newHost = Object.keys(rooms[code].users)[0];
         rooms[code].hostID = newHost;
         io.to(newHost).emit(CHANGE_HOST, rooms[code].isOpen);
+      }
+      if (rooms[code].closeupUser === sid) {
+        rooms[code].closeupUser = '';
+        io.to(code).emit(CANCEL_CLOSEUP);
       }
     }
   });

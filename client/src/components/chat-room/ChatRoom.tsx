@@ -14,6 +14,8 @@ import AnimationScreen from '@src/components/animation/AnimationScreen';
 const ChatRoom: React.FC = () => {
   const dispatch = useDispatch();
   const activateCheers = useRef<any>(() => {});
+  const activateCloseup = useRef<any>(() => {});
+  const deactivateCloseup = useRef<any>(() => {});
   const history = useHistory();
   const { code } = useParams();
 
@@ -22,7 +24,7 @@ const ChatRoom: React.FC = () => {
   const [users, setUsers] = useState({});
   const [menuType, setMenuType] = useState<string>('채팅');
   const [isCheers, setIsCheers] = useState<boolean>(false);
-
+  const [closeupUser, setCloseupUser] = useState<string>('');
   const errorControl = (message) => {
     dispatch(setNoticeMessage({ errorMessage: message }));
     history.push('/');
@@ -42,8 +44,10 @@ const ChatRoom: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const functions = Socket.animation({ setIsCheers });
+    const functions = Socket.animation({ setIsCheers, setCloseupUser });
     activateCheers.current = functions.activateCheers;
+    activateCloseup.current = functions.activateCloseup;
+    deactivateCloseup.current = functions.deactivateCloseup;
     return () => {
       functions.disconnecting();
       dispatch(resetRoomInfo({}));
@@ -58,14 +62,28 @@ const ChatRoom: React.FC = () => {
     });
   };
 
+  const closeup = (e) => {
+    if (closeupUser) {
+      deactivateCloseup.current({
+        chatRoomCode: code,
+        closeupUser,
+      });
+    } else {
+      activateCloseup.current({
+        chatRoomCode: code,
+        sid: Socket.getSID(),
+      });
+    }
+  };
+
   return (
     <Wrapper>
       <ColumnDiv>
         <VideoSection>
-          <ChatMonitor users={users} />
+          <ChatMonitor users={users} closeupUser={closeupUser} />
           <AnimationScreen isCheers={isCheers} setIsCheers={setIsCheers} user={user} />
         </VideoSection>
-        <ControlBar onClickCheers={cheers} setMenuType={setMenuType} />
+        <ControlBar onClickCheers={cheers} onClickCloseup={closeup} setMenuType={setMenuType} />
       </ColumnDiv>
       <Menu menuType={menuType} setMenuType={setMenuType} user={user} users={users} />
     </Wrapper>
