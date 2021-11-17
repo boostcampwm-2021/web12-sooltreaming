@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   Wrapper,
   UserSection,
@@ -7,27 +8,27 @@ import {
   MsgContent,
 } from '@components/room/chat/ChatItem.style';
 import { HumanIcon } from '@components/icons';
-import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 
 type ChatItemPropTypes = {
   isSelf: boolean;
   message: string;
   date: string;
-  users: any;
   sid: string;
 };
 
-const ChatItem: React.FC<ChatItemPropTypes> = ({ isSelf, message, date, users, sid }) => {
+const ChatItem: React.FC<ChatItemPropTypes> = ({ isSelf, message, date, sid }) => {
+  const users = useSelector((state: RootState) => state.room.users);
   const { imgUrl, nickname } = useSelector((state: RootState) => state.user);
   const targetNick = isSelf ? nickname : users[sid]?.nickname;
   const targetImg = isSelf ? imgUrl : users[sid]?.imgUrl;
-  console.log(targetNick, targetImg);
-  console.log(users);
+
   return (
     <Wrapper isSelf={isSelf}>
       <UserSection isSelf={isSelf}>
-        <CircleDiv>{targetImg ? <img src={targetImg} /> : <HumanIcon />}</CircleDiv>
+        <CircleDiv>
+          {targetImg ? <img src={targetImg} alt="UserProfile" /> : <HumanIcon />}
+        </CircleDiv>
         <NameSpan>{targetNick || 'judangs'}</NameSpan>
         <span>{date}</span>
       </UserSection>
