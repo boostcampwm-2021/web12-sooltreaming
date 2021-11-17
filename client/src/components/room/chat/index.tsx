@@ -1,21 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '@src/store';
 import Socket from '@socket/socket';
 import { Wrapper, MessageList } from '@components/room/chat/index.style';
 import ChatItem from '@components/room/chat/ChatItem';
 import ChatForm from '@components/room/chat/ChatForm';
+import useMessage from '@hooks/socket/useMessage';
 
-type ChatPropTypes = {
-  user: object;
-  users: any;
-};
-
-const Chat: React.FC<ChatPropTypes> = ({ user, users }) => {
-  const { code } = useParams();
-  const emits = useRef<any>(() => {});
+const Chat: React.FC = () => {
+  const chatLog = useSelector((state: RootState) => state.room.chatLog);
   const chatWindow = useRef<HTMLUListElement>(null);
-  const [chatLog, setChatLog] = useState([]);
   const myID = Socket.getSID();
+  const { sendMessage } = useMessage();
 
   const downScroll = () => {
     const refDom = chatWindow.current;
@@ -27,30 +23,20 @@ const Chat: React.FC<ChatPropTypes> = ({ user, users }) => {
     downScroll();
   }, [chatLog]);
 
-  useEffect(() => {
-    const functions = Socket.message({ setChatLog });
-    emits.current = functions.sendMessage;
-    console.log(chatLog, 'adasd');
-    return () => {
-      functions.disconnecting();
-    };
-  }, []);
-
   return (
     <Wrapper>
       <MessageList ref={chatWindow}>
         {chatLog.map(({ sid, msg, date }, index) => (
           <ChatItem
+            key={`chat-${sid}-${msg}-${date}`}
+            sid={sid}
             isSelf={myID === sid}
             message={msg}
             date={date}
-            key={index}
-            users={users}
-            sid={sid}
           />
         ))}
       </MessageList>
-      <ChatForm emits={emits} code={code} user={user} />
+      <ChatForm sendMessage={sendMessage} />
     </Wrapper>
   );
 };
