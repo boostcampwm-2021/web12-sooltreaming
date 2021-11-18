@@ -5,6 +5,7 @@ import MicIcon from '@components/icons/MicIcon';
 import VideoIcon from '@components/icons/VideoIcon';
 import SpeakerIcon from '@components/icons/SpeakerIcon';
 import XIcon from '@components/icons/XIcon';
+import VoterIcon from '@components/icons/VoterIcon';
 
 import CheersIcon from '@components/icons/CheersIcon';
 import CloseUpIcon from '@components/icons/CloseUpIcon';
@@ -33,6 +34,7 @@ export {
   VideoIcon,
   SpeakerIcon,
   XIcon,
+  VoterIcon,
   ChatIcon,
   CheersIcon,
   CloseUpIcon,
@@ -40,5 +42,5 @@ export {
   PeopleIcon,
   HostIcon,
   GameIcon,
-  CopyIcon
+  CopyIcon,
 };
