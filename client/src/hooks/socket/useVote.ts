@@ -16,7 +16,7 @@ const useVote = () => {
     setIsOpen(true);
     setTarget(targetName);
     setTotal(participants);
-    setApproves(1);
+    setApproves(0);
     setRejects(0);
   }, []);
   const resetJudgement = useCallback(() => {
