@@ -14,4 +14,10 @@ router.get('/sendList', async (req, res, next) => {
   res.status(200).json({ sendFriends: result.sendFriend });
 });
 
+router.get('/receiveList', async (req, res, next) => {
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const result = await User.findOne({ _id });
+  res.status(200).json({ receiveFriends: result.receiveFriend });
+});
+
 export default router;

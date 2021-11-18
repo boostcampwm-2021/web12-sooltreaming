@@ -24,3 +24,11 @@ export const getSendFriends = async () => {
   } else throw new Error(status.toString());
 };
 
+export const getReceiveFriends = async () => {
+  const result = await request.get({ url: '/friend/receiveList' });
+  const { status, json } = result;
+  if (status === 200) {
+    return json.receiveFriends;
+  } else throw new Error(status.toString());
+};
+

@@ -9,7 +9,7 @@ import {
 import type { UserType } from '@store/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import { getFriends, getSendFriends } from '@src/api/user';
+import { getFriends, getSendFriends, getReceiveFriends } from '@src/api/user';
 
 const Users: React.FC = () => {
   const users = useSelector((state: RootState) => state.room.users);
@@ -23,8 +23,13 @@ const Users: React.FC = () => {
   const getImpossibleList = async () => {
     const friends: [] = await getFriends();
     const sendFriends: [] = await getSendFriends();
-    setImpossibleFriends([...friends, ...sendFriends]);
+    const receiveFriends: [] = await getReceiveFriends();
+    setImpossibleFriends([...friends, ...sendFriends, ...receiveFriends]);
+    console.log('friends :', friends); //아직 ui가 없어 확인용
+    console.log('sendFriends :', sendFriends);
+    console.log('receiveFriends :', receiveFriends);
   };
+
   useEffect(() => {
     getImpossibleList();
   }, []);
@@ -40,7 +45,7 @@ const Users: React.FC = () => {
       {Object.values(users)
         .filter(({ id }) => id !== myId)
         .map(({ imgUrl, nickname, id }: UserType) => (
-          <UserList>
+          <UserList key={id}>
             <ProfileDiv>
               <img src={imgUrl} />
               <div>{nickname}</div>
