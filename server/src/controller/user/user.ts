@@ -85,3 +85,36 @@ export const patchUserImage = async (req, res, next) => {
     next(errorHandler(error));
   }
 };
+
+export const patchUserNickname = async (req, res, next) => {
+  const { nickname } = req.body;
+  try {
+    if (!nickname) throw new CustomError(400, 'Invalid Data');
+
+    const id = req.user._id || '618bf4a7e80ad781c6ae8bdd';
+    if (!id) throw new CustomError(401, 'id Error');
+
+    const result = await transaction(async () => {
+      const value = await User.findByIdAndUpdate(
+        { _id: id },
+        { $set: { nickname } },
+        {
+          new: true,
+        },
+      ).exec();
+
+      await new NicknameLog({
+        userId: id,
+        nickname: nickname,
+      }).save();
+      return value;
+    });
+
+    res.status(200).json({
+      nickname: result.nickname,
+      message: 'User Information Update Success',
+    });
+  } catch (error) {
+    next(errorHandler(error));
+  }
+};
