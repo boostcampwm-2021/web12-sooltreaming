@@ -16,7 +16,7 @@ const Voters: React.FC<VotersPropType> = ({ total, approves, rejects }) => {
         let color = COLOR.body;
         if (index < approves) color = COLOR.titleActive;
         if (index > total - rejects - 1) color = COLOR.error;
-        return <VoterIcon stroke={color} />;
+        return <VoterIcon key={`${color}-${index}`} stroke={color} />;
       })}
     </Wrapper>
   );
