@@ -8,6 +8,7 @@ import animation from '@socket/animation';
 import questionmark from '@socket/questionmark';
 import isVideoOnOff from '@socket/isVideoOnOff';
 import roomControl from '@socket/roomControl';
+import vote from '@socket/vote';
 
 const Socket = () => {
   const socket = io(BACK_BASE_URL, {
@@ -29,6 +30,7 @@ const Socket = () => {
     questionmark: questionmark(socket),
     isVideoOnOff: isVideoOnOff(socket),
     roomControl: roomControl(socket),
+    vote: vote(socket),
   };
 };
 export default Socket();

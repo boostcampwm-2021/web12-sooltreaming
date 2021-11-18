@@ -24,8 +24,6 @@ const creating = ({
   targetInfo: TargetInfoType;
 }) => {
   socket.on(CREATE_REQUEST, (user) => {
-    const { code } = targetInfo;
-
     const roomCode = createRoomCode(rooms);
     rooms[roomCode] = {
       hostID: null,
@@ -33,6 +31,13 @@ const creating = ({
       closeupUser: '',
       users: {},
       usersDevices: {},
+      status: 'NORMAL',
+      vote: {
+        trial: null,
+        defendant: '',
+        cool: {},
+        voteBox: {},
+      },
     };
     socket.emit(CREATE_SUCCESS, { roomCode });
   });

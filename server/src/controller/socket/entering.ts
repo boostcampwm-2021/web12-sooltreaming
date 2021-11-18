@@ -31,6 +31,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     rooms[code].users[sid] = user;
     rooms[code].usersDevices[sid] = { isVideoOn };
+    rooms[code].vote.cool[sid] = 0;
 
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
@@ -51,7 +52,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     else {
       socket.broadcast.emit(EXIT_ROOM_USER, sid);
       if (rooms[code].hostID === userId) {
-        const [ newHostSId, newHost ] = Object.entries(rooms[code].users)[0];
+        const [newHostSId, newHost] = Object.entries(rooms[code].users)[0];
         rooms[code].hostID = newHost.id;
         io.to(newHostSId).emit(CHANGE_HOST, rooms[code].isOpen);
       }

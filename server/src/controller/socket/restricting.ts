@@ -31,7 +31,7 @@ const restricting = ({
     socket.emit(TOGGLE_ROOM_ENTRY, true);
   });
 
-  socket.on(TURN_OFF_OTHER_VIDEO, ({sid, isVideoOn}) => {
+  socket.on(TURN_OFF_OTHER_VIDEO, ({ sid, isVideoOn }) => {
     const { code } = targetInfo;
 
     const user = rooms[code].users[socket.id];
@@ -42,7 +42,7 @@ const restricting = ({
     io.to(code).emit(CHANGE_VIDEO, { sid, isVideoOn });
   });
 
-  socket.on(TURN_OFF_OTHER_AUDIO, ({sid, isAudioOn}) => {
+  socket.on(TURN_OFF_OTHER_AUDIO, ({ sid, isAudioOn }) => {
     const { code } = targetInfo;
 
     const user = rooms[code].users[socket.id];
@@ -51,7 +51,7 @@ const restricting = ({
     io.to(sid).emit(CHANGE_AUDIO, { isAudioOn });
   });
 
-  return { io, socket, rooms };
+  return { io, socket, rooms, targetInfo };
 };
 
 export default restricting;
