@@ -42,7 +42,7 @@ export const getUserInformation = async (req, res, next) => {
 };
 
 export const getUserNicknameLog = async (req, res, next) => {
-  const id = req.user._id || '618bf4a7e80ad781c6ae8bdd';
+  const id = req.user._id;
   try {
     if (!id) throw new CustomError(401, 'id Error');
     const nicknameLog = await NicknameLog.find({ userId: id })
@@ -91,7 +91,7 @@ export const patchUserNickname = async (req, res, next) => {
   try {
     if (!nickname) throw new CustomError(400, 'Invalid Data');
 
-    const id = req.user._id || '618bf4a7e80ad781c6ae8bdd';
+    const id = req.user._id;
     if (!id) throw new CustomError(401, 'id Error');
 
     const result = await transaction(async () => {
