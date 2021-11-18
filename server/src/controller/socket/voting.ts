@@ -101,7 +101,7 @@ const voting = ({
   });
 
   socket.on('disconnect', () => {
-    const { code } = targetInfo;
+    const { code } = targetInfo ?? {};
     if (!(code in rooms)) return;
 
     const vote = rooms[code].vote;
