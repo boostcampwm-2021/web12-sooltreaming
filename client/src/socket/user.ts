@@ -6,9 +6,10 @@ const ENTER_ALL_USER = 'ENTER_ALL_USER';
 const ENTER_ONE_USER = 'ENTER_ONE_USER';
 const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
 const CHANGE_HOST = 'CHANGE_HOST';
+const CHANGE_AUDIO = 'CHANGE_AUDIO';
 
 const user = (socket: Socket) => (closure: any) => {
-  const { errorControl, addUser, deleteUser, initUsers, changeRoomHost } = closure;
+  const { errorControl, addUser, deleteUser, initUsers, changeRoomHost, changeAudioPower } = closure;
 
   socket.on(ENTER_ALL_USER, (allUsers, allUsersDevices) => {
     initUsers({ users: { ...allUsers }, usersDevices: { ...allUsersDevices } });
@@ -23,6 +24,9 @@ const user = (socket: Socket) => (closure: any) => {
   socket.on(CHANGE_HOST, (isOpen) => {
     changeRoomHost(socket.id, isOpen);
   });
+  socket.on(CHANGE_AUDIO, ({iAudioOn}) => {
+    changeAudioPower({iAudioOn});
+  });
 
   socket.on(JOIN_ROOM_ERROR, (errorMessage) => {
     errorControl(errorMessage);
@@ -36,6 +40,7 @@ const user = (socket: Socket) => (closure: any) => {
     socket.off(EXIT_ROOM_USER);
     socket.off(JOIN_ROOM_ERROR);
     socket.off(CHANGE_HOST);
+    socket.off(CHANGE_AUDIO);
   };
 
   return { joinRoom, disconnecting };
