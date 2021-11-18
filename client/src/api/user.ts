@@ -32,3 +32,12 @@ export const getReceiveFriends = async () => {
   } else throw new Error(status.toString());
 };
 
+export const requestFriend = async (targetId: string) => {
+  const sendResult = await request.post({ url: `/friend/send`, body: { targetId } });
+  const { status: sendStatus } = sendResult;
+  if (sendStatus !== 201) throw new Error(sendStatus.toString());
+
+  const receiveResult = await request.post({ url: '/friend/receive', body: { targetId } });
+  const { status: receiveStatus } = receiveResult;
+  if (receiveStatus !== 201) throw new Error(receiveStatus.toString());
+};

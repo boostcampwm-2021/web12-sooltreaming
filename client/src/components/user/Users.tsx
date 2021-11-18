@@ -9,7 +9,7 @@ import {
 import type { UserType } from '@store/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import { getFriends, getSendFriends, getReceiveFriends } from '@src/api/user';
+import { getFriends, getSendFriends, requestFriend, getReceiveFriends } from '@src/api/user';
 
 const Users: React.FC = () => {
   const users = useSelector((state: RootState) => state.room.users);
@@ -34,6 +34,11 @@ const Users: React.FC = () => {
     getImpossibleList();
   }, []);
 
+  const onclickRequestFriend = async ({ target }) => {
+    await requestFriend(target.dataset.id);
+    getImpossibleList();
+  };
+
   return (
     <Wrapper>
       <UserList>
@@ -52,7 +57,13 @@ const Users: React.FC = () => {
             </ProfileDiv>
             <div>
               <VoteButton>심판</VoteButton>
-              {!imPossibleFriends.includes(id) ? <ReqFriendButton>+</ReqFriendButton> : ''}
+              {!imPossibleFriends.includes(id) ? (
+                <ReqFriendButton onClick={onclickRequestFriend} data-id={id}>
+                  +
+                </ReqFriendButton>
+              ) : (
+                ''
+              )}
             </div>
           </UserList>
         ))}
