@@ -23,7 +23,6 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     if (!rooms[code].isOpen) return socket.emit(JOIN_ROOM_ERROR, '입장이 제한된 방입니다.');
     targetInfo.code = code;
 
-    console.log(code, user, userDevices);
     const sid = socket.id;
     if (!Object.keys(rooms[code].users).length) {
       rooms[code].hostSID = sid;
@@ -47,7 +46,6 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     const sid = socket.id;
     socket.leave(code);
-    // const userId = rooms[code].users[sid].id;
     delete rooms[code].users[sid];
     if (!Object.keys(rooms[code].users).length) delete rooms[code];
     else {
