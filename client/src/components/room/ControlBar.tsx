@@ -22,6 +22,7 @@ import {
   ExitIcon,
 } from '@components/icons';
 import { Wrapper, Div, Button } from '@components/room/ControlBar.style';
+import Socket from '@socket/socket';
 
 const IconButton = (Icon: React.ReactNode, className: string) => {
   return <Button className={className}>{Icon}</Button>;
@@ -43,7 +44,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
     history.replace('/');
   };
 
-  const hostId = useSelector((state: RootState) => state.room.hostId);
+  const hostSID = useSelector((state: RootState) => state.room.hostSID);
   const id = useSelector((state: RootState) => state.user.id);
   const MENU = {
     클로즈업: onClickCloseup,
@@ -61,11 +62,11 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
   };
 
   const { videoChange } = useIsVideoOnOff();
-  console.log(hostId, id);
+
   return (
     <Wrapper onClick={selectedMenu}>
       <Div>
-        {hostId === id ? IconButton(<HostIcon />, '방장') : <></>}
+        {hostSID === Socket.getSID() ? IconButton(<HostIcon />, '방장') : <></>}
         {IconButton(<GameIcon />, '게임')}
       </Div>
 

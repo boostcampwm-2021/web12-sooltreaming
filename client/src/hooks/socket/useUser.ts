@@ -35,9 +35,9 @@ const useUser = () => {
   };
 
   const changeRoomHost = (isOpen) => {
-    dispatch(setHost({ hostId: user.id, isOpen }));
+    dispatch(setHost({ hostSID: Socket.getSID(), isOpen }));
   };
-  
+
   const changeAudioPower = ({ isAudioOn }) => {
     dispatch(setAudioPower({ isAudioOn }));
   };
