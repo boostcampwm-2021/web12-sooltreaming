@@ -31,3 +31,5 @@ export const Button = styled.button`
     pointer-events: none;
   }
 `;
+
+export const ExitIconWrapper = styled.div``;

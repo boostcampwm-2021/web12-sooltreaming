@@ -24,6 +24,7 @@ import FriendHomeIcon from '@components/icons/FriendHomeIcon';
 import SmallRejectIcon from '@components/icons/SmallRejectIcon';
 import SmallAcceptIcon from '@components/icons/SmallAcceptIcon';
 import SmallCancelIcon from '@components/icons/SmallCancelIcon';
+import ExitIcon from '@components/icons/ExitIcon';
 
 export type iconPropsType = {
   className?: string;
@@ -56,4 +57,5 @@ export {
   SmallRejectIcon,
   SmallAcceptIcon,
   SmallCancelIcon,
+  ExitIcon,
 };

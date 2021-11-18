@@ -1,6 +1,7 @@
 import React from 'react';
 import DeviceToggleButton from '@components/setting/DeviceToggleButton';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { RootState } from '@src/store';
 import { setVideoPower, setAudioPower, setSpeakerPower } from '@store/device';
 import { setMenuType } from '@store/room';
@@ -18,8 +19,9 @@ import {
   SpeakerIcon,
   CloseUpIcon,
   CheersIcon,
+  ExitIcon,
 } from '@components/icons';
-import { Wrapper, Div, Button } from '@components/room/ControlBar.style';
+import { Wrapper, Div, Button, ExitIconWrapper } from '@components/room/ControlBar.style';
 
 const IconButton = (Icon: React.ReactNode, className: string) => {
   return <Button className={className}>{Icon}</Button>;
@@ -33,12 +35,18 @@ export type ControlBarPropTypes = {
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
 const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickCloseup }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const { isVideoOn, isAudioOn, isSpeakerOn } = useSelector((state: RootState) => state.device);
+
+  const onClickExit = () => {
+    history.replace('/');
+  };
 
   const MENU = {
     클로즈업: onClickCloseup,
     건배: onClickCheers,
+    나가기: onClickExit,
   };
   const selectedMenu = ({ target }) => {
     const menuName = target.classList[2];
@@ -91,6 +99,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
       <Div>
         {IconButton(<CloseUpIcon />, '클로즈업')}
         {IconButton(<CheersIcon />, '건배')}
+        {IconButton(<ExitIcon />, '나가기')}
       </Div>
     </Wrapper>
   );
