@@ -8,7 +8,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
 
-const RouteMenu = () => {
+type RoomMenuPropTypes = {
+  startVoteRef: React.MutableRefObject<Function>;
+};
+
+const RouteMenu = ({ startVoteRef }) => {
   const { menuType } = useSelector((state: RootState) => state.room);
   switch (menuType) {
     case '설정':
@@ -16,7 +20,7 @@ const RouteMenu = () => {
     case '채팅':
       return <Chat />;
     case '참가자':
-      return <Users />;
+      return <Users startVoteRef={startVoteRef} />;
     case '방장':
       return <Host />;
     default:
@@ -24,7 +28,7 @@ const RouteMenu = () => {
   }
 };
 
-const RoomMenu: React.FC = () => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef }) => {
   const { menuType } = useSelector((state: RootState) => state.room);
   const dispatch = useDispatch();
   if (!menuType) return <></>;
@@ -34,7 +38,7 @@ const RoomMenu: React.FC = () => {
         <span>{menuType}</span>
         <CloseButton onClick={() => dispatch(setMenuType(''))}></CloseButton>
       </TopBar>
-      <RouteMenu />
+      <RouteMenu startVoteRef={startVoteRef} />
     </Wrapper>
   );
 };

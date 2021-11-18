@@ -11,7 +11,13 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { useDispatch } from 'react-redux';
 import { requestFriend } from '@src/store/friend';
-const Users: React.FC = () => {
+import Socket from '@socket/socket';
+
+type UsersPropTypes = {
+  startVoteRef: React.MutableRefObject<Function>;
+};
+
+const Users: React.FC<UsersPropTypes> = ({ startVoteRef }) => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
   const { friendList, sendFriendList, receiveFriendList } = useSelector(
@@ -44,17 +50,24 @@ const Users: React.FC = () => {
           <div>{myNickname}</div>
         </ProfileDiv>
       </UserList>
-      {Object.values(users)
-        .filter(({ id }) => id !== myId)
-        .map(({ imgUrl, nickname, id }: UserType) => (
+      {Object.entries(users)
+        .filter(([key]) => key !== Socket.getSID())
+        .map(([key, { imgUrl, nickname, id }]) => (
           <UserList key={id}>
             <ProfileDiv>
               <img src={imgUrl} />
               <div>{nickname}</div>
             </ProfileDiv>
             <div>
-              <VoteButton>심판</VoteButton>
-              {!imPossibleFriends.includes(id) ? (
+              <VoteButton
+                onClick={() => {
+                  console.log(startVoteRef.current);
+                  (startVoteRef?.current ?? (() => {}))(key);
+                }}
+              >
+                심판
+              </VoteButton>
+              {!imPossibleFriends.includes(id) && id !== myId ? (
                 <ReqFriendButton onClick={onclickRequestFriend} data-id={id}>
                   +
                 </ReqFriendButton>
