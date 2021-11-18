@@ -8,6 +8,9 @@ const CHEERS = 'CHEERS';
 const CLOSEUP = 'CLOSEUP';
 const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 
+const STATUS_EXECUTING = 'STATUS_EXECUTING';
+const STATUS_NORMAL = 'STATUS_NORMAL';
+
 const animation = ({
   io,
   socket,
@@ -37,6 +40,7 @@ const animation = ({
   socket.on(CANCEL_CLOSEUP, () => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
+    if (rooms[code].status === STATUS_EXECUTING && rooms[code].hostSID !== socket.id) return;
     rooms[code].closeupUser = '';
     io.to(code).emit(CANCEL_CLOSEUP);
   });

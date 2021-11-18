@@ -6,13 +6,21 @@ import TimerBomb from '@src/components/room/scaffold/TimerBomb';
 import VotePresser from '@src/components/room/scaffold/VotePresser';
 import Voters from '@src/components/room/scaffold/Voters';
 
-const Scaffold: React.FC = () => {
+type ScaffoldPropTypes = {
+  startVoteRef: React.MutableRefObject<Function>;
+};
+
+const Scaffold: React.FC<ScaffoldPropTypes> = ({ startVoteRef }) => {
   const [isVote, setIsVote] = useState<boolean>(false);
   const { isOpen, target, total, approves, rejects, startVoting, makeDecision } = useVote();
 
   useEffect(() => {
     if (!isOpen) setIsVote(false);
   }, [isOpen]);
+
+  useEffect(() => {
+    startVoteRef.current = startVoting;
+  }, []);
 
   const sendDecision = (isApprove) => () => {
     makeDecision({ isApprove });

@@ -14,7 +14,7 @@ import videoChange from '@src/controller/socket/videoChange';
 
 export type roomType = {
   [code: string]: {
-    hostID: string;
+    hostSID: string;
     isOpen: boolean;
     closeupUser: string;
     users: {

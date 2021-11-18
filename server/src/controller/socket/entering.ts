@@ -25,7 +25,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     const sid = socket.id;
     if (!Object.keys(rooms[code].users).length) {
-      rooms[code].hostID = user.id;
+      rooms[code].hostSID = sid;
       socket.emit(CHANGE_HOST, rooms[code].isOpen);
     }
 
@@ -46,15 +46,15 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     const sid = socket.id;
     socket.leave(code);
-    const userId = rooms[code].users[sid].id;
+    // const userId = rooms[code].users[sid].id;
     delete rooms[code].users[sid];
     if (!Object.keys(rooms[code].users).length) delete rooms[code];
     else {
       socket.broadcast.emit(EXIT_ROOM_USER, sid);
-      if (rooms[code].hostID === userId) {
-        const [newHostSId, newHost] = Object.entries(rooms[code].users)[0];
-        rooms[code].hostID = newHost.id;
-        io.to(newHostSId).emit(CHANGE_HOST, rooms[code].isOpen);
+      if (rooms[code].hostSID === sid) {
+        const newHostSID = Object.keys(rooms[code].users)[0];
+        rooms[code].hostSID = newHostSID;
+        io.to(newHostSID).emit(CHANGE_HOST, rooms[code].isOpen);
       }
       if (rooms[code].closeupUser === sid) {
         rooms[code].closeupUser = '';
