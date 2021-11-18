@@ -76,12 +76,12 @@ const FriendList: React.FC = () => {
       >
         <RequestData>
           <h2>친구 신청 목록</h2>
-          <div className="application draggable-box">
+          <ul className="application draggable-box">
             <li>
               <PendingFriend>
                 <div className="left-items">
                   <img src="/images/logo.png" alt="프로필사진" />
-                  <p>asdasd</p>
+                  <p>Crong</p>
                 </div>
                 <div className="right-items">
                   <SmallCancelIcon />
@@ -92,23 +92,23 @@ const FriendList: React.FC = () => {
               <PendingFriend>
                 <div className="left-items">
                   <img src="/images/logo.png" alt="프로필사진" />
-                  <p>asdasd</p>
+                  <p>Honux</p>
                 </div>
                 <div className="right-items">
                   <SmallCancelIcon />
                 </div>
               </PendingFriend>
             </li>
-          </div>
+          </ul>
         </RequestData>
         <RequestData>
           <h2>친구 요청 목록</h2>
-          <div className="request draggable-box">
+          <ul className="request draggable-box">
             <li>
               <PendingFriend>
                 <div className="left-items">
                   <img src="/images/logo.png" alt="프로필사진" />
-                  <p>asdasd</p>
+                  <p>JK</p>
                 </div>
                 <div className="right-items">
                   <SmallAcceptIcon />
@@ -116,7 +116,7 @@ const FriendList: React.FC = () => {
                 </div>
               </PendingFriend>
             </li>
-          </div>
+          </ul>
         </RequestData>
         <Xbutton onClick={closeFriendRequestJudgment}>
           <img className="xButton" src="/images/xbutton.png" alt="종료버튼" />

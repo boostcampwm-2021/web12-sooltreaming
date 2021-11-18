@@ -9,6 +9,7 @@ import questionmark from '@socket/questionmark';
 import isVideoOnOff from '@src/socket/isStreamOnOff';
 import roomControl from '@socket/roomControl';
 import vote from '@socket/vote';
+import requestFriend from '@socket/requestFriend';
 
 const Socket = () => {
   const socket = io(BACK_BASE_URL, {
@@ -31,6 +32,7 @@ const Socket = () => {
     isVideoOnOff: isVideoOnOff(socket),
     roomControl: roomControl(socket),
     vote: vote(socket),
+    requestFriend: requestFriend(socket),
   };
 };
 export default Socket();

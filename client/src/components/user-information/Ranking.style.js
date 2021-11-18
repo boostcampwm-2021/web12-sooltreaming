@@ -11,3 +11,17 @@ export const Header = styled.div`
     height: 125px;
   }
 `;
+
+export const FriendRankData = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+`;
+
+export const DropdownWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 40px;
+`;
