@@ -23,7 +23,8 @@ const restricting = ({
   socket.on(TOGGLE_ROOM_ENTRY, () => {
     const { code } = targetInfo;
 
-    if (rooms[code].hostID !== socket.id)
+    const user = rooms[code].users[socket.id];
+    if (rooms[code].hostID !== user.id)
       return socket.emit(AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
     const state = rooms[code].isOpen;
     rooms[code].isOpen = !state;
@@ -33,7 +34,8 @@ const restricting = ({
   socket.on(TURN_OFF_OTHER_VIDEO, ({sid, isVideoOn}) => {
     const { code } = targetInfo;
 
-    if (rooms[code].hostID !== socket.id)
+    const user = rooms[code].users[socket.id];
+    if (rooms[code].hostID !== user.id)
       return socket.emit(AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
     const targetRoom = rooms[code];
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isVideoOn };
@@ -43,7 +45,8 @@ const restricting = ({
   socket.on(TURN_OFF_OTHER_AUDIO, ({sid, isAudioOn}) => {
     const { code } = targetInfo;
 
-    if (rooms[code].hostID !== socket.id)
+    const user = rooms[code].users[socket.id];
+    if (rooms[code].hostID !== user.id)
       return socket.emit(AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
     io.to(sid).emit(CHANGE_AUDIO, { isAudioOn });
   });

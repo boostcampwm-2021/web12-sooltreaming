@@ -22,7 +22,7 @@ const user = (socket: Socket) => (closure: any) => {
     deleteUser(id);
   });
   socket.on(CHANGE_HOST, (isOpen) => {
-    changeRoomHost(socket.id, isOpen);
+    changeRoomHost(isOpen);
   });
   socket.on(CHANGE_AUDIO, ({iAudioOn}) => {
     changeAudioPower({iAudioOn});

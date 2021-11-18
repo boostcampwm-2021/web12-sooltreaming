@@ -34,8 +34,8 @@ const useUser = () => {
     dispatch(setUsers(data));
   };
 
-  const changeRoomHost = (hostId, isOpen) => {
-    dispatch(setHost({ hostId, isOpen }));
+  const changeRoomHost = (isOpen) => {
+    dispatch(setHost({ hostId: user.id, isOpen }));
   };
   
   const changeAudioPower = ({ isAudioOn }) => {
