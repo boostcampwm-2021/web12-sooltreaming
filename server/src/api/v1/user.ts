@@ -1,7 +1,6 @@
 import express from 'express';
 const router = express.Router();
 
-router.get('/');
-router.post('/');
+router.get('/', getUserInformation);
 
 export default router;
