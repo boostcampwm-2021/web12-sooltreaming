@@ -4,7 +4,7 @@ import type { TargetInfoType } from '@controller/socket/entering';
 
 const START_VOTING = 'START_VOTING';
 const JUDGEMENT_ON = 'JUDGEMENT_ON';
-const GET_DICISION = 'GET_DICISION';
+const GET_DECISION = 'GET_DECISION';
 const ONE_DECISION = 'ONE_DECISION';
 const JUDGE_CLOSED = 'JUDGE_CLOSED';
 
@@ -46,7 +46,8 @@ const voting = ({
       io.to(code).emit(CLOSEUP, targetSID);
     }
 
-    io.to(code).emit(JUDGE_CLOSED, { targetSID, percentage });
+    const targetName = rooms[code].users[targetSID]?.nickname ?? '';
+    io.to(code).emit(JUDGE_CLOSED, { targetName, percentage });
   };
 
   socket.on(START_VOTING, ({ targetSID }) => {
@@ -61,6 +62,8 @@ const voting = ({
     if (coolTime >= Date.now()) return;
 
     const userKeys = Object.keys(rooms[code].users);
+    if (userKeys.length < 3) return;
+
     rooms[code].status = 'VOTING';
     vote.defendant = targetSID;
     vote.trial = setTimeout(stopVoting, VOTE_TIME);
@@ -73,10 +76,11 @@ const voting = ({
       return box;
     }, {});
 
-    io.to(code).emit(JUDGEMENT_ON, { targetSID, participants: userKeys.length });
+    const targetName = rooms[code].users[targetSID]?.nickname ?? '';
+    io.to(code).emit(JUDGEMENT_ON, { targetName, participants: userKeys.length });
   });
 
-  socket.on(GET_DICISION, ({ isApprove }) => {
+  socket.on(GET_DECISION, ({ isApprove }) => {
     const { code } = targetInfo;
     const sid = socket.id;
     if (!(code in rooms)) return;
