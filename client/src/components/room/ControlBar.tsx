@@ -6,7 +6,7 @@ import { RootState } from '@src/store';
 import { setVideoPower, setAudioPower, setSpeakerPower } from '@store/device';
 import { setMenuType } from '@store/room';
 
-import useIsVideoOnOff from '@hooks/socket/useIsVideoOnOff';
+import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
 
 import {
   HostIcon,
@@ -60,8 +60,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
     }
   };
 
-  const { videoChange } = useIsVideoOnOff();
-  console.log(hostId, id);
+  const { videoChange, audioChange } = useIsStreamOnOff();
   return (
     <Wrapper onClick={selectedMenu}>
       <Div>
@@ -86,6 +85,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
           Icon={MicIcon}
           isDeviceOn={isAudioOn}
           setIsDeviceOn={() => {
+            audioChange(!isAudioOn);
             dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
           }}
         />

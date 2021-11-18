@@ -48,7 +48,9 @@ const restricting = ({
     const user = rooms[code].users[socket.id];
     if (rooms[code].hostID !== user.id)
       return socket.emit(AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
-    io.to(sid).emit(CHANGE_AUDIO, { isAudioOn });
+    const targetRoom = rooms[code];
+    targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isAudioOn };
+    io.to(code).emit(CHANGE_AUDIO, { sid, isAudioOn });
   });
 
   return { io, socket, rooms, targetInfo };
