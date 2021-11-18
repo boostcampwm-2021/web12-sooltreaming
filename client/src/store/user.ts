@@ -28,11 +28,14 @@ export const [USER_LOGIN_SUCCESS, userLoginSuccess] = createAction<UserType>('US
 export const [USER_LOGIN_FAILURE, userLoginFailure] =
   createAction<FailureType>('USER_LOGIN_FAILURE');
 
+export const [SET_NICKNAME, setNickname] = createAction<string>('SET_NICKNAME');
+
 // Actions -- Types
 type userAction =
   | ReturnType<typeof userLoginRequest>
   | ReturnType<typeof userLoginSuccess>
-  | ReturnType<typeof userLoginFailure>;
+  | ReturnType<typeof userLoginFailure>
+  | ReturnType<typeof setNickname>;
 
 // Reducer
 function userReducer(state: UserStateType = initialState, action: userAction): UserStateType {
@@ -63,6 +66,12 @@ function userReducer(state: UserStateType = initialState, action: userAction): U
         errorStatus: message,
       };
     }
+    case SET_NICKNAME:
+      const nickname = action.payload as string;
+      return {
+        ...state,
+        nickname,
+      };
     default:
       return state;
   }

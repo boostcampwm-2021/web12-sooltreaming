@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, ContentDiv } from './Modal.style';
+import { Wrapper, ContentDiv } from '@components/custom/Modal.style';
 
 export type ModalPosType = {
   top?: string;

@@ -2,6 +2,8 @@ import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
 
+import { createLog } from '@controller/socket/logController';
+
 const CHEERS = 'CHEERS';
 const CLOSEUP = 'CLOSEUP';
 const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
@@ -27,6 +29,9 @@ const animation = ({
     if (!(code in rooms)) return;
     rooms[code].closeupUser = socket.id;
     io.to(code).emit(CLOSEUP, socket.id);
+
+    const id = rooms[code].users[socket.id].id;
+    createLog(id, CLOSEUP);
   });
 
   socket.on(CANCEL_CLOSEUP, () => {

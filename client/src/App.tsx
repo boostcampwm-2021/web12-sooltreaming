@@ -7,6 +7,7 @@ import Setting from '@pages/Setting';
 import Login from '@pages/Login';
 import AuthRoute from '@pages/Splash';
 import CreateRoom from '@pages/CreateRoom';
+import UserInformation from '@pages/UserInformation';
 
 const App: React.FC = () => {
   return (
@@ -19,6 +20,7 @@ const App: React.FC = () => {
             <Route exact path="/" component={Lobby} />
             <Route exact path="/create" component={CreateRoom} />
             <Route exact path="/chatRoom/:code" component={Setting} />
+            <Route exact path="/myPage/:id" component={UserInformation} />
             <Route component={() => <Redirect to="/" />} />
           </AuthRoute>
           <Route component={() => <Redirect to="/login" />} />

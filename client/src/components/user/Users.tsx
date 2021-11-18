@@ -30,7 +30,7 @@ const Users: React.FC = () => {
     console.log('receiveFriends :', receiveFriendList);
   });
 
-  const onclickRequestFriend = async ({ target }) => {
+  const onclickRequestFriend = ({ target }) => {
     dispatch(requestFriend(target.dataset.id));
     //소켓으로 상대방한테 보냈다고 알림
     //상대방은 친구신청 받으면 바로 receiveFriendList 갱신 -> 리렌더

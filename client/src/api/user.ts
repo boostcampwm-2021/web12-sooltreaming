@@ -8,6 +8,15 @@ export const loginWithSession = async () => {
     return { id, imgUrl, nickname };
   } else throw new Error(status.toString());
 };
+
+export const patchUserNickname = async (newNickname) => {
+  const { status } = await request.patch({
+    url: '/user/nickname',
+    body: { nickname: newNickname },
+  });
+  return status < 400;
+};
+
 export const getFriends = async () => {
   const result = await request.get({ url: '/friend/list' });
   const { status, json } = result;
