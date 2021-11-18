@@ -5,16 +5,21 @@ import { Wrapper, RowWrapper, ProfileDiv, ControlDiv } from '@components/room/ho
 import { HumanIcon, VideoIcon, MicIcon } from '@components/icons';
 import DeviceToggleButton from '@components/setting/DeviceToggleButton';
 
-const Participant = ({sid, user, userDevices, turnOffOtherVideo}) => {
+const Participant = ({sid, user, userDevices, turnOffOtherVideo, turnOffOtherAudio}) => {
   const targetNick = user?.nickname;
   const targetImg = user?.imgUrl;
   const isVideoOn = userDevices?.isVideoOn;
+  const isAudioOn = userDevices?.isAudioOn;
 
   const turnOffVideo = () => {
     if(!isVideoOn) return;
     turnOffOtherVideo({sid, isVideoOn: false});
   }
 
+  const turnOffAudio = () => {
+    if(!isAudioOn) return;
+    turnOffOtherAudio({sid, isAudioOn: false});
+  }
   
   return (
     <RowWrapper>
@@ -24,13 +29,14 @@ const Participant = ({sid, user, userDevices, turnOffOtherVideo}) => {
       </ProfileDiv>
       <ControlDiv>
         <DeviceToggleButton Icon={VideoIcon} isDeviceOn={isVideoOn} setIsDeviceOn={() => turnOffVideo()} />
+        <DeviceToggleButton Icon={MicIcon} isDeviceOn={isAudioOn} setIsDeviceOn={() => turnOffAudio()} />
       </ControlDiv>
     </RowWrapper>
   );
 };
 
 
-const ParticipantController = ({ turnOffOtherVideo }) => {
+const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }) => {
   const users = useSelector((state: RootState) => state.room.users);
   const hostId = useSelector((state: RootState) => state.room.hostId);
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);
@@ -39,7 +45,7 @@ const ParticipantController = ({ turnOffOtherVideo }) => {
     <Wrapper>
       {Object.entries(users).map(([sid, user], index) => {
         if(hostId === sid) return <></>;
-        return <Participant sid={sid} user={user} userDevices={usersDevices[sid]} turnOffOtherVideo={turnOffOtherVideo} />
+        return <Participant sid={sid} user={user} userDevices={usersDevices[sid]} turnOffOtherVideo={turnOffOtherVideo} turnOffOtherAudio={turnOffOtherAudio}/>
       })}
     </Wrapper>
   )
