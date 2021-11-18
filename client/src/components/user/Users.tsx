@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect } from 'react';
 import {
   Wrapper,
   UserList,
@@ -6,11 +6,11 @@ import {
   VoteButton,
   ReqFriendButton,
 } from '@src/components/user/Users.style';
-import type { UserType } from '@store/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { useDispatch } from 'react-redux';
-import { requestFriend } from '@src/store/friend';
+import Socket from '@socket/socket';
+import useRequestFriend from '@hooks/socket/useRequestFriend';
 const Users: React.FC = () => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
@@ -28,14 +28,8 @@ const Users: React.FC = () => {
     console.log('friends :', friendList); //아직 ui가 없어 확인용
     console.log('sendFriends :', sendFriendList);
     console.log('receiveFriends :', receiveFriendList);
-  });
-
-  const onclickRequestFriend = ({ target }) => {
-    dispatch(requestFriend(target.dataset.id));
-    //소켓으로 상대방한테 보냈다고 알림
-    //상대방은 친구신청 받으면 바로 receiveFriendList 갱신 -> 리렌더
-  };
-
+  }, [friendList, sendFriendList, receiveFriendList]);
+  const { onclickRequestFriend } = useRequestFriend();
   return (
     <Wrapper>
       <UserList>
@@ -44,9 +38,9 @@ const Users: React.FC = () => {
           <div>{myNickname}</div>
         </ProfileDiv>
       </UserList>
-      {Object.values(users)
-        .filter(({ id }) => id !== myId)
-        .map(({ imgUrl, nickname, id }: UserType) => (
+      {Object.entries(users)
+        .filter(([key]) => key !== Socket.getSID())
+        .map(([key, { imgUrl, nickname, id }]) => (
           <UserList key={id}>
             <ProfileDiv>
               <img src={imgUrl} />
@@ -54,8 +48,8 @@ const Users: React.FC = () => {
             </ProfileDiv>
             <div>
               <VoteButton>심판</VoteButton>
-              {!imPossibleFriends.includes(id) ? (
-                <ReqFriendButton onClick={onclickRequestFriend} data-id={id}>
+              {!imPossibleFriends.includes(id) && id !== myId ? (
+                <ReqFriendButton onClick={onclickRequestFriend} data-uid={id} data-sid={key}>
                   +
                 </ReqFriendButton>
               ) : (

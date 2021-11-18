@@ -7,7 +7,7 @@ import restricting from '@controller/socket/restricting';
 import animation from '@controller/socket/animation';
 import questionMark from '@controller/socket/questionMark';
 import voting from '@controller/socket/voting';
-
+import friending from '@src/controller/socket/friending';
 import pipe from '@utils/pipe';
 import { FRONT_BASE_URL } from '@src/constant';
 import videoChange from '@src/controller/socket/videoChange';
@@ -64,6 +64,7 @@ const socketLoader = (server, app): any => {
       videoChange,
       restricting,
       voting,
+      friending,
     )({ io, socket, rooms });
 
     socket.on('disconnect', () => {
