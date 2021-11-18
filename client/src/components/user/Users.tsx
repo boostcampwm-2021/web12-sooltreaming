@@ -9,9 +9,14 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { useDispatch } from 'react-redux';
-import Socket from '@socket/socket';
 import useRequestFriend from '@hooks/socket/useRequestFriend';
-const Users: React.FC = () => {
+import Socket from '@socket/socket';
+
+type UsersPropTypes = {
+  startVoteRef: React.MutableRefObject<Function>;
+};
+
+const Users: React.FC<UsersPropTypes> = ({ startVoteRef }) => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
   const { friendList, sendFriendList, receiveFriendList } = useSelector(
@@ -47,7 +52,9 @@ const Users: React.FC = () => {
               <div>{nickname}</div>
             </ProfileDiv>
             <div>
-              <VoteButton>심판</VoteButton>
+              <VoteButton onClick={() => (startVoteRef?.current ?? (() => {}))(key)}>
+                심판
+              </VoteButton>
               {!imPossibleFriends.includes(id) && id !== myId ? (
                 <ReqFriendButton onClick={onclickRequestFriend} data-uid={id} data-sid={key}>
                   +

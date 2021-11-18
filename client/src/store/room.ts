@@ -9,7 +9,7 @@ type RoomStateType = {
   usersDevices: { [sid: string]: UserDevicesType };
   streams: { [sid: string]: MediaStream };
   voteTimes: { [sid: string]: number };
-  hostId: string;
+  hostSID: string;
   isOpen: boolean;
   isCheers: boolean;
 };
@@ -22,14 +22,14 @@ const initialState: RoomStateType = {
   usersDevices: {},
   streams: {},
   voteTimes: {},
-  hostId: '',
+  hostSID: '',
   isOpen: true,
   isCheers: false,
 };
 
 // 확장성을 생각해 별도의 Type 지정
 type RoomHostType = {
-  hostId: string;
+  hostSID: string;
   isOpen: boolean;
 };
 
@@ -104,8 +104,8 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
       return { ...state, roomCode };
     }
     case SET_HOST: {
-      const { hostId, isOpen } = action.payload as RoomHostType;
-      return { ...state, hostId, isOpen };
+      const { hostSID, isOpen } = action.payload as RoomHostType;
+      return { ...state, hostSID, isOpen };
     }
     case SET_ISOPEN: {
       const isOpen = action.payload as boolean;
@@ -181,7 +181,7 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
         usersDevices: {},
         streams: {},
         voteTimes: {},
-        hostId: '',
+        hostSID: '',
         isOpen: true,
         isCheers: false,
       };

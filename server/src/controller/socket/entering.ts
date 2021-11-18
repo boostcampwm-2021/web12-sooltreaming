@@ -18,25 +18,25 @@ export type TargetInfoType = {
 const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   const targetInfo = { code: '' };
 
-  socket.on(JOIN_ROOM, ({ chatRoomCode: code, user, isVideoOn }) => {
+  socket.on(JOIN_ROOM, ({ chatRoomCode: code, user, userDevices }) => {
     if (!(code in rooms)) return socket.emit(JOIN_ROOM_ERROR, '존재하지 않는 방입니다.');
     if (!rooms[code].isOpen) return socket.emit(JOIN_ROOM_ERROR, '입장이 제한된 방입니다.');
     targetInfo.code = code;
 
     const sid = socket.id;
     if (!Object.keys(rooms[code].users).length) {
-      rooms[code].hostID = user.id;
+      rooms[code].hostSID = sid;
       socket.emit(CHANGE_HOST, rooms[code].isOpen);
     }
 
     rooms[code].users[sid] = user;
-    rooms[code].usersDevices[sid] = { isVideoOn };
+    rooms[code].usersDevices[sid] = userDevices;
     rooms[code].vote.cool[sid] = 0;
 
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
     socket.emit(ENTER_ALL_USER, rooms[code].users, rooms[code].usersDevices);
-    io.to(code).emit(ENTER_ONE_USER, user, { isVideoOn }, socket.id);
+    io.to(code).emit(ENTER_ONE_USER, user, userDevices, socket.id);
     socket.emit(EXIST_CLOSEUP, rooms[code].closeupUser);
   });
 
@@ -46,15 +46,14 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     const sid = socket.id;
     socket.leave(code);
-    const userId = rooms[code].users[sid].id;
     delete rooms[code].users[sid];
     if (!Object.keys(rooms[code].users).length) delete rooms[code];
     else {
       socket.broadcast.emit(EXIT_ROOM_USER, sid);
-      if (rooms[code].hostID === userId) {
-        const [newHostSId, newHost] = Object.entries(rooms[code].users)[0];
-        rooms[code].hostID = newHost.id;
-        io.to(newHostSId).emit(CHANGE_HOST, rooms[code].isOpen);
+      if (rooms[code].hostSID === sid) {
+        const newHostSID = Object.keys(rooms[code].users)[0];
+        rooms[code].hostSID = newHostSID;
+        io.to(newHostSID).emit(CHANGE_HOST, rooms[code].isOpen);
       }
       if (rooms[code].closeupUser === sid) {
         rooms[code].closeupUser = '';

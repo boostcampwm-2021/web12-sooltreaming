@@ -7,14 +7,15 @@ import restricting from '@controller/socket/restricting';
 import animation from '@controller/socket/animation';
 import questionMark from '@controller/socket/questionMark';
 import voting from '@controller/socket/voting';
-import friending from '@src/controller/socket/friending';
+import friending from '@controller/socket/friending';
+import streamChange from '@controller/socket/streamChange';
+
 import pipe from '@utils/pipe';
 import { FRONT_BASE_URL } from '@src/constant';
-import videoChange from '@src/controller/socket/videoChange';
 
 export type roomType = {
   [code: string]: {
-    hostID: string;
+    hostSID: string;
     isOpen: boolean;
     closeupUser: string;
     users: {
@@ -61,7 +62,7 @@ const socketLoader = (server, app): any => {
       creating,
       animation,
       questionMark,
-      videoChange,
+      streamChange,
       restricting,
       voting,
       friending,
