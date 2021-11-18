@@ -4,6 +4,7 @@ export const Z_INDEX = {
   closeUp: 0,
   camOn: 10,
   camOff: 20,
+  nickname: 25,
   question: 30,
   cheers: 40,
   modal: 50,
