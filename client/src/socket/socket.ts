@@ -6,7 +6,7 @@ import host from '@socket/host';
 import { BACK_BASE_URL } from '@constant/envs';
 import animation from '@socket/animation';
 import questionmark from '@socket/questionmark';
-import isVideoOnOff from '@socket/isVideoOnOff';
+import isVideoOnOff from '@src/socket/isStreamOnOff';
 import roomControl from '@socket/roomControl';
 import vote from '@socket/vote';
 

@@ -6,7 +6,7 @@ import { RootState } from '@src/store';
 import { setVideoPower, setAudioPower, setSpeakerPower } from '@store/device';
 import { setMenuType } from '@store/room';
 
-import useIsVideoOnOff from '@hooks/socket/useIsVideoOnOff';
+import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
 
 import {
   HostIcon,
@@ -45,7 +45,6 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
   };
 
   const hostSID = useSelector((state: RootState) => state.room.hostSID);
-  const id = useSelector((state: RootState) => state.user.id);
   const MENU = {
     클로즈업: onClickCloseup,
     건배: onClickCheers,
@@ -61,8 +60,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
     }
   };
 
-  const { videoChange } = useIsVideoOnOff();
-
+  const { videoChange, audioChange } = useIsStreamOnOff();
   return (
     <Wrapper onClick={selectedMenu}>
       <Div>
@@ -87,6 +85,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
           Icon={MicIcon}
           isDeviceOn={isAudioOn}
           setIsDeviceOn={() => {
+            audioChange(!isAudioOn);
             dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
           }}
         />

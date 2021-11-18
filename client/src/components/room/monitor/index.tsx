@@ -60,7 +60,6 @@ const OtherVideo = ({ className, srcObject, count, sid }) => {
   useUpdateStream(otherRef, srcObject); // srcObject은 otherStream
   let isVideoOn = usersDevices[sid].isVideoOn;
   let imgUrl = users[sid].imgUrl;
-  // map으로 하나씩 보내줄 떄 오는 sid: otherStream의 isVideoOn 정보는 usersDevices[sid].isVideoOn가 담고있지 않을까????
 
   return (
     <>
