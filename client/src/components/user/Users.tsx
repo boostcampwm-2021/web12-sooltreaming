@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Wrapper,
   UserList,
@@ -29,11 +29,6 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef }) => {
   } = useSelector((state: RootState) => state.user);
   const imPossibleFriends = [...friendList, ...sendFriendList, ...receiveFriendList];
 
-  useEffect(() => {
-    console.log('friends :', friendList); //아직 ui가 없어 확인용
-    console.log('sendFriends :', sendFriendList);
-    console.log('receiveFriends :', receiveFriendList);
-  }, [friendList, sendFriendList, receiveFriendList]);
   const { onclickRequestFriend } = useRequestFriend();
   return (
     <Wrapper>

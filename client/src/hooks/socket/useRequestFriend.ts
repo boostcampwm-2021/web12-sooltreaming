@@ -12,7 +12,6 @@ const useRequestFriend = () => {
 
   const onclickRequestFriend = ({ target }) => {
     const targetData = target.dataset;
-    console.log(targetData.uid, targetData.sid);
     dispatch(requestFriend(targetData.uid));
     socket.sendFriendRequest(targetData.sid);
   };
