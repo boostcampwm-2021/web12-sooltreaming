@@ -18,7 +18,7 @@ export type roomType = {
     closeupUser: string;
     users: {
       [sid: string]: {
-        uid: string;
+        id: string;
         nickname: string;
         imgURL: string;
       };
