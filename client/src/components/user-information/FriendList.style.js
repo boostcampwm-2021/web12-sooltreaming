@@ -83,6 +83,8 @@ export const RequestData = styled.div`
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  overflow-x: hidden;
+  white-space: nowrap;
 
   h2 {
     padding: 0;
@@ -91,7 +93,6 @@ export const RequestData = styled.div`
     user-select: none;
     overflow: hidden;
     text-overflow: ellipsis;
-    white-space: nowrap;
   }
 
   .application,
@@ -103,8 +104,9 @@ export const RequestData = styled.div`
   }
 
   .draggable-box {
-    overflow-x: auto;
+    overflow-x: scroll;
     display: flex;
+    white-space: nowrap;
 
     &:active {
       cursor: pointer;
