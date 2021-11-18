@@ -26,7 +26,7 @@ const restricting = ({
     socket.emit(TOGGLE_ROOM_ENTRY, true);
   });
 
-  return { io, socket, rooms };
+  return { io, socket, rooms, targetInfo };
 };
 
 export default restricting;

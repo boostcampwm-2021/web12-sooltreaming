@@ -16,11 +16,9 @@ const videoChange = ({
   targetInfo: TargetInfoType;
 }) => {
   socket.on(VIDEO_CHANGE, ({ isVideoOn }) => {
-    console.log('video_change', rooms);
     const { code } = targetInfo;
     const targetRoom = rooms[code];
     const sid = socket.id;
-    console.log('video_change', targetRoom);
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isVideoOn };
     io.to(code).emit(VIDEO_CHANGE, { sid: socket.id, isVideoOn });
   });

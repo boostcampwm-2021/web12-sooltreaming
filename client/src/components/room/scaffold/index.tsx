@@ -1,47 +1,38 @@
-import React, { useState } from 'react';
-import { Header, PressSection } from '@components/room/scaffold/index.style';
+import React, { useState, useEffect } from 'react';
+import { Wrapper } from '@components/room/scaffold/index.style';
+import useVote from '@hooks/socket/useVote';
 import Modal from '@components/custom/Modal';
-import TimerBomb from '@components/room/scaffold/TimerBomb';
+import TimerBomb from '@src/components/room/scaffold/TimerBomb';
+import VotePresser from '@src/components/room/scaffold/VotePresser';
+import Voters from '@src/components/room/scaffold/Voters';
 
 const Scaffold: React.FC = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [target, setTarget] = useState<string>('');
+  const [isVote, setIsVote] = useState<boolean>(false);
+  const { isOpen, target, total, approves, rejects, startVoting, makeDecision } = useVote();
 
-  const openJudgment = () => {
-    setIsOpen(true);
-    setTarget('아무개');
+  useEffect(() => {
+    if (!isOpen) setIsVote(false);
+  }, [isOpen]);
+
+  const sendDecision = (isApprove) => () => {
+    makeDecision({ isApprove });
+    setIsVote(true);
   };
 
-  const closeJudgment = () => {
-    setIsOpen(false);
-    setTarget('');
-  };
-
+  const position = isVote ? '30px' : '50%';
   return (
-    <>
-      <button onClick={openJudgment}>심판 테스트</button>
-      <Modal
-        isOpen={isOpen}
-        isRelative={false}
-        renderCenter={true}
-        absolutePos={{ top: '50%', left: '50%' }}
-      >
-        <Header>
-          <h2>
-            <span>{target}</span>을(를) 처분할까요?
-          </h2>
-          <TimerBomb />
-        </Header>
-        <PressSection>
-          <button onClick={closeJudgment}>
-            <img src="/images/agree.png" alt="agree" />
-          </button>
-          <button onClick={closeJudgment}>
-            <img src="/images/disagree.png" alt="disagree" />
-          </button>
-        </PressSection>
-      </Modal>
-    </>
+    <Modal
+      isOpen={isOpen}
+      isRelative={false}
+      renderCenter={!isVote}
+      absolutePos={{ top: position, left: position }}
+    >
+      <Wrapper isVote={isVote}>
+        <TimerBomb />
+        <VotePresser isVote={isVote} target={target} sendDecision={sendDecision} />
+        <Voters total={total} approves={approves} rejects={rejects} />
+      </Wrapper>
+    </Modal>
   );
 };
 

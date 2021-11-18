@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
 export const Wrapper = styled.div`
+  align-self: flex-end;
   width: 83px;
   height: 83px;
   flex: 0 0 auto;

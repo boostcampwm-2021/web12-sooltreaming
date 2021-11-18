@@ -31,7 +31,7 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     rooms[code].users[sid] = user;
     rooms[code].usersDevices[sid] = { isVideoOn };
-    console.log(rooms[code].usersDevices[sid], 'join');
+    rooms[code].vote.cool[sid] = 0;
 
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
