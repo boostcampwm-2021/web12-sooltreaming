@@ -2,7 +2,6 @@ import React from 'react';
 import { CopyIcon } from '@components/icons';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import useRoomControl from '@hooks/socket/useRoomControl';
 
 import {
   Wrapper,
@@ -12,10 +11,9 @@ import {
   DialogButton,
 } from './RoomController.style';
 
-const RoomController: React.FC = () => {
+const RoomController = ({toggleRoomEntry}) => {
   const code = useSelector((state: RootState) => state.room.roomCode);
   const isOpen = useSelector((state: RootState) => state.room.isOpen);
-  const { toggleRoomEntry } = useRoomControl();
 
   const copyURL = () => {
     navigator.clipboard.writeText(window.location.href);

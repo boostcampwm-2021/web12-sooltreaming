@@ -1,21 +1,18 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Header = styled.div`
-  padding: 15px;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+export const TitleH2 = styled.h2`
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  padding: 30px 100px 15px 30px;
+  color: ${COLOR.titleActive};
+  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
-  & > h2 {
-    padding: 0;
-    margin: 30px 0 0 15px;
-    color: ${COLOR.titleActive};
-    user-select: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
   & span {
     color: ${COLOR.point};
   }
@@ -24,7 +21,6 @@ export const Header = styled.div`
 export const PressSection = styled.div`
   width: 640px;
   padding: 50px 70px;
-  margin-bottom: 30px;
 
   display: flex;
   justify-content: space-around;

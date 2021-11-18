@@ -1,6 +1,12 @@
 import React, { useRef } from 'react';
 import Socket from '@socket/socket';
-import { Wrapper, VideoWrapper, Video, Image } from '@components/room/monitor/index.style';
+import {
+  Wrapper,
+  VideoWrapper,
+  Video,
+  Image,
+  NameSpan,
+} from '@components/room/monitor/index.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
@@ -15,6 +21,7 @@ type ChatFormPropTypes = {
 const ChatMonitor: React.FC<ChatFormPropTypes> = ({ closeupUser }) => {
   const streams = useSelector((state: RootState) => state.room.streams);
   const stream = useSelector((state: RootState) => state.device.stream);
+  const nickname = useSelector((state: RootState) => state.user.nickname);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const myVideoRef = useRef<HTMLVideoElement>(null);
@@ -30,6 +37,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ closeupUser }) => {
       <VideoWrapper count={count} className={className}>
         <Video count={count} ref={myVideoRef} autoPlay playsInline muted></Video>
         <Image count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn}></Image>
+        <NameSpan>{nickname}</NameSpan>
       </VideoWrapper>
 
       {Object.entries(streams).map(([sid, otherStream]) => {
@@ -59,6 +67,7 @@ const OtherVideo = ({ className, srcObject, count, sid }) => {
       <VideoWrapper count={count} className={className}>
         <Video count={count} ref={otherRef} autoPlay playsInline></Video>
         <Image count={count} src={imgUrl} isVideoOn={isVideoOn}></Image>
+        <NameSpan>{users[sid].nickname}</NameSpan>
       </VideoWrapper>
     </>
   );

@@ -25,13 +25,13 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     const sid = socket.id;
     if (!Object.keys(rooms[code].users).length) {
-      rooms[code].hostID = sid;
+      rooms[code].hostID = user.id;
       socket.emit(CHANGE_HOST, rooms[code].isOpen);
     }
 
     rooms[code].users[sid] = user;
     rooms[code].usersDevices[sid] = { isVideoOn };
-    console.log(rooms[code].usersDevices[sid], 'join');
+    rooms[code].vote.cool[sid] = 0;
 
     socket.join(code);
     socket.emit(NEED_OFFERS, rooms[code].users);
@@ -46,14 +46,15 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
 
     const sid = socket.id;
     socket.leave(code);
+    const userId = rooms[code].users[sid].id;
     delete rooms[code].users[sid];
     if (!Object.keys(rooms[code].users).length) delete rooms[code];
     else {
       socket.broadcast.emit(EXIT_ROOM_USER, sid);
-      if (rooms[code].hostID === sid) {
-        const newHost = Object.keys(rooms[code].users)[0];
-        rooms[code].hostID = newHost;
-        io.to(newHost).emit(CHANGE_HOST, rooms[code].isOpen);
+      if (rooms[code].hostID === userId) {
+        const [newHostSId, newHost] = Object.entries(rooms[code].users)[0];
+        rooms[code].hostID = newHost.id;
+        io.to(newHostSId).emit(CHANGE_HOST, rooms[code].isOpen);
       }
       if (rooms[code].closeupUser === sid) {
         rooms[code].closeupUser = '';

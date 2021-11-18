@@ -6,6 +6,7 @@ import creating from '@controller/socket/creating';
 import restricting from '@controller/socket/restricting';
 import animation from '@controller/socket/animation';
 import questionMark from '@controller/socket/questionMark';
+import voting from '@controller/socket/voting';
 
 import pipe from '@utils/pipe';
 import { FRONT_BASE_URL } from '@src/constant';
@@ -18,7 +19,7 @@ export type roomType = {
     closeupUser: string;
     users: {
       [sid: string]: {
-        uid: string;
+        id: string;
         nickname: string;
         imgURL: string;
       };
@@ -26,6 +27,15 @@ export type roomType = {
     usersDevices: {
       [sid: string]: {
         [deviceOn: string]: boolean;
+      };
+    };
+    status: string;
+    vote: {
+      trial: NodeJS.Timeout | null;
+      defendant: string;
+      cool: { [sid: string]: number };
+      voteBox: {
+        [sid: string]: { isApprove: boolean; isVoted: boolean };
       };
     };
   };
@@ -53,6 +63,7 @@ const socketLoader = (server, app): any => {
       questionMark,
       videoChange,
       restricting,
+      voting,
     )({ io, socket, rooms });
 
     socket.on('disconnect', () => {
