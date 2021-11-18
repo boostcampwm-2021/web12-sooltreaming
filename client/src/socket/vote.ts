@@ -10,7 +10,7 @@ const vote =
   (socket: Socket) =>
   ({}) => {
     // 투표 시작
-    socket.on(JUDGEMENT_ON, ({ targetSID }) => {});
+    socket.on(JUDGEMENT_ON, ({ targetSID, participants }) => {});
     // 투표 정보 가져오기
     socket.on(ONE_DECISION, ({ isApprove }) => {});
     // 투표 끝났다

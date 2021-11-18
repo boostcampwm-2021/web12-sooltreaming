@@ -60,10 +60,11 @@ const voting = ({
     const coolTime = cool[targetSID];
     if (coolTime >= Date.now()) return;
 
+    const userKeys = Object.keys(rooms[code].users);
     rooms[code].status = 'VOTING';
     vote.defendant = targetSID;
     vote.trial = setTimeout(stopVoting, VOTE_TIME);
-    vote.voteBox = Object.keys(rooms[code].users).reduce((box, key) => {
+    vote.voteBox = userKeys.reduce((box, key) => {
       const isDelator = key === socket.id;
       box[key] = {
         isApprove: isDelator,
@@ -72,7 +73,7 @@ const voting = ({
       return box;
     }, {});
 
-    io.to(code).emit(JUDGEMENT_ON, { targetSID });
+    io.to(code).emit(JUDGEMENT_ON, { targetSID, participants: userKeys.length });
   });
 
   socket.on(GET_DICISION, ({ isApprove }) => {
