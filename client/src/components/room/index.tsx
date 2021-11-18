@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import RoomMenu from '@components/room/RoomMenu';
 import ChatMonitor from '@components/room/monitor/';
@@ -17,6 +17,8 @@ import {
 
 const ChatRoom: React.FC = () => {
   const dispatch = useDispatch();
+  const startVoteRef = useRef<Function>(() => {});
+
   useEffect(() => {
     Socket.connect();
     dispatch(friendListRequest([]));
@@ -39,8 +41,8 @@ const ChatRoom: React.FC = () => {
         </VideoSection>
         <ControlBar onClickCheers={cheers} onClickCloseup={closeup} />
       </ColumnDiv>
-      <RoomMenu />
-      <Scaffold />
+      <RoomMenu startVoteRef={startVoteRef} />
+      <Scaffold startVoteRef={startVoteRef} />
     </Wrapper>
   );
 };

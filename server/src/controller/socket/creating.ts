@@ -5,6 +5,8 @@ import type { TargetInfoType } from '@controller/socket/entering';
 const CREATE_REQUEST = 'CREATE_REQUEST';
 const CREATE_SUCCESS = 'CREATE_SUCCESS';
 
+const STATUS_NORMAL = 'STATUS_NORMAL';
+
 const createRoomCode = (rooms: roomType) => {
   while (true) {
     const code = Math.random().toString(16).substr(2, 5);
@@ -31,7 +33,7 @@ const creating = ({
       closeupUser: '',
       users: {},
       usersDevices: {},
-      status: 'NORMAL',
+      status: STATUS_NORMAL,
       vote: {
         trial: null,
         defendant: '',
