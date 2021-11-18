@@ -1,11 +1,11 @@
 import { useMemo, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { setVideoPower } from '@store/device';
-import { updateDeviceVideo } from '@store/room';
+import { setAudioPower, setVideoPower } from '@store/device';
+import { updateDeviceVideo, updateDeviceAudio } from '@store/room';
 import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 
-const useIsVideoOnOff = () => {
+const useIsStreamOnOff = () => {
   const dispatch = useDispatch();
 
   const errorControl = useCallback((message) => {
@@ -20,7 +20,16 @@ const useIsVideoOnOff = () => {
     dispatch(setVideoPower(updateData));
   }, []);
 
-  const socket = useMemo(() => Socket.isVideoOnOff({ errorControl, updateOtherVideo, updateMyVideo }), []);
+  const updateOtherAudio = useCallback((updateData) => {
+    dispatch(updateDeviceAudio(updateData));
+  }, []);
+
+  const updateMyAudio = useCallback((updateData) => {
+    dispatch(setAudioPower(updateData));
+  }, []);
+
+
+  const socket = useMemo(() => Socket.isVideoOnOff({ errorControl, updateOtherVideo, updateMyVideo, updateOtherAudio, updateMyAudio }), []);
   useEffect(() => {
     return () => {
       socket.disconnecting();
@@ -30,4 +39,4 @@ const useIsVideoOnOff = () => {
   return socket;
 };
 
-export default useIsVideoOnOff;
+export default useIsStreamOnOff;

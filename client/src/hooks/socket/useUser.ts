@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setUsers, addUsers, deleteUsers, setHost } from '@store/room';
-import { setAudioPower } from '@store/device';
 import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 
@@ -15,15 +14,18 @@ const useUser = () => {
     return { id, imgUrl, nickname };
   });
   const code = useSelector((state: RootState) => state.room.roomCode);
-  const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
+  const userDevices = useSelector((state: RootState) => {
+    const { isVideoOn, isAudioOn } = state.device;
+    return { isVideoOn, isAudioOn };
+  });
 
   const errorControl = (message) => {
     dispatch(setNoticeMessage({ errorMessage: message }));
     history.push('/');
   };
 
-  const addUser = ({ user, userDevices, sid }) => {
-    dispatch(addUsers({ user, userDevices, sid }));
+  const addUser = ({ user, userDevices: newUserDevices, sid }) => {
+    dispatch(addUsers({ user, userDevices: newUserDevices, sid }));
   };
 
   const deleteUser = (sid) => {
@@ -35,13 +37,9 @@ const useUser = () => {
   };
 
   const changeRoomHost = (isOpen) => {
-    dispatch(setHost({ hostId: user.id, isOpen }));
+    dispatch(setHost({ hostSID: Socket.getSID(), isOpen }));
   };
   
-  const changeAudioPower = ({ isAudioOn }) => {
-    dispatch(setAudioPower({ isAudioOn }));
-  };
-
   const socket = useMemo(
     () =>
       Socket.user({
@@ -50,7 +48,6 @@ const useUser = () => {
         deleteUser,
         initUsers,
         changeRoomHost,
-        changeAudioPower,
       }),
     [],
   );
@@ -58,7 +55,7 @@ const useUser = () => {
     socket.joinRoom({
       chatRoomCode: code,
       user,
-      isVideoOn,
+      userDevices,
     });
     return () => {
       socket.disconnecting();

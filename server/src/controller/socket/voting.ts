@@ -74,10 +74,9 @@ const voting = ({
     vote.defendant = targetSID;
     vote.trial = setTimeout(stopVoting, VOTE_TIME);
     vote.voteBox = userKeys.reduce((box, key) => {
-      const isDelator = key === socket.id;
       box[key] = {
-        isApprove: isDelator,
-        isVoted: isDelator,
+        isApprove: false,
+        isVoted: false,
       };
       return box;
     }, {});
