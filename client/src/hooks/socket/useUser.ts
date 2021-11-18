@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setUsers, addUsers, deleteUsers, setHost } from '@store/room';
+import { setAudioPower } from '@store/device';
 import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 
@@ -33,8 +34,12 @@ const useUser = () => {
     dispatch(setUsers(data));
   };
 
-  const changeRoomHost = (hostId, isOpen) => {
-    dispatch(setHost({ hostId, isOpen }));
+  const changeRoomHost = (isOpen) => {
+    dispatch(setHost({ hostId: user.id, isOpen }));
+  };
+  
+  const changeAudioPower = ({ isAudioOn }) => {
+    dispatch(setAudioPower({ isAudioOn }));
   };
 
   const socket = useMemo(
@@ -45,6 +50,7 @@ const useUser = () => {
         deleteUser,
         initUsers,
         changeRoomHost,
+        changeAudioPower,
       }),
     [],
   );

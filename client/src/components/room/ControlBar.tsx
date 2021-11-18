@@ -35,7 +35,8 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
   const dispatch = useDispatch();
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const { isVideoOn, isAudioOn, isSpeakerOn } = useSelector((state: RootState) => state.device);
-
+  const hostId = useSelector((state: RootState) => state.room.hostId);
+  const id = useSelector((state: RootState) => state.user.id);
   const MENU = {
     클로즈업: onClickCloseup,
     건배: onClickCheers,
@@ -51,11 +52,11 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
   };
 
   const { videoChange } = useIsVideoOnOff();
-
+  console.log(hostId, id)
   return (
     <Wrapper onClick={selectedMenu}>
       <Div>
-        {IconButton(<HostIcon />, '방장')}
+        {hostId === id ? IconButton(<HostIcon />, '방장') : <></>}
         {IconButton(<GameIcon />, '게임')}
       </Div>
 

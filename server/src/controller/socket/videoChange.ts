@@ -2,7 +2,7 @@ import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
 
-const VIDEO_CHANGE = 'VIDEO_CHANGE';
+const CHANGE_VIDEO = 'CHANGE_VIDEO';
 
 const videoChange = ({
   io,
@@ -15,12 +15,13 @@ const videoChange = ({
   rooms: roomType;
   targetInfo: TargetInfoType;
 }) => {
-  socket.on(VIDEO_CHANGE, ({ isVideoOn }) => {
+  socket.on(CHANGE_VIDEO, ({ isVideoOn }) => {
+    console.log('video_change', rooms);
     const { code } = targetInfo;
     const targetRoom = rooms[code];
     const sid = socket.id;
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isVideoOn };
-    io.to(code).emit(VIDEO_CHANGE, { sid: socket.id, isVideoOn });
+    io.to(code).emit(CHANGE_VIDEO, { sid: socket.id, isVideoOn });
   });
   return { io, socket, rooms, targetInfo };
 };
