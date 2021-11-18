@@ -1,7 +1,7 @@
 import React from 'react';
 import { TitleH2, PressSection } from '@src/components/room/scaffold/VotePresser.style';
 
-const VoteModal = ({ isVote, target, sendDicision }): React.ReactElement => {
+const VotePresser = ({ isVote, target, sendDecision }): React.ReactElement => {
   if (isVote) return <></>;
   return (
     <>
@@ -9,10 +9,10 @@ const VoteModal = ({ isVote, target, sendDicision }): React.ReactElement => {
         <span>{target}</span>을(를) 처분할까요?
       </TitleH2>
       <PressSection>
-        <button onClick={sendDicision}>
+        <button onClick={sendDecision(true)}>
           <img src="/images/agree.png" alt="agree" />
         </button>
-        <button onClick={sendDicision}>
+        <button onClick={sendDecision(false)}>
           <img src="/images/disagree.png" alt="disagree" />
         </button>
       </PressSection>
@@ -20,4 +20,4 @@ const VoteModal = ({ isVote, target, sendDicision }): React.ReactElement => {
   );
 };
 
-export default VoteModal;
+export default VotePresser;
