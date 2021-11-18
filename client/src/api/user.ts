@@ -8,3 +8,19 @@ export const loginWithSession = async () => {
     return { id, imgUrl, nickname };
   } else throw new Error(status.toString());
 };
+export const getFriends = async () => {
+  const result = await request.get({ url: '/friend/list' });
+  const { status, json } = result;
+  if (status === 200) {
+    return json.friends;
+  } else throw new Error(status.toString());
+};
+
+export const getSendFriends = async () => {
+  const result = await request.get({ url: '/friend/sendList' });
+  const { status, json } = result;
+  if (status === 200) {
+    return json.sendFriends;
+  } else throw new Error(status.toString());
+};
+
