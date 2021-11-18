@@ -19,21 +19,24 @@ const useVote = () => {
     setApproves(1);
     setRejects(0);
   }, []);
-  const closeJudgement = useCallback(({ targetSID, targetName, percentage, resetTime }) => {
-    dispatch(updateRoomVoteTime({ sid: targetSID, time: resetTime }));
-    dispatch(setNoticeMessage({ errorMessage: `${targetName}의 죽음에 ${percentage}% 찬성` }));
+  const resetJudgement = useCallback(() => {
     setIsOpen(false);
     setTarget('');
     setTotal(0);
     setApproves(0);
     setRejects(0);
   }, []);
+  const closeJudgement = useCallback(({ targetSID, targetName, percentage, resetTime }) => {
+    dispatch(updateRoomVoteTime({ sid: targetSID, time: resetTime }));
+    dispatch(setNoticeMessage({ errorMessage: `${targetName}의 죽음에 ${percentage}% 찬성` }));
+    resetJudgement();
+  }, []);
 
   const addApprove = useCallback(() => setApproves((prev) => prev + 1), []);
   const addReject = useCallback(() => setRejects((prev) => prev + 1), []);
 
   const socket = useMemo(
-    () => Socket.vote({ openJudgment, closeJudgement, addApprove, addReject }),
+    () => Socket.vote({ openJudgment, closeJudgement, addApprove, addReject, resetJudgement }),
     [],
   );
   useEffect(() => {

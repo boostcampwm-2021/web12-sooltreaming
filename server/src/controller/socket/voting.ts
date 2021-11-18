@@ -2,11 +2,16 @@ import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
 
+const STATUS_NORMAL = 'STATUS_NORMAL';
+const STATUS_EXECUTING = 'STATUS_EXECUTING';
+const STATUS_VOTING = 'STATUS_VOTING';
+
 const START_VOTING = 'START_VOTING';
 const JUDGEMENT_ON = 'JUDGEMENT_ON';
 const GET_DECISION = 'GET_DECISION';
 const ONE_DECISION = 'ONE_DECISION';
 const JUDGE_CLOSED = 'JUDGE_CLOSED';
+const PRISON_BREAK = 'PRISON_BREAK';
 
 const CLOSEUP = 'CLOSEUP';
 
@@ -26,7 +31,7 @@ const voting = ({
   const stopVoting = () => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
-    if (rooms[code].status !== 'VOTING') return;
+    if (rooms[code].status !== STATUS_VOTING) return;
 
     const vote = rooms[code].vote;
     const { defendant: targetSID, cool, voteBox } = vote;
@@ -39,10 +44,10 @@ const voting = ({
     const percentage = Math.ceil((approves / total) * 100);
 
     if (percentage < 50) {
-      rooms[code].status = 'NORMAL';
+      rooms[code].status = STATUS_NORMAL;
       // TODO: 원한다면 취소 메세지
     } else {
-      rooms[code].status = 'EXECUTING';
+      rooms[code].status = STATUS_EXECUTING;
       rooms[code].closeupUser = targetSID;
       io.to(code).emit(CLOSEUP, targetSID);
     }
@@ -54,7 +59,7 @@ const voting = ({
   socket.on(START_VOTING, ({ targetSID }) => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
-    if (rooms[code].status !== 'NORMAL') return;
+    if (rooms[code].status !== STATUS_NORMAL) return;
 
     const vote = rooms[code].vote;
     const { cool } = vote;
@@ -65,7 +70,7 @@ const voting = ({
     const userKeys = Object.keys(rooms[code].users);
     if (userKeys.length < 3) return;
 
-    rooms[code].status = 'VOTING';
+    rooms[code].status = STATUS_VOTING;
     vote.defendant = targetSID;
     vote.trial = setTimeout(stopVoting, VOTE_TIME);
     vote.voteBox = userKeys.reduce((box, key) => {
@@ -85,7 +90,7 @@ const voting = ({
     const { code } = targetInfo;
     const sid = socket.id;
     if (!(code in rooms)) return;
-    if (rooms[code].status !== 'VOTING') return;
+    if (rooms[code].status !== STATUS_VOTING) return;
 
     const vote = rooms[code].vote;
     const { voteBox } = rooms[code].vote;
@@ -94,7 +99,6 @@ const voting = ({
     voteBox[sid].isVoted = true;
     voteBox[sid].isApprove = isApprove;
 
-    // 남은 투표수가 없다면 멈추기
     const leftVotes = Object.values(voteBox).filter((box) => !box.isVoted).length;
     if (!leftVotes) {
       clearTimeout(vote.trial);
@@ -112,11 +116,14 @@ const voting = ({
     const vote = rooms[code].vote;
     delete vote.cool[socket.id] ?? {};
 
-    if (rooms[code].status !== 'VOTING') return;
+    if (rooms[code].status !== STATUS_VOTING) return;
+    rooms[code].status = STATUS_NORMAL;
     clearTimeout(vote.trial);
     vote.trial = null;
     vote.voteBox = {};
     vote.defendant = '';
+
+    io.to(code).emit(PRISON_BREAK);
   });
 
   return { io, socket, rooms, targetInfo };
