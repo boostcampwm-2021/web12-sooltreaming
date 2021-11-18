@@ -14,8 +14,8 @@ const LeftIcon = ({
         d="M16 20L8 12L16 4"
         stroke="#222222"
         stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
