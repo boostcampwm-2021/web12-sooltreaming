@@ -1,6 +1,5 @@
 import { useMemo, useCallback, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@src/store';
+import { useDispatch } from 'react-redux';
 
 import { toggleIsOpen } from '@store/room';
 import { setNoticeMessage } from '@store/notice';
