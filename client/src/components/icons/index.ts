@@ -21,6 +21,10 @@ import DeleteFriendIcon from '@components/icons/DeleteFriendIcon';
 import HistoryIcon from '@components/icons/HistoryIcon';
 import FriendHomeIcon from '@components/icons/FriendHomeIcon';
 
+import SmallRejectIcon from '@components/icons/SmallRejectIcon';
+import SmallAcceptIcon from '@components/icons/SmallAcceptIcon';
+import SmallCancelIcon from '@components/icons/SmallCancelIcon';
+
 export type iconPropsType = {
   className?: string;
   width?: number;
@@ -49,4 +53,7 @@ export {
   DeleteFriendIcon,
   HistoryIcon,
   FriendHomeIcon,
+  SmallRejectIcon,
+  SmallAcceptIcon,
+  SmallCancelIcon,
 };
