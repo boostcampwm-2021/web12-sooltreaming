@@ -18,8 +18,9 @@ export const Wrapper = styled.div`
   }
 
   .mini {
-    width: 200px;
-    height: 200px;
+    width: 230px;
+    height: 178px;
+    align-self: flex-end;
   }
 `;
 
@@ -36,10 +37,11 @@ export const VideoWrapper = styled.div<{ count: number }>`
 
 export const Video = styled.video<{ count: number }>`
   position: absolute;
+  top: 0;
+  left: 0;
+  padding: 11px;
   width: 100%;
   height: 100%;
-
-  padding: 10px;
 `;
 
 export const Image = styled.img<{
@@ -47,11 +49,12 @@ export const Image = styled.img<{
   isVideoOn: any;
 }>`
   position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
   width: 100%;
   height: 100%;
   visibility: ${(props) => (props.isVideoOn ? 'hidden' : 'block')};
-
-  padding: 10px;
   z-index: ${Z_INDEX.camOff};
 `;
 
