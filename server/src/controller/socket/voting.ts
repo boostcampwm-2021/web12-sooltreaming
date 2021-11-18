@@ -46,7 +46,7 @@ const voting = ({
       io.to(code).emit(CLOSEUP, targetSID);
     }
 
-    io.to(code).emit(JUDGE_CLOSED, { targetSID });
+    io.to(code).emit(JUDGE_CLOSED, { targetSID, percentage });
   };
 
   socket.on(START_VOTING, ({ targetSID }) => {
