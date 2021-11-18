@@ -19,6 +19,7 @@ import CopyIcon from '@components/icons/CopyIcon';
 import ChangeNicknameIcon from '@components/icons/ChangeNicknameIcon';
 import DeleteFriendIcon from '@components/icons/DeleteFriendIcon';
 import HistoryIcon from '@components/icons/HistoryIcon';
+import FriendHomeIcon from '@components/icons/FriendHomeIcon';
 
 export type iconPropsType = {
   className?: string;
@@ -47,4 +48,5 @@ export {
   ChangeNicknameIcon,
   DeleteFriendIcon,
   HistoryIcon,
+  FriendHomeIcon,
 };
