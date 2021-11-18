@@ -28,6 +28,15 @@ export type roomType = {
         [deviceOn: string]: boolean;
       };
     };
+    status: string;
+    vote: {
+      trial: NodeJS.Timeout | null;
+      defendant: string;
+      cool: { [sid: string]: number };
+      voteBox: {
+        [sid: string]: { isApprove: boolean; isVoted: boolean };
+      };
+    };
   };
 };
 
