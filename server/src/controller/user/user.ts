@@ -47,3 +47,27 @@ export const getUserNicknameLog = async (req, res, next) => {
   }
 };
 
+export const patchUserImage = async (req, res, next) => {
+  const image = req.file;
+  try {
+    if (!image) throw new CustomError(400, 'Invalid Data');
+    const id = req.user._id;
+    if (!id) throw new CustomError(401, 'id Error');
+    const imgUrl = image.path;
+
+    const result = await User.findByIdAndUpdate(
+      { _id: id },
+      { $set: { imgUrl } },
+      {
+        new: true,
+      },
+    ).exec();
+
+    res.status(200).json({
+      imgUrl: result.imgUrl,
+      message: 'User Information Update Success',
+    });
+  } catch (error) {
+    next(errorHandler(error));
+  }
+};
