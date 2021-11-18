@@ -28,7 +28,7 @@ const creating = ({
   socket.on(CREATE_REQUEST, (user) => {
     const roomCode = createRoomCode(rooms);
     rooms[roomCode] = {
-      hostID: null,
+      hostSID: null,
       isOpen: true,
       closeupUser: '',
       users: {},
