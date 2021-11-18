@@ -9,34 +9,31 @@ import {
 import type { UserType } from '@store/user';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import { getFriends, getSendFriends, requestFriend, getReceiveFriends } from '@src/api/user';
-
+import { useDispatch } from 'react-redux';
+import { requestFriend } from '@src/store/friend';
 const Users: React.FC = () => {
+  const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
+  const { friendList, sendFriendList, receiveFriendList } = useSelector(
+    (state: RootState) => state.friend,
+  );
   const {
     imgUrl: myImgUrl,
     nickname: myNickname,
     id: myId,
   } = useSelector((state: RootState) => state.user);
-  const [imPossibleFriends, setImpossibleFriends] = useState<string[]>([]);
-
-  const getImpossibleList = async () => {
-    const friends: [] = await getFriends();
-    const sendFriends: [] = await getSendFriends();
-    const receiveFriends: [] = await getReceiveFriends();
-    setImpossibleFriends([...friends, ...sendFriends, ...receiveFriends]);
-    console.log('friends :', friends); //아직 ui가 없어 확인용
-    console.log('sendFriends :', sendFriends);
-    console.log('receiveFriends :', receiveFriends);
-  };
+  const imPossibleFriends = [...friendList, ...sendFriendList, ...receiveFriendList];
 
   useEffect(() => {
-    getImpossibleList();
-  }, []);
+    console.log('friends :', friendList); //아직 ui가 없어 확인용
+    console.log('sendFriends :', sendFriendList);
+    console.log('receiveFriends :', receiveFriendList);
+  });
 
   const onclickRequestFriend = async ({ target }) => {
-    await requestFriend(target.dataset.id);
-    getImpossibleList();
+    dispatch(requestFriend(target.dataset.id));
+    //소켓으로 상대방한테 보냈다고 알림
+    //상대방은 친구신청 받으면 바로 receiveFriendList 갱신 -> 리렌더
   };
 
   return (

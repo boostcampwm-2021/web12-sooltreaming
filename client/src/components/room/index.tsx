@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import RoomMenu from '@components/room/RoomMenu';
 import ChatMonitor from '@components/room/monitor/';
 import ControlBar from '@components/room/ControlBar';
@@ -8,10 +9,19 @@ import Scaffold from '@components/room/scaffold';
 import useUser from '@hooks/socket/useUser';
 import useAnimation from '@hooks/socket/useAnimation';
 import Socket from '@socket/socket';
+import {
+  friendListRequest,
+  sendFriendListRequest,
+  receiveFriendListRequest,
+} from '@src/store/friend';
 
 const ChatRoom: React.FC = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     Socket.connect();
+    dispatch(friendListRequest([]));
+    dispatch(sendFriendListRequest([]));
+    dispatch(receiveFriendListRequest([]));
     return () => {
       Socket.disconnect();
     };
