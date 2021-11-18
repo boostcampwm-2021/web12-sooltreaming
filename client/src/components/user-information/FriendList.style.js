@@ -52,5 +52,110 @@ export const Friend = styled.div`
 
   .right-items {
     overflow: hidden;
+    cursor: pointer;
   }
+`;
+
+export const Header = styled.div`
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & > h2 {
+    padding: 0;
+    margin: 30px 0 0 15px;
+    color: ${COLOR.titleActive};
+    user-select: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  & span {
+    color: ${COLOR.point};
+  }
+`;
+
+export const RequestData = styled.div`
+  width: 640px;
+  padding: 20px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+
+  h2 {
+    padding: 0;
+    margin: 25px;
+    color: ${COLOR.titleActive};
+    user-select: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .application,
+  .request {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: 8px 0px;
+  }
+
+  .draggable-box {
+    overflow-x: auto;
+    display: flex;
+
+    &:active {
+      cursor: pointer;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    > * {
+      display: block;
+    }
+  }
+`;
+
+export const PendingFriend = styled.div`
+  width: 250px;
+  height: 70px;
+  margin: 8px 0px;
+  padding: 0 20px;
+  border: 1px solid ${COLOR.primary1};
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 8px;
+  white-space: nowrap;
+
+  .left-items {
+    display: inline-flex;
+    align-items: center;
+    overflow: hidden;
+
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 1rem;
+    }
+  }
+
+  .right-items {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    cursor: pointer;
+  }
+`;
+
+export const Xbutton = styled.div`
+  position: absolute;
+  right: 2rem;
+  top: 2rem;
+  cursor: pointer;
 `;
