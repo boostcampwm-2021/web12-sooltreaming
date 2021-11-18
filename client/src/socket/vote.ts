@@ -16,8 +16,8 @@ const vote =
       if (isApprove) addApprove();
       else addReject();
     });
-    socket.on(JUDGE_CLOSED, ({ targetName, percentage }) => {
-      closeJudgement({ targetName, percentage });
+    socket.on(JUDGE_CLOSED, ({ targetSID, targetName, percentage, resetTime }) => {
+      closeJudgement({ targetSID, targetName, percentage, resetTime });
     });
 
     const startVoting = (targetSID) => {

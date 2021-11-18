@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useCallback, useState } from 'react';
 import Socket from '@socket/socket';
 import { useDispatch } from 'react-redux';
+import { updateRoomVoteTime } from '@store/room';
 import { setNoticeMessage } from '@store/notice';
 
 const useVote = () => {
@@ -18,7 +19,8 @@ const useVote = () => {
     setApproves(1);
     setRejects(0);
   }, []);
-  const closeJudgement = useCallback(({ targetName, percentage }) => {
+  const closeJudgement = useCallback(({ targetSID, targetName, percentage, resetTime }) => {
+    dispatch(updateRoomVoteTime({ sid: targetSID, time: resetTime }));
     dispatch(setNoticeMessage({ errorMessage: `${targetName}의 죽음에 ${percentage}% 찬성` }));
     setIsOpen(false);
     setTarget('');

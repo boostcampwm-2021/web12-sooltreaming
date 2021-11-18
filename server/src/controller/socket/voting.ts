@@ -30,7 +30,8 @@ const voting = ({
 
     const vote = rooms[code].vote;
     const { defendant: targetSID, cool, voteBox } = vote;
-    cool[targetSID] = Date.now() + 3 * 60 * 1000;
+    const resetTime = Date.now() + 3 * 60 * 1000;
+    cool[targetSID] = resetTime;
 
     const votes = Object.values(voteBox);
     const total = votes.length;
@@ -47,7 +48,7 @@ const voting = ({
     }
 
     const targetName = rooms[code].users[targetSID]?.nickname ?? '';
-    io.to(code).emit(JUDGE_CLOSED, { targetName, percentage });
+    io.to(code).emit(JUDGE_CLOSED, { targetSID, targetName, percentage, resetTime });
   };
 
   socket.on(START_VOTING, ({ targetSID }) => {

@@ -8,6 +8,7 @@ type RoomStateType = {
   users: { [sid: string]: UserType };
   usersDevices: { [sid: string]: UserDevicesType };
   streams: { [sid: string]: MediaStream };
+  voteTimes: { [sid: string]: number };
   hostId: string;
   isOpen: boolean;
   isCheers: boolean;
@@ -20,6 +21,7 @@ const initialState: RoomStateType = {
   users: {},
   usersDevices: {},
   streams: {},
+  voteTimes: {},
   hostId: '',
   isOpen: true,
   isCheers: false,
@@ -45,20 +47,22 @@ export type ChatLogType = {
 export const [SET_ROOM_CODE, setRoomCode] = createAction<string>('SET_ROOM_CODE');
 export const [SET_HOST, setHost] = createAction<RoomHostType>('SET_HOST');
 export const [SET_ISOPEN, setIsOpen] = createAction<boolean>('SET_ISOPEN');
-export const [SET_USERS, setUsers] = createAction<{
-  users: { [sid: string]: UserType };
-  usersDevices: { [sid: string]: UserDevicesType };
-}>('SET_USERS');
+export const [SET_USERS, setUsers] =
+  createAction<{
+    users: { [sid: string]: UserType };
+    usersDevices: { [sid: string]: UserDevicesType };
+  }>('SET_USERS');
 export const [SET_MENUTYPE, setMenuType] = createAction<string>('SET_MENUTYPE');
 export const [SET_STREAMS, setStreams] =
   createAction<{ [sid: string]: MediaStream }>('SET_STREAMS');
 export const [SET_ISCHEERS, setIsCheers] = createAction<boolean>('SET_ISCHEERS');
 
-export const [ADD_USERS, addUsers] = createAction<{
-  user: UserType;
-  userDevices: UserDevicesType;
-  sid: string;
-}>('ADD_USERS');
+export const [ADD_USERS, addUsers] =
+  createAction<{
+    user: UserType;
+    userDevices: UserDevicesType;
+    sid: string;
+  }>('ADD_USERS');
 export const [ADD_CHATLOG, addChatLog] = createAction<ChatLogType>('ADD_CHATLOG');
 export const [ADD_STREAMS, addStreams] =
   createAction<{ [sid: string]: MediaStream }>('ADD_STREAMS');
@@ -72,6 +76,9 @@ export const [DELETE_USERS, deleteUsers] = createAction<string>('DELETE_USERS');
 export const [RESET_ROOM_INFO, resetRoomInfo] = createAction<{}>('RESET_ROOM_INFO');
 
 export const [TOGGLE_ISOPEN, toggleIsOpen] = createAction<{}>('TOGGLE_ISOPEN');
+
+export const [UPDATE_ROOM_VOTETIME, updateRoomVoteTime] =
+  createAction<{ sid: string; time: number }>('UPDATE_ROOM_VOTETIME');
 
 type roomAction =
   | ReturnType<typeof setRoomCode>
@@ -87,7 +94,8 @@ type roomAction =
   | ReturnType<typeof addStreams>
   | ReturnType<typeof setStreams>
   | ReturnType<typeof resetRoomInfo>
-  | ReturnType<typeof addChatLog>;
+  | ReturnType<typeof addChatLog>
+  | ReturnType<typeof updateRoomVoteTime>;
 
 function roomReducer(state: RoomStateType = initialState, action: roomAction): RoomStateType {
   switch (action.type) {
@@ -172,6 +180,7 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
         users: {},
         usersDevices: {},
         streams: {},
+        voteTimes: {},
         hostId: '',
         isOpen: true,
         isCheers: false,
@@ -181,6 +190,15 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
       const data = { ...(action.payload as ChatLogType) };
       const newChatLog = [...state.chatLog, data];
       return { ...state, chatLog: newChatLog };
+    }
+    case UPDATE_ROOM_VOTETIME: {
+      const { sid, time } = action.payload as { sid: string; time: number };
+      if (!sid || !time) return state;
+      const newVoteTimes = { ...state.voteTimes, [sid]: time };
+      return {
+        ...state,
+        voteTimes: newVoteTimes,
+      };
     }
     default:
       return state;
