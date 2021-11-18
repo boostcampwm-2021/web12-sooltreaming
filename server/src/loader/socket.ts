@@ -14,7 +14,7 @@ import { FRONT_BASE_URL } from '@src/constant';
 
 export type roomType = {
   [code: string]: {
-    hostID: string;
+    hostSID: string;
     isOpen: boolean;
     closeupUser: string;
     users: {
