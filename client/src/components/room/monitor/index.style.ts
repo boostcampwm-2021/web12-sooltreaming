@@ -54,3 +54,13 @@ export const Image = styled.img<{
   padding: 10px;
   z-index: ${Z_INDEX.camOff};
 `;
+
+export const NameSpan = styled.span`
+  position: absolute;
+  bottom: 10px;
+  background-color: ${COLOR.black};
+  color: ${COLOR.white};
+  padding: 5px;
+  opacity: 0.5;
+  z-index: ${Z_INDEX.nickname};
+`;
