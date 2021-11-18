@@ -40,7 +40,10 @@ const animation = ({
   socket.on(CANCEL_CLOSEUP, () => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
-    if (rooms[code].status === STATUS_EXECUTING && rooms[code].hostSID !== socket.id) return;
+    if (rooms[code].status === STATUS_EXECUTING && rooms[code].hostSID !== socket.id) {
+      rooms[code].status = STATUS_NORMAL;
+      return;
+    }
     rooms[code].closeupUser = '';
     io.to(code).emit(CANCEL_CLOSEUP);
   });
