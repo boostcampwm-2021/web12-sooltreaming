@@ -34,12 +34,12 @@ const voting = ({
 
     const votes = Object.values(voteBox);
     const total = votes.length;
-    const approves = votes.filter((box) => !box.isApprove).length;
+    const approves = votes.filter((box) => box.isApprove).length;
     const percentage = Math.ceil((approves / total) * 100);
+
     if (percentage < 50) {
       rooms[code].status = 'NORMAL';
-      // 원한다면 취소 메세지
-      return;
+      // TODO: 원한다면 취소 메세지
     } else {
       rooms[code].status = 'EXECUTING';
       rooms[code].closeupUser = targetSID;

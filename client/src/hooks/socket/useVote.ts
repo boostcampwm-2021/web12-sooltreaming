@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useCallback, useState } from 'react';
 import Socket from '@socket/socket';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { RootState } from '@src/store';
-// import { addStreams } from '@store/room';
+import { useDispatch } from 'react-redux';
+import { setNoticeMessage } from '@store/notice';
 
 const useVote = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [target, setTarget] = useState<string>('');
   const [total, setTotal] = useState<number>(0);
@@ -15,10 +15,11 @@ const useVote = () => {
     setIsOpen(true);
     setTarget(targetName);
     setTotal(participants);
-    setApproves(0);
+    setApproves(1);
     setRejects(0);
   }, []);
   const closeJudgement = useCallback(({ targetName, percentage }) => {
+    dispatch(setNoticeMessage({ errorMessage: `${targetName}의 죽음에 ${percentage}% 찬성` }));
     setIsOpen(false);
     setTarget('');
     setTotal(0);

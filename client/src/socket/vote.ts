@@ -9,16 +9,13 @@ const JUDGE_CLOSED = 'JUDGE_CLOSED';
 const vote =
   (socket: Socket) =>
   ({ openJudgment, closeJudgement, addApprove, addReject }) => {
-    // 투표 시작
     socket.on(JUDGEMENT_ON, ({ targetName, participants }) => {
       openJudgment({ targetName, participants });
     });
-    // 투표 정보 가져오기
     socket.on(ONE_DECISION, ({ isApprove }) => {
       if (isApprove) addApprove();
       else addReject();
     });
-    // 투표 끝났다
     socket.on(JUDGE_CLOSED, ({ targetName, percentage }) => {
       closeJudgement({ targetName, percentage });
     });
@@ -27,9 +24,8 @@ const vote =
       if (!targetSID) return;
       socket.emit(START_VOTING, { targetSID });
     };
-    // 투표를 진행하는 것
     const makeDecision = ({ isApprove }) => {
-      socket.emit(GET_DECISION, { isApprove: true });
+      socket.emit(GET_DECISION, { isApprove });
     };
 
     const disconnecting = () => {
