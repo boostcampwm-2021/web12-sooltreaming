@@ -8,10 +8,10 @@ import useRoomControl from '@hooks/socket/useRoomControl';
 
 
 const Host: React.FC = () => {
-  const { toggleRoomEntry } = useRoomControl();
+  const {toggleRoomEntry, turnOffOtherVideo} = useRoomControl();
   return (
     <Wrapper>
-      <ParticipantController />
+      <ParticipantController turnOffOtherVideo={turnOffOtherVideo} />
       <RoomController toggleRoomEntry={toggleRoomEntry} />
     </Wrapper>
   );
