@@ -13,7 +13,7 @@ const requestFriend = (socket: Socket) => (closure: any) => {
   };
 
   const disconnecting = () => {
-    socket.off(QUESTION);
+    socket.off(REQUEST_FRIEND);
   };
 
   return { sendFriendRequest, disconnecting };
