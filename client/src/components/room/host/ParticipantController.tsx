@@ -56,7 +56,7 @@ const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }) => {
   return (
     <Wrapper>
       {Object.entries(users).map(([sid, user], index) => {
-        if (hostSID === user.id) return <></>;
+        if (hostSID === sid) return <></>;
         return (
           <Participant
             sid={sid}
