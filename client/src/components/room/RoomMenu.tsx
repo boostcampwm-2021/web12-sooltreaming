@@ -4,6 +4,7 @@ import Chat from '@components/room/chat/';
 import RoomSetting from '@components/setting/RoomSetting';
 import Host from '@components/room/host/';
 import Users from '@components/user/Users';
+import Games from '@components/room/games';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
@@ -23,6 +24,8 @@ const RouteMenu = ({ startVoteRef }) => {
       return <Users startVoteRef={startVoteRef} />;
     case '방장':
       return <Host />;
+    case '게임':
+      return <Games />;
     default:
       return <></>;
   }
