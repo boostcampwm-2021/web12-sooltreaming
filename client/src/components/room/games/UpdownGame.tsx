@@ -22,7 +22,7 @@ const UpdownGame: React.FC = () => {
       {gameHost === Socket.getSID() ? (
         <>
           <div>업다운 게임</div>
-          <div>10</div>
+          <div>{Math.floor(Math.random() * 50) + 1}</div>
           <button onClick={stopGame}>게임 종료</button>
         </>
       ) : (
