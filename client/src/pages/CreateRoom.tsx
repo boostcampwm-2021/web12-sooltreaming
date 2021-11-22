@@ -18,7 +18,7 @@ const CreateRoom: React.FunctionComponent = () => {
     }, 5000);
     const joining = ({ roomCode }) => {
       clearTimeout(waiting);
-      history.replace(`chatRoom/${roomCode}`);
+      history.replace(`/room/${roomCode}`);
     };
 
     const functions = Socket.host({ joining });
