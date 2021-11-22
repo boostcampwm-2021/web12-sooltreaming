@@ -5,7 +5,7 @@ import { RootState } from '@src/store';
 import { requestInitInfo } from '@store/device';
 import { setRoomCode } from '@store/room';
 import Header from '@components/Header';
-import { Wrapper, Button, CancleButton, Row } from '@pages/Setting.style.js';
+import { Wrapper, Button, CancleButton, Row } from '@src/pages/JoinRoom.style.js';
 import PrevSetting from '@components/setting/PrevSetting';
 import ChatRoom from '@components/room/';
 import Loading from '@components/custom/Loading';
