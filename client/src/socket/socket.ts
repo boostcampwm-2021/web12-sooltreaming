@@ -10,7 +10,7 @@ import isVideoOnOff from '@src/socket/isStreamOnOff';
 import roomControl from '@socket/roomControl';
 import vote from '@socket/vote';
 import requestFriend from '@socket/requestFriend';
-
+import game from '@socket/game';
 const Socket = () => {
   const socket = io(BACK_BASE_URL, {
     transports: ['websocket'],
@@ -33,6 +33,7 @@ const Socket = () => {
     roomControl: roomControl(socket),
     vote: vote(socket),
     requestFriend: requestFriend(socket),
+    game: game(socket),
   };
 };
 export default Socket();
