@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setNoticeMessage } from '@store/notice';
 import { setNickname } from '@store/user';
 import { RootState } from '@src/store';
-import { patchUserNickname } from '@api/user';
+import { API } from '@src/api';
 import {
   TopWrapper,
   Profile,
@@ -61,6 +61,10 @@ const Information: React.FC = () => {
   const closeHistoryJudgment = () => {
     setHistoryIsOpen(false);
   };
+  const requestGetUserNicknameLog = useCallback(async () => {
+    const result = (await API.call(API.TYPE.GET_USER_NICKNAME_LOG, id)) as [];
+    setNicknameLog(result);
+  }, [id]);
 
   const openNicknameJudgment = () => {
     setChangeNicknameIsOpen(true);
@@ -94,15 +98,17 @@ const Information: React.FC = () => {
   };
 
   useEffect(() => {
-    const httpRequest = async () => {
-      const { json, status } = await request.get({ url: '/user', query: { id } });
-      if (status > 400) {
-        dispatch(setNoticeMessage({ errorMessage: json.message }));
-      }
-      setUserInformation(json.user);
+    const requestGetUserInformation = async () => {
+      const user = await API.call(API.TYPE.GET_USER_INFORMATION, id);
+      setUserInformation(user);
     };
-    httpRequest();
+    requestGetUserNicknameLog();
+    requestGetUserInformation();
   }, []);
+
+  useEffect(() => {
+    requestGetUserNicknameLog();
+  }, [nickname]);
 
   return (
     <>
