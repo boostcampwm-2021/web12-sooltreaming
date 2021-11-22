@@ -28,7 +28,6 @@ const useAnimation = () => {
     if (closeupUser) {
       deactivateCloseup.current();
     } else {
-      console.log(e);
       activateCloseup.current();
     }
   };
