@@ -12,15 +12,15 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import Header from '@components/Header';
+import useTicket from '@hooks/socket/useTicket';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 import DeviceSelections from '@src/components/setting/DeviceSelections';
 import DeviceToggles from '@src/components/setting/DeviceToggles';
-import ControlBar from '../room/ControlBar';
 
 type SettingPropTypes = {
-  onClickJoin: any;
+  onClickJoin: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 const Setting: React.FC<SettingPropTypes> = ({ onClickJoin }) => {
@@ -28,6 +28,7 @@ const Setting: React.FC<SettingPropTypes> = ({ onClickJoin }) => {
   const stream = useSelector((state: RootState) => state.device.stream);
   const previewFace = useRef<HTMLVideoElement>(null);
 
+  useTicket();
   useUpdateSpeaker(previewFace);
   useToggleSpeaker(previewFace);
   useUpdateStream(previewFace, stream);
