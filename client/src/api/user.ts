@@ -48,5 +48,3 @@ export const requestFriend = async (targetId: string) => {
     return json;
   } else throw new Error(status.toString());
 };
-
-};
