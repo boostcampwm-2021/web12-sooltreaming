@@ -4,6 +4,7 @@ import type { UserType } from '@store/user';
 type RoomStateType = {
   roomCode: string;
   menuType: string;
+  currentGame: GameInfoType;
   chatLog: Array<ChatLogType>;
   users: { [sid: string]: UserType };
   usersDevices: { [sid: string]: UserDevicesType };
@@ -17,6 +18,7 @@ type RoomStateType = {
 const initialState: RoomStateType = {
   roomCode: '',
   menuType: '',
+  currentGame: { title: '', host: '' },
   chatLog: [],
   users: {},
   usersDevices: {},
@@ -36,6 +38,11 @@ type RoomHostType = {
 type UserDevicesType = {
   isVideoOn: boolean;
   isAudioOn: boolean;
+};
+
+type GameInfoType = {
+  title: string;
+  host: string;
 };
 
 export type ChatLogType = {
@@ -78,6 +85,7 @@ export const [TOGGLE_ISOPEN, toggleIsOpen] = createAction<{}>('TOGGLE_ISOPEN');
 export const [UPDATE_ROOM_VOTETIME, updateRoomVoteTime] =
   createAction<{ sid: string; time: number }>('UPDATE_ROOM_VOTETIME');
 
+export const [SET_CURRENT_GAME, setCurrentGame] = createAction<GameInfoType>('SET_CURRENT_GAME');
 type roomAction =
   | ReturnType<typeof setRoomCode>
   | ReturnType<typeof setHost>
@@ -173,6 +181,7 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
       return {
         roomCode: '',
         menuType: '',
+        currentGame: { title: '', host: '' },
         chatLog: [],
         users: {},
         usersDevices: {},
@@ -196,6 +205,10 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
         ...state,
         voteTimes: newVoteTimes,
       };
+    }
+    case SET_CURRENT_GAME: {
+      const newGameState = action.payload as GameInfoType;
+      return { ...state, currentGame: newGameState };
     }
     default:
       return state;
