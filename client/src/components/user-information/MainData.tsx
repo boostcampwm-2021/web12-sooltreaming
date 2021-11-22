@@ -1,7 +1,7 @@
 import React from 'react';
-import Information from '@src/components/user-information/Information';
-import FriendList from '@src/components/user-information/FriendList';
-import Ranking from '@src/components/user-information/Ranking';
+import Information from '@components/user-information/Information';
+import FriendList from '@components/user-information/FriendList';
+import Ranking from '@components/user-information/Ranking';
 
 type menuType = {
   menu: string;
