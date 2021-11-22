@@ -5,13 +5,15 @@ import Socket from '@socket/socket';
 import { Wrapper, MessageList } from '@components/room/chat/index.style';
 import ChatItem from '@components/room/chat/ChatItem';
 import ChatForm from '@components/room/chat/ChatForm';
-import useMessage from '@hooks/socket/useMessage';
 
-const Chat: React.FC = () => {
+type ChatPropTypes = {
+  sendMessage: Function;
+};
+
+const Chat: React.FC<ChatPropTypes> = ({ sendMessage }) => {
   const chatLog = useSelector((state: RootState) => state.room.chatLog);
   const chatWindow = useRef<HTMLUListElement>(null);
   const myID = Socket.getSID();
-  const { sendMessage } = useMessage();
 
   const downScroll = () => {
     const refDom = chatWindow.current;
@@ -26,7 +28,7 @@ const Chat: React.FC = () => {
   return (
     <Wrapper>
       <MessageList ref={chatWindow}>
-        {chatLog.map(({ sid, msg, date }, index) => (
+        {chatLog.map(({ sid, msg, date }) => (
           <ChatItem
             key={`chat-${sid}-${msg}-${date}`}
             sid={sid}

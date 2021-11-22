@@ -9,10 +9,8 @@ import Socket from '@socket/socket';
 const useUser = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => {
-    const { id, imgUrl, nickname } = state.user;
-    return { id, imgUrl, nickname };
-  });
+  const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
+  const user = { id, imgUrl, nickname };
   const code = useSelector((state: RootState) => state.room.roomCode);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
   const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);
