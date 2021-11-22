@@ -14,18 +14,15 @@ import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 import useWebRTC from '@hooks/socket/useWebRTC';
 
-type ChatFormPropTypes = {
-  closeupUser: any;
-};
-
-const ChatMonitor: React.FC<ChatFormPropTypes> = ({ closeupUser }) => {
+const ChatMonitor: React.FC = () => {
   const streams = useSelector((state: RootState) => state.room.streams);
+  const closeUpUser = useSelector((state: RootState) => state.room.closeUpUser);
   const stream = useSelector((state: RootState) => state.device.stream);
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const myVideoRef = useRef<HTMLVideoElement>(null);
-  const className = closeupUser ? (Socket.getSID() === closeupUser ? 'closeup' : 'mini') : '';
+  const className = closeUpUser ? (Socket.getSID() === closeUpUser ? 'closeup' : 'mini') : '';
   let count = Object.values(streams).length + 1;
 
   const { changeStream } = useWebRTC();
@@ -41,7 +38,7 @@ const ChatMonitor: React.FC<ChatFormPropTypes> = ({ closeupUser }) => {
       </VideoWrapper>
 
       {Object.entries(streams).map(([sid, otherStream]) => {
-        const peerClassName = closeupUser ? (sid === closeupUser ? 'closeup' : 'mini') : '';
+        const peerClassName = closeUpUser ? (sid === closeUpUser ? 'closeup' : 'mini') : '';
         return (
           <OtherVideo count={count} className={peerClassName} srcObject={otherStream} sid={sid} />
         );

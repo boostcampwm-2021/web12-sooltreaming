@@ -15,8 +15,9 @@ import {
   ExitIcon,
 } from '@components/icons';
 import DeviceToggles from '@components/setting/DeviceToggles';
-import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
 import Socket from '@socket/socket';
+import useUser from '@hooks/socket/useUser';
+import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
 
 const IconButton = ({ Icon, type }) => {
   return (
@@ -28,15 +29,21 @@ const IconButton = ({ Icon, type }) => {
 
 export type ControlBarPropTypes = {
   onClickCheers: Function;
-  onClickCloseup: Function;
+  activateCloseup: Function;
+  deactivateCloseup: Function;
 };
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
-const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickCloseup }) => {
+const ControlBar: React.FC<ControlBarPropTypes> = ({
+  onClickCheers,
+  activateCloseup,
+  deactivateCloseup,
+}) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const hostSID = useSelector((state: RootState) => state.room.hostSID);
+  const closeUpUser = useSelector((state: RootState) => state.room.closeUpUser);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
   const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);
 
@@ -44,8 +51,12 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
     history.replace('/');
   };
 
+  const onClickCloseUp = () => {
+    if (closeUpUser) deactivateCloseup();
+    else activateCloseup();
+  };
   const MENU = {
-    클로즈업: onClickCloseup,
+    클로즈업: onClickCloseUp,
     건배: onClickCheers,
     나가기: onClickExit,
   };
@@ -58,6 +69,8 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
       dispatch(setMenuType(menu));
     }
   };
+
+  useUser();
 
   const { videoChange, audioChange } = useIsStreamOnOff();
   useEffect(() => {

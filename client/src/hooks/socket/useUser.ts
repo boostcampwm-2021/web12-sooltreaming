@@ -14,10 +14,8 @@ const useUser = () => {
     return { id, imgUrl, nickname };
   });
   const code = useSelector((state: RootState) => state.room.roomCode);
-  const userDevices = useSelector((state: RootState) => {
-    const { isVideoOn, isAudioOn } = state.device;
-    return { isVideoOn, isAudioOn };
-  });
+  const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
+  const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);
 
   const errorControl = (message) => {
     dispatch(setNoticeMessage({ errorMessage: message }));
@@ -39,7 +37,7 @@ const useUser = () => {
   const changeRoomHost = (isOpen) => {
     dispatch(setHost({ hostSID: Socket.getSID(), isOpen }));
   };
-  
+
   const socket = useMemo(
     () =>
       Socket.user({
@@ -55,7 +53,10 @@ const useUser = () => {
     socket.joinRoom({
       chatRoomCode: code,
       user,
-      userDevices,
+      userDevices: {
+        isVideoOn,
+        isAudioOn,
+      },
     });
     return () => {
       socket.disconnecting();
