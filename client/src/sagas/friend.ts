@@ -1,19 +1,17 @@
-import { call, put, takeLatest, takeEvery } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import {
   FRIEND_LIST_REQUEST,
   SEND_FRIEND_LIST_REQUEST,
   RECEIVE_FRIEND_LIST_REQUEST,
-  REQUEST_FRIEND,
   friendListSuccess,
   friendListFailuer,
   sendFriendListSuccess,
   sendFriendListFailuer,
   receiveFriendListSuccess,
   receiveFriendListFailuer,
-  requestFriendFailuer,
 } from '@store/friend';
 
-import { getFriends, getSendFriends, getReceiveFriends, requestFriend } from '@api/user';
+import { getFriends, getSendFriends, getReceiveFriends } from '@api/user';
 
 async function getFriendListAPI() {
   const data = await getFriends();
@@ -26,9 +24,6 @@ async function getSendFriendListAPI() {
 async function getReceiveFriendListAPI() {
   const data = await getReceiveFriends();
   return data;
-}
-async function requestFriendAPI(targetId) {
-  await requestFriend(targetId);
 }
 
 function* getFriendList() {
@@ -58,19 +53,8 @@ function* getReceiveFriendList() {
   }
 }
 
-function* requestFriendAndUpdate(action) {
-  try {
-    yield call(requestFriendAPI, action.payload);
-    yield getSendFriendList();
-    yield getReceiveFriendList();
-  } catch ({ message }) {
-    yield put(requestFriendFailuer({ message: message as string }));
-  }
-}
-
 export default function* friendSaga() {
   yield takeLatest(FRIEND_LIST_REQUEST, getFriendList);
   yield takeLatest(SEND_FRIEND_LIST_REQUEST, getSendFriendList);
   yield takeLatest(RECEIVE_FRIEND_LIST_REQUEST, getReceiveFriendList);
-  yield takeEvery(REQUEST_FRIEND, requestFriendAndUpdate);
 }
