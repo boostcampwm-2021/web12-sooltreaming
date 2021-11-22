@@ -10,10 +10,11 @@ const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }) => {
 
   return (
     <Wrapper>
-      {Object.entries(users).map(([sid, user], index) => {
+      {Object.entries(users).map(([sid, user]) => {
         if (hostSID === sid) return <></>;
         return (
           <Participant
+            key={`Participant-${sid}`}
             sid={sid}
             user={user}
             userDevices={usersDevices[sid]}
