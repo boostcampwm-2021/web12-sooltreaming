@@ -11,9 +11,10 @@ import { setMenuType } from '@store/room';
 
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
+  GameStartFuncList: Object;
 };
 
-const RouteMenu = ({ startVoteRef }) => {
+const RouteMenu = ({ startVoteRef, GameStartFuncList }) => {
   const { menuType } = useSelector((state: RootState) => state.room);
   switch (menuType) {
     case '설정':
@@ -25,13 +26,13 @@ const RouteMenu = ({ startVoteRef }) => {
     case '방장':
       return <Host />;
     case '게임':
-      return <Games />;
+      return <Games GameStartFuncList={GameStartFuncList} />;
     default:
       return <></>;
   }
 };
 
-const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef }) => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartFuncList }) => {
   const { menuType } = useSelector((state: RootState) => state.room);
   const dispatch = useDispatch();
   if (!menuType) return <></>;
@@ -41,7 +42,7 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef }) => {
         <span>{menuType}</span>
         <CloseButton onClick={() => dispatch(setMenuType(''))}></CloseButton>
       </TopBar>
-      <RouteMenu startVoteRef={startVoteRef} />
+      <RouteMenu startVoteRef={startVoteRef} GameStartFuncList={GameStartFuncList} />
     </Wrapper>
   );
 };
