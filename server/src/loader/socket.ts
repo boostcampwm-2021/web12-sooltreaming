@@ -8,6 +8,7 @@ import animation from '@controller/socket/animation';
 import questionMark from '@controller/socket/questionMark';
 import voting from '@controller/socket/voting';
 import friending from '@controller/socket/friending';
+import gaming from '@controller/socket/gaming';
 import streamChange from '@controller/socket/streamChange';
 
 import pipe from '@utils/pipe';
@@ -66,6 +67,7 @@ const socketLoader = (server, app): any => {
       restricting,
       voting,
       friending,
+      gaming,
     )({ io, socket, rooms });
 
     socket.on('disconnect', () => {
