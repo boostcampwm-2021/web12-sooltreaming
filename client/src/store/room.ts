@@ -12,6 +12,7 @@ type RoomStateType = {
   hostSID: string;
   isOpen: boolean;
   isCheers: boolean;
+  closeUpUser: string;
 };
 
 const initialState: RoomStateType = {
@@ -25,6 +26,7 @@ const initialState: RoomStateType = {
   hostSID: '',
   isOpen: true,
   isCheers: false,
+  closeUpUser: '',
 };
 
 // 확장성을 생각해 별도의 Type 지정
@@ -47,20 +49,23 @@ export type ChatLogType = {
 export const [SET_ROOM_CODE, setRoomCode] = createAction<string>('SET_ROOM_CODE');
 export const [SET_HOST, setHost] = createAction<RoomHostType>('SET_HOST');
 export const [SET_ISOPEN, setIsOpen] = createAction<boolean>('SET_ISOPEN');
-export const [SET_USERS, setUsers] = createAction<{
-  users: { [sid: string]: UserType };
-  usersDevices: { [sid: string]: UserDevicesType };
-}>('SET_USERS');
+export const [SET_USERS, setUsers] =
+  createAction<{
+    users: { [sid: string]: UserType };
+    usersDevices: { [sid: string]: UserDevicesType };
+  }>('SET_USERS');
 export const [SET_MENUTYPE, setMenuType] = createAction<string>('SET_MENUTYPE');
 export const [SET_STREAMS, setStreams] =
   createAction<{ [sid: string]: MediaStream }>('SET_STREAMS');
 export const [SET_ISCHEERS, setIsCheers] = createAction<boolean>('SET_ISCHEERS');
+export const [SET_CLOSEUP_USER, setCloseUpUser] = createAction<string>('SET_CLOSEUP_USER');
 
-export const [ADD_USERS, addUsers] = createAction<{
-  user: UserType;
-  userDevices: UserDevicesType;
-  sid: string;
-}>('ADD_USERS');
+export const [ADD_USERS, addUsers] =
+  createAction<{
+    user: UserType;
+    userDevices: UserDevicesType;
+    sid: string;
+  }>('ADD_USERS');
 export const [ADD_CHATLOG, addChatLog] = createAction<ChatLogType>('ADD_CHATLOG');
 export const [ADD_STREAMS, addStreams] =
   createAction<{ [sid: string]: MediaStream }>('ADD_STREAMS');
@@ -123,6 +128,10 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
       const isCheers = action.payload as boolean;
       return { ...state, isCheers };
     }
+    case SET_CLOSEUP_USER: {
+      const closeUpUser = action.payload as string;
+      return { ...state, closeUpUser };
+    }
     case ADD_USERS: {
       const { sid, user, userDevices } = action.payload as {
         sid: string;
@@ -181,6 +190,7 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
         hostSID: '',
         isOpen: true,
         isCheers: false,
+        closeUpUser: '',
       };
     }
     case ADD_CHATLOG: {
