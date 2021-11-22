@@ -22,8 +22,9 @@ const animation = ({
   rooms: roomType;
   targetInfo: TargetInfoType;
 }) => {
-  socket.on(CHEERS, ({ user }) => {
+  socket.on(CHEERS, () => {
     const { code } = targetInfo;
+    if (!(code in rooms)) return;
     io.to(code).emit(CHEERS);
   });
 
