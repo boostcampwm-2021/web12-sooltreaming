@@ -63,3 +63,12 @@ export const CloseButton = styled.button`
     transform: rotate(-45deg);
   }
 `;
+
+export const SelectBox = styled.div`
+  padding: 10px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;

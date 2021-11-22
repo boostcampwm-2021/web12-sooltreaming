@@ -8,7 +8,7 @@ import {
 } from '@components/room/host/ParticipantController.style';
 
 import { HumanIcon, VideoIcon, MicIcon } from '@components/icons';
-import DeviceToggleButton from '@components/setting/DeviceToggleButton';
+import SettingToggle from '@components/setting/SettingToggle';
 
 const Participant = ({ sid, user, userDevices, turnOffOtherVideo, turnOffOtherAudio }) => {
   const targetNick = user?.nickname;
@@ -33,16 +33,12 @@ const Participant = ({ sid, user, userDevices, turnOffOtherVideo, turnOffOtherAu
         <span>{targetNick || 'judangs'}</span>
       </ProfileDiv>
       <ControlDiv>
-        <DeviceToggleButton
+        <SettingToggle
           Icon={VideoIcon}
           isDeviceOn={isVideoOn}
           setIsDeviceOn={() => turnOffVideo()}
         />
-        <DeviceToggleButton
-          Icon={MicIcon}
-          isDeviceOn={isAudioOn}
-          setIsDeviceOn={() => turnOffAudio()}
-        />
+        <SettingToggle Icon={MicIcon} isDeviceOn={isAudioOn} setIsDeviceOn={() => turnOffAudio()} />
       </ControlDiv>
     </RowWrapper>
   );

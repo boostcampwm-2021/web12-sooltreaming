@@ -1,9 +1,9 @@
 import React from 'react';
-import GlobalStyle from './GlobalStyle';
+import GlobalStyle from '@src/GlobalStyle';
 import ErrorToast from '@components/custom/ErrorToast';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import Lobby from '@pages/Lobby';
-import JoinRoom from '@src/pages/JoinRoom';
+import JoinRoom from '@pages/JoinRoom';
 import Login from '@pages/Login';
 import AuthRoute from '@pages/Splash';
 import CreateRoom from '@pages/CreateRoom';
