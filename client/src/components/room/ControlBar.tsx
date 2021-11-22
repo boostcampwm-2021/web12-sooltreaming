@@ -21,7 +21,7 @@ import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
 
 const IconButton = ({ Icon, type }) => {
   return (
-    <ControlButton className={type}>
+    <ControlButton data-type={type}>
       <Icon />
     </ControlButton>
   );
@@ -41,7 +41,6 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
 }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const menuType = useSelector((state: RootState) => state.room.menuType);
   const hostSID = useSelector((state: RootState) => state.room.hostSID);
   const closeUpUser = useSelector((state: RootState) => state.room.closeUpUser);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
@@ -61,13 +60,10 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
     나가기: onClickExit,
   };
   const selectMenu = ({ target }) => {
-    const menuName = target.classList[2];
+    const menuName = target.dataset?.type;
     if (!menuName) return;
     if (MENU[menuName]) MENU[menuName]();
-    else {
-      const menu = menuType === menuName ? '' : menuName;
-      dispatch(setMenuType(menu));
-    }
+    else dispatch(setMenuType(menuName));
   };
 
   useUser();

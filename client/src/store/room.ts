@@ -175,7 +175,8 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
       return { ...state, streams };
     }
     case SET_MENUTYPE: {
-      const menuType = action.payload as string;
+      const menu = action.payload as string;
+      const menuType = menu === state.menuType ? '' : menu;
       return { ...state, menuType };
     }
     case RESET_ROOM_INFO: {
