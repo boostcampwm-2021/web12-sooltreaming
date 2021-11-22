@@ -3,7 +3,13 @@ import { RowWrapper, ProfileDiv, ControlDiv } from '@components/room/host/Partic
 import { HumanIcon, VideoIcon, MicIcon } from '@components/icons';
 import SettingToggle from '@components/setting/SettingToggle';
 
-const Participant = ({ sid, user, userDevices, turnOffOtherVideo, turnOffOtherAudio }) => {
+const Participant = ({
+  sid,
+  user,
+  userDevices,
+  turnOffOtherVideo,
+  turnOffOtherAudio,
+}): React.ReactElement => {
   const targetNick = user?.nickname;
   const targetImg = user?.imgUrl;
   const isVideoOn = userDevices?.isVideoOn;
@@ -26,8 +32,8 @@ const Participant = ({ sid, user, userDevices, turnOffOtherVideo, turnOffOtherAu
         <span>{targetNick || 'judangs'}</span>
       </ProfileDiv>
       <ControlDiv>
-        <SettingToggle Icon={VideoIcon} isDeviceOn={isVideoOn} setIsDeviceOn={turnOffVideo()} />
-        <SettingToggle Icon={MicIcon} isDeviceOn={isAudioOn} setIsDeviceOn={turnOffAudio()} />
+        <SettingToggle Icon={VideoIcon} isDeviceOn={isVideoOn} setIsDeviceOn={turnOffVideo} />
+        <SettingToggle Icon={MicIcon} isDeviceOn={isAudioOn} setIsDeviceOn={turnOffAudio} />
       </ControlDiv>
     </RowWrapper>
   );
