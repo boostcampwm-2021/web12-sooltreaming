@@ -13,13 +13,6 @@ router.post('/', async (req, res, next) => {
   res.status(201).json({ message: 'Request Friend Success' });
 });
 
-router.delete('/', async (req, res, next) => {
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  await User.updateOne({ _id }, { sendFriend: [] });
-  await User.updateOne({ _id }, { receiveFriend: [] });
-  res.status(200).json({ message: 'Request Friend Success' });
-});
-
 router.get('/list', async (req, res, next) => {
   const { _id } = JSON.parse(JSON.stringify(req.user));
   const result = await User.findOne({ _id });
