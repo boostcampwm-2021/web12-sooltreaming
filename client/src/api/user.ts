@@ -9,12 +9,28 @@ export const loginWithSession = async () => {
   } else throw new Error(status.toString());
 };
 
+export const getUserInformation = async (id) => {
+  const { status, json } = await request.get({ url: '/user', query: { id } });
+  if (status === 200) {
+    return json.user;
+  } else throw new Error(json.error.toString());
+};
+
+export const getUserNicknameLog = async (id) => {
+  const { status, json } = await request.get({ url: '/user/nickname', query: { id } });
+  if (status === 200) {
+    return json.nicknameLog;
+  } else throw new Error(json.error.toString());
+};
+
 export const patchUserNickname = async (newNickname) => {
-  const { status } = await request.patch({
+  const { status, json } = await request.patch({
     url: '/user/nickname',
     body: { nickname: newNickname },
   });
-  return status < 400;
+  if (status === 200) {
+    return json.message;
+  } else throw new Error(json.error.toString());
 };
 
 export const getFriends = async () => {
