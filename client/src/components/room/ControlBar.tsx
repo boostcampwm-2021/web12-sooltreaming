@@ -1,5 +1,5 @@
 import React from 'react';
-import DeviceToggleButton from '@components/setting/DeviceToggleButton';
+import DeviceToggleButton from '@components/setting/SettingToggle';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from '@src/store';

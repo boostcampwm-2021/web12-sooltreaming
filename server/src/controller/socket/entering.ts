@@ -11,6 +11,8 @@ const NEED_OFFERS = 'need offers';
 const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
 const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
 
+const TICKET_FAILURE = 'TICKET_FAILURE';
+
 export type TargetInfoType = {
   code: string;
 };
@@ -47,8 +49,12 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     const sid = socket.id;
     socket.leave(code);
     delete rooms[code].users[sid];
-    if (!Object.keys(rooms[code].users).length) delete rooms[code];
-    else {
+    if (!Object.keys(rooms[code].users).length) {
+      rooms[code].waiters.forEach((sid) => {
+        io.to(sid).emit(TICKET_FAILURE, { message: '방이 사라졌습니다.' });
+      });
+      delete rooms[code];
+    } else {
       socket.broadcast.emit(EXIT_ROOM_USER, sid);
       if (rooms[code].hostSID === sid) {
         const newHostSID = Object.keys(rooms[code].users)[0];
