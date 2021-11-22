@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setNoticeMessage } from '@store/notice';
@@ -9,14 +9,14 @@ const useTicket = () => {
   const dispatch = useDispatch();
   const { code } = useParams();
 
+  const abortEnter = ({ message }) => {
+    dispatch(setNoticeMessage({ errorMessage: message || '방에 입장하지 못 했습니다.' }));
+    history.replace('/');
+  };
+
+  const socket = useMemo(() => Socket.ticket({ abortEnter }), []);
   useEffect(() => {
     Socket.connect();
-
-    const abortEnter = ({ message }) => {
-      dispatch(setNoticeMessage({ errorMessage: message || '방에 입장하지 못 했습니다.' }));
-      history.replace('/');
-    };
-    const socket = Socket.ticket({ abortEnter });
     socket.requestValidation({ code });
 
     return () => {
@@ -24,6 +24,8 @@ const useTicket = () => {
       Socket.disconnect();
     };
   }, []);
+
+  return { successValidtaion: socket.successValidtaion };
 };
 
 export default useTicket;

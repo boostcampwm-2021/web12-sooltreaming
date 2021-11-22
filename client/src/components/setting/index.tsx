@@ -20,19 +20,23 @@ import DeviceSelections from '@src/components/setting/DeviceSelections';
 import DeviceToggles from '@src/components/setting/DeviceToggles';
 
 type SettingPropTypes = {
-  onClickJoin: React.MouseEventHandler<HTMLButtonElement>;
+  renderRoom: Function;
 };
 
-const Setting: React.FC<SettingPropTypes> = ({ onClickJoin }) => {
+const Setting: React.FC<SettingPropTypes> = ({ renderRoom }) => {
   const history = useHistory();
   const stream = useSelector((state: RootState) => state.device.stream);
   const previewFace = useRef<HTMLVideoElement>(null);
 
-  useTicket();
+  const { successValidtaion } = useTicket();
   useUpdateSpeaker(previewFace);
   useToggleSpeaker(previewFace);
   useUpdateStream(previewFace, stream);
 
+  const onClickJoin = () => {
+    successValidtaion();
+    renderRoom();
+  };
   const onClickCancel = () => {
     history.replace('/');
   };

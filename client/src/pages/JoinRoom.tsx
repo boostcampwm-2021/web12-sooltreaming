@@ -5,7 +5,7 @@ import { RootState } from '@src/store';
 import { requestInitInfo } from '@store/device';
 import { setRoomCode } from '@store/room';
 import Setting from '@src/components/setting';
-import ChatRoom from '@components/room/';
+import Room from '@components/room/';
 import Loading from '@components/custom/Loading';
 
 const JoinRoom: React.FunctionComponent = () => {
@@ -28,13 +28,13 @@ const JoinRoom: React.FunctionComponent = () => {
     };
   }, [stream]);
 
-  const onClickJoin = () => {
+  const renderRoom = () => {
     setIsFirst(false);
   };
 
   if (isLoading) return <Loading />;
-  if (isFirst) return <Setting onClickJoin={onClickJoin} />;
-  return <ChatRoom />;
+  if (isFirst) return <Setting renderRoom={renderRoom} />;
+  return <Room />;
 };
 
 export default JoinRoom;
