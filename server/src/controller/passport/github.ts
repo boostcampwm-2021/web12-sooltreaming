@@ -16,7 +16,6 @@ const gitHubStrategy = new GitHubStrategy.Strategy(
   async (_accessToken, _refreshToken, profile, cb) => {
     try {
       const { login: githubId, avatar_url: imgUrl } = profile._json as profileType;
-      console.log(imgUrl, '이게 뭘까');
       const existUser = await User.findOne({ githubId });
       if (existUser) return cb(null, existUser);
 
