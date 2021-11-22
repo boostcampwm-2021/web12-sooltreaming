@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
 import { Wrapper, LineBox, ControlButton } from '@components/room/ControlBar.style';
@@ -8,12 +8,12 @@ import {
   HostIcon,
   GameIcon,
   PeopleIcon,
-  ChatIcon,
   SettingIcon,
   CloseUpIcon,
   CheersIcon,
   ExitIcon,
 } from '@components/icons';
+import ChatMenuIcon from '@components/room/chat/ChatMenuIcon';
 import DeviceToggles from '@components/setting/DeviceToggles';
 import Socket from '@socket/socket';
 import useUser from '@hooks/socket/useUser';
@@ -85,7 +85,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
       </LineBox>
       <LineBox>
         <IconButton Icon={PeopleIcon} type="참가자" />
-        <IconButton Icon={ChatIcon} type="채팅" />
+        <ChatMenuIcon />
         <IconButton Icon={SettingIcon} type="설정" />
         <DeviceToggles />
       </LineBox>

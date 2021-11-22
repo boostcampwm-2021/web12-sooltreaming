@@ -5,6 +5,7 @@ type RoomStateType = {
   roomCode: string;
   menuType: string;
   chatLog: Array<ChatLogType>;
+  unreadChat: number;
   users: { [sid: string]: UserType };
   usersDevices: { [sid: string]: UserDevicesType };
   streams: { [sid: string]: MediaStream };
@@ -19,6 +20,7 @@ const initialState: RoomStateType = {
   roomCode: '',
   menuType: '',
   chatLog: [],
+  unreadChat: 0,
   users: {},
   usersDevices: {},
   streams: {},
@@ -177,13 +179,16 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
     case SET_MENUTYPE: {
       const menu = action.payload as string;
       const menuType = menu === state.menuType ? '' : menu;
-      return { ...state, menuType };
+      let unreadChat = state.unreadChat;
+      if (menu === '채팅') unreadChat = 0;
+      return { ...state, menuType, unreadChat };
     }
     case RESET_ROOM_INFO: {
       return {
         roomCode: '',
         menuType: '',
         chatLog: [],
+        unreadChat: 0,
         users: {},
         usersDevices: {},
         streams: {},
@@ -197,7 +202,9 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
     case ADD_CHATLOG: {
       const data = { ...(action.payload as ChatLogType) };
       const newChatLog = [...state.chatLog, data];
-      return { ...state, chatLog: newChatLog };
+      let unreadChat = state.unreadChat;
+      if (state.menuType !== '채팅') unreadChat += 1;
+      return { ...state, chatLog: newChatLog, unreadChat };
     }
     case UPDATE_ROOM_VOTETIME: {
       const { sid, time } = action.payload as { sid: string; time: number };
