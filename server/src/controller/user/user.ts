@@ -1,19 +1,7 @@
 import { CustomError, errorHandler } from '@utils/error';
 import User from '@models/User';
 import NicknameLog from '@models/NicknameLog';
-import { startSession } from 'mongoose';
-
-const transaction = async (fn) => {
-  const session = await startSession();
-  session.startTransaction();
-
-  const result = await fn();
-
-  await session.commitTransaction();
-  session.endSession();
-
-  return result;
-};
+import { transaction } from '@src/utils/transaction';
 
 export const getUserInformation = async (req, res, next) => {
   const { id } = req.query;
