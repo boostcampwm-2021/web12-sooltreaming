@@ -1,36 +1,34 @@
-import React from 'react';
-import DeviceToggleButton from '@components/setting/SettingToggle';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { RootState } from '@src/store';
-import { setVideoPower, setAudioPower, setSpeakerPower } from '@store/device';
 import { setMenuType } from '@store/room';
-
-import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
-
+import { Wrapper, LineBox, ControlButton } from '@components/room/ControlBar.style';
 import {
   HostIcon,
   GameIcon,
   PeopleIcon,
   ChatIcon,
   SettingIcon,
-  VideoIcon,
-  MicIcon,
-  SpeakerIcon,
   CloseUpIcon,
   CheersIcon,
   ExitIcon,
 } from '@components/icons';
-import { Wrapper, Div, Button } from '@components/room/ControlBar.style';
+import DeviceToggles from '@components/setting/DeviceToggles';
+import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
 import Socket from '@socket/socket';
 
-const IconButton = (Icon: React.ReactNode, className: string) => {
-  return <Button className={className}>{Icon}</Button>;
+const IconButton = ({ Icon, type }) => {
+  return (
+    <ControlButton className={type}>
+      <Icon />
+    </ControlButton>
+  );
 };
 
 export type ControlBarPropTypes = {
-  onClickCheers: any;
-  onClickCloseup: any;
+  onClickCheers: Function;
+  onClickCloseup: Function;
 };
 
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
@@ -38,19 +36,20 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
   const dispatch = useDispatch();
   const history = useHistory();
   const menuType = useSelector((state: RootState) => state.room.menuType);
-  const { isVideoOn, isAudioOn, isSpeakerOn } = useSelector((state: RootState) => state.device);
+  const hostSID = useSelector((state: RootState) => state.room.hostSID);
+  const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
+  const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);
 
   const onClickExit = () => {
     history.replace('/');
   };
 
-  const hostSID = useSelector((state: RootState) => state.room.hostSID);
   const MENU = {
     클로즈업: onClickCloseup,
     건배: onClickCheers,
     나가기: onClickExit,
   };
-  const selectedMenu = ({ target }) => {
+  const selectMenu = ({ target }) => {
     const menuName = target.classList[2];
     if (!menuName) return;
     if (MENU[menuName]) MENU[menuName]();
@@ -61,48 +60,31 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({ onClickCheers, onClickClose
   };
 
   const { videoChange, audioChange } = useIsStreamOnOff();
+  useEffect(() => {
+    videoChange(isVideoOn);
+  }, [isVideoOn]);
+
+  useEffect(() => {
+    audioChange(isAudioOn);
+  }, [isAudioOn]);
+
   return (
-    <Wrapper onClick={selectedMenu}>
-      <Div>
-        {hostSID === Socket.getSID() ? IconButton(<HostIcon />, '방장') : <></>}
-        {IconButton(<GameIcon />, '게임')}
-      </Div>
-
-      <Div>
-        {IconButton(<PeopleIcon />, '참가자')}
-        {IconButton(<ChatIcon />, '채팅')}
-        {IconButton(<SettingIcon />, '설정')}
-
-        <DeviceToggleButton
-          Icon={VideoIcon}
-          isDeviceOn={isVideoOn}
-          setIsDeviceOn={() => {
-            videoChange(!isVideoOn);
-            dispatch(setVideoPower({ isVideoOn: !isVideoOn }));
-          }}
-        />
-        <DeviceToggleButton
-          Icon={MicIcon}
-          isDeviceOn={isAudioOn}
-          setIsDeviceOn={() => {
-            audioChange(!isAudioOn);
-            dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
-          }}
-        />
-        <DeviceToggleButton
-          Icon={SpeakerIcon}
-          isDeviceOn={isSpeakerOn}
-          setIsDeviceOn={() => {
-            dispatch(setSpeakerPower({ isSpeakerOn: !isSpeakerOn }));
-          }}
-        />
-      </Div>
-
-      <Div>
-        {IconButton(<CloseUpIcon />, '클로즈업')}
-        {IconButton(<CheersIcon />, '건배')}
-        {IconButton(<ExitIcon />, '나가기')}
-      </Div>
+    <Wrapper onClick={selectMenu}>
+      <LineBox>
+        {hostSID === Socket.getSID() && <IconButton Icon={HostIcon} type="방장" />}
+        <IconButton Icon={GameIcon} type="게임" />
+      </LineBox>
+      <LineBox>
+        <IconButton Icon={PeopleIcon} type="참가자" />
+        <IconButton Icon={ChatIcon} type="채팅" />
+        <IconButton Icon={SettingIcon} type="설정" />
+        <DeviceToggles />
+      </LineBox>
+      <LineBox>
+        <IconButton Icon={CloseUpIcon} type="클로즈업" />
+        <IconButton Icon={CheersIcon} type="건배" />
+        <IconButton Icon={ExitIcon} type="나가기" />
+      </LineBox>
     </Wrapper>
   );
 };
