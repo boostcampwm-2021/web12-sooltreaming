@@ -8,7 +8,6 @@ import {
 } from '@src/components/user/Users.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import { useDispatch } from 'react-redux';
 import useRequestFriend from '@hooks/socket/useRequestFriend';
 import Socket from '@socket/socket';
 
@@ -17,7 +16,6 @@ type UsersPropTypes = {
 };
 
 const Users: React.FC<UsersPropTypes> = ({ startVoteRef }) => {
-  const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
   const { friendList, sendFriendList, receiveFriendList } = useSelector(
     (state: RootState) => state.friend,
