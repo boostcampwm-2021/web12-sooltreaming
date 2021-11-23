@@ -15,7 +15,6 @@ import {
 import { HistoryIcon, ChangeNicknameIcon, DeleteFriendIcon } from '@components/icons';
 import NicknameLogModal from '@components/user-information/modals/NicknameLogModal';
 import NicknameChangeModal from '@components/user-information/modals/NicknameChangeModal';
-import DeleteFriendModal from '@components/user-information/modals/DeleteFriendModal';
 
 const UNITS = {
   createdAt: (value) => `가입 일자 : ${value}`,
@@ -94,7 +93,7 @@ const Information: React.FC = () => {
       <BottomWrapper>
         {Object.entries(userInformation).map(([key, value], index) => {
           return (
-            <InformationSpan>
+            <InformationSpan key={index}>
               <p>{UNITS[key](value)}</p>
             </InformationSpan>
           );
@@ -104,10 +103,6 @@ const Information: React.FC = () => {
       <NicknameChangeModal
         changeNicknameIsOpen={changeNicknameIsOpen}
         toggleNicknameJudgment={toggleNicknameJudgment}
-      />
-      <DeleteFriendModal
-        deleteFriendIsOpen={deleteFriendIsOpen}
-        toggleFriendJudgment={toggleFriendJudgment}
       />
       <NicknameLogModal
         historyIsOpen={historyIsOpen}
