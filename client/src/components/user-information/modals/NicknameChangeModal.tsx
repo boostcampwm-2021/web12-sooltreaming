@@ -64,7 +64,11 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
       <ChangeData>
         <ProfileSquareWrapper>
           <ProfileSquare fileUrl={fileUrl}>
-            <form action="https://localhost:5000/image" method="post" encType="multipart/form-data">
+            <form
+              action="https://localhost:5000/user/image"
+              method="post"
+              encType="multipart/form-data"
+            >
               <input
                 type="file"
                 style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}

@@ -20,14 +20,14 @@ const GreenXButtonIcon = ({
       <path
         d="M15.3637 7.495L7.72729 14.8706"
         stroke={stroke ?? 'white'}
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M7.72729 7.495L15.3637 14.8706"
         stroke={stroke ?? 'white'}
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   );
