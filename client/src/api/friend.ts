@@ -1,3 +1,5 @@
+import request from '@utils/request';
+
 export const getReceiveFriend = async () => {
   const result = await request.get({ url: '/friend/fullReceiveFriend'});
   const { status, json } = result;

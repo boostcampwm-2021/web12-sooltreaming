@@ -14,14 +14,7 @@ const useAnimation = () => {
     dispatch(setCloseUpUser(data));
   }, []);
 
-  const closeup = (e) => {
-    if (closeupUser) {
-      deactivateCloseup.current();
-    } else {
-      activateCloseup.current();
-    }
-  };
-  const socket = useMemo(() => Socket.animation({ updateCheers, setCloseupUser }), []);
+  const socket = useMemo(() => Socket.animation({ updateCheers, updateCloseUpUser }), []);
   useEffect(() => {
     return () => {
       socket.disconnecting();

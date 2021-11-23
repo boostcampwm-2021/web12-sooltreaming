@@ -10,7 +10,7 @@ export const API = {
     GET_USER_NICKNAME_LOG: getUserNicknameLog,
     GET_RECEIVEFRIEND: getReceiveFriend,
     DELETE_RECEIVEFRIEND: deleteReceiveFriend,
-    DELETE_FRIEND: deleteFriend,
+    PATHCH_RECEIVEREIEND : patchReceiveFriend,
   },
 
   call: async function (api, data={}) {
