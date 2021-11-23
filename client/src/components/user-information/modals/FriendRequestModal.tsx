@@ -25,6 +25,13 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
   const acceptFriendRequest = async (id) => {
   }
   
+  useEffect(() => {
+    const httpRequest = async () => {
+      const receiveList = await API.call(API.TYPE.GET_RECEIVEFRIEND);
+      setReceiveFriend(receiveList);
+    }
+    httpRequest();
+  }, []);
 
   return (
     <div>
@@ -42,6 +49,14 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
         <RequestData>
           <h2>친구 요청 목록</h2>
           <ul className="request draggable-box">
+            {receiveFriend.map(({_id: id, nickname, imgUrl}) => 
+              <li>
+                <FriendItem imgUrl={imgUrl} nickname={nickname}>
+                  <button className='add-button' onClick={() => {acceptFriendRequest(id)}}>수락</button>
+                  <button className='cancle-button' onClick={() => {rejectFriendRequest(id)}}>거절</button>
+                </FriendItem>
+              </li>
+            )}
           </ul>
         </RequestData>
         <Xbutton onClick={closeFriendRequestJudgment}>
