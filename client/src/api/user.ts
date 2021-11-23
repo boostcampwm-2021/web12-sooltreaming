@@ -9,12 +9,28 @@ export const loginWithSession = async () => {
   } else throw new Error(status.toString());
 };
 
+export const getUserInformation = async (id) => {
+  const { status, json } = await request.get({ url: '/user', query: { id } });
+  if (status === 200) {
+    return json.user;
+  } else throw new Error(json.error.toString());
+};
+
+export const getUserNicknameLog = async (id) => {
+  const { status, json } = await request.get({ url: '/user/nickname', query: { id } });
+  if (status === 200) {
+    return json.nicknameLog;
+  } else throw new Error(json.error.toString());
+};
+
 export const patchUserNickname = async (newNickname) => {
-  const { status } = await request.patch({
+  const { status, json } = await request.patch({
     url: '/user/nickname',
     body: { nickname: newNickname },
   });
-  return status < 400;
+  if (status === 200) {
+    return json.message;
+  } else throw new Error(json.error.toString());
 };
 
 export const getFriends = async () => {
@@ -42,11 +58,9 @@ export const getReceiveFriends = async () => {
 };
 
 export const requestFriend = async (targetId: string) => {
-  const sendResult = await request.post({ url: `/friend/send`, body: { targetId } });
-  const { status: sendStatus } = sendResult;
-  if (sendStatus !== 201) throw new Error(sendStatus.toString());
-
-  const receiveResult = await request.post({ url: '/friend/receive', body: { targetId } });
-  const { status: receiveStatus } = receiveResult;
-  if (receiveStatus !== 201) throw new Error(receiveStatus.toString());
+  const result = await request.post({ url: '/friend', body: { targetId } });
+  const { status, json } = result;
+  if (status === 201) {
+    return json;
+  } else throw new Error(status.toString());
 };

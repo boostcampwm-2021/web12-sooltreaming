@@ -37,11 +37,6 @@ export const [RECEIVE_FRIEND_LIST_SUCCESS, receiveFriendListSuccess] = createAct
 export const [RECEIVE_FRIEND_LIST_FAILURE, receiveFriendListFailuer] = createAction<FailureType>(
   'RECEIVE_FRIEND_LIST_FAILURE',
 );
-export const [REQUEST_FRIEND, requestFriend] = createAction('REQUEST_FRIEND');
-export const [REQUEST_FRIEND_SUCCESS, requestFriendSuccess] =
-  createAction('REQUEST_FRIEND_SUCCESS');
-export const [REQUEST_FRIEND_FAILURE, requestFriendFailuer] =
-  createAction('REQUEST_FRIEND_FAILURE');
 type friendAction =
   | ReturnType<typeof friendListRequest>
   | ReturnType<typeof friendListSuccess>

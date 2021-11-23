@@ -1,18 +1,22 @@
 import express from 'express';
 import User from '@models/User';
+import { transaction } from '@src/utils/transaction';
 const router = express.Router();
+
+router.post('/', async (req, res, next) => {
+  const { targetId } = req.body;
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const result = await transaction(async () => {
+    await User.updateOne({ _id }, { $addToSet: { sendFriend: targetId } });
+    await User.updateOne({ _id: targetId }, { $addToSet: { receiveFriend: _id } });
+  });
+  res.status(201).json({ message: 'Request Friend Success' });
+});
 
 router.get('/list', async (req, res, next) => {
   const { _id } = JSON.parse(JSON.stringify(req.user));
   const result = await User.findOne({ _id });
   res.status(200).json({ friends: result.friend });
-});
-
-router.post('/send', async (req, res, next) => {
-  const { targetId } = req.body;
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  const result = await User.updateOne({ _id }, { $addToSet: { sendFriend: targetId } });
-  res.status(201).json({ message: 'Request Friend Success' });
 });
 
 router.get('/sendList', async (req, res, next) => {
@@ -21,17 +25,26 @@ router.get('/sendList', async (req, res, next) => {
   res.status(200).json({ sendFriends: result.sendFriend });
 });
 
-router.post('/receive', async (req, res, next) => {
-  const { targetId } = req.body;
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  const result = await User.updateOne({ _id: targetId }, { $addToSet: { receiveFriend: _id } });
-  res.status(201).json({ message: 'Receive Friend Success' });
-});
-
 router.get('/receiveList', async (req, res, next) => {
   const { _id } = JSON.parse(JSON.stringify(req.user));
   const result = await User.findOne({ _id });
   res.status(200).json({ receiveFriends: result.receiveFriend });
+});
+
+router.get('/fullReceiveFriend', async (req, res, next) => {
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const { receiveFriend } = await User.findOne({_id}).select('receiveFriend -_id').populate('receiveFriend', 'nickname imgUrl');
+  res.status(200).json({ receiveList: receiveFriend });
+});
+
+router.patch('/', async (req, res, next) => {
+  const { targetId } = req.body;
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const result = await transaction(async () => {
+    await User.updateOne({_id}, { $pull: { receiveFriend: { $in: [targetId] } }, $addToSet: { friend: targetId } });
+    await User.updateOne({_id: targetId}, { $pull: { sendFriend: { $in: [_id] } }, $addToSet: { friend: _id } });
+  });
+  res.status(200).json({ message: 'Request Accept Success' });
 });
 
 export default router;

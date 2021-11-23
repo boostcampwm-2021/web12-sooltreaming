@@ -28,7 +28,8 @@ const customFetch =
         'Content-Type': 'application/json',
       },
     };
-    if (method === 'POST' || method === 'PATCH') init['body'] = JSON.stringify(body ?? {});
+    if (method === 'POST' || method === 'PATCH' || method === 'DELETE')
+      init['body'] = JSON.stringify(body ?? {});
     const resolve = await fetch(`${BASE_URL}${url}${query_string}`, init);
     const { status } = resolve;
     const json = await resolve.json();
@@ -39,6 +40,7 @@ const request = {
   get: customFetch('GET'),
   post: customFetch('POST'),
   patch: customFetch('PATCH'),
+  delete: customFetch('DELETE'),
 };
 
 export default request;
