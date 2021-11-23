@@ -16,7 +16,7 @@ const useGame = () => {
   const onClickRandom = useCallback(() => {}, []);
   const onClickLiar = useCallback(() => {}, []);
 
-  const GameStartFuncList = {
+  const GameStartHandlerList = {
     랜덤뽑기: onClickRandom,
     업다운: onClickUpdown,
     라이어게임: onClickLiar,
@@ -43,7 +43,7 @@ const useGame = () => {
     };
   }, []);
 
-  return { GameStartFuncList };
+  return { GameStartHandlerList };
 };
 
 export default useGame;

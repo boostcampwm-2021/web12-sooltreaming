@@ -4,9 +4,9 @@ import GameBox from '@components/room/games/GameBox';
 import { GameIcon } from '@components/icons';
 
 type GamesPropTypes = {
-  GameStartFuncList: [];
+  GameStartHandlerList: [];
 };
-const Games: React.FC<GamesPropTypes> = ({ GameStartFuncList }) => {
+const Games: React.FC<GamesPropTypes> = ({ GameStartHandlerList }) => {
   const GameList = useMemo(
     () => [
       //아이콘, 설명은 임시
@@ -20,7 +20,7 @@ const Games: React.FC<GamesPropTypes> = ({ GameStartFuncList }) => {
   return (
     <Wrapper>
       {GameList.map(({ icon, title, explain }) => (
-        <GameBox icon={icon} title={title} explain={explain} start={GameStartFuncList[title]} />
+        <GameBox icon={icon} title={title} explain={explain} start={GameStartHandlerList[title]} />
       ))}
     </Wrapper>
   );

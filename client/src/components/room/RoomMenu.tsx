@@ -11,10 +11,10 @@ import { setMenuType } from '@store/room';
 
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
-  GameStartFuncList: Object;
+  GameStartHandlerList: Object;
 };
 
-const RouteMenu = ({ startVoteRef, GameStartFuncList }) => {
+const RouteMenu = ({ startVoteRef, GameStartHandlerList }) => {
   const { menuType } = useSelector((state: RootState) => state.room);
   switch (menuType) {
     case '설정':
@@ -26,13 +26,13 @@ const RouteMenu = ({ startVoteRef, GameStartFuncList }) => {
     case '방장':
       return <Host />;
     case '게임':
-      return <Games GameStartFuncList={GameStartFuncList} />;
+      return <Games GameStartHandlerList={GameStartHandlerList} />;
     default:
       return <></>;
   }
 };
 
-const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartFuncList }) => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartHandlerList }) => {
   const { menuType } = useSelector((state: RootState) => state.room);
   const dispatch = useDispatch();
   if (!menuType) return <></>;
@@ -42,7 +42,7 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartFuncList
         <span>{menuType}</span>
         <CloseButton onClick={() => dispatch(setMenuType(''))}></CloseButton>
       </TopBar>
-      <RouteMenu startVoteRef={startVoteRef} GameStartFuncList={GameStartFuncList} />
+      <RouteMenu startVoteRef={startVoteRef} GameStartHandlerList={GameStartHandlerList} />
     </Wrapper>
   );
 };

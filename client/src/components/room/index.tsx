@@ -46,7 +46,7 @@ const ChatRoom: React.FC = () => {
 
   useUser();
   const { cheers, closeup, closeupUser } = useAnimation();
-  const { GameStartFuncList } = useGame();
+  const { GameStartHandlerList } = useGame();
   return (
     <Wrapper>
       <ColumnDiv>
@@ -56,7 +56,7 @@ const ChatRoom: React.FC = () => {
         </VideoSection>
         <ControlBar onClickCheers={cheers} onClickCloseup={closeup} />
       </ColumnDiv>
-      <RoomMenu startVoteRef={startVoteRef} GameStartFuncList={GameStartFuncList} />
+      <RoomMenu startVoteRef={startVoteRef} GameStartHandlerList={GameStartHandlerList} />
       <Scaffold startVoteRef={startVoteRef} />
       <RouteGame />
     </Wrapper>
