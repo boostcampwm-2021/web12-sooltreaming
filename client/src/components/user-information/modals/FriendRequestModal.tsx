@@ -16,7 +16,9 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
   const [sendFriend, setSendFriend] = useState<Array<FriendType>>([]);
   const [receiveFriend, setReceiveFriend] = useState<Array<FriendType>>([]);
 
-  const cancleFriendRequest = async (id) => {
+  const cancleFriendRequest = async (id) => {   
+    await API.call(API.TYPE.DELETE_SENDFRIEND, id);
+    setSendFriend((prev) => [...prev].filter((friend) => friend._id !== id))
   }
 
   const rejectFriendRequest = async (id) => {
