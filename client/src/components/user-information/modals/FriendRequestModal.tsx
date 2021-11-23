@@ -23,6 +23,8 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
   }
 
   const acceptFriendRequest = async (id) => {
+    await API.call(API.TYPE.PATCH_RECEIVEFRIEND, id);
+    setReceiveFriend((prev) => [...prev].filter((friend) => friend._id !== id))
   }
   
   useEffect(() => {
