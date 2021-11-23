@@ -41,11 +41,6 @@ const Information: React.FC = () => {
   const [deleteFriendIsOpen, setDeleteFriendIsOpen] = useState<boolean>(false);
   const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
 
-  const requestGetUserNicknameLog = useCallback(async () => {
-    const result = (await API.call(API.TYPE.GET_USER_NICKNAME_LOG, id)) as [];
-    setNicknameLog(result);
-  }, [id]);
-
   const toggleHistoryJudgment = useCallback(() => {
     setHistoryIsOpen((prev) => !prev);
   }, []);
@@ -64,8 +59,8 @@ const Information: React.FC = () => {
     const requestGetUserInformation = async () => {
       const user = await API.call(API.TYPE.GET_USER_INFORMATION, id);
       setUserInformation(user);
+      setNicknameLog(user.nicknameLog);
     };
-    requestGetUserNicknameLog();
     requestGetUserInformation();
   }, []);
 
@@ -98,7 +93,7 @@ const Information: React.FC = () => {
       </TopWrapper>
       <BottomWrapper>
         {Object.entries(userInformation).map(([key, value], index) => {
-          if (key === '_id') return <></>;
+          if (key === '_id' || key === 'nicknameLog') return <></>;
           return (
             <InformationSpan>
               <p>{UNITS[key](value)}</p>
@@ -117,6 +112,7 @@ const Information: React.FC = () => {
       />
       <NicknameLogModal
         historyIsOpen={historyIsOpen}
+        nickname={nickname}
         nicknameLog={nicknameLog}
         toggleHistoryJudgment={toggleHistoryJudgment}
       />
