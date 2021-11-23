@@ -16,6 +16,14 @@ export const getReceiveFriend = async () => {
   } else throw new Error(status.toString());
 }
 
+export const getFriend = async () => {
+  const result = await request.get({ url: '/friend/fullFriend'});
+  const { status, json } = result;
+  if (status === 200) {
+    return json.friendList;
+  } else throw new Error(status.toString());
+}
+
 export const deleteSendFriend = async (targetId: string) => {
   const result = await request.delete({ url: '/friend/sendFriend', body: { targetId } });
   const { status, json } = result;
