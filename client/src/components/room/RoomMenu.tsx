@@ -5,13 +5,14 @@ import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
 import RouteMenu from '@components/room/RouteMenu';
 import useChatSocket from '@hooks/socket/useChatSocket';
+import useGameSocket from '@hooks/socket/useGameSocket';
 
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
-  GameStartHandlerList: Object;
+  startGamesRef: React.MutableRefObject<Object>;
 };
 
-const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartHandlerList }) => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, startGamesRef }) => {
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const dispatch = useDispatch();
 
@@ -27,7 +28,7 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartHandlerL
       <RouteMenu
         startVoteRef={startVoteRef}
         sendMessage={sendMessage}
-        GameStartHandlerList={GameStartHandlerList}
+        startGamesRef={startGamesRef}
       />
     </Wrapper>
   );
