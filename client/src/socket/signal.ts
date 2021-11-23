@@ -1,7 +1,12 @@
 import customRTC from '@utils/customRTC';
-import { NEED_OFFERS, OFFER, ANSWER, ICE } from 'sooltreaming-domain/constant/socketEvent';
+import {
+  SIGNAL_NEED_OFFERS,
+  SIGNAL_OFFER,
+  SIGNAL_ANSWER,
+  SIGNAL_ICE,
+} from 'sooltreaming-domain/constant/socketEvent';
 
-const webRTC =
+const signal =
   (socket) =>
   ({ addStream, stream }) => {
     // 처음 들어왔을 때 받은 유저 정보로
@@ -12,7 +17,11 @@ const webRTC =
 
     const sendCandidate = (targetSID) => (e: any) => {
       if (e?.candidate)
-        socket.emit(ICE, { candidate: e.candidate, receiverSID: targetSID, senderSID: socket.id });
+        socket.emit(SIGNAL_ICE, {
+          candidate: e.candidate,
+          receiverSID: targetSID,
+          senderSID: socket.id,
+        });
     };
 
     const exitUser = (userRef = myStream) => {
@@ -41,7 +50,7 @@ const webRTC =
       });
     };
 
-    socket.on(NEED_OFFERS, (users) => {
+    socket.on(SIGNAL_NEED_OFFERS, (users) => {
       Object.keys(users).forEach(async (sid) => {
         if (sid === socket.id) return;
         const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
@@ -53,12 +62,12 @@ const webRTC =
         await peer.setLocalDescription(offer);
 
         peerConnections[sid] = peer;
-        socket.emit(OFFER, { offer, receiverSID: sid, senderSID: socket.id });
+        socket.emit(SIGNAL_OFFER, { offer, receiverSID: sid, senderSID: socket.id });
       });
     });
 
     // 이후에 접속한 사람의 Offer 받기
-    socket.on(OFFER, async ({ offer, targetSID }) => {
+    socket.on(SIGNAL_OFFER, async ({ offer, targetSID }) => {
       const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
       peer.addEventListener('icecandidate', sendCandidate(targetSID));
       peer.addEventListener('addstream', (e: any) => {
@@ -69,25 +78,25 @@ const webRTC =
       await peer.setLocalDescription(answer);
 
       peerConnections[targetSID] = peer;
-      socket.emit(ANSWER, { answer, receiverSID: targetSID, senderSID: socket.id });
+      socket.emit(SIGNAL_ANSWER, { answer, receiverSID: targetSID, senderSID: socket.id });
     });
 
     // Offer에 대한 답장 받기
-    socket.on(ANSWER, ({ answer, targetSID }) => {
+    socket.on(SIGNAL_ANSWER, ({ answer, targetSID }) => {
       const peer = peerConnections[targetSID];
       if (!peer) throw new Error('INVALID PEER');
       peer.setRemoteDescription(answer);
     });
 
     // Candidate 받아서 처리
-    socket.on(ICE, ({ candidate, targetSID }) => {
+    socket.on(SIGNAL_ICE, ({ candidate, targetSID }) => {
       if (peerConnections[targetSID]) peerConnections[targetSID].addIceCandidate(candidate);
     });
 
     const disconnecting = () => {
-      socket.off(ANSWER);
-      socket.off(OFFER);
-      socket.off(ICE);
+      socket.off(SIGNAL_ANSWER);
+      socket.off(SIGNAL_OFFER);
+      socket.off(SIGNAL_ICE);
       exitUser();
     };
 
@@ -97,4 +106,4 @@ const webRTC =
     };
   };
 
-export default webRTC;
+export default signal;

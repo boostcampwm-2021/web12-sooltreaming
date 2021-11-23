@@ -1,15 +1,15 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import {
-  JOIN_ROOM,
-  JOIN_ROOM_ERROR,
+  ENTER_ROOM,
+  ENTER_ROOM_ERROR,
   ENTER_ALL_USER,
   ENTER_ONE_USER,
-  EXIT_ROOM_USER,
-  CHANGE_HOST,
-  NEED_OFFERS,
-  CANCEL_CLOSEUP,
-  EXIST_CLOSEUP,
+  DISCONNECT_USER,
+  ENTER_CHANGE_HOST,
+  SIGNAL_NEED_OFFERS,
+  CLOSEUP_OFF,
+  CLOSEUP_BREAK,
   TICKET_FAILURE,
 } from 'sooltreaming-domain/constant/socketEvent';
 
@@ -17,18 +17,18 @@ export type TargetInfoType = {
   code: string;
 };
 
-const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
+const enter = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
   const targetInfo = { code: '' };
 
-  socket.on(JOIN_ROOM, ({ chatRoomCode: code, user, userDevices }) => {
-    if (!(code in rooms)) return socket.emit(JOIN_ROOM_ERROR, '존재하지 않는 방입니다.');
-    if (!rooms[code].isOpen) return socket.emit(JOIN_ROOM_ERROR, '입장이 제한된 방입니다.');
+  socket.on(ENTER_ROOM, ({ chatRoomCode: code, user, userDevices }) => {
+    if (!(code in rooms)) return socket.emit(ENTER_ROOM_ERROR, '존재하지 않는 방입니다.');
+    if (!rooms[code].isOpen) return socket.emit(ENTER_ROOM_ERROR, '입장이 제한된 방입니다.');
     targetInfo.code = code;
 
     const sid = socket.id;
     if (!Object.keys(rooms[code].users).length) {
       rooms[code].hostSID = sid;
-      socket.emit(CHANGE_HOST, rooms[code].isOpen);
+      socket.emit(ENTER_CHANGE_HOST, rooms[code].isOpen);
     }
 
     rooms[code].users[sid] = user;
@@ -36,10 +36,10 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
     rooms[code].vote.cool[sid] = 0;
 
     socket.join(code);
-    socket.emit(NEED_OFFERS, rooms[code].users);
+    socket.emit(SIGNAL_NEED_OFFERS, rooms[code].users);
     socket.emit(ENTER_ALL_USER, rooms[code].users, rooms[code].usersDevices);
     io.to(code).emit(ENTER_ONE_USER, user, userDevices, socket.id);
-    socket.emit(EXIST_CLOSEUP, rooms[code].closeupUser);
+    socket.emit(CLOSEUP_BREAK, rooms[code].closeupUser);
   });
 
   socket.on('disconnect', () => {
@@ -55,15 +55,15 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
       });
       delete rooms[code];
     } else {
-      socket.broadcast.emit(EXIT_ROOM_USER, sid);
+      socket.broadcast.emit(DISCONNECT_USER, sid);
       if (rooms[code].hostSID === sid) {
         const newHostSID = Object.keys(rooms[code].users)[0];
         rooms[code].hostSID = newHostSID;
-        io.to(newHostSID).emit(CHANGE_HOST, rooms[code].isOpen);
+        io.to(newHostSID).emit(ENTER_CHANGE_HOST, rooms[code].isOpen);
       }
       if (rooms[code].closeupUser === sid) {
         rooms[code].closeupUser = '';
-        io.to(code).emit(CANCEL_CLOSEUP);
+        io.to(code).emit(CLOSEUP_OFF);
       }
     }
   });
@@ -71,4 +71,4 @@ const entering = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomT
   return { io, socket, rooms, targetInfo };
 };
 
-export default entering;
+export default enter;

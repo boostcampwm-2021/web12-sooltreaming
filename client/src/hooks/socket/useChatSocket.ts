@@ -4,14 +4,14 @@ import { addChatLog } from '@store/room';
 import type { ChatLogType } from '@store/room';
 import Socket from '@socket/socket';
 
-const useMessage = () => {
+const useChatSocket = () => {
   const dispatch = useDispatch();
   const addChat = useCallback((data: ChatLogType) => {
     dispatch(addChatLog(data));
   }, []);
 
   const socket = useMemo(() => {
-    return Socket.message({ addChat });
+    return Socket.chat({ addChat });
   }, []);
   useEffect(() => {
     return () => {
@@ -21,4 +21,4 @@ const useMessage = () => {
   return socket;
 };
 
-export default useMessage;
+export default useChatSocket;

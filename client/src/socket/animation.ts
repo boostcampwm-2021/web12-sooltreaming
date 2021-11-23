@@ -1,49 +1,49 @@
 import { Socket } from 'socket.io-client';
 import {
-  CHEERS,
-  CLOSEUP,
-  CANCEL_CLOSEUP,
-  EXIST_CLOSEUP,
+  CHEERS_BROADCAST,
+  CLOSEUP_ON,
+  CLOSEUP_OFF,
+  CLOSEUP_BREAK,
 } from 'sooltreaming-domain/constant/socketEvent';
 
 const animation = (socket: Socket) => (closure: any) => {
   const { updateCheers, updateCloseUpUser } = closure;
 
-  socket.on(CHEERS, () => {
+  socket.on(CHEERS_BROADCAST, () => {
     updateCheers(true);
     setTimeout(() => {
       updateCheers(false);
     }, 5000);
   });
 
-  socket.on(CLOSEUP, (sid) => {
+  socket.on(CLOSEUP_ON, (sid) => {
     updateCloseUpUser(sid);
   });
 
-  socket.on(CANCEL_CLOSEUP, () => {
+  socket.on(CLOSEUP_OFF, () => {
     updateCloseUpUser('');
   });
 
-  socket.on(EXIST_CLOSEUP, (closeupUser) => {
+  socket.on(CLOSEUP_BREAK, (closeupUser) => {
     updateCloseUpUser(closeupUser);
   });
 
   const activateCheers = (mydata) => {
-    socket.emit(CHEERS, mydata);
+    socket.emit(CHEERS_BROADCAST, mydata);
   };
 
   const deactivateCloseup = () => {
-    socket.emit(CANCEL_CLOSEUP);
+    socket.emit(CLOSEUP_OFF);
   };
 
   const activateCloseup = () => {
-    socket.emit(CLOSEUP);
+    socket.emit(CLOSEUP_ON);
   };
 
   const disconnecting = () => {
-    socket.off(CHEERS);
-    socket.off(CLOSEUP);
-    socket.off(CANCEL_CLOSEUP);
+    socket.off(CHEERS_BROADCAST);
+    socket.off(CLOSEUP_ON);
+    socket.off(CLOSEUP_OFF);
   };
 
   return { activateCheers, activateCloseup, deactivateCloseup, disconnecting };

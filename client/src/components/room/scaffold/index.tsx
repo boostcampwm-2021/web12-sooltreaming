@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Wrapper } from '@components/room/scaffold/index.style';
-import useVote from '@hooks/socket/useVote';
+import useVoteSocket from '@hooks/socket/useVoteSocket';
 import Modal from '@components/custom/Modal';
 import TimerBomb from '@src/components/room/scaffold/TimerBomb';
 import VotePresser from '@src/components/room/scaffold/VotePresser';
@@ -12,7 +12,7 @@ type ScaffoldPropTypes = {
 
 const Scaffold: React.FC<ScaffoldPropTypes> = ({ startVoteRef }) => {
   const [isVote, setIsVote] = useState<boolean>(false);
-  const { isOpen, target, total, approves, rejects, startVoting, makeDecision } = useVote();
+  const { isOpen, target, total, approves, rejects, startVoting, makeDecision } = useVoteSocket();
 
   useEffect(() => {
     if (!isOpen) setIsVote(false);

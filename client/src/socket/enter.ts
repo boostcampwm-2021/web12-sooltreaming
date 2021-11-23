@@ -1,14 +1,14 @@
 import { Socket } from 'socket.io-client';
 import {
-  JOIN_ROOM,
-  JOIN_ROOM_ERROR,
+  ENTER_ROOM,
+  ENTER_ROOM_ERROR,
   ENTER_ALL_USER,
   ENTER_ONE_USER,
-  EXIT_ROOM_USER,
-  CHANGE_HOST,
+  DISCONNECT_USER,
+  ENTER_CHANGE_HOST,
 } from 'sooltreaming-domain/constant/socketEvent';
 
-const user = (socket: Socket) => (closure: any) => {
+const enter = (socket: Socket) => (closure: any) => {
   const { errorControl, addUser, deleteUser, initUsers, changeRoomHost } = closure;
 
   socket.on(ENTER_ALL_USER, (allUsers, allUsersDevices) => {
@@ -17,29 +17,29 @@ const user = (socket: Socket) => (closure: any) => {
   socket.on(ENTER_ONE_USER, (user, userDevices, sid) => {
     addUser({ user, userDevices, sid });
   });
-  socket.on(EXIT_ROOM_USER, (id) => {
+  socket.on(DISCONNECT_USER, (id) => {
     if (socket.id === id) return;
     deleteUser(id);
   });
-  socket.on(CHANGE_HOST, (isOpen) => {
+  socket.on(ENTER_CHANGE_HOST, (isOpen) => {
     changeRoomHost(isOpen);
   });
 
-  socket.on(JOIN_ROOM_ERROR, (errorMessage) => {
+  socket.on(ENTER_ROOM_ERROR, (errorMessage) => {
     errorControl(errorMessage);
   });
 
-  const joinRoom = (myData) => socket.emit(JOIN_ROOM, myData);
+  const joinRoom = (myData) => socket.emit(ENTER_ROOM, myData);
 
   const disconnecting = () => {
+    socket.off(ENTER_ROOM_ERROR);
     socket.off(ENTER_ALL_USER);
     socket.off(ENTER_ONE_USER);
-    socket.off(EXIT_ROOM_USER);
-    socket.off(JOIN_ROOM_ERROR);
-    socket.off(CHANGE_HOST);
+    socket.off(DISCONNECT_USER);
+    socket.off(ENTER_CHANGE_HOST);
   };
 
   return { joinRoom, disconnecting };
 };
 
-export default user;
+export default enter;

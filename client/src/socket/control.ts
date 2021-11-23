@@ -1,40 +1,40 @@
 import { Socket } from 'socket.io-client';
 import {
-  AUTHORITY_ERROR,
-  TOGGLE_ROOM_ENTRY,
-  TURN_OFF_OTHER_VIDEO,
-  TURN_OFF_OTHER_AUDIO,
+  CONTROL_AUTHORITY_ERROR,
+  CONTROL_TOGGLE_ENTRY,
+  CONTROL_OTHER_VIDEO_OFF,
+  CONTROL_OTHER_AUDIO_OFF,
 } from 'sooltreaming-domain/constant/socketEvent';
 
-const roomControl = (socket: Socket) => (closure: any) => {
+const control = (socket: Socket) => (closure: any) => {
   const { errorControl, changeIsOpen } = closure;
 
-  socket.on(AUTHORITY_ERROR, (message) => {
+  socket.on(CONTROL_AUTHORITY_ERROR, (message) => {
     errorControl(message);
   });
 
-  socket.on(TOGGLE_ROOM_ENTRY, (result) => {
+  socket.on(CONTROL_TOGGLE_ENTRY, (result) => {
     if (!result) return;
     changeIsOpen();
   });
 
   const toggleRoomEntry = () => {
-    socket.emit(TOGGLE_ROOM_ENTRY);
+    socket.emit(CONTROL_TOGGLE_ENTRY);
   };
 
   const turnOffOtherVideo = ({ sid, isVideoOn }) => {
-    socket.emit(TURN_OFF_OTHER_VIDEO, { sid, isVideoOn });
+    socket.emit(CONTROL_OTHER_VIDEO_OFF, { sid, isVideoOn });
   };
 
   const turnOffOtherAudio = ({ sid, isAudioOn }) => {
-    socket.emit(TURN_OFF_OTHER_AUDIO, { sid, isAudioOn });
+    socket.emit(CONTROL_OTHER_AUDIO_OFF, { sid, isAudioOn });
   };
 
   const disconnecting = () => {
-    socket.off(TOGGLE_ROOM_ENTRY);
+    socket.off(CONTROL_TOGGLE_ENTRY);
   };
 
   return { toggleRoomEntry, turnOffOtherVideo, turnOffOtherAudio, disconnecting };
 };
 
-export default roomControl;
+export default control;

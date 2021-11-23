@@ -1,11 +1,11 @@
 import { Socket } from 'socket.io';
 import { getTimeString } from '@utils/time';
 import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/entering';
+import type { TargetInfoType } from '@controller/socket/enter';
 import { createLog } from '@controller/socket/logController';
-import { RECEIVE_MESSAGE, PASSING_MESSAGE } from 'sooltreaming-domain/constant/socketEvent';
+import { CHAT_RECEIVE, CHAT_SENDING } from 'sooltreaming-domain/constant/socketEvent';
 
-const chatting = ({
+const chat = ({
   io,
   socket,
   rooms,
@@ -16,7 +16,7 @@ const chatting = ({
   rooms: roomType;
   targetInfo: TargetInfoType;
 }) => {
-  socket.on(PASSING_MESSAGE, ({ msg, user }) => {
+  socket.on(CHAT_SENDING, ({ msg }) => {
     const { code } = targetInfo;
 
     const messageData = {
@@ -24,12 +24,12 @@ const chatting = ({
       sid: socket.id,
       date: getTimeString(),
     };
-    io.to(code).emit(RECEIVE_MESSAGE, messageData);
+    io.to(code).emit(CHAT_RECEIVE, messageData);
 
     const id = rooms[code].users[socket.id].id;
-    createLog(id, PASSING_MESSAGE);
+    createLog(id, CHAT_SENDING);
   });
   return { io, socket, rooms, targetInfo };
 };
 
-export default chatting;
+export default chat;

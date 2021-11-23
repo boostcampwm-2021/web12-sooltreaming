@@ -6,7 +6,7 @@ import { setNoticeMessage } from '@store/notice';
 
 import Socket from '@socket/socket';
 
-const useRoomControl = () => {
+const useControlSocket = () => {
   const dispatch = useDispatch();
 
   const errorControl = useCallback((message) => {
@@ -19,7 +19,7 @@ const useRoomControl = () => {
 
   const socket = useMemo(
     () =>
-      Socket.roomControl({
+      Socket.control({
         errorControl,
         changeIsOpen,
       }),
@@ -35,4 +35,4 @@ const useRoomControl = () => {
   return socket;
 };
 
-export default useRoomControl;
+export default useControlSocket;

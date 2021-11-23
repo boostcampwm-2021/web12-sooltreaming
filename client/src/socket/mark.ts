@@ -1,11 +1,11 @@
 import { Socket } from 'socket.io-client';
-import { QUESTION } from 'sooltreaming-domain/constant/socketEvent';
+import { MARK_BROADCAST } from 'sooltreaming-domain/constant/socketEvent';
 
-const questionMark = (socket: Socket) => (closure: any) => {
+const mark = (socket: Socket) => (closure: any) => {
   const { setMarks, removeQuestionMark } = closure;
   let count = 0;
 
-  socket.on(QUESTION, ({ x, y }) => {
+  socket.on(MARK_BROADCAST, ({ x, y }) => {
     count++;
     removeQuestionMark(count);
     setMarks((prev) => {
@@ -14,14 +14,14 @@ const questionMark = (socket: Socket) => (closure: any) => {
   });
 
   const addQuestionMark = (position) => {
-    socket.emit(QUESTION, position);
+    socket.emit(MARK_BROADCAST, position);
   };
 
   const disconnecting = () => {
-    socket.off(QUESTION);
+    socket.off(MARK_BROADCAST);
   };
 
   return { addQuestionMark, disconnecting };
 };
 
-export default questionMark;
+export default mark;

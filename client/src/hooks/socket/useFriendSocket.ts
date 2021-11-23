@@ -3,7 +3,7 @@ import Socket from '@socket/socket';
 import { useDispatch } from 'react-redux';
 import { sendFriendListRequest, receiveFriendListRequest } from '@src/store/friend';
 import { requestFriend } from '@src/api/user';
-const useRequestFriend = () => {
+const useFriendSocket = () => {
   const dispatch = useDispatch();
 
   const updateReceiveFriends = () => {
@@ -18,7 +18,7 @@ const useRequestFriend = () => {
     dispatch(sendFriendListRequest([]));
     dispatch(receiveFriendListRequest([]));
   };
-  const socket = useMemo(() => Socket.requestFriend({ updateReceiveFriends }), []);
+  const socket = useMemo(() => Socket.friend({ updateReceiveFriends }), []);
   useEffect(() => {
     return () => {
       socket.disconnecting();
@@ -28,4 +28,4 @@ const useRequestFriend = () => {
   return { onclickRequestFriend };
 };
 
-export default useRequestFriend;
+export default useFriendSocket;

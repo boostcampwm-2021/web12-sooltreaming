@@ -3,7 +3,7 @@ import Socket from '@socket/socket';
 import { useDispatch } from 'react-redux';
 import { setIsCheers, setCloseUpUser, resetRoomInfo } from '@store/room';
 
-const useAnimation = () => {
+const useAnimationSocket = () => {
   const dispatch = useDispatch();
 
   const updateCheers = useCallback((data) => {
@@ -25,4 +25,4 @@ const useAnimation = () => {
   return socket;
 };
 
-export default useAnimation;
+export default useAnimationSocket;

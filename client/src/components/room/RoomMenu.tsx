@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
 import RouteMenu from '@components/room/RouteMenu';
-import useMessage from '@hooks/socket/useMessage';
+import useChatSocket from '@hooks/socket/useChatSocket';
 
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
@@ -15,7 +15,7 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartHandlerL
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const dispatch = useDispatch();
 
-  const { sendMessage } = useMessage();
+  const { sendMessage } = useChatSocket();
 
   if (!menuType) return <></>;
   return (

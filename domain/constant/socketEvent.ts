@@ -1,48 +1,48 @@
-export const CHEERS = 'CHEERS';
-export const CLOSEUP = 'CLOSEUP';
-export const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
-export const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
+export const CHEERS_BROADCAST = 'CHEERS_BROADCAST';
+export const CLOSEUP_ON = 'CLOSEUP_ON';
+export const CLOSEUP_OFF = 'CLOSEUP_OFF';
+export const CLOSEUP_BREAK = 'CLOSEUP_BREAK';
 
-export const START_UPDOWN = 'START_UPDOWN';
-export const STOP_UPDOWN = 'STOP_UPDOWN';
+export const UPDOWN_START = 'UPDOWN_START';
+export const UPDOWN_STOP = 'UPDOWN_STOP';
 
 export const CREATE_REQUEST = 'CREATE_REQUEST';
 export const CREATE_SUCCESS = 'CREATE_SUCCESS';
 
-export const CHANGE_VIDEO = 'CHANGE_VIDEO';
-export const CHANGE_AUDIO = 'CHANGE_AUDIO';
+export const STREAM_CHANGE_VIDEO = 'STREAM_CHANGE_VIDEO';
+export const STREAM_CHANGE_AUDIO = 'STREAM_CHANGE_AUDIO';
 
-export const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
-export const PASSING_MESSAGE = 'PASSING_MESSAGE';
+export const CHAT_RECEIVE = 'CHAT_RECEIVE';
+export const CHAT_SENDING = 'CHAT_SENDING';
 
-export const QUESTION = 'QUESTION';
+export const MARK_BROADCAST = 'MARK_BROADCAST';
 
-export const REQUEST_FRIEND = 'REQUEST_FRIEND';
+export const FRIEND_REQUEST = 'FRIEND_REQUEST';
 
-export const AUTHORITY_ERROR = 'AUTHORITY_ERROR';
-export const TOGGLE_ROOM_ENTRY = 'TOGGLE_ROOM_ENTRY';
-export const TURN_OFF_OTHER_VIDEO = 'TURN_OFF_OTHER_VIDEO';
-export const TURN_OFF_OTHER_AUDIO = 'TURN_OFF_OTHER_AUDIO';
+export const CONTROL_AUTHORITY_ERROR = 'CONTROL_AUTHORITY_ERROR';
+export const CONTROL_TOGGLE_ENTRY = 'CONTROL_TOGGLE_ENTRY';
+export const CONTROL_OTHER_VIDEO_OFF = 'CONTROL_OTHER_VIDEO_OFF';
+export const CONTROL_OTHER_AUDIO_OFF = 'CONTROL_OTHER_AUDIO_OFF';
 
 export const TICKET_REQUEST = 'TICKET_REQUEST';
 export const TICKET_SUCCESS = 'TICKET_SUCCESS';
 export const TICKET_FAILURE = 'TICKET_FAILURE';
 
-export const JOIN_ROOM = 'JOIN_ROOM';
-export const JOIN_ROOM_ERROR = 'JOIN_ROOM_ERROR';
+export const ENTER_ROOM = 'ENTER_ROOM';
+export const ENTER_ROOM_ERROR = 'ENTER_ROOM_ERROR';
 export const ENTER_ALL_USER = 'ENTER_ALL_USER';
 export const ENTER_ONE_USER = 'ENTER_ONE_USER';
-export const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
-export const CHANGE_HOST = 'CHANGE_HOST';
+export const ENTER_CHANGE_HOST = 'ENTER_CHANGE_HOST';
+export const DISCONNECT_USER = 'DISCONNECT_USER';
 
-export const START_VOTING = 'START_VOTING';
-export const JUDGEMENT_ON = 'JUDGEMENT_ON';
-export const GET_DECISION = 'GET_DECISION';
-export const ONE_DECISION = 'ONE_DECISION';
-export const JUDGE_CLOSED = 'JUDGE_CLOSED';
-export const PRISON_BREAK = 'PRISON_BREAK';
+export const VOTE_START = 'VOTE_START';
+export const VOTE_DECISION = 'VOTE_DECISION';
+export const VOTE_GET_DECISION = 'VOTE_GET_DECISION';
+export const VOTE_JUDGE_ON = 'VOTE_JUDGE_ON';
+export const VOTE_JUDGE_OFF = 'VOTE_JUDGE_OFF';
+export const VOTE_PRISON_BREAK = 'VOTE_PRISON_BREAK';
 
-export const NEED_OFFERS = 'need offers';
-export const OFFER = 'offer';
-export const ANSWER = 'answer';
-export const ICE = 'ice';
+export const SIGNAL_NEED_OFFERS = 'SIGNAL_NEED_OFFERS';
+export const SIGNAL_OFFER = 'SIGNAL_OFFER';
+export const SIGNAL_ANSWER = 'SIGNAL_ANSWER';
+export const SIGNAL_ICE = 'SIGNAL_ICE';

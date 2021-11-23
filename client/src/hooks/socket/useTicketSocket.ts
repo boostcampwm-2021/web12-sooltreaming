@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 
-const useTicket = () => {
+const useTicketSocket = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { code } = useParams();
@@ -28,4 +28,4 @@ const useTicket = () => {
   return { successValidtaion: socket.successValidtaion };
 };
 
-export default useTicket;
+export default useTicketSocket;

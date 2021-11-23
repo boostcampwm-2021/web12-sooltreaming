@@ -7,7 +7,7 @@ export type MarkType = {
 
 const QUESTION_MARK_TIME = 1900;
 
-const useQuestionMark = () => {
+const useMarkSocket = () => {
   const [marks, setMarks] = useState<MarkType>({});
 
   const removeQuestionMark = useCallback((id) => {
@@ -21,7 +21,7 @@ const useQuestionMark = () => {
   }, []);
 
   const socket = useMemo(() => {
-    return Socket.questionmark({ setMarks, removeQuestionMark });
+    return Socket.mark({ setMarks, removeQuestionMark });
   }, []);
   useEffect(() => {
     return () => {
@@ -31,4 +31,4 @@ const useQuestionMark = () => {
   return { marks, addQuestionMark: socket.addQuestionMark };
 };
 
-export default useQuestionMark;
+export default useMarkSocket;

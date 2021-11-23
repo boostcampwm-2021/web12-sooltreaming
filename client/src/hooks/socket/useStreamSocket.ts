@@ -5,7 +5,7 @@ import { updateDeviceVideo, updateDeviceAudio } from '@store/room';
 import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 
-const useIsStreamOnOff = () => {
+const useStreamSocket = () => {
   const dispatch = useDispatch();
 
   const errorControl = useCallback((message) => {
@@ -28,8 +28,17 @@ const useIsStreamOnOff = () => {
     dispatch(setAudioPower(updateData));
   }, []);
 
-
-  const socket = useMemo(() => Socket.isVideoOnOff({ errorControl, updateOtherVideo, updateMyVideo, updateOtherAudio, updateMyAudio }), []);
+  const socket = useMemo(
+    () =>
+      Socket.stream({
+        errorControl,
+        updateOtherVideo,
+        updateMyVideo,
+        updateOtherAudio,
+        updateMyAudio,
+      }),
+    [],
+  );
   useEffect(() => {
     return () => {
       socket.disconnecting();
@@ -39,4 +48,4 @@ const useIsStreamOnOff = () => {
   return socket;
 };
 
-export default useIsStreamOnOff;
+export default useStreamSocket;

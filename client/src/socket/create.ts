@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io-client';
 import { CREATE_REQUEST, CREATE_SUCCESS } from 'sooltreaming-domain/constant/socketEvent';
 
-const host = (socket: Socket) => (closure: any) => {
+const create = (socket: Socket) => (closure: any) => {
   const { joining } = closure;
 
   socket.on(CREATE_SUCCESS, joining);
@@ -15,4 +15,4 @@ const host = (socket: Socket) => (closure: any) => {
   return { createRoom, disconnecting };
 };
 
-export default host;
+export default create;

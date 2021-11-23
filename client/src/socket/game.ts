@@ -1,24 +1,24 @@
 import { Socket } from 'socket.io-client';
-import { START_UPDOWN, STOP_UPDOWN } from 'sooltreaming-domain/constant/socketEvent';
+import { UPDOWN_START, UPDOWN_STOP } from 'sooltreaming-domain/constant/socketEvent';
 
 const game =
   (socket: Socket) =>
   ({ startUpdown, stopUpdown }) => {
-    socket.on(START_UPDOWN, (startingSID) => {
+    socket.on(UPDOWN_START, (startingSID) => {
       startUpdown(startingSID);
     });
-    socket.on(STOP_UPDOWN, () => {
+    socket.on(UPDOWN_STOP, () => {
       stopUpdown();
     });
     const requestUpdownStart = () => {
-      socket.emit(START_UPDOWN, socket.id);
+      socket.emit(UPDOWN_START, socket.id);
     };
     const requestUpdownStop = () => {
-      socket.emit(STOP_UPDOWN);
+      socket.emit(UPDOWN_STOP);
     };
     const disconnecting = () => {
-      socket.off(START_UPDOWN);
-      socket.off(STOP_UPDOWN);
+      socket.off(UPDOWN_START);
+      socket.off(UPDOWN_STOP);
     };
     return {
       requestUpdownStart,

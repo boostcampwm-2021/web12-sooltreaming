@@ -1,18 +1,17 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/entering';
+import type { TargetInfoType } from '@controller/socket/enter';
 import {
-  TURN_OFF_OTHER_VIDEO,
-  TURN_OFF_OTHER_AUDIO,
-  TOGGLE_ROOM_ENTRY,
-  AUTHORITY_ERROR,
-  CHANGE_VIDEO,
-  CHANGE_AUDIO,
+  CONTROL_AUTHORITY_ERROR,
+  CONTROL_TOGGLE_ENTRY,
+  CONTROL_OTHER_VIDEO_OFF,
+  CONTROL_OTHER_AUDIO_OFF,
+  STREAM_CHANGE_VIDEO,
+  STREAM_CHANGE_AUDIO,
+  TICKET_FAILURE,
 } from 'sooltreaming-domain/constant/socketEvent';
 
-const TICKET_FAILURE = 'TICKET_FAILURE';
-
-const restricting = ({
+const control = ({
   io,
   socket,
   rooms,
@@ -23,11 +22,11 @@ const restricting = ({
   rooms: roomType;
   targetInfo: TargetInfoType;
 }) => {
-  socket.on(TOGGLE_ROOM_ENTRY, () => {
+  socket.on(CONTROL_TOGGLE_ENTRY, () => {
     const { code } = targetInfo;
 
     if (rooms[code].hostSID !== socket.id)
-      return socket.emit(AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
+      return socket.emit(CONTROL_AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
 
     const state = rooms[code].isOpen;
     if (state) {
@@ -38,30 +37,30 @@ const restricting = ({
     }
 
     rooms[code].isOpen = !state;
-    socket.emit(TOGGLE_ROOM_ENTRY, true);
+    socket.emit(CONTROL_TOGGLE_ENTRY, true);
   });
 
-  socket.on(TURN_OFF_OTHER_VIDEO, ({ sid, isVideoOn }) => {
+  socket.on(CONTROL_OTHER_VIDEO_OFF, ({ sid, isVideoOn }) => {
     const { code } = targetInfo;
 
     if (rooms[code].hostSID !== socket.id)
-      return socket.emit(AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
+      return socket.emit(CONTROL_AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
     const targetRoom = rooms[code];
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isVideoOn };
-    io.to(code).emit(CHANGE_VIDEO, { sid, isVideoOn });
+    io.to(code).emit(STREAM_CHANGE_VIDEO, { sid, isVideoOn });
   });
 
-  socket.on(TURN_OFF_OTHER_AUDIO, ({ sid, isAudioOn }) => {
+  socket.on(CONTROL_OTHER_AUDIO_OFF, ({ sid, isAudioOn }) => {
     const { code } = targetInfo;
 
     if (rooms[code].hostSID !== socket.id)
-      return socket.emit(AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
+      return socket.emit(CONTROL_AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
     const targetRoom = rooms[code];
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isAudioOn };
-    io.to(code).emit(CHANGE_AUDIO, { sid, isAudioOn });
+    io.to(code).emit(STREAM_CHANGE_AUDIO, { sid, isAudioOn });
   });
 
   return { io, socket, rooms, targetInfo };
 };
 
-export default restricting;
+export default control;

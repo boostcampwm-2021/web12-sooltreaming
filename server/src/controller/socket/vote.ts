@@ -1,14 +1,14 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/entering';
+import type { TargetInfoType } from '@controller/socket/enter';
 import {
-  START_VOTING,
-  JUDGEMENT_ON,
-  GET_DECISION,
-  ONE_DECISION,
-  JUDGE_CLOSED,
-  PRISON_BREAK,
-  CLOSEUP,
+  VOTE_START,
+  VOTE_DECISION,
+  VOTE_GET_DECISION,
+  VOTE_JUDGE_ON,
+  VOTE_JUDGE_OFF,
+  VOTE_PRISON_BREAK,
+  CLOSEUP_ON,
 } from 'sooltreaming-domain/constant/socketEvent';
 
 const STATUS_NORMAL = 'STATUS_NORMAL';
@@ -17,7 +17,7 @@ const STATUS_VOTING = 'STATUS_VOTING';
 
 const VOTE_TIME = 60000;
 
-const voting = ({
+const vote = ({
   io,
   socket,
   rooms,
@@ -33,8 +33,8 @@ const voting = ({
     if (!(code in rooms)) return;
     if (rooms[code].status !== STATUS_VOTING) return;
 
-    const vote = rooms[code].vote;
-    const { defendant: targetSID, cool, voteBox } = vote;
+    const voteInfo = rooms[code].vote;
+    const { defendant: targetSID, cool, voteBox } = voteInfo;
     const resetTime = Date.now() + 3 * 60 * 1000;
     cool[targetSID] = resetTime;
 
@@ -45,24 +45,23 @@ const voting = ({
 
     if (percentage < 50) {
       rooms[code].status = STATUS_NORMAL;
-      // TODO: 원한다면 취소 메세지
     } else {
       rooms[code].status = STATUS_EXECUTING;
       rooms[code].closeupUser = targetSID;
-      io.to(code).emit(CLOSEUP, targetSID);
+      io.to(code).emit(CLOSEUP_ON, targetSID);
     }
 
     const targetName = rooms[code].users[targetSID]?.nickname ?? '';
-    io.to(code).emit(JUDGE_CLOSED, { targetSID, targetName, percentage, resetTime });
+    io.to(code).emit(VOTE_JUDGE_OFF, { targetSID, targetName, percentage, resetTime });
   };
 
-  socket.on(START_VOTING, ({ targetSID }) => {
+  socket.on(VOTE_START, ({ targetSID }) => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
     if (rooms[code].status !== STATUS_NORMAL) return;
 
-    const vote = rooms[code].vote;
-    const { cool } = vote;
+    const voteInfo = rooms[code].vote;
+    const { cool } = voteInfo;
     if (!(targetSID in cool)) return;
     const coolTime = cool[targetSID];
     if (coolTime >= Date.now()) return;
@@ -71,9 +70,9 @@ const voting = ({
     if (userKeys.length < 3) return;
 
     rooms[code].status = STATUS_VOTING;
-    vote.defendant = targetSID;
-    vote.trial = setTimeout(stopVoting, VOTE_TIME);
-    vote.voteBox = userKeys.reduce((box, key) => {
+    voteInfo.defendant = targetSID;
+    voteInfo.trial = setTimeout(stopVoting, VOTE_TIME);
+    voteInfo.voteBox = userKeys.reduce((box, key) => {
       box[key] = {
         isApprove: false,
         isVoted: false,
@@ -82,17 +81,17 @@ const voting = ({
     }, {});
 
     const targetName = rooms[code].users[targetSID]?.nickname ?? '';
-    io.to(code).emit(JUDGEMENT_ON, { targetName, participants: userKeys.length });
+    io.to(code).emit(VOTE_JUDGE_ON, { targetName, participants: userKeys.length });
   });
 
-  socket.on(GET_DECISION, ({ isApprove }) => {
+  socket.on(VOTE_DECISION, ({ isApprove }) => {
     const { code } = targetInfo;
     const sid = socket.id;
     if (!(code in rooms)) return;
     if (rooms[code].status !== STATUS_VOTING) return;
 
-    const vote = rooms[code].vote;
-    const { voteBox } = rooms[code].vote;
+    const voteInfo = rooms[code].vote;
+    const { voteBox } = voteInfo;
     if (voteBox[sid].isVoted) return;
 
     voteBox[sid].isVoted = true;
@@ -100,32 +99,32 @@ const voting = ({
 
     const leftVotes = Object.values(voteBox).filter((box) => !box.isVoted).length;
     if (!leftVotes) {
-      clearTimeout(vote.trial);
-      vote.trial = null;
+      clearTimeout(voteInfo.trial);
+      voteInfo.trial = null;
       return stopVoting();
     }
 
-    io.to(code).emit(ONE_DECISION, { isApprove });
+    io.to(code).emit(VOTE_GET_DECISION, { isApprove });
   });
 
   socket.on('disconnect', () => {
     const { code } = targetInfo ?? {};
     if (!(code in rooms)) return;
 
-    const vote = rooms[code].vote;
-    delete vote.cool[socket.id] ?? {};
+    const voteInfo = rooms[code].vote;
+    delete voteInfo.cool[socket.id] ?? {};
 
     if (rooms[code].status !== STATUS_VOTING) return;
     rooms[code].status = STATUS_NORMAL;
-    clearTimeout(vote.trial);
-    vote.trial = null;
-    vote.voteBox = {};
-    vote.defendant = '';
+    clearTimeout(voteInfo.trial);
+    voteInfo.trial = null;
+    voteInfo.voteBox = {};
+    voteInfo.defendant = '';
 
-    io.to(code).emit(PRISON_BREAK);
+    io.to(code).emit(VOTE_PRISON_BREAK);
   });
 
   return { io, socket, rooms, targetInfo };
 };
 
-export default voting;
+export default vote;

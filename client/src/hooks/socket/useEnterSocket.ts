@@ -6,7 +6,7 @@ import { setUsers, addUsers, deleteUsers, setHost } from '@store/room';
 import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 
-const useUser = () => {
+const useEnterSocket = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
@@ -38,7 +38,7 @@ const useUser = () => {
 
   const socket = useMemo(
     () =>
-      Socket.user({
+      Socket.enter({
         errorControl,
         addUser,
         deleteUser,
@@ -63,4 +63,4 @@ const useUser = () => {
   return socket;
 };
 
-export default useUser;
+export default useEnterSocket;

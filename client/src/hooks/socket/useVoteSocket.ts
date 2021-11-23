@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { updateRoomVoteTime } from '@store/room';
 import { setNoticeMessage } from '@store/notice';
 
-const useVote = () => {
+const useVoteSocket = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [target, setTarget] = useState<string>('');
@@ -49,4 +49,4 @@ const useVote = () => {
   return { isOpen, target, total, approves, rejects, startVoting, makeDecision };
 };
 
-export default useVote;
+export default useVoteSocket;

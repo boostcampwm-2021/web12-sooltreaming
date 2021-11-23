@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setCurrentGame } from '@store/room';
 
-const useGame = () => {
+const useGameSocket = () => {
   const dispatch = useDispatch();
   const currentGame = useSelector((state: RootState) => state.room.currentGame);
   const users = useSelector((state: RootState) => state.room.users);
@@ -46,4 +46,4 @@ const useGame = () => {
   return { GameStartHandlerList };
 };
 
-export default useGame;
+export default useGameSocket;

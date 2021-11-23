@@ -1,13 +1,13 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/entering';
+import type { TargetInfoType } from '@controller/socket/enter';
 import {
   TICKET_REQUEST,
   TICKET_SUCCESS,
   TICKET_FAILURE,
 } from 'sooltreaming-domain/constant/socketEvent';
 
-const ticketing = ({
+const ticket = ({
   io,
   socket,
   rooms,
@@ -37,4 +37,4 @@ const ticketing = ({
   return { io, socket, rooms, targetInfo };
 };
 
-export default ticketing;
+export default ticket;

@@ -1,34 +1,34 @@
 import { Socket } from 'socket.io-client';
-import { CHANGE_VIDEO, CHANGE_AUDIO } from 'sooltreaming-domain/constant/socketEvent';
+import { STREAM_CHANGE_VIDEO, STREAM_CHANGE_AUDIO } from 'sooltreaming-domain/constant/socketEvent';
 
-const isStreamOnOFf = (socket: Socket) => (closure: any) => {
+const stream = (socket: Socket) => (closure: any) => {
   const { errorControl, updateOtherVideo, updateMyVideo, updateOtherAudio, updateMyAudio } =
     closure;
 
-  socket.on(CHANGE_VIDEO, ({ sid, isVideoOn }) => {
+  socket.on(STREAM_CHANGE_VIDEO, ({ sid, isVideoOn }) => {
     updateOtherVideo({ sid, isVideoOn });
     if (sid === socket.id) updateMyVideo({ isVideoOn });
   });
 
-  socket.on(CHANGE_AUDIO, ({ sid, isAudioOn }) => {
+  socket.on(STREAM_CHANGE_AUDIO, ({ sid, isAudioOn }) => {
     updateOtherAudio({ sid, isAudioOn });
     if (sid === socket.id) updateMyAudio({ isAudioOn });
   });
 
   const videoChange = (isVideoOn) => {
-    socket.emit(CHANGE_VIDEO, { isVideoOn });
+    socket.emit(STREAM_CHANGE_VIDEO, { isVideoOn });
   };
 
   const audioChange = (isAudioOn) => {
-    socket.emit(CHANGE_AUDIO, { isAudioOn });
+    socket.emit(STREAM_CHANGE_AUDIO, { isAudioOn });
   };
 
   const disconnecting = () => {
-    socket.off(CHANGE_VIDEO);
-    socket.off(CHANGE_AUDIO);
+    socket.off(STREAM_CHANGE_VIDEO);
+    socket.off(STREAM_CHANGE_AUDIO);
   };
 
   return { videoChange, audioChange, disconnecting };
 };
 
-export default isStreamOnOFf;
+export default stream;
