@@ -9,9 +9,9 @@ import {
   IconButton,
   ToggleButton,
   DialogButton,
-} from './RoomController.style';
+} from '@components/room/host/RoomController.style';
 
-const RoomController = ({toggleRoomEntry}) => {
+const RoomController = ({ toggleRoomEntry }) => {
   const code = useSelector((state: RootState) => state.room.roomCode);
   const isOpen = useSelector((state: RootState) => state.room.isOpen);
 
