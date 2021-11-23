@@ -18,6 +18,7 @@ const streamChange = ({
 }) => {
   socket.on(CHANGE_VIDEO, ({ isVideoOn }) => {
     const { code } = targetInfo;
+    if (!(code in rooms)) return;
     const targetRoom = rooms[code];
     const sid = socket.id;
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isVideoOn };
@@ -26,6 +27,7 @@ const streamChange = ({
 
   socket.on(CHANGE_AUDIO, ({ isAudioOn }) => {
     const { code } = targetInfo;
+    if (!(code in rooms)) return;
     const targetRoom = rooms[code];
     const sid = socket.id;
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isAudioOn };

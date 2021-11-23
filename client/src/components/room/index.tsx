@@ -7,7 +7,6 @@ import UpdownGame from '@components/room/games/UpdownGame';
 import { Wrapper, VideoSection, ColumnDiv } from '@components/room/index.style';
 import AnimationScreen from '@components/room/animation-screen/';
 import Scaffold from '@components/room/scaffold';
-import useUser from '@hooks/socket/useUser';
 import useAnimation from '@hooks/socket/useAnimation';
 import useGame from '@hooks/socket/useGame';
 import Socket from '@socket/socket';
@@ -44,17 +43,20 @@ const ChatRoom: React.FC = () => {
     };
   }, []);
 
-  useUser();
-  const { cheers, closeup, closeupUser } = useAnimation();
+  const { activateCheers, activateCloseup, deactivateCloseup } = useAnimation();
   const { GameStartHandlerList } = useGame();
   return (
     <Wrapper>
       <ColumnDiv>
         <VideoSection>
-          <ChatMonitor closeupUser={closeupUser} />
+          <ChatMonitor />
           <AnimationScreen />
         </VideoSection>
-        <ControlBar onClickCheers={cheers} onClickCloseup={closeup} />
+        <ControlBar
+          onClickCheers={activateCheers}
+          activateCloseup={activateCloseup}
+          deactivateCloseup={deactivateCloseup}
+        />
       </ColumnDiv>
       <RoomMenu startVoteRef={startVoteRef} GameStartHandlerList={GameStartHandlerList} />
       <Scaffold startVoteRef={startVoteRef} />
