@@ -10,12 +10,11 @@ import {
   VOTE_PRISON_BREAK,
   CLOSEUP_ON,
 } from 'sooltreaming-domain/constant/socketEvent';
+import { VOTE_TIME } from 'sooltreaming-domain/constant/addition';
 
 const STATUS_NORMAL = 'STATUS_NORMAL';
 const STATUS_EXECUTING = 'STATUS_EXECUTING';
 const STATUS_VOTING = 'STATUS_VOTING';
-
-const VOTE_TIME = 60000;
 
 const vote = ({
   io,

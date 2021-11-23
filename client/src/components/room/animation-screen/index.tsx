@@ -5,10 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setIsCheers } from '@store/room';
 import useMarkSocket from '@hooks/socket/useMarkSocket';
-
-const CHEERS_GIF_NUM = 2;
-const CHEERS_TIME = 5000;
-const LISTED_GIF = ['/images/beer-cheers1.gif', '/images/beer-cheers2.gif'];
+import { CHEERS_GIF_NUM, CHEERS_TIME, LISTED_GIF } from 'sooltreaming-domain/constant/addition';
 
 const AnimationScreen: React.FC = () => {
   const dispatch = useDispatch();
