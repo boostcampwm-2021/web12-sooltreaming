@@ -30,3 +30,9 @@ export const SESSION_SECRET = process.env.SESSION_SECRET;
 export const STATUS_VOTE_NORMAL = 'STATUS_VOTE_NORMAL';
 export const STATUS_VOTE_EXECUTING = 'STATUS_VOTE_EXECUTING';
 export const STATUS_VOTE_VOTING = 'STATUS_VOTE_VOTING';
+
+export const LOG_EVENT = Object.freeze({
+  CLOSEUP: 'closeupCount',
+  CHAT_RECEIVE: 'chatCount',
+  QUESTION: 'hookCount',
+});
