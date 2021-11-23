@@ -7,18 +7,16 @@ import {
 } from '@components/user-information/Ranking.style';
 import { DownIcon } from '@components/icons';
 import { MenuButton, MenuItem } from '@components/setting/SettingDropdown.style';
+const rankingMenuList = {
+  '총 접속 시간': 'totalSeconds',
+  '갈고리 사용 횟수': 'hookCount',
+  '총 채팅 횟수': 'chatCount',
+  '투표 선정 횟수': 'pollCount',
+  '클로즈업 횟수': 'closeupCount',
+  '단두대 횟수': 'dieCount',
+  '주최자 횟수': 'starterCount',
+};
 
-const rankingMenuList = [
-  '총 접속 시간',
-  '갈고리 사용 횟수',
-  '총 채팅 횟수',
-  '투표 선정 횟수',
-  '클로즈업 횟수',
-  '단두대 횟수',
-  '단두대 확률',
-  '건배사 횟수',
-  '주최자 횟수',
-];
 const Ranking: React.FC = () => {
   const [nowSelect, setNowSelect] = useState('갈고리 사용 횟수');
 
@@ -45,7 +43,7 @@ const Ranking: React.FC = () => {
               {item}
             </MenuItem>
           )}
-          itemList={rankingMenuList}
+          itemList={Object.keys(rankingMenuList)}
         />
       </DropdownWrapper>
       <FriendRankData>
