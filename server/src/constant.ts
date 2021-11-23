@@ -26,3 +26,7 @@ export const NAVER_SECRET = process.env.NAVER_SECRET;
 export const OAUTH_CALLBACK_URL = process.env.OAUTH_CALLBACK_URL;
 
 export const SESSION_SECRET = process.env.SESSION_SECRET;
+
+export const STATUS_VOTE_NORMAL = 'STATUS_VOTE_NORMAL';
+export const STATUS_VOTE_EXECUTING = 'STATUS_VOTE_EXECUTING';
+export const STATUS_VOTE_VOTING = 'STATUS_VOTE_VOTING';

@@ -2,8 +2,7 @@ import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
 import { CREATE_REQUEST, CREATE_SUCCESS } from 'sooltreaming-domain/constant/socketEvent';
-
-const STATUS_NORMAL = 'STATUS_NORMAL';
+import { STATUS_VOTE_NORMAL } from '@src/constant';
 
 const createRoomCode = (rooms: roomType) => {
   while (true) {
@@ -32,7 +31,7 @@ const create = ({
       closeupUser: '',
       users: {},
       usersDevices: {},
-      status: STATUS_NORMAL,
+      status: STATUS_VOTE_NORMAL,
       vote: {
         trial: null,
         defendant: '',

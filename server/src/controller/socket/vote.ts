@@ -11,10 +11,7 @@ import {
   CLOSEUP_ON,
 } from 'sooltreaming-domain/constant/socketEvent';
 import { VOTE_TIME } from 'sooltreaming-domain/constant/addition';
-
-const STATUS_NORMAL = 'STATUS_NORMAL';
-const STATUS_EXECUTING = 'STATUS_EXECUTING';
-const STATUS_VOTING = 'STATUS_VOTING';
+import { STATUS_VOTE_NORMAL, STATUS_VOTE_EXECUTING, STATUS_VOTE_VOTING } from '@src/constant';
 
 const vote = ({
   io,
@@ -30,7 +27,7 @@ const vote = ({
   const stopVoting = () => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
-    if (rooms[code].status !== STATUS_VOTING) return;
+    if (rooms[code].status !== STATUS_VOTE_VOTING) return;
 
     const voteInfo = rooms[code].vote;
     const { defendant: targetSID, cool, voteBox } = voteInfo;
@@ -43,9 +40,9 @@ const vote = ({
     const percentage = Math.ceil((approves / total) * 100);
 
     if (percentage < 50) {
-      rooms[code].status = STATUS_NORMAL;
+      rooms[code].status = STATUS_VOTE_NORMAL;
     } else {
-      rooms[code].status = STATUS_EXECUTING;
+      rooms[code].status = STATUS_VOTE_EXECUTING;
       rooms[code].closeupUser = targetSID;
       io.to(code).emit(CLOSEUP_ON, targetSID);
     }
@@ -57,7 +54,7 @@ const vote = ({
   socket.on(VOTE_START, ({ targetSID }) => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
-    if (rooms[code].status !== STATUS_NORMAL || rooms[code].game.title) return;
+    if (rooms[code].status !== STATUS_VOTE_NORMAL || rooms[code].game.title) return;
 
     const voteInfo = rooms[code].vote;
     const { cool } = voteInfo;
@@ -68,7 +65,7 @@ const vote = ({
     const userKeys = Object.keys(rooms[code].users);
     if (userKeys.length < 3) return;
 
-    rooms[code].status = STATUS_VOTING;
+    rooms[code].status = STATUS_VOTE_VOTING;
     voteInfo.defendant = targetSID;
     voteInfo.trial = setTimeout(stopVoting, VOTE_TIME);
     voteInfo.voteBox = userKeys.reduce((box, key) => {
@@ -87,7 +84,7 @@ const vote = ({
     const { code } = targetInfo;
     const sid = socket.id;
     if (!(code in rooms)) return;
-    if (rooms[code].status !== STATUS_VOTING) return;
+    if (rooms[code].status !== STATUS_VOTE_VOTING) return;
 
     const voteInfo = rooms[code].vote;
     const { voteBox } = voteInfo;
@@ -113,8 +110,8 @@ const vote = ({
     const voteInfo = rooms[code].vote;
     delete voteInfo.cool[socket.id] ?? {};
 
-    if (rooms[code].status !== STATUS_VOTING) return;
-    rooms[code].status = STATUS_NORMAL;
+    if (rooms[code].status !== STATUS_VOTE_VOTING) return;
+    rooms[code].status = STATUS_VOTE_NORMAL;
     clearTimeout(voteInfo.trial);
     voteInfo.trial = null;
     voteInfo.voteBox = {};
