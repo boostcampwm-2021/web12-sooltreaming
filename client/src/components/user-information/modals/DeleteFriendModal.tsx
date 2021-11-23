@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '@src/store';
 import {
   Header,
   DeleteFriendPressSection,
@@ -11,15 +9,24 @@ import Modal from '@components/custom/Modal';
 import { DeleteIcon, CancelIcon } from '@src/components/icons';
 
 type deleteFriendModalType = {
+  nickname: string;
+  deleteFriend: any;
   deleteFriendIsOpen: any;
   toggleFriendJudgment: any;
 };
 
 const DeleteFriendModal: React.FC<deleteFriendModalType> = ({
+  nickname,
+  deleteFriend,
   deleteFriendIsOpen,
   toggleFriendJudgment,
 }) => {
-  const nickname = useSelector((state: RootState) => state.user.nickname);
+
+  const requestDeleteFriend = () => {
+    deleteFriend();
+    toggleFriendJudgment();
+  }
+
   return (
     <Modal
       isOpen={deleteFriendIsOpen}
@@ -33,7 +40,7 @@ const DeleteFriendModal: React.FC<deleteFriendModalType> = ({
         </h2>
       </Header>
       <DeleteFriendPressSection>
-        <DeleteIconWrapper onClick={toggleFriendJudgment}>
+        <DeleteIconWrapper onClick={requestDeleteFriend}>
           <DeleteIcon />
         </DeleteIconWrapper>
         <CancelIconWrapper onClick={toggleFriendJudgment}>

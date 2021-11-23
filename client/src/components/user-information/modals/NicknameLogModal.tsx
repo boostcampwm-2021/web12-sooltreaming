@@ -14,16 +14,17 @@ import type { NicknameLogType } from '@components/user-information/Information';
 
 type nicknameLogModalType = {
   historyIsOpen: boolean;
+  nickname: string;
   nicknameLog: Array<NicknameLogType>;
   toggleHistoryJudgment: any;
 };
 
 const NicknameLogModal: React.FC<nicknameLogModalType> = ({
   historyIsOpen,
+  nickname,
   nicknameLog,
   toggleHistoryJudgment,
 }) => {
-  const nickname = useSelector((state: RootState) => state.user.nickname);
 
   return (
     <Modal
