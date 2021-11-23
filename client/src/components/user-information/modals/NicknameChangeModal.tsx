@@ -29,7 +29,13 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
 }) => {
   const dispatch = useDispatch();
   const nickname = useSelector((state: RootState) => state.user.nickname);
+  const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const newNicknameData = useRef<HTMLInputElement>(null);
+  const inputImage = useRef<HTMLInputElement>(null);
+  const [fileUrl, setFileUrl] = useState<string>(imgUrl);
+
+  // 이미지 업로드 함수
+  const uploadImage = async () => {};
 
   // 닉네임 변경 함수
   const changeNickname = useCallback(() => {
@@ -54,9 +60,25 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
       <Header>
         <h2>닉네임 변경하기</h2>
       </Header>
-      <ChangeNicknameData>
-        <NewNicknameInput ref={newNicknameData} placeholder={'변경할 닉네임을 입력해주세요.'} />
-      </ChangeNicknameData>
+      <ChangeData>
+        <ProfileSquareWrapper>
+          <ProfileSquare fileUrl={fileUrl}>
+            <form action="https://localhost:5000/image" method="post" encType="multipart/form-data">
+              <input
+                type="file"
+                style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
+                accept="image/jpeg, image/png"
+                onChange={uploadImage}
+              />
+            </form>
+          </ProfileSquare>
+        </ProfileSquareWrapper>
+        <NewNicknameInput
+          ref={newNicknameData}
+          placeholder={'닉네임을 입력해주세요.'}
+          defaultValue={nickname}
+        />
+      </ChangeData>
       <DeleteChangePressSection>
         <AcceptIconWrapper onClick={changeNickname}>
           <AcceptIcon />
