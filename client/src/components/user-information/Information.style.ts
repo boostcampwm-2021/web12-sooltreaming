@@ -89,7 +89,7 @@ export const BottomWrapper = styled.div`
     justify-content: center;
     font-size: 1em;
     height: 30px;
-    margin: 0.25em 0;
+    margin: 0;
   }
 `;
 
@@ -119,27 +119,63 @@ export const Header = styled.div`
 
 export const DeleteChangePressSection = styled.div`
   width: 640px;
-  padding: 50px 70px;
-  margin-bottom: 30px;
+  padding: 30px 30px;
 
   display: flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
+`;
 
-  & > button {
-    width: 180px;
+export const DeleteFriendPressSection = styled.div`
+  width: 640px;
+  padding: 30px 30px;
 
-    outline: none;
-    background-color: ${COLOR.white};
-    border-radius: 10px;
-    border: 0px solid ${COLOR.line};
-    cursor: pointer;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+export const AcceptIconWrapper = styled.div`
+  cursor: pointer;
+  path:first-child:hover {
+    fill: ${COLOR.primary3};
   }
-  & img {
-    width: 100%;
-    height: 100%;
 
-    -webkit-user-drag: none;
+  path:first-child:active {
+    fill: 10px solid ${COLOR.titleActive};
+  }
+`;
+
+export const RejectIconWrapper = styled.div`
+  cursor: pointer;
+  path:first-child:hover {
+    fill: ${COLOR.error2};
+  }
+
+  path:first-child:active {
+    fill: ${COLOR.error3};
+  }
+`;
+
+export const DeleteIconWrapper = styled.div`
+  cursor: pointer;
+  path:first-child:hover {
+    fill: ${COLOR.error2};
+  }
+
+  path:first-child:active {
+    fill: ${COLOR.error3};
+  }
+`;
+
+export const CancelIconWrapper = styled.div`
+  cursor: pointer;
+  path:first-child:hover {
+    fill: ${COLOR.primary3};
+  }
+
+  path:first-child:active {
+    fill: 10px solid ${COLOR.titleActive};
   }
 `;
 
@@ -184,20 +220,20 @@ export const HistoryData = styled.div`
   }
 `;
 
-export const ChangeNicknameData = styled.div`
+export const ChangeData = styled.div`
   width: 640px;
   padding: 20px 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 `;
 
 export const NewNicknameInput = styled.input`
   ${INPUT_STYLE}
   width: 100%;
-  max-width: 500px;
+  max-width: 300px;
   height: 60px;
   padding: 0 30px;
   margin-top: 20px;
@@ -207,4 +243,36 @@ export const NewNicknameInput = styled.input`
   font-weight: 500;
   font-size: 24px;
   text-align: center;
+`;
+
+export const ProfileSquareWrapper = styled.div`
+  width: 150px;
+  height: 150px;
+  background-image: url('/images/profileBox.svg');
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ProfileSquare = styled.div<{ fileUrl: string }>`
+  width: 125px;
+  height: 125px;
+  background-image: url(${(props) => props.fileUrl || ''});
+  background-repeat: no-repeat;
+  background-size: 125px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 120px;
+    height: 120px;
+  }
+`;
+
+export const XButtonWrapper = styled.div`
+  position: absolute;
+  top: 110px;
+  left: 218px;
+  cursor: pointer;
 `;

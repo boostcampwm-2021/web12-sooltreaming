@@ -1,8 +1,14 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import { Header, DeleteChangePressSection } from '@components/user-information/Information.style';
+import {
+  Header,
+  DeleteFriendPressSection,
+  DeleteIconWrapper,
+  CancelIconWrapper,
+} from '@components/user-information/Information.style';
 import Modal from '@components/custom/Modal';
+import { DeleteIcon, CancelIcon } from '@src/components/icons';
 
 type deleteFriendModalType = {
   deleteFriendIsOpen: any;
@@ -26,14 +32,14 @@ const DeleteFriendModal: React.FC<deleteFriendModalType> = ({
           <span>{nickname}</span> 님을 친구 목록에서 삭제하시겠습니까?
         </h2>
       </Header>
-      <DeleteChangePressSection>
-        <button onClick={toggleFriendJudgment}>
-          <img src="/images/agree.png" alt="agree" />
-        </button>
-        <button onClick={toggleFriendJudgment}>
-          <img src="/images/disagree.png" alt="disagree" />
-        </button>
-      </DeleteChangePressSection>
+      <DeleteFriendPressSection>
+        <DeleteIconWrapper onClick={toggleFriendJudgment}>
+          <DeleteIcon />
+        </DeleteIconWrapper>
+        <CancelIconWrapper onClick={toggleFriendJudgment}>
+          <CancelIcon />
+        </CancelIconWrapper>
+      </DeleteFriendPressSection>
     </Modal>
   );
 };

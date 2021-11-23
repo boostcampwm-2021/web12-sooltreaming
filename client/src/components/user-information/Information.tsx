@@ -29,14 +29,13 @@ const UNITS = {
   totalSeconds: (value) => `총 접속 시간 : ${value}초`,
 };
 
-export type nicknameLogType = {
+export type NicknameLogType = {
   nickname: string;
-  createdAt: string;
 };
 
 const Information: React.FC = () => {
   const [userInformation, setUserInformation] = useState({});
-  const [nicknameLog, setNicknameLog] = useState<Array<nicknameLogType>>([]);
+  const [nicknameLog, setNicknameLog] = useState<Array<NicknameLogType>>([]);
   const [historyIsOpen, setHistoryIsOpen] = useState<boolean>(false);
   const [changeNicknameIsOpen, setChangeNicknameIsOpen] = useState<boolean>(false);
   const [deleteFriendIsOpen, setDeleteFriendIsOpen] = useState<boolean>(false);
@@ -71,7 +70,7 @@ const Information: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    requestGetUserNicknameLog();
+    setNicknameLog((prev) => [{ nickname }, ...prev]);
   }, [nickname]);
 
   return (
@@ -100,7 +99,11 @@ const Information: React.FC = () => {
       <BottomWrapper>
         {Object.entries(userInformation).map(([key, value], index) => {
           if (key === '_id') return <></>;
-          return <InformationSpan>{UNITS[key](value)}</InformationSpan>;
+          return (
+            <InformationSpan>
+              <p>{UNITS[key](value)}</p>
+            </InformationSpan>
+          );
         })}
       </BottomWrapper>
 

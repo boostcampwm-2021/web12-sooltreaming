@@ -35,8 +35,7 @@ export const getUserNicknameLog = async (req, res, next) => {
     if (!id) throw new CustomError(401, 'id Error');
     const nicknameLog = await NicknameLog.find({ userId: id })
       .sort({ createdAt: 'desc' })
-      .select('nickname createdAt')
-      .limit(5);
+      .select('nickname -_id');
 
     if (!nicknameLog) throw new CustomError(400, 'id Error');
 

@@ -16,6 +16,8 @@ export const COLOR = {
   primary2: '#EBEFD6',
   primary3: '#9DB589',
   error: '#FF8988',
+  error2: '#E26664',
+  error3: '#D43E3C',
   lightError: '#FFD4D3',
   darkError: '#CD6766',
   titleActive: '#006737',

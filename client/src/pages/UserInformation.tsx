@@ -8,13 +8,10 @@ import {
   MainDataWrapper,
 } from '@src/pages/UserInformation.style.js';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { RootState } from '@src/store';
 import MainData from '@src/components/user-information/MainData';
 
 const UserInformation: React.FunctionComponent = () => {
   const history = useHistory();
-  const nickname = useSelector((state: RootState) => state.user.nickname);
   const [menu, setMenu] = useState<string>('information');
 
   const goBack = () => {

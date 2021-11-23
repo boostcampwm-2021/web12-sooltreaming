@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import Modal from '@components/custom/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setNickname } from '@store/user';
@@ -9,9 +9,15 @@ import { API } from '@src/api';
 import {
   Header,
   DeleteChangePressSection,
-  ChangeNicknameData,
+  ChangeData,
   NewNicknameInput,
+  AcceptIconWrapper,
+  RejectIconWrapper,
+  ProfileSquare,
+  ProfileSquareWrapper,
+  XButtonWrapper,
 } from '@components/user-information/Information.style';
+import { AcceptIcon, GreenXButtonIcon, RejectIcon } from '@src/components/icons';
 
 type NicknameChangeModal = {
   changeNicknameIsOpen: any;
@@ -24,7 +30,13 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
 }) => {
   const dispatch = useDispatch();
   const nickname = useSelector((state: RootState) => state.user.nickname);
+  const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const newNicknameData = useRef<HTMLInputElement>(null);
+  const inputImage = useRef<HTMLInputElement>(null);
+  const [fileUrl, setFileUrl] = useState<string>(imgUrl);
+
+  // 이미지 업로드 함수
+  const uploadImage = async () => {};
 
   // 닉네임 변경 함수
   const changeNickname = useCallback(() => {
@@ -47,18 +59,42 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
       absolutePos={{ top: '50%', left: '50%' }}
     >
       <Header>
-        <h2>닉네임 변경하기</h2>
+        <h2>프로필 변경하기</h2>
       </Header>
-      <ChangeNicknameData>
-        <NewNicknameInput ref={newNicknameData} placeholder={'변경할 닉네임을 입력해주세요.'} />
-      </ChangeNicknameData>
+      <ChangeData>
+        <ProfileSquareWrapper>
+          <ProfileSquare fileUrl={fileUrl}>
+            <form
+              action="https://localhost:5000/user/image"
+              method="post"
+              encType="multipart/form-data"
+            >
+              <input
+                type="file"
+                style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
+                accept="image/jpeg, image/png"
+                onChange={uploadImage}
+              />
+            </form>
+            <XButtonWrapper>
+              <GreenXButtonIcon />
+            </XButtonWrapper>
+          </ProfileSquare>
+        </ProfileSquareWrapper>
+
+        <NewNicknameInput
+          ref={newNicknameData}
+          placeholder={'닉네임을 입력해주세요.'}
+          defaultValue={nickname}
+        />
+      </ChangeData>
       <DeleteChangePressSection>
-        <button onClick={changeNickname}>
-          <img src="/images/check.png" alt="check" />
-        </button>
-        <button onClick={toggleNicknameJudgment}>
-          <img src="/images/deny.png" alt="deny" />
-        </button>
+        <AcceptIconWrapper onClick={changeNickname}>
+          <AcceptIcon />
+        </AcceptIconWrapper>
+        <RejectIconWrapper onClick={toggleNicknameJudgment}>
+          <RejectIcon />
+        </RejectIconWrapper>
       </DeleteChangePressSection>
     </Modal>
   );
