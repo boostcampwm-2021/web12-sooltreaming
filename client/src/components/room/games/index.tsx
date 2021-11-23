@@ -19,8 +19,14 @@ const Games: React.FC<GamesPropTypes> = ({ GameStartHandlerList }) => {
 
   return (
     <Wrapper>
-      {GameList.map(({ icon, title, explain }) => (
-        <GameBox icon={icon} title={title} explain={explain} start={GameStartHandlerList[title]} />
+      {GameList.map(({ icon, title, explain }, index) => (
+        <GameBox
+          key={index}
+          icon={icon}
+          title={title}
+          explain={explain}
+          start={GameStartHandlerList[title]}
+        />
       ))}
     </Wrapper>
   );
