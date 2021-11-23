@@ -18,6 +18,7 @@ const questionMark = ({
 }) => {
   socket.on(QUESTION, ({ x, y }) => {
     const { code } = targetInfo;
+    if (!(code in rooms)) return;
 
     io.to(code).emit(QUESTION, { x, y });
     const id = rooms[code].users[socket.id].id;

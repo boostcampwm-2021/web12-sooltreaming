@@ -9,6 +9,7 @@ import questionMark from '@controller/socket/questionMark';
 import voting from '@controller/socket/voting';
 import friending from '@controller/socket/friending';
 import streamChange from '@controller/socket/streamChange';
+import ticketing from '@controller/socket/ticketing';
 
 import pipe from '@utils/pipe';
 import { FRONT_BASE_URL } from '@src/constant';
@@ -17,6 +18,7 @@ export type roomType = {
   [code: string]: {
     hostSID: string;
     isOpen: boolean;
+    waiters: Array<string>;
     closeupUser: string;
     users: {
       [sid: string]: {
@@ -58,6 +60,7 @@ const socketLoader = (server, app): any => {
     pipe(
       entering,
       signaling,
+      ticketing,
       chatting,
       creating,
       animation,

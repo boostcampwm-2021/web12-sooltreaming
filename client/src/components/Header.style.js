@@ -22,9 +22,8 @@ export const LogoLink = styled.a`
   align-items: center;
   cursor: pointer;
   text-decoration: none;
-  &:visited {
-    color: ${COLOR.titleActive};
-  }
+  color: ${COLOR.titleActive};
+
   & > img {
     width: 55px;
     height: 46px;

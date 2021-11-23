@@ -11,15 +11,13 @@ import {
   DialogButton,
 } from './RoomController.style';
 
-const RoomController = ({toggleRoomEntry}) => {
+const RoomController = ({ toggleRoomEntry }) => {
   const code = useSelector((state: RootState) => state.room.roomCode);
   const isOpen = useSelector((state: RootState) => state.room.isOpen);
 
   const copyURL = () => {
     navigator.clipboard.writeText(window.location.href);
   };
-
-  const requestToggleIsOpen = () => toggleRoomEntry();
 
   return (
     <Wrapper>
@@ -31,7 +29,7 @@ const RoomController = ({toggleRoomEntry}) => {
       </RowWrapper>
       <RowWrapper>
         <span>방 접속 제한 : </span>
-        <ToggleButton onClick={requestToggleIsOpen}>
+        <ToggleButton onClick={toggleRoomEntry}>
           <DialogButton isSelected={isOpen}>{isOpen ? 'Open' : 'Close'}</DialogButton>
         </ToggleButton>
       </RowWrapper>

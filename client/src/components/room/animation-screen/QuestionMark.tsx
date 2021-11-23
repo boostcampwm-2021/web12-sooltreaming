@@ -22,4 +22,4 @@ const QuestionMark: React.FC<QuestionMarkPropTypes> = ({ x, y }) => {
   );
 };
 
-export default QuestionMark;
+export default React.memo(QuestionMark);

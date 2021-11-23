@@ -30,6 +30,7 @@ const creating = ({
     rooms[roomCode] = {
       hostSID: null,
       isOpen: true,
+      waiters: [],
       closeupUser: '',
       users: {},
       usersDevices: {},
