@@ -20,6 +20,8 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
   }
 
   const rejectFriendRequest = async (id) => {
+    await API.call(API.TYPE.DELETE_RECEIVEFRIEND, id);
+    setReceiveFriend((prev) => [...prev].filter((friend) => friend._id !== id))
   }
 
   const acceptFriendRequest = async (id) => {
