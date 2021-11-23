@@ -28,6 +28,10 @@ import SmallCancelIcon from '@components/icons/SmallCancelIcon';
 import ExitIcon from '@components/icons/ExitIcon';
 
 import GameExplainIcon from '@components/icons/GameExplainIcon';
+import ProfileSquareIcon from '@components/icons/ProfileSquareIcon';
+import GreenXButtonIcon from '@components/icons/GreenXButtonIcon';
+import AcceptIcon from '@components/icons/AcceptIcon';
+import RejectIcon from '@components/icons/RejectIcon';
 
 export type iconPropsType = {
   className?: string;
@@ -63,4 +67,8 @@ export {
   SmallCancelIcon,
   ExitIcon,
   GameExplainIcon,
+  ProfileSquareIcon,
+  GreenXButtonIcon,
+  AcceptIcon,
+  RejectIcon,
 };
