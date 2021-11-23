@@ -57,15 +57,15 @@ const Information: React.FC = () => {
 
   useEffect(() => {
     const requestGetUserInformation = async () => {
-      const user = await API.call(API.TYPE.GET_USER_INFORMATION, id);
-      setUserInformation(user);
-      setNicknameLog(user.nicknameLog);
+      const { information, nicknameLog } = await API.call(API.TYPE.GET_USER_INFORMATION, id);
+      setUserInformation(information);
+      setNicknameLog(nicknameLog);
     };
     requestGetUserInformation();
   }, []);
 
   useEffect(() => {
-    setNicknameLog((prev) => [{ nickname }, ...prev]);
+    setNicknameLog((prev) => [ ...prev, { nickname }]);
   }, [nickname]);
 
   return (
@@ -93,7 +93,6 @@ const Information: React.FC = () => {
       </TopWrapper>
       <BottomWrapper>
         {Object.entries(userInformation).map(([key, value], index) => {
-          if (key === '_id' || key === 'nicknameLog') return <></>;
           return (
             <InformationSpan>
               <p>{UNITS[key](value)}</p>

@@ -12,7 +12,9 @@ export const loginWithSession = async () => {
 export const getUserInformation = async (id) => {
   const { status, json } = await request.get({ url: '/user', query: { id } });
   if (status === 200) {
-    return json.user;
+    const nicknameLog = [ ...json.user.nicknameLog ];
+    delete json.user.nicknameLog;
+    return { nicknameLog, information: json.user };
   } else throw new Error(json.error.toString());
 };
 

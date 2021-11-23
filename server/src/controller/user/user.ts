@@ -18,6 +18,7 @@ export const getUserInformation = async (req, res, next) => {
       'starterCount',
       'totalSeconds',
       'nicknameLog',
+      '-_id',
     ];
     
 
@@ -28,7 +29,6 @@ export const getUserInformation = async (req, res, next) => {
     .sort({ createdAt: 'desc' })
     .exec();
 
-    console.log(user);
     if (!user) throw new CustomError(400, 'id Error');
     res.status(200).json({
       user: user,
