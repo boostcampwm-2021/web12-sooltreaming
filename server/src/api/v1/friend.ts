@@ -31,6 +31,12 @@ router.get('/receiveList', async (req, res, next) => {
   res.status(200).json({ receiveFriends: result.receiveFriend });
 });
 
+router.get('/fullSendFriend', async (req, res, next) => {
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const { sendFriend } = await User.findOne({_id}).select('sendFriend -_id').populate('sendFriend', 'nickname imgUrl');
+  res.status(200).json({ sendList: sendFriend });
+});
+
 router.get('/fullReceiveFriend', async (req, res, next) => {
   const { _id } = JSON.parse(JSON.stringify(req.user));
   const { receiveFriend } = await User.findOne({_id}).select('receiveFriend -_id').populate('receiveFriend', 'nickname imgUrl');
