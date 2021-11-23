@@ -6,8 +6,9 @@ import {
   Header,
   CheckPressSection,
   HistoryData,
+  AcceptIconWrapper,
 } from '@components/user-information/Information.style';
-
+import { AcceptIcon } from '@src/components/icons';
 import type { nicknameLogType } from '@components/user-information/Information';
 
 type nicknameLogModalType = {
@@ -41,9 +42,9 @@ const NicknameLogModal: React.FC<nicknameLogModalType> = ({
         ))}
       </HistoryData>
       <CheckPressSection>
-        <button onClick={toggleHistoryJudgment}>
-          <img src="/images/check.png" alt="check" />
-        </button>
+        <AcceptIconWrapper onClick={toggleHistoryJudgment}>
+          <AcceptIcon />
+        </AcceptIconWrapper>
       </CheckPressSection>
     </Modal>
   );
