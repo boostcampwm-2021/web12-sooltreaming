@@ -23,7 +23,8 @@ const UpdownGame: React.FC = () => {
       {gameHost === Socket.getSID() ? (
         <Wrapper>
           <GameTitleDiv>업다운 게임</GameTitleDiv>
-          <div>{Math.floor(Math.random() * 50) + 1}</div>
+          <img src="/images/soju-cap.png" alt="" />
+          <div className="random-num">{Math.floor(Math.random() * 50) + 1}</div>
           <GameStopButton onClick={stopGame}>게임 종료</GameStopButton>
         </Wrapper>
       ) : (

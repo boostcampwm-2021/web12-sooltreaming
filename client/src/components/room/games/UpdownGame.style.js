@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, BTN_STYLE } from '@constant/style';
+import { COLOR, BTN_STYLE, Z_INDEX } from '@constant/style';
 
 export const Wrapper = styled.div`
   width: 400px;
@@ -9,6 +9,16 @@ export const Wrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 20px;
+  position: relative;
+  img {
+    position: absolute;
+    top: 40px;
+  }
+  .random-num {
+    position: relative;
+    z-index: ${Z_INDEX.updownNum};
+    left: 5px;
+  }
 `;
 
 export const GameTitleDiv = styled.div`
@@ -20,4 +30,5 @@ export const GameTitleDiv = styled.div`
 export const GameStopButton = styled.button`
   ${BTN_STYLE};
   padding: 5px 10px;
+  font-size: 15px;
 `;
