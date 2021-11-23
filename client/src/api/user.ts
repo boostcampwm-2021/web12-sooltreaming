@@ -33,6 +33,16 @@ export const patchUserNickname = async (newNickname) => {
   } else throw new Error(json.error.toString());
 };
 
+export const patchUserImage = async (newFileUrl) => {
+  const { status, json } = await request.patch({
+    url: '/user/image',
+    body: { imgUrl: newFileUrl },
+  });
+  if (status === 200) {
+    return json.message;
+  } else throw new Error(json.error.toString());
+};
+
 export const getFriends = async () => {
   const result = await request.get({ url: '/friend/list' });
   const { status, json } = result;
