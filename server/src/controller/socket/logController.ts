@@ -2,7 +2,7 @@ import User from '@models/User';
 
 const LOG_EVENT = {
   CLOSEUP: 'closeupCount',
-  PASSING_MESSAGE: 'chatCount',
+  CHAT_RECEIVE: 'chatCount',
   QUESTION: 'hookCount',
 };
 

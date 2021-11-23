@@ -12,7 +12,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import Header from '@components/Header';
-import useTicket from '@hooks/socket/useTicket';
+import useTicketSocket from '@src/hooks/socket/useTicketSocket';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
@@ -28,7 +28,7 @@ const Setting: React.FC<SettingPropTypes> = ({ renderRoom }) => {
   const stream = useSelector((state: RootState) => state.device.stream);
   const previewFace = useRef<HTMLVideoElement>(null);
 
-  const { successValidtaion } = useTicket();
+  const { successValidtaion } = useTicketSocket();
   useUpdateSpeaker(previewFace);
   useToggleSpeaker(previewFace);
   useUpdateStream(previewFace, stream);

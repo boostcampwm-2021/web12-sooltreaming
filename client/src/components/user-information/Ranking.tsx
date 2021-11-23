@@ -8,20 +8,19 @@ import {
 import { DownIcon } from '@components/icons';
 import { MenuButton, MenuItem } from '@components/setting/SettingDropdown.style';
 
+const rankingMenuList = [
+  '총 접속 시간',
+  '갈고리 사용 횟수',
+  '총 채팅 횟수',
+  '투표 선정 횟수',
+  '클로즈업 횟수',
+  '단두대 횟수',
+  '단두대 확률',
+  '건배사 횟수',
+  '주최자 횟수',
+];
 const Ranking: React.FC = () => {
   const [nowSelect, setNowSelect] = useState('갈고리 사용 횟수');
-  const rankingMenuList = [
-    '총 접속 시간',
-    '갈고리 사용 횟수',
-    '총 채팅 횟수',
-    '투표 선정 횟수',
-    '클로즈업 횟수',
-    '단두대 횟수',
-    '단두대 확률',
-    '건배사 횟수',
-    '주최자 횟수',
-    '총 접속 시간',
-  ];
 
   const choiceMenu = (toggleDropdown, item) => () => {
     setNowSelect(item);

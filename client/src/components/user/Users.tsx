@@ -8,7 +8,7 @@ import {
 } from '@src/components/user/Users.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import useRequestFriend from '@hooks/socket/useRequestFriend';
+import useFriendSocket from '@src/hooks/socket/useFriendSocket';
 import Socket from '@socket/socket';
 
 type UsersPropTypes = {
@@ -27,7 +27,7 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef }) => {
   } = useSelector((state: RootState) => state.user);
   const imPossibleFriends = [...friendList, ...sendFriendList, ...receiveFriendList];
 
-  const { onclickRequestFriend } = useRequestFriend();
+  const { onclickRequestFriend } = useFriendSocket();
   return (
     <Wrapper>
       <UserList>

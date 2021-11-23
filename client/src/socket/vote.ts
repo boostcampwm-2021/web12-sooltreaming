@@ -1,40 +1,41 @@
 import { Socket } from 'socket.io-client';
-
-const START_VOTING = 'START_VOTING';
-const JUDGEMENT_ON = 'JUDGEMENT_ON';
-const GET_DECISION = 'GET_DECISION';
-const ONE_DECISION = 'ONE_DECISION';
-const JUDGE_CLOSED = 'JUDGE_CLOSED';
-const PRISON_BREAK = 'PRISON_BREAK';
+import {
+  VOTE_START,
+  VOTE_DECISION,
+  VOTE_GET_DECISION,
+  VOTE_JUDGE_ON,
+  VOTE_JUDGE_OFF,
+  VOTE_PRISON_BREAK,
+} from 'sooltreaming-domain/constant/socketEvent';
 
 const vote =
   (socket: Socket) =>
   ({ openJudgment, closeJudgement, addApprove, addReject, resetJudgement }) => {
-    socket.on(JUDGEMENT_ON, ({ targetName, participants }) => {
+    socket.on(VOTE_JUDGE_ON, ({ targetName, participants }) => {
       openJudgment({ targetName, participants });
     });
-    socket.on(ONE_DECISION, ({ isApprove }) => {
+    socket.on(VOTE_GET_DECISION, ({ isApprove }) => {
       if (isApprove) addApprove();
       else addReject();
     });
-    socket.on(JUDGE_CLOSED, ({ targetSID, targetName, percentage, resetTime }) => {
+    socket.on(VOTE_JUDGE_OFF, ({ targetSID, targetName, percentage, resetTime }) => {
       closeJudgement({ targetSID, targetName, percentage, resetTime });
     });
-    socket.on(PRISON_BREAK, resetJudgement);
+    socket.on(VOTE_PRISON_BREAK, resetJudgement);
 
     const startVoting = (targetSID) => {
       if (!targetSID) return;
-      socket.emit(START_VOTING, { targetSID });
+      socket.emit(VOTE_START, { targetSID });
     };
     const makeDecision = ({ isApprove }) => {
-      socket.emit(GET_DECISION, { isApprove });
+      socket.emit(VOTE_DECISION, { isApprove });
     };
 
     const disconnecting = () => {
-      socket.off(JUDGEMENT_ON);
-      socket.off(ONE_DECISION);
-      socket.off(JUDGE_CLOSED);
-      socket.off(PRISON_BREAK);
+      socket.off(VOTE_GET_DECISION);
+      socket.off(VOTE_JUDGE_ON);
+      socket.off(VOTE_JUDGE_OFF);
+      socket.off(VOTE_PRISON_BREAK);
     };
     return {
       startVoting,

@@ -12,7 +12,8 @@ type GameType = {
 
 const GameBox: React.FC<GameType> = ({ icon, title, explain, start }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleExplain = () => {
+  const toggleExplain = (e) => {
+    e.stopPropagation();
     setIsOpen((prev) => !prev);
   };
   return (
