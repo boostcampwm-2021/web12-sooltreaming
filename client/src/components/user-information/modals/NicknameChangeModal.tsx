@@ -15,8 +15,9 @@ import {
   RejectIconWrapper,
   ProfileSquare,
   ProfileSquareWrapper,
+  XButtonWrapper,
 } from '@components/user-information/Information.style';
-import { AcceptIcon, RejectIcon } from '@src/components/icons';
+import { AcceptIcon, GreenXButtonIcon, RejectIcon } from '@src/components/icons';
 
 type NicknameChangeModal = {
   changeNicknameIsOpen: any;
@@ -71,8 +72,12 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
                 onChange={uploadImage}
               />
             </form>
+            <XButtonWrapper>
+              <GreenXButtonIcon />
+            </XButtonWrapper>
           </ProfileSquare>
         </ProfileSquareWrapper>
+
         <NewNicknameInput
           ref={newNicknameData}
           placeholder={'닉네임을 입력해주세요.'}

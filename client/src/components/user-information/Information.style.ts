@@ -269,3 +269,10 @@ export const ProfileSquare = styled.div<{ fileUrl: string }>`
     height: 120px;
   }
 `;
+
+export const XButtonWrapper = styled.div`
+  position: absolute;
+  top: 110px;
+  left: 218px;
+  cursor: pointer;
+`;
