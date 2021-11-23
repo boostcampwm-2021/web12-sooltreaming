@@ -37,4 +37,14 @@ router.get('/fullReceiveFriend', async (req, res, next) => {
   res.status(200).json({ receiveList: receiveFriend });
 });
 
+router.patch('/', async (req, res, next) => {
+  const { targetId } = req.body;
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const result = await transaction(async () => {
+    await User.updateOne({_id}, { $pull: { receiveFriend: { $in: [targetId] } }, $addToSet: { friend: targetId } });
+    await User.updateOne({_id: targetId}, { $pull: { sendFriend: { $in: [_id] } }, $addToSet: { friend: _id } });
+  });
+  res.status(200).json({ message: 'Request Accept Success' });
+});
+
 export default router;
