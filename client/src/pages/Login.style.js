@@ -8,7 +8,7 @@ const flexColumnCenter = css`
   align-items: center;
 `;
 
-export const Wrapper = styled.div`
+export const FullScreen = styled.div`
   ${flexColumnCenter}
 
   width: 100%;
@@ -19,7 +19,7 @@ export const Wrapper = styled.div`
   background-color: ${COLOR.background};
 `;
 
-export const LogoDiv = styled.div`
+export const LogoBox = styled.div`
   ${flexColumnCenter}
 
   & > img {
@@ -61,7 +61,7 @@ export const LoginLink = styled.a`
   }
 `;
 
-export const TitleDiv = styled.div`
+export const Title = styled.div`
   text-align: center;
 
   font-size: 48px;

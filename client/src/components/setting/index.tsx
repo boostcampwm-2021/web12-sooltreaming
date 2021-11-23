@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import {
-  Wrapper,
+  SettingContainer,
   Contents,
   PreviewCamera,
   ControlBox,
@@ -42,7 +42,7 @@ const Setting: React.FC<SettingPropTypes> = ({ renderRoom }) => {
   };
 
   return (
-    <Wrapper>
+    <SettingContainer>
       <Header />
       <Contents>
         <PreviewCamera ref={previewFace} width="400" height="400" autoPlay playsInline />
@@ -59,7 +59,7 @@ const Setting: React.FC<SettingPropTypes> = ({ renderRoom }) => {
         <CancelButton onClick={onClickCancel}>취소</CancelButton>
         <EnterButton onClick={onClickJoin}>입장</EnterButton>
       </LineBox>
-    </Wrapper>
+    </SettingContainer>
   );
 };
 

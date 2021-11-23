@@ -1,11 +1,10 @@
 import React from 'react';
-import { Wrapper, TopBar, CloseButton } from '@components/room/RoomMenu.style';
+import { MenuBox, TopBar, CloseButton } from '@components/room/RoomMenu.style';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
 import RouteMenu from '@components/room/RouteMenu';
 import useChatSocket from '@hooks/socket/useChatSocket';
-import useGameSocket from '@hooks/socket/useGameSocket';
 
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
@@ -20,7 +19,7 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, startGamesRef }) 
 
   if (!menuType) return <></>;
   return (
-    <Wrapper>
+    <MenuBox>
       <TopBar>
         <span>{menuType}</span>
         <CloseButton onClick={() => dispatch(setMenuType(''))}></CloseButton>
@@ -30,7 +29,7 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, startGamesRef }) 
         sendMessage={sendMessage}
         startGamesRef={startGamesRef}
       />
-    </Wrapper>
+    </MenuBox>
   );
 };
 

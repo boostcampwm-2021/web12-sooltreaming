@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { Wrapper, TitleDiv, CodeInput, BigButton } from '@pages/Lobby.style.js';
+import { FullScreen, Title, CodeInput, BigButton } from '@pages/Lobby.style.js';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
@@ -20,17 +20,17 @@ const Lobby: React.FunctionComponent = () => {
   };
 
   return (
-    <Wrapper>
+    <FullScreen>
       <Header />
-      <TitleDiv>
+      <Title>
         오늘도 적당히 음주하세요!
         <span> {nickname || 'Judangs'} </span>
         님!
-      </TitleDiv>
+      </Title>
       <CodeInput ref={chatRoomCodeInput} placeholder={'입장하실 방의 코드를 입력해주세요.'} />
       <BigButton onClick={joinChatRoom}>방 참가하기</BigButton>
       <BigButton onClick={createChatRoom}>방 생성하기</BigButton>
-    </Wrapper>
+    </FullScreen>
   );
 };
 

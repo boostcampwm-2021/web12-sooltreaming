@@ -1,11 +1,11 @@
 import React, { useRef } from 'react';
 import Socket from '@socket/socket';
 import {
-  Wrapper,
-  VideoWrapper,
-  Video,
-  Image,
-  NameSpan,
+  Monitor,
+  CameraContainer,
+  Camera,
+  ProfileImage,
+  Name,
 } from '@components/room/monitor/index.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
@@ -30,12 +30,12 @@ const ChatMonitor: React.FC = () => {
   useUpdateStream(myVideoRef, stream, sendStream);
 
   return (
-    <Wrapper>
-      <VideoWrapper count={count} className={className}>
-        <Video count={count} ref={myVideoRef} autoPlay playsInline muted></Video>
-        <Image count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn}></Image>
-        <NameSpan>{nickname}</NameSpan>
-      </VideoWrapper>
+    <Monitor>
+      <CameraContainer count={count} className={className}>
+        <Camera count={count} ref={myVideoRef} autoPlay playsInline muted />
+        <ProfileImage count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn} />
+        <Name>{nickname}</Name>
+      </CameraContainer>
 
       {Object.entries(streams).map(([sid, otherStream]) => {
         const peerClassName = closeUpUser ? (sid === closeUpUser ? 'closeup' : 'mini') : '';
@@ -43,7 +43,7 @@ const ChatMonitor: React.FC = () => {
           <OtherVideo count={count} className={peerClassName} srcObject={otherStream} sid={sid} />
         );
       })}
-    </Wrapper>
+    </Monitor>
   );
 };
 
@@ -59,13 +59,11 @@ const OtherVideo = ({ className, srcObject, count, sid }) => {
   let imgUrl = users[sid].imgUrl;
 
   return (
-    <>
-      <VideoWrapper count={count} className={className}>
-        <Video count={count} ref={otherRef} autoPlay playsInline></Video>
-        <Image count={count} src={imgUrl} isVideoOn={isVideoOn}></Image>
-        <NameSpan>{users[sid].nickname}</NameSpan>
-      </VideoWrapper>
-    </>
+    <CameraContainer count={count} className={className}>
+      <Camera count={count} ref={otherRef} autoPlay playsInline />
+      <ProfileImage count={count} src={imgUrl} isVideoOn={isVideoOn} />
+      <Name>{users[sid].nickname}</Name>
+    </CameraContainer>
   );
 };
 

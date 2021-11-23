@@ -1,7 +1,7 @@
 import styled, { keyframes } from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const Container = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -16,7 +16,7 @@ const spin = keyframes`
 `;
 const loadingSize = 300;
 
-export const LoadingDiv = styled.div`
+export const Spinner = styled.div`
   z-index: 1;
   width: ${loadingSize}px;
   height: ${loadingSize}px;

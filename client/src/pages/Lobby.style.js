@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, INPUT_STYLE, BTN_STYLE } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const FullScreen = styled.div`
   width: 100%;
   height: 100%;
 
@@ -13,7 +13,7 @@ export const Wrapper = styled.div`
   background-color: ${COLOR.background};
 `;
 
-export const TitleDiv = styled.div`
+export const Title = styled.div`
   margin-bottom: 100px;
   font-size: 48px;
   font-weight: 700;

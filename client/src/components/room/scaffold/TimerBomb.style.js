@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const TimerContainer = styled.div`
   align-self: flex-end;
   width: 83px;
   height: 83px;

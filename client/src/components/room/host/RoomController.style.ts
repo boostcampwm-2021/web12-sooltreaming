@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const ColumnBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,7 +9,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
 `;
 
-export const RowWrapper = styled.div`
+export const RowBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,7 +17,6 @@ export const RowWrapper = styled.div`
   margin: 8px;
 
   & > span {
-    
     font-size: 20px;
     font-weight: bold;
   }
@@ -35,8 +34,7 @@ export const IconButton = styled.button`
   }
 `;
 
-
-export const ToggleButton =  styled.div`
+export const ToggleButton = styled.div`
   width: 140px;
   height: 40px;
   cursor: pointer;
@@ -50,7 +48,7 @@ export const ToggleButton =  styled.div`
   margin-left: 8px;
 `;
 
-export const DialogButton = styled.div<{isSelected: boolean}>`
+export const DialogButton = styled.div<{ isSelected: boolean }>`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -60,9 +58,8 @@ export const DialogButton = styled.div<{isSelected: boolean}>`
   height: 100%;
 
   cursor: pointer;
-  background-color: ${(props) => props.isSelected  ? COLOR.titleActive : COLOR.error};
+  background-color: ${(props) => (props.isSelected ? COLOR.titleActive : COLOR.error)};
   color: ${COLOR.white};
-  
 
   box-sizing: border-box;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
@@ -71,7 +68,7 @@ export const DialogButton = styled.div<{isSelected: boolean}>`
   padding: 8px 12px;
 
   position: absolute;
-  left: ${(props) => props.isSelected  ? 0 : 70 }px;
+  left: ${(props) => (props.isSelected ? 0 : 70)}px;
   transition: all 0.3s ease;
 
   font-size: 14px;

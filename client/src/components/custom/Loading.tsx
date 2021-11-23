@@ -1,12 +1,12 @@
-import { Wrapper, LoadingDiv } from './Loading.style';
+import { Container, Spinner } from './Loading.style';
 
 const Loading = () => {
   return (
-    <Wrapper>
-      <LoadingDiv>
+    <Container>
+      <Spinner>
         <img src="/images/logo.png" alt="logo" />
-      </LoadingDiv>
-    </Wrapper>
+      </Spinner>
+    </Container>
   );
 };
 

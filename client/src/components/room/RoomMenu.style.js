@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const MenuBox = styled.div`
   flex: 0 0 auto;
   width: 320px;
   height: 100%;

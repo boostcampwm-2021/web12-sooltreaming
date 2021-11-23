@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const BarContainer = styled.div`
   width: 100%;
   height: 50px;
   display: flex;

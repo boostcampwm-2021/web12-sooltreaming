@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import RoomMenu from '@components/room/RoomMenu';
 import ChatMonitor from '@components/room/monitor/';
 import ControlBar from '@components/room/ControlBar';
-import { Wrapper, VideoSection, ColumnDiv } from '@components/room/index.style';
+import { FullScreen, FlexBox, ColumnBox } from '@components/room/index.style';
 import AnimationScreen from '@components/room/animation-screen/';
 import Scaffold from '@components/room/scaffold';
 import Games from '@components/room/games';
@@ -32,22 +32,22 @@ const ChatRoom: React.FC = () => {
 
   const { activateCheers, activateCloseup, deactivateCloseup } = useAnimationSocket();
   return (
-    <Wrapper>
-      <ColumnDiv>
-        <VideoSection>
+    <FullScreen>
+      <ColumnBox>
+        <FlexBox>
           <ChatMonitor />
           <AnimationScreen />
-        </VideoSection>
+        </FlexBox>
         <ControlBar
           onClickCheers={activateCheers}
           activateCloseup={activateCloseup}
           deactivateCloseup={deactivateCloseup}
         />
-      </ColumnDiv>
+      </ColumnBox>
       <RoomMenu startVoteRef={startVoteRef} startGamesRef={startGamesRef} />
       <Scaffold startVoteRef={startVoteRef} />
       <Games startGamesRef={startGamesRef} />
-    </Wrapper>
+    </FullScreen>
   );
 };
 

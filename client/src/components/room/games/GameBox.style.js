@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const InfoContainer = styled.li`
   display: flex;
   background-color: ${COLOR.white};
   padding: 15px;
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const TitleWrapper = styled.div`
+export const Title = styled.div`
   display: flex;
   margin: auto 0;
   svg {

@@ -1,6 +1,6 @@
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import { Wrapper } from '@components/room/host/ParticipantController.style';
+import { ColumnBox } from '@components/room/host/ParticipantController.style';
 import Participant from '@components/room/host/Participant';
 
 const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }) => {
@@ -9,7 +9,7 @@ const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }) => {
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);
 
   return (
-    <Wrapper>
+    <ColumnBox>
       {Object.entries(users).map(([sid, user]) => {
         if (hostSID === sid) return <></>;
         return (
@@ -23,7 +23,7 @@ const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }) => {
           />
         );
       })}
-    </Wrapper>
+    </ColumnBox>
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Wrapper, ScreenImg, QuestionList } from '@components/room/animation-screen/index.style';
+import { Screen, CheersScreen } from '@components/room/animation-screen/index.style';
 import QuestionMark from '@components/room/animation-screen/QuestionMark';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
@@ -46,14 +46,12 @@ const AnimationScreen: React.FC = () => {
   };
 
   return (
-    <Wrapper onContextMenu={onClickScreen}>
-      <QuestionList>
-        {Object.entries(marks).map(([key, { x, y }]) => {
-          return <QuestionMark key={`Question-${key}`} x={x} y={y} />;
-        })}
-      </QuestionList>
-      <ScreenImg ref={screenRef} />
-    </Wrapper>
+    <Screen onContextMenu={onClickScreen}>
+      {Object.entries(marks).map(([key, { x, y }]) => {
+        return <QuestionMark key={`Question-${key}`} x={x} y={y} />;
+      })}
+      <CheersScreen ref={screenRef} />
+    </Screen>
   );
 };
 

@@ -7,7 +7,7 @@ const activeMark = keyframes`
   }
 `;
 
-export const QuestionImg = styled.div<{ x: number; y: number }>`
+export const QuestionScreen = styled.div<{ x: number; y: number }>`
   width: 150px;
   height: 213px;
   position: absolute;

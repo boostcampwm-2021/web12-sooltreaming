@@ -20,22 +20,20 @@ const SettingDropdown: React.FC<settingDropdownTypeProps> = ({
   };
 
   return (
-    <>
-      <Dropdown
-        renderButton={() => (
-          <MenuButton>
-            <span>{selected.label}</span>
-            <DownIcon />
-          </MenuButton>
-        )}
-        renderItem={({ closeDropdown, item }) => (
-          <MenuItem key={item.label} onClick={choiceMenu(closeDropdown, item)}>
-            {item.label}
-          </MenuItem>
-        )}
-        itemList={menuList}
-      />
-    </>
+    <Dropdown
+      renderButton={() => (
+        <MenuButton>
+          <span>{selected.label}</span>
+          <DownIcon />
+        </MenuButton>
+      )}
+      renderItem={({ closeDropdown, item }) => (
+        <MenuItem key={item.label} onClick={choiceMenu(closeDropdown, item)}>
+          {item.label}
+        </MenuItem>
+      )}
+      itemList={menuList}
+    />
   );
 };
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const RowWrapper = styled.div`
+export const RowBox = styled.div`
   display: flex;
   width: 100%;
   height: 50px;
@@ -15,7 +15,7 @@ export const RowWrapper = styled.div`
   }
 `;
 
-export const ProfileDiv = styled.div`
+export const Profile = styled.div`
   width: 100%;
   height: 32px;
   display: flex;
@@ -33,7 +33,7 @@ export const ProfileDiv = styled.div`
   }
 `;
 
-export const ControlDiv = styled.div`
+export const FlexBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

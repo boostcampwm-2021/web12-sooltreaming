@@ -1,5 +1,5 @@
 import React from 'react';
-import { RowWrapper, ProfileDiv, ControlDiv } from '@components/room/host/Participant.style';
+import { RowBox, Profile, FlexBox } from '@components/room/host/Participant.style';
 import { HumanIcon, VideoIcon, MicIcon } from '@components/icons';
 import SettingToggle from '@components/setting/SettingToggle';
 
@@ -26,16 +26,16 @@ const Participant = ({
   };
 
   return (
-    <RowWrapper>
-      <ProfileDiv>
+    <RowBox>
+      <Profile>
         {targetImg ? <img src={targetImg} alt="other_user_image" /> : <HumanIcon />}
         <span>{targetNick || 'judangs'}</span>
-      </ProfileDiv>
-      <ControlDiv>
+      </Profile>
+      <FlexBox>
         <SettingToggle Icon={VideoIcon} isDeviceOn={isVideoOn} setIsDeviceOn={turnOffVideo} />
         <SettingToggle Icon={MicIcon} isDeviceOn={isAudioOn} setIsDeviceOn={turnOffAudio} />
-      </ControlDiv>
-    </RowWrapper>
+      </FlexBox>
+    </RowBox>
   );
 };
 

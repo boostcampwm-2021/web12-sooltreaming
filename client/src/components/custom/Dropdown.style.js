@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const Container = styled.div`
   max-width: 340px;
   width: 100%;
   height: 100%;
@@ -12,7 +12,7 @@ export const Wrapper = styled.div`
   align-items: center;
 `;
 
-export const ItemListWrapper = styled.div`
+export const ItemListBox = styled.div`
   width: 100%;
   position: relative;
   top: -10px;
