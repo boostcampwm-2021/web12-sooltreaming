@@ -1,13 +1,13 @@
 import React from 'react';
-import { TitleH2, PressSection } from '@src/components/room/scaffold/VotePresser.style';
+import { Title, PressSection } from '@src/components/room/scaffold/VotePresser.style';
 
 const VotePresser = ({ isVote, target, sendDecision }): React.ReactElement => {
   if (isVote) return <></>;
   return (
     <>
-      <TitleH2>
+      <Title>
         <span>{target}</span>을(를) 처분할까요?
-      </TitleH2>
+      </Title>
       <PressSection>
         <button onClick={sendDecision(true)}>
           <img src="/images/agree.png" alt="agree" />

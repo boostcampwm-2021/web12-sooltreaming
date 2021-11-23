@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, Z_INDEX } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const Monitor = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
@@ -24,7 +24,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const VideoWrapper = styled.div<{ count: number }>`
+export const CameraContainer = styled.div<{ count: number }>`
   position: relative;
   min-width: 200px;
   max-width: calc(100% / ${(props) => (props.count === 2 ? 2 : Math.ceil(props.count / 2))});
@@ -35,7 +35,7 @@ export const VideoWrapper = styled.div<{ count: number }>`
   padding: 10px;
 `;
 
-export const Video = styled.video<{ count: number }>`
+export const Camera = styled.video<{ count: number }>`
   position: absolute;
   top: 0;
   left: 0;
@@ -44,7 +44,7 @@ export const Video = styled.video<{ count: number }>`
   height: 100%;
 `;
 
-export const Image = styled.img<{
+export const ProfileImage = styled.img<{
   count: number;
   isVideoOn: any;
 }>`
@@ -58,7 +58,7 @@ export const Image = styled.img<{
   z-index: ${Z_INDEX.camOff};
 `;
 
-export const NameSpan = styled.span`
+export const Name = styled.span`
   position: absolute;
   bottom: 10px;
   background-color: ${COLOR.black};

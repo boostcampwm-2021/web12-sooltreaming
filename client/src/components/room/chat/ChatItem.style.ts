@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div<{ isSelf: boolean }>`
+export const ColumnBox = styled.div<{ isSelf: boolean }>`
   display: flex;
   flex-direction: column;
   align-items: ${(props) => (props.isSelf ? 'flex-end' : 'flex-start')};
 `;
 
-export const UserSection = styled.section<{ isSelf: boolean }>`
+export const UserContainer = styled.section<{ isSelf: boolean }>`
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;
@@ -22,7 +22,7 @@ export const UserSection = styled.section<{ isSelf: boolean }>`
   }
 `;
 
-export const CircleDiv = styled.div`
+export const ProfileContainer = styled.div`
   width: 32px;
   height: 32px;
   border-radius: 50%;
@@ -43,7 +43,7 @@ export const CircleDiv = styled.div`
   }
 `;
 
-export const NameSpan = styled.span`
+export const Name = styled.span`
   margin: auto 8px;
   font-weight: bold;
   font-size: 12px;

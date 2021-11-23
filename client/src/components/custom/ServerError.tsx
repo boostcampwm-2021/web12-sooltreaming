@@ -1,14 +1,14 @@
-import { Wrapper, StatusText, GuideText } from './ServerError.style';
+import { Container, StatusText, GuideText } from './ServerError.style';
 
 const ServerError = ({ status }) => {
   return (
-    <Wrapper>
+    <Container>
       <StatusText>
         {status}
         <span> Error!</span>
       </StatusText>
       <GuideText>please try again</GuideText>
-    </Wrapper>
+    </Container>
   );
 };
 

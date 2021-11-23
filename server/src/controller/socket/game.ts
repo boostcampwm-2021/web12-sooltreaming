@@ -2,8 +2,7 @@ import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
 import { UPDOWN_START, UPDOWN_STOP } from 'sooltreaming-domain/constant/socketEvent';
-
-const STATUS_NORMAL = 'STATUS_NORMAL';
+import { STATUS_VOTE_NORMAL } from '@src/constant';
 
 const game = ({
   io,
@@ -21,7 +20,7 @@ const game = ({
     if (!(code in rooms)) return;
 
     const userKeys = Object.keys(rooms[code].users);
-    if (userKeys.length < 2 || rooms[code].game.title || rooms[code].status !== STATUS_NORMAL)
+    if (userKeys.length < 2 || rooms[code].game.title || rooms[code].status !== STATUS_VOTE_NORMAL)
       return;
 
     rooms[code].game = { title: '업다운', host: startingSID };

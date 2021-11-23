@@ -1,16 +1,15 @@
 import React, { useState } from 'react';
-import { Wrapper, TitleWrapper } from '@components/room/games/GameBox.style';
+import { InfoContainer, Title } from '@components/room/games/GameBox.style';
 import { GameExplainIcon } from '@components/icons';
 import Modal from '@components/custom/Modal';
 
 type GameType = {
   icon: React.ReactNode;
   title: string;
-  explain: string;
   start: any;
 };
 
-const GameBox: React.FC<GameType> = ({ icon, title, explain, start }) => {
+const GameBox: React.FC<GameType> = ({ children, icon, title, start }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleExplain = (e) => {
     e.stopPropagation();
@@ -18,16 +17,18 @@ const GameBox: React.FC<GameType> = ({ icon, title, explain, start }) => {
   };
   return (
     <>
-      <Wrapper onClick={start}>
-        <TitleWrapper>
+      <InfoContainer onClick={start}>
+        <Title>
           {icon}
           {title}
-        </TitleWrapper>
+        </Title>
         <div onClick={toggleExplain}>
           <GameExplainIcon />
         </div>
-      </Wrapper>
-      <Modal children={explain} isOpen={isOpen} absolutePos={{ right: '15px' }} />
+      </InfoContainer>
+      <Modal isOpen={isOpen} absolutePos={{ right: '15px' }}>
+        {children}
+      </Modal>
     </>
   );
 };

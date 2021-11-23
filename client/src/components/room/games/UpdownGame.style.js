@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, BTN_STYLE, Z_INDEX } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const Contents = styled.div`
   width: 400px;
   height: 200px;
   display: flex;
@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const GameTitleDiv = styled.div`
+export const GameTitle = styled.div`
   width: 100%;
   font-weight: bold;
   color: ${COLOR.titleActive};

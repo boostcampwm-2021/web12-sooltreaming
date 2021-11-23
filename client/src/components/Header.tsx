@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, LogoLink, UserLink } from './Header.style.js';
+import { LineContainer, LogoLink, UserLink } from './Header.style.js';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { HumanIcon } from '@components/icons';
@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   };
 
   return (
-    <Wrapper>
+    <LineContainer>
       <LogoLink href="/">
         <img src={'/images/logo.png'} />
         <span>Sooltreaming</span>
@@ -23,7 +23,7 @@ const Header: React.FC = () => {
         <div className="User-Profile">{!imgUrl ? <HumanIcon /> : <img src={imgUrl} />}</div>
         <span>{nickname || 'judangs'}</span>
       </UserLink>
-    </Wrapper>
+    </LineContainer>
   );
 };
 

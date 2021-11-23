@@ -1,8 +1,8 @@
 import React from 'react';
 import {
-  Wrapper,
+  MenuBox,
   UserList,
-  ProfileDiv,
+  Profile,
   VoteButton,
   ReqFriendButton,
 } from '@src/components/user/Users.style';
@@ -29,21 +29,21 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef }) => {
 
   const { onclickRequestFriend } = useFriendSocket();
   return (
-    <Wrapper>
+    <MenuBox>
       <UserList>
-        <ProfileDiv>
+        <Profile>
           <img src={myImgUrl} />
           <div>{myNickname}</div>
-        </ProfileDiv>
+        </Profile>
       </UserList>
       {Object.entries(users)
         .filter(([key]) => key !== Socket.getSID())
         .map(([key, { imgUrl, nickname, id }]) => (
           <UserList key={id}>
-            <ProfileDiv>
+            <Profile>
               <img src={imgUrl} />
               <div>{nickname}</div>
-            </ProfileDiv>
+            </Profile>
             <div>
               <VoteButton onClick={() => (startVoteRef?.current ?? (() => {}))(key)}>
                 심판
@@ -58,7 +58,7 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef }) => {
             </div>
           </UserList>
         ))}
-    </Wrapper>
+    </MenuBox>
   );
 };
 

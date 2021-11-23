@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Wrapper, ItemList, ItemListWrapper, ToggleButton } from './Dropdown.style.js';
+import { Container, ItemList, ItemListBox, ToggleButton } from './Dropdown.style.js';
 
 interface dropdownPropTypes {
   renderButton: (prop?: any) => React.ReactNode;
@@ -20,18 +20,18 @@ const Dropdown: React.FC<dropdownPropTypes> = ({ renderButton, renderItem, itemL
   };
 
   return (
-    <Wrapper onMouseEnter={() => setIsMouseOn(true)} onMouseLeave={() => setIsMouseOn(false)}>
+    <Container onMouseEnter={() => setIsMouseOn(true)} onMouseLeave={() => setIsMouseOn(false)}>
       <ToggleButton onClick={toggleDropdown} onBlur={closeDropdown}>
         {renderButton()}
       </ToggleButton>
       {isActive && (
-        <ItemListWrapper>
+        <ItemListBox>
           <ItemList>
             {itemList.map((item) => renderItem({ closeDropdown: () => setActive(false), item }))}
           </ItemList>
-        </ItemListWrapper>
+        </ItemListBox>
       )}
-    </Wrapper>
+    </Container>
   );
 };
 

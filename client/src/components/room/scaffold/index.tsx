@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Wrapper } from '@components/room/scaffold/index.style';
+import { Content } from '@components/room/scaffold/index.style';
 import useVoteSocket from '@hooks/socket/useVoteSocket';
 import Modal from '@components/custom/Modal';
 import TimerBomb from '@src/components/room/scaffold/TimerBomb';
@@ -35,11 +35,11 @@ const Scaffold: React.FC<ScaffoldPropTypes> = ({ startVoteRef }) => {
       renderCenter={!isVote}
       absolutePos={{ top: position, left: position }}
     >
-      <Wrapper isVote={isVote}>
+      <Content isVote={isVote}>
         <TimerBomb />
         <VotePresser isVote={isVote} target={target} sendDecision={sendDecision} />
         <Voters total={total} approves={approves} rejects={rejects} />
-      </Wrapper>
+      </Content>
     </Modal>
   );
 };

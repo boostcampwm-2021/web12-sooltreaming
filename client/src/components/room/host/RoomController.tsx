@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 
 import {
-  Wrapper,
-  RowWrapper,
+  ColumnBox,
+  RowBox,
   IconButton,
   ToggleButton,
   DialogButton,
@@ -20,20 +20,20 @@ const RoomController = ({ toggleRoomEntry }) => {
   };
 
   return (
-    <Wrapper>
-      <RowWrapper>
+    <ColumnBox>
+      <RowBox>
         <span>방 코드 번호 : {code}</span>
         <IconButton onClick={copyURL}>
           <CopyIcon />
         </IconButton>
-      </RowWrapper>
-      <RowWrapper>
+      </RowBox>
+      <RowBox>
         <span>방 접속 제한 : </span>
         <ToggleButton onClick={toggleRoomEntry}>
           <DialogButton isSelected={isOpen}>{isOpen ? 'Open' : 'Close'}</DialogButton>
         </ToggleButton>
-      </RowWrapper>
-    </Wrapper>
+      </RowBox>
+    </ColumnBox>
   );
 };
 

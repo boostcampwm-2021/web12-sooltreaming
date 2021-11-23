@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const FullScreen = styled.div`
   width: 100%;
   height: 100%;
 
   background-color: ${COLOR.background};
 `;
 
-export const MyPageHeaderWrapper = styled.div`
+export const HeaderBox = styled.div`
   position: absolute;
   top: 0;
   left: 0;
@@ -35,7 +35,7 @@ export const MyPageHeaderWrapper = styled.div`
   }
 `;
 
-export const MyPageHeader = styled.div`
+export const Title = styled.div`
   font-size: 20px;
   font-weight: 700;
   color: ${COLOR.titleActive};
@@ -43,7 +43,7 @@ export const MyPageHeader = styled.div`
   white-space: nowrap;
 `;
 
-export const MyPageSecondHeaderWrapper = styled.div`
+export const SecondHeaderBox = styled.div`
   position: absolute;
   top: 70px;
   left: 0;
@@ -60,7 +60,7 @@ export const MyPageSecondHeaderWrapper = styled.div`
   background-color: ${COLOR.primary2};
 `;
 
-export const MyPageSecondHeader = styled.div`
+export const MenuList = styled.div`
   display: inline-flex;
   font-size: 16px;
   font-weight: 500;
@@ -87,6 +87,6 @@ export const MyPageSecondHeader = styled.div`
   }
 `;
 
-export const MainDataWrapper = styled.div`
+export const Contents = styled.div`
   padding-top: 120px;
 `;

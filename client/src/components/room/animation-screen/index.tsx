@@ -1,14 +1,11 @@
 import React, { useRef, useEffect } from 'react';
-import { Wrapper, ScreenImg, QuestionList } from '@components/room/animation-screen/index.style';
+import { Screen, CheersScreen } from '@components/room/animation-screen/index.style';
 import QuestionMark from '@components/room/animation-screen/QuestionMark';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setIsCheers } from '@store/room';
 import useMarkSocket from '@hooks/socket/useMarkSocket';
-
-const CHEERS_GIF_NUM = 2;
-const CHEERS_TIME = 5000;
-const LISTED_GIF = ['/images/beer-cheers1.gif', '/images/beer-cheers2.gif'];
+import { CHEERS_GIF_NUM, CHEERS_TIME, LISTED_GIF } from 'sooltreaming-domain/constant/addition';
 
 const AnimationScreen: React.FC = () => {
   const dispatch = useDispatch();
@@ -49,14 +46,12 @@ const AnimationScreen: React.FC = () => {
   };
 
   return (
-    <Wrapper onContextMenu={onClickScreen}>
-      <QuestionList>
-        {Object.entries(marks).map(([key, { x, y }]) => {
-          return <QuestionMark key={`Question-${key}`} x={x} y={y} />;
-        })}
-      </QuestionList>
-      <ScreenImg ref={screenRef} />
-    </Wrapper>
+    <Screen onContextMenu={onClickScreen}>
+      {Object.entries(marks).map(([key, { x, y }]) => {
+        return <QuestionMark key={`Question-${key}`} x={x} y={y} />;
+      })}
+      <CheersScreen ref={screenRef} />
+    </Screen>
   );
 };
 

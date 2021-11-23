@@ -1,37 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import RoomMenu from '@components/room/RoomMenu';
 import ChatMonitor from '@components/room/monitor/';
 import ControlBar from '@components/room/ControlBar';
-import UpdownGame from '@components/room/games/UpdownGame';
-import { Wrapper, VideoSection, ColumnDiv } from '@components/room/index.style';
+import { FullScreen, FlexBox, ColumnBox } from '@components/room/index.style';
 import AnimationScreen from '@components/room/animation-screen/';
 import Scaffold from '@components/room/scaffold';
+import Games from '@components/room/games';
 import useAnimationSocket from '@hooks/socket/useAnimationSocket';
-import useGameSocket from '@hooks/socket/useGameSocket';
 import Socket from '@socket/socket';
-import { useSelector } from 'react-redux';
-import { RootState } from '@src/store';
 import {
   friendListRequest,
   sendFriendListRequest,
   receiveFriendListRequest,
 } from '@src/store/friend';
 
-const RouteGame = () => {
-  const currentGame = useSelector((state: RootState) => state.room.currentGame.title);
-
-  switch (currentGame) {
-    case '업다운':
-      return <UpdownGame />;
-    default:
-      return <></>;
-  }
-};
-
 const ChatRoom: React.FC = () => {
   const dispatch = useDispatch();
   const startVoteRef = useRef<Function>(() => {});
+  const startGamesRef = useRef<Function>(() => {});
 
   useEffect(() => {
     Socket.connect();
@@ -44,24 +31,23 @@ const ChatRoom: React.FC = () => {
   }, []);
 
   const { activateCheers, activateCloseup, deactivateCloseup } = useAnimationSocket();
-  const { GameStartHandlerList } = useGameSocket();
   return (
-    <Wrapper>
-      <ColumnDiv>
-        <VideoSection>
+    <FullScreen>
+      <ColumnBox>
+        <FlexBox>
           <ChatMonitor />
           <AnimationScreen />
-        </VideoSection>
+        </FlexBox>
         <ControlBar
           onClickCheers={activateCheers}
           activateCloseup={activateCloseup}
           deactivateCloseup={deactivateCloseup}
         />
-      </ColumnDiv>
-      <RoomMenu startVoteRef={startVoteRef} GameStartHandlerList={GameStartHandlerList} />
+      </ColumnBox>
+      <RoomMenu startVoteRef={startVoteRef} startGamesRef={startGamesRef} />
       <Scaffold startVoteRef={startVoteRef} />
-      <RouteGame />
-    </Wrapper>
+      <Games startGamesRef={startGamesRef} />
+    </FullScreen>
   );
 };
 

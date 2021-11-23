@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
-import { Wrapper, LineBox, ControlButton } from '@components/room/ControlBar.style';
+import { BarContainer, LineBox, ControlButton } from '@components/room/ControlBar.style';
 import {
   HostIcon,
   GameIcon,
@@ -78,7 +78,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
   }, [isAudioOn]);
 
   return (
-    <Wrapper onClick={selectMenu}>
+    <BarContainer onClick={selectMenu}>
       <LineBox>
         {hostSID === Socket.getSID() && <IconButton Icon={HostIcon} type="방장" />}
         <IconButton Icon={GameIcon} type="게임" />
@@ -94,7 +94,7 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
         <IconButton Icon={CheersIcon} type="건배" />
         <IconButton Icon={ExitIcon} type="나가기" />
       </LineBox>
-    </Wrapper>
+    </BarContainer>
   );
 };
 

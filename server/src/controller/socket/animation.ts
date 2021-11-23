@@ -7,9 +7,7 @@ import {
   CLOSEUP_ON,
   CLOSEUP_OFF,
 } from 'sooltreaming-domain/constant/socketEvent';
-
-const STATUS_EXECUTING = 'STATUS_EXECUTING';
-const STATUS_NORMAL = 'STATUS_NORMAL';
+import { STATUS_VOTE_NORMAL, STATUS_VOTE_EXECUTING } from '@src/constant';
 
 const animation = ({
   io,
@@ -41,8 +39,8 @@ const animation = ({
   socket.on(CLOSEUP_OFF, () => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
-    if (rooms[code].status === STATUS_EXECUTING && rooms[code].hostSID !== socket.id) return;
-    rooms[code].status = STATUS_NORMAL;
+    if (rooms[code].status === STATUS_VOTE_EXECUTING && rooms[code].hostSID !== socket.id) return;
+    rooms[code].status = STATUS_VOTE_NORMAL;
     rooms[code].closeupUser = '';
     io.to(code).emit(CLOSEUP_OFF);
   });
