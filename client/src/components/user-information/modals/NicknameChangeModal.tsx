@@ -1,4 +1,4 @@
-import React, { useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import Modal from '@components/custom/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setNickname } from '@store/user';
@@ -9,9 +9,14 @@ import { API } from '@src/api';
 import {
   Header,
   DeleteChangePressSection,
-  ChangeNicknameData,
+  ChangeData,
   NewNicknameInput,
+  AcceptIconWrapper,
+  RejectIconWrapper,
+  ProfileSquare,
+  ProfileSquareWrapper,
 } from '@components/user-information/Information.style';
+import { AcceptIcon, ProfileSquareIcon, RejectIcon } from '@src/components/icons';
 
 type NicknameChangeModal = {
   changeNicknameIsOpen: any;
@@ -53,12 +58,12 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
         <NewNicknameInput ref={newNicknameData} placeholder={'변경할 닉네임을 입력해주세요.'} />
       </ChangeNicknameData>
       <DeleteChangePressSection>
-        <button onClick={changeNickname}>
-          <img src="/images/check.png" alt="check" />
-        </button>
-        <button onClick={toggleNicknameJudgment}>
-          <img src="/images/deny.png" alt="deny" />
-        </button>
+        <AcceptIconWrapper onClick={changeNickname}>
+          <AcceptIcon />
+        </AcceptIconWrapper>
+        <RejectIconWrapper onClick={toggleNicknameJudgment}>
+          <RejectIcon />
+        </RejectIconWrapper>
       </DeleteChangePressSection>
     </Modal>
   );
