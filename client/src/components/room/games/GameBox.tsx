@@ -7,16 +7,17 @@ type GameType = {
   icon: React.ReactNode;
   title: string;
   explain: string;
+  start: any;
 };
 
-const GameBox: React.FC<GameType> = ({ icon, title, explain }) => {
+const GameBox: React.FC<GameType> = ({ icon, title, explain, start }) => {
   const [isOpen, setIsOpen] = useState(false);
   const toggleExplain = () => {
     setIsOpen((prev) => !prev);
   };
   return (
     <>
-      <Wrapper>
+      <Wrapper onClick={start}>
         <TitleWrapper>
           {icon}
           {title}

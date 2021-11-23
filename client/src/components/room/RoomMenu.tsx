@@ -8,9 +8,10 @@ import useMessage from '@hooks/socket/useMessage';
 
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
+  GameStartHandlerList: Object;
 };
 
-const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef }) => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartHandlerList }) => {
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const dispatch = useDispatch();
 
@@ -23,7 +24,11 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef }) => {
         <span>{menuType}</span>
         <CloseButton onClick={() => dispatch(setMenuType(''))}></CloseButton>
       </TopBar>
-      <RouteMenu startVoteRef={startVoteRef} sendMessage={sendMessage} />
+      <RouteMenu
+        startVoteRef={startVoteRef}
+        sendMessage={sendMessage}
+        GameStartHandlerList={GameStartHandlerList}
+      />
     </Wrapper>
   );
 };
