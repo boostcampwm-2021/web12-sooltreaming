@@ -31,7 +31,9 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
   
   useEffect(() => {
     const httpRequest = async () => {
+      const sendList = await API.call(API.TYPE.GET_SENDFRIEND);
       const receiveList = await API.call(API.TYPE.GET_RECEIVEFRIEND);
+      setSendFriend(sendList);
       setReceiveFriend(receiveList);
     }
     httpRequest();
@@ -48,6 +50,13 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
         <RequestData>
           <h2>친구 신청 목록</h2>
           <ul className="application draggable-box">
+            {sendFriend.map(({_id: id, nickname, imgUrl}) => 
+                <li>
+                  <FriendItem imgUrl={imgUrl} nickname={nickname}>
+                    <button className='cancle-button' onClick={() => {cancleFriendRequest(id)}}>취소</button>
+                  </FriendItem>
+                </li>
+            )}
           </ul>
         </RequestData>
         <RequestData>
