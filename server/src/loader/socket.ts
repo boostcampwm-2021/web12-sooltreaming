@@ -42,6 +42,10 @@ export type roomType = {
         [sid: string]: { isApprove: boolean; isVoted: boolean };
       };
     };
+    game: {
+      title: string;
+      host: string;
+    };
   };
 };
 

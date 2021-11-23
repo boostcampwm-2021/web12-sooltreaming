@@ -58,7 +58,7 @@ const vote = ({
   socket.on(VOTE_START, ({ targetSID }) => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
-    if (rooms[code].status !== STATUS_NORMAL) return;
+    if (rooms[code].status !== STATUS_NORMAL || rooms[code].game.title) return;
 
     const voteInfo = rooms[code].vote;
     const { cool } = voteInfo;

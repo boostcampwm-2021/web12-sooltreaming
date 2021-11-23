@@ -39,6 +39,10 @@ const create = ({
         cool: {},
         voteBox: {},
       },
+      game: {
+        title: '',
+        host: '',
+      },
     };
     socket.emit(CREATE_SUCCESS, { roomCode });
   });

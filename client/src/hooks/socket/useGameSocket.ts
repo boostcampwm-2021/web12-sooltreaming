@@ -7,12 +7,9 @@ import { setCurrentGame } from '@store/room';
 const useGameSocket = () => {
   const dispatch = useDispatch();
   const currentGame = useSelector((state: RootState) => state.room.currentGame);
-  const users = useSelector((state: RootState) => state.room.users);
   const onClickUpdown = useCallback(() => {
-    if (!currentGame.host && !currentGame.title && Object.keys(users).length > 1) {
-      socket.requestUpdownStart();
-    }
-  }, [currentGame, users]);
+    socket.requestUpdownStart();
+  }, []);
   const onClickRandom = useCallback(() => {}, []);
   const onClickLiar = useCallback(() => {}, []);
 
