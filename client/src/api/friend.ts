@@ -16,6 +16,14 @@ export const getReceiveFriend = async () => {
   } else throw new Error(status.toString());
 }
 
+export const deleteSendFriend = async (targetId: string) => {
+  const result = await request.delete({ url: '/friend/sendFriend', body: { targetId } });
+  const { status, json } = result;
+  if (status === 201) {
+    return json;
+  } else throw new Error(status.toString());
+}
+
 export const deleteReceiveFriend = async (targetId: string) => {
   const result = await request.delete({ url: '/friend/receiveFriend', body: { targetId } });
   const { status, json } = result;
@@ -23,6 +31,7 @@ export const deleteReceiveFriend = async (targetId: string) => {
     return json;
   } else throw new Error(status.toString());
 }
+
 export const patchReceiveFriend = async (targetId: string) => {
   const result = await request.patch({ url: '/friend', body: { targetId } });
   const { status, json } = result;
