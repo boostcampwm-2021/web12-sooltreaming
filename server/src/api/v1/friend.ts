@@ -68,6 +68,17 @@ router.delete('/receiveFriend', async (req, res, next) => {
   });
   res.status(200).json({ message: 'Request Reject Success' });
 });
+
+router.delete('/', async (req, res, next) => {
+  const { targetId } = req.body;
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const result = await transaction(async () => {
+    await User.updateOne({_id}, { $pull: { friend: { $in: [targetId] } } });
+    await User.updateOne({_id: targetId}, { $pull: { friend: { $in: [_id] } } });
+  });
+  res.status(200).json({ message: 'Delete Friend Success' });
+});
+
 router.patch('/', async (req, res, next) => {
   const { targetId } = req.body;
   const { _id } = JSON.parse(JSON.stringify(req.user));

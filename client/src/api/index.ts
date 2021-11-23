@@ -1,5 +1,5 @@
 import { getUserInformation, getUserNicknameLog, patchUserNickname } from '@api/user';
-import { getSendFriend, getReceiveFriend, getFriend, deleteSendFriend, deleteReceiveFriend, patchReceiveFriend } from '@api/friend';
+import { getSendFriend, getReceiveFriend, getFriend, deleteSendFriend, deleteReceiveFriend, deleteFriend, patchReceiveFriend } from '@api/friend';
 import { setNoticeMessage } from '@store/notice';
 import { store } from '@src/store/store';
 
@@ -13,6 +13,7 @@ export const API = {
     GET_FRIEND: getFriend,
     DELETE_SENDFRIEND: deleteSendFriend,
     DELETE_RECEIVEFRIEND: deleteReceiveFriend,
+    DELETE_FRIEND: deleteFriend,
     PATCH_RECEIVEREIEND : patchReceiveFriend,
   },
 
