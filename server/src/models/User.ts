@@ -78,15 +78,15 @@ const userSchema = new Schema<UserType>(
 
     // Friend
     sendFriend: {
-      type: [String],
+      type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
       default: [],
     },
     receiveFriend: {
-      type: [String],
+      type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
       default: [],
     },
     friend: {
-      type: [String],
+      type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
       default: [],
     },
   },
