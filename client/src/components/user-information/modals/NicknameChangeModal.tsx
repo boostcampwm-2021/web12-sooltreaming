@@ -16,7 +16,7 @@ import {
   ProfileSquare,
   ProfileSquareWrapper,
 } from '@components/user-information/Information.style';
-import { AcceptIcon, ProfileSquareIcon, RejectIcon } from '@src/components/icons';
+import { AcceptIcon, RejectIcon } from '@src/components/icons';
 
 type NicknameChangeModal = {
   changeNicknameIsOpen: any;
