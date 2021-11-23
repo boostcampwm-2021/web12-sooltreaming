@@ -1,7 +1,6 @@
 import { Socket } from 'socket.io-client';
+import { START_UPDOWN, STOP_UPDOWN } from 'sooltreaming-domain/constant/socketEvent';
 
-const START_UPDOWN = 'START_UPDOWN';
-const STOP_UPDOWN = 'STOP_UPDOWN';
 const game =
   (socket: Socket) =>
   ({ startUpdown, stopUpdown }) => {

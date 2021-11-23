@@ -1,10 +1,11 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
-
-const TICKET_REQUEST = 'TICKET_REQUEST';
-const TICKET_SUCCESS = 'TICKET_SUCCESS';
-const TICKET_FAILURE = 'TICKET_FAILURE';
+import {
+  TICKET_REQUEST,
+  TICKET_SUCCESS,
+  TICKET_FAILURE,
+} from 'sooltreaming-domain/constant/socketEvent';
 
 const ticketing = ({
   io,

@@ -1,13 +1,14 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
-
-const TURN_OFF_OTHER_VIDEO = 'TURN_OFF_OTHER_VIDEO';
-const TURN_OFF_OTHER_AUDIO = 'TURN_OFF_OTHER_AUDIO';
-const TOGGLE_ROOM_ENTRY = 'TOGGLE_ROOM_ENTRY';
-const AUTHORITY_ERROR = 'AUTHORITY_ERROR';
-const CHANGE_VIDEO = 'CHANGE_VIDEO';
-const CHANGE_AUDIO = 'CHANGE_AUDIO';
+import {
+  TURN_OFF_OTHER_VIDEO,
+  TURN_OFF_OTHER_AUDIO,
+  TOGGLE_ROOM_ENTRY,
+  AUTHORITY_ERROR,
+  CHANGE_VIDEO,
+  CHANGE_AUDIO,
+} from 'sooltreaming-domain/constant/socketEvent';
 
 const TICKET_FAILURE = 'TICKET_FAILURE';
 

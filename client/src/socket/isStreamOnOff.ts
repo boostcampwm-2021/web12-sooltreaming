@@ -1,21 +1,18 @@
 import { Socket } from 'socket.io-client';
-
-const CHANGE_VIDEO = 'CHANGE_VIDEO';
-const CHANGE_AUDIO = 'CHANGE_AUDIO';
+import { CHANGE_VIDEO, CHANGE_AUDIO } from 'sooltreaming-domain/constant/socketEvent';
 
 const isStreamOnOFf = (socket: Socket) => (closure: any) => {
-  const { errorControl, updateOtherVideo, updateMyVideo, updateOtherAudio, updateMyAudio } = closure;
+  const { errorControl, updateOtherVideo, updateMyVideo, updateOtherAudio, updateMyAudio } =
+    closure;
 
   socket.on(CHANGE_VIDEO, ({ sid, isVideoOn }) => {
     updateOtherVideo({ sid, isVideoOn });
-    if(sid === socket.id)
-      updateMyVideo({ isVideoOn });
+    if (sid === socket.id) updateMyVideo({ isVideoOn });
   });
 
   socket.on(CHANGE_AUDIO, ({ sid, isAudioOn }) => {
     updateOtherAudio({ sid, isAudioOn });
-    if(sid === socket.id)
-      updateMyAudio({ isAudioOn });
+    if (sid === socket.id) updateMyAudio({ isAudioOn });
   });
 
   const videoChange = (isVideoOn) => {

@@ -1,9 +1,7 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
-
-const CREATE_REQUEST = 'CREATE_REQUEST';
-const CREATE_SUCCESS = 'CREATE_SUCCESS';
+import { CREATE_REQUEST, CREATE_SUCCESS } from 'sooltreaming-domain/constant/socketEvent';
 
 const STATUS_NORMAL = 'STATUS_NORMAL';
 

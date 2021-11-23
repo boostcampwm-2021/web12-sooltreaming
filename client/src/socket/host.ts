@@ -1,7 +1,5 @@
 import { Socket } from 'socket.io-client';
-
-const CREATE_REQUEST = 'CREATE_REQUEST';
-const CREATE_SUCCESS = 'CREATE_SUCCESS';
+import { CREATE_REQUEST, CREATE_SUCCESS } from 'sooltreaming-domain/constant/socketEvent';
 
 const host = (socket: Socket) => (closure: any) => {
   const { joining } = closure;

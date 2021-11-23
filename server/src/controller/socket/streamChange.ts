@@ -1,9 +1,7 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
-
-const CHANGE_VIDEO = 'CHANGE_VIDEO';
-const CHANGE_AUDIO = 'CHANGE_AUDIO';
+import { CHANGE_VIDEO, CHANGE_AUDIO } from 'sooltreaming-domain/constant/socketEvent';
 
 const streamChange = ({
   io,

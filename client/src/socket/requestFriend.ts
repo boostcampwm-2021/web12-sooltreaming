@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io-client';
-const QUESTION = 'QUESTION';
-const REQUEST_FRIEND = 'REQUEST_FRIEND';
+import { REQUEST_FRIEND } from 'sooltreaming-domain/constant/socketEvent';
+
 const requestFriend = (socket: Socket) => (closure: any) => {
   const { updateReceiveFriends } = closure;
 

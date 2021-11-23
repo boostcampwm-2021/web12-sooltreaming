@@ -1,6 +1,5 @@
 import { Socket } from 'socket.io-client';
-
-const QUESTION = 'QUESTION';
+import { QUESTION } from 'sooltreaming-domain/constant/socketEvent';
 
 const questionMark = (socket: Socket) => (closure: any) => {
   const { setMarks, removeQuestionMark } = closure;

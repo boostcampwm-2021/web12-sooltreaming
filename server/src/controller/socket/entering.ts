@@ -1,17 +1,17 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
-
-const JOIN_ROOM = 'JOIN_ROOM';
-const JOIN_ROOM_ERROR = 'JOIN_ROOM_ERROR';
-const ENTER_ALL_USER = 'ENTER_ALL_USER';
-const ENTER_ONE_USER = 'ENTER_ONE_USER';
-const EXIT_ROOM_USER = 'EXIT_ROOM_USER';
-const CHANGE_HOST = 'CHANGE_HOST';
-const NEED_OFFERS = 'need offers';
-const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
-const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
-
-const TICKET_FAILURE = 'TICKET_FAILURE';
+import {
+  JOIN_ROOM,
+  JOIN_ROOM_ERROR,
+  ENTER_ALL_USER,
+  ENTER_ONE_USER,
+  EXIT_ROOM_USER,
+  CHANGE_HOST,
+  NEED_OFFERS,
+  CANCEL_CLOSEUP,
+  EXIST_CLOSEUP,
+  TICKET_FAILURE,
+} from 'sooltreaming-domain/constant/socketEvent';
 
 export type TargetInfoType = {
   code: string;

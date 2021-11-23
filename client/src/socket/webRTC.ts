@@ -1,9 +1,5 @@
 import customRTC from '@utils/customRTC';
-
-const NEED_OFFERS = 'need offers';
-const OFFER = 'offer';
-const ANSWER = 'answer';
-const ICE = 'ice';
+import { NEED_OFFERS, OFFER, ANSWER, ICE } from 'sooltreaming-domain/constant/socketEvent';
 
 const webRTC =
   (socket) =>

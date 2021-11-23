@@ -3,9 +3,7 @@ import { getTimeString } from '@utils/time';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
 import { createLog } from '@controller/socket/logController';
-
-const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
-const PASSING_MESSAGE = 'PASSING_MESSAGE';
+import { RECEIVE_MESSAGE, PASSING_MESSAGE } from 'sooltreaming-domain/constant/socketEvent';
 
 const chatting = ({
   io,

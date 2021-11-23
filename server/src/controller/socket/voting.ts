@@ -1,19 +1,19 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
+import {
+  START_VOTING,
+  JUDGEMENT_ON,
+  GET_DECISION,
+  ONE_DECISION,
+  JUDGE_CLOSED,
+  PRISON_BREAK,
+  CLOSEUP,
+} from 'sooltreaming-domain/constant/socketEvent';
 
 const STATUS_NORMAL = 'STATUS_NORMAL';
 const STATUS_EXECUTING = 'STATUS_EXECUTING';
 const STATUS_VOTING = 'STATUS_VOTING';
-
-const START_VOTING = 'START_VOTING';
-const JUDGEMENT_ON = 'JUDGEMENT_ON';
-const GET_DECISION = 'GET_DECISION';
-const ONE_DECISION = 'ONE_DECISION';
-const JUDGE_CLOSED = 'JUDGE_CLOSED';
-const PRISON_BREAK = 'PRISON_BREAK';
-
-const CLOSEUP = 'CLOSEUP';
 
 const VOTE_TIME = 60000;
 

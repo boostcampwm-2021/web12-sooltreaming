@@ -1,12 +1,8 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
-
 import { createLog } from '@controller/socket/logController';
-
-const CHEERS = 'CHEERS';
-const CLOSEUP = 'CLOSEUP';
-const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
+import { CHEERS, CLOSEUP, CANCEL_CLOSEUP } from 'sooltreaming-domain/constant/socketEvent';
 
 const STATUS_EXECUTING = 'STATUS_EXECUTING';
 const STATUS_NORMAL = 'STATUS_NORMAL';

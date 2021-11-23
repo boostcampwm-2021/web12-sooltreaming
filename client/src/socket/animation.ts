@@ -1,9 +1,11 @@
 import { Socket } from 'socket.io-client';
+import {
+  CHEERS,
+  CLOSEUP,
+  CANCEL_CLOSEUP,
+  EXIST_CLOSEUP,
+} from 'sooltreaming-domain/constant/socketEvent';
 
-const CHEERS = 'CHEERS';
-const CLOSEUP = 'CLOSEUP';
-const CANCEL_CLOSEUP = 'CANCEL_CLOSEUP';
-const EXIST_CLOSEUP = 'EXIST_CLOSEUP';
 const animation = (socket: Socket) => (closure: any) => {
   const { updateCheers, updateCloseUpUser } = closure;
 

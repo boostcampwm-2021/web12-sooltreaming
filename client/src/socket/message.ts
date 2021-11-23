@@ -1,7 +1,5 @@
 import { Socket } from 'socket.io-client';
-
-const RECEIVE_MESSAGE = 'RECEIVE_MESSAGE';
-const PASSING_MESSAGE = 'PASSING_MESSAGE';
+import { RECEIVE_MESSAGE, PASSING_MESSAGE } from 'sooltreaming-domain/constant/socketEvent';
 
 const message = (socket: Socket) => (closure: any) => {
   const { addChat } = closure;

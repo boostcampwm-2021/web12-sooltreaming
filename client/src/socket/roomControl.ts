@@ -1,9 +1,10 @@
 import { Socket } from 'socket.io-client';
-
-const AUTHORITY_ERROR = 'AUTHORITY_ERROR';
-const TOGGLE_ROOM_ENTRY = 'TOGGLE_ROOM_ENTRY';
-const TURN_OFF_OTHER_VIDEO = 'TURN_OFF_OTHER_VIDEO';
-const TURN_OFF_OTHER_AUDIO = 'TURN_OFF_OTHER_AUDIO';
+import {
+  AUTHORITY_ERROR,
+  TOGGLE_ROOM_ENTRY,
+  TURN_OFF_OTHER_VIDEO,
+  TURN_OFF_OTHER_AUDIO,
+} from 'sooltreaming-domain/constant/socketEvent';
 
 const roomControl = (socket: Socket) => (closure: any) => {
   const { errorControl, changeIsOpen } = closure;
@@ -23,11 +24,11 @@ const roomControl = (socket: Socket) => (closure: any) => {
 
   const turnOffOtherVideo = ({ sid, isVideoOn }) => {
     socket.emit(TURN_OFF_OTHER_VIDEO, { sid, isVideoOn });
-  }
+  };
 
   const turnOffOtherAudio = ({ sid, isAudioOn }) => {
     socket.emit(TURN_OFF_OTHER_AUDIO, { sid, isAudioOn });
-  }
+  };
 
   const disconnecting = () => {
     socket.off(TOGGLE_ROOM_ENTRY);

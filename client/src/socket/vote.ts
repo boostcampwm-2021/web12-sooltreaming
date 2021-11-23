@@ -1,11 +1,12 @@
 import { Socket } from 'socket.io-client';
-
-const START_VOTING = 'START_VOTING';
-const JUDGEMENT_ON = 'JUDGEMENT_ON';
-const GET_DECISION = 'GET_DECISION';
-const ONE_DECISION = 'ONE_DECISION';
-const JUDGE_CLOSED = 'JUDGE_CLOSED';
-const PRISON_BREAK = 'PRISON_BREAK';
+import {
+  START_VOTING,
+  JUDGEMENT_ON,
+  GET_DECISION,
+  ONE_DECISION,
+  JUDGE_CLOSED,
+  PRISON_BREAK,
+} from 'sooltreaming-domain/constant/socketEvent';
 
 const vote =
   (socket: Socket) =>

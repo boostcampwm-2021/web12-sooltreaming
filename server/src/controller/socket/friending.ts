@@ -1,8 +1,8 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
+import { REQUEST_FRIEND } from 'sooltreaming-domain/constant/socketEvent';
 
-const REQUEST_FRIEND = 'REQUEST_FRIEND';
 const friending = ({
   io,
   socket,

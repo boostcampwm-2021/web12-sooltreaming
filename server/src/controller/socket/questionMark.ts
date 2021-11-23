@@ -2,8 +2,7 @@ import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/entering';
 import { createLog } from '@controller/socket/logController';
-
-const QUESTION = 'QUESTION';
+import { QUESTION } from 'sooltreaming-domain/constant/socketEvent';
 
 const questionMark = ({
   io,
