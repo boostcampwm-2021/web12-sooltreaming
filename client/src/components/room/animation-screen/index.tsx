@@ -4,7 +4,7 @@ import QuestionMark from '@components/room/animation-screen/QuestionMark';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setIsCheers } from '@store/room';
-import useQuestionMark from '@hooks/socket/useQuestionMark';
+import useMarkSocket from '@hooks/socket/useMarkSocket';
 
 const CHEERS_GIF_NUM = 2;
 const CHEERS_TIME = 5000;
@@ -15,7 +15,7 @@ const AnimationScreen: React.FC = () => {
   const screenRef = useRef<HTMLImageElement>(null);
   const isCheers = useSelector((state: RootState) => state.room.isCheers);
 
-  const { marks, addQuestionMark } = useQuestionMark();
+  const { marks, addQuestionMark } = useMarkSocket();
   // 랜덤한 gif사진을 뽑아서 출력
   const randomDisplay = () => {
     const randomNum = Math.floor(Math.random() * CHEERS_GIF_NUM);

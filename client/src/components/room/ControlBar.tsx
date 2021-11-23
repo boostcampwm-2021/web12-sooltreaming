@@ -16,8 +16,8 @@ import {
 import ChatMenuIcon from '@components/room/chat/ChatMenuIcon';
 import DeviceToggles from '@components/setting/DeviceToggles';
 import Socket from '@socket/socket';
-import useUser from '@hooks/socket/useUser';
-import useIsStreamOnOff from '@src/hooks/socket/useIsStreamOnOff';
+import useEnterSocket from '@hooks/socket/useEnterSocket';
+import useStreamSocket from '@hooks/socket/useStreamSocket';
 
 const IconButton = ({ Icon, type }) => {
   return (
@@ -66,9 +66,9 @@ const ControlBar: React.FC<ControlBarPropTypes> = ({
     else dispatch(setMenuType(menuName));
   };
 
-  useUser();
+  useEnterSocket();
 
-  const { videoChange, audioChange } = useIsStreamOnOff();
+  const { videoChange, audioChange } = useStreamSocket();
   useEffect(() => {
     videoChange(isVideoOn);
   }, [isVideoOn]);

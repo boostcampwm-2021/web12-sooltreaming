@@ -1,16 +1,16 @@
 import { Socket, Server } from 'socket.io';
-import signaling from '@controller/socket/signaling';
-import chatting from '@controller/socket/chatting';
-import entering from '@controller/socket/entering';
-import creating from '@controller/socket/creating';
-import restricting from '@controller/socket/restricting';
 import animation from '@controller/socket/animation';
-import questionMark from '@controller/socket/questionMark';
-import voting from '@controller/socket/voting';
-import friending from '@controller/socket/friending';
-import gaming from '@controller/socket/gaming';
-import streamChange from '@controller/socket/streamChange';
-import ticketing from '@controller/socket/ticketing';
+import chat from '@controller/socket/chat';
+import control from '@controller/socket/control';
+import create from '@controller/socket/create';
+import enter from '@controller/socket/enter';
+import friend from '@controller/socket/friend';
+import game from '@controller/socket/game';
+import mark from '@controller/socket/mark';
+import signal from '@controller/socket/signal';
+import stream from '@controller/socket/stream';
+import ticket from '@controller/socket/ticket';
+import vote from '@controller/socket/vote';
 
 import pipe from '@utils/pipe';
 import { FRONT_BASE_URL } from '@src/constant';
@@ -42,6 +42,10 @@ export type roomType = {
         [sid: string]: { isApprove: boolean; isVoted: boolean };
       };
     };
+    game: {
+      title: string;
+      host: string;
+    };
   };
 };
 
@@ -59,18 +63,18 @@ const socketLoader = (server, app): any => {
     console.log('socket connection!!', socket.id);
 
     pipe(
-      entering,
-      signaling,
-      ticketing,
-      chatting,
-      creating,
+      enter,
       animation,
-      questionMark,
-      streamChange,
-      restricting,
-      voting,
-      friending,
-      gaming,
+      chat,
+      control,
+      create,
+      friend,
+      game,
+      mark,
+      signal,
+      stream,
+      ticket,
+      vote,
     )({ io, socket, rooms });
 
     socket.on('disconnect', () => {

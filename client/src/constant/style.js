@@ -8,6 +8,7 @@ export const Z_INDEX = {
   question: 30,
   cheers: 40,
   modal: 50,
+  updownNum: 55,
   toast: 60,
 };
 

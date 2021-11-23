@@ -24,9 +24,24 @@ const FriendList: React.FC = () => {
     setFriendRequestIsOpen(false);
   };
 
+  useEffect(() => {
+    const httpRequest = async () => {
+      const result = await API.call(API.TYPE.GET_FRIEND);
+      setFriendList(result);
+    }
+    httpRequest();
+  }, [])
+
   return (
     <>
       <FriendWrapper>
+        {friendList.map(({_id: id, imgUrl, nickname}) => 
+          <FriendItem imgUrl={imgUrl} nickname={nickname}>
+            <button className='home-button' onClick={() => {}}>
+              <HomeIcon />
+            </button>
+          </FriendItem>
+        )}
       </FriendWrapper>
       <RequestFriendBtn onClick={openFriendRequestJudgment} />
       <FriendRequestModal friendRequestIsOpen={friendRequestIsOpen} closeFriendRequestJudgment={closeFriendRequestJudgment}/>

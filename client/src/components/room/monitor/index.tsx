@@ -12,7 +12,7 @@ import { RootState } from '@src/store';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
-import useWebRTC from '@hooks/socket/useWebRTC';
+import useSignalSocket from '@hooks/socket/useSignalSocket';
 
 const ChatMonitor: React.FC = () => {
   const streams = useSelector((state: RootState) => state.room.streams);
@@ -25,7 +25,7 @@ const ChatMonitor: React.FC = () => {
   const className = closeUpUser ? (Socket.getSID() === closeUpUser ? 'closeup' : 'mini') : '';
   let count = Object.values(streams).length + 1;
 
-  const { changeStream } = useWebRTC();
+  const { changeStream } = useSignalSocket();
   const sendStream = () => changeStream(stream);
   useUpdateStream(myVideoRef, stream, sendStream);
 

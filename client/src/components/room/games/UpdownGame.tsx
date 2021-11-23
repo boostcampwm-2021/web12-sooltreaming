@@ -4,6 +4,7 @@ import Socket from '@socket/socket';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setCurrentGame } from '@store/room';
+import { Wrapper, GameTitleDiv, GameStopButton } from '@components/room/games/UpdownGame.style';
 
 const UpdownGame: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,16 +21,18 @@ const UpdownGame: React.FC = () => {
       absolutePos={{ top: '50%', left: '50%' }}
     >
       {gameHost === Socket.getSID() ? (
-        <>
-          <div>업다운 게임</div>
-          <div>{Math.floor(Math.random() * 50) + 1}</div>
-          <button onClick={stopGame}>게임 종료</button>
-        </>
+        <Wrapper>
+          <GameTitleDiv>업다운 게임</GameTitleDiv>
+          <img src="/images/soju-cap.png" alt="" />
+          <div className="random-num">{Math.floor(Math.random() * 50) + 1}</div>
+          <GameStopButton onClick={stopGame}>게임 종료</GameStopButton>
+        </Wrapper>
       ) : (
-        <>
-          <div>{users[gameHost].nickname}님이 업다운 게임을 시작하셨습니다.</div>
-          <button onClick={stopGame}>닫기</button>
-        </>
+        <Wrapper>
+          <GameTitleDiv>업다운 게임</GameTitleDiv>
+          <div>{users[gameHost].nickname}님이 게임을 시작하셨습니다.</div>
+          <GameStopButton onClick={stopGame}>닫기</GameStopButton>
+        </Wrapper>
       )}
     </Modal>
   );

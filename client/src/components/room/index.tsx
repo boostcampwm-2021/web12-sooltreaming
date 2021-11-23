@@ -7,8 +7,8 @@ import UpdownGame from '@components/room/games/UpdownGame';
 import { Wrapper, VideoSection, ColumnDiv } from '@components/room/index.style';
 import AnimationScreen from '@components/room/animation-screen/';
 import Scaffold from '@components/room/scaffold';
-import useAnimation from '@hooks/socket/useAnimation';
-import useGame from '@hooks/socket/useGame';
+import useAnimationSocket from '@hooks/socket/useAnimationSocket';
+import useGameSocket from '@hooks/socket/useGameSocket';
 import Socket from '@socket/socket';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
@@ -43,8 +43,8 @@ const ChatRoom: React.FC = () => {
     };
   }, []);
 
-  const { activateCheers, activateCloseup, deactivateCloseup } = useAnimation();
-  const { GameStartHandlerList } = useGame();
+  const { activateCheers, activateCloseup, deactivateCloseup } = useAnimationSocket();
+  const { GameStartHandlerList } = useGameSocket();
   return (
     <Wrapper>
       <ColumnDiv>
