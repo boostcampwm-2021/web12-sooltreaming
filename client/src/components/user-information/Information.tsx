@@ -100,7 +100,11 @@ const Information: React.FC = () => {
       <BottomWrapper>
         {Object.entries(userInformation).map(([key, value], index) => {
           if (key === '_id') return <></>;
-          return <InformationSpan>{UNITS[key](value)}</InformationSpan>;
+          return (
+            <InformationSpan>
+              <p>{UNITS[key](value)}</p>
+            </InformationSpan>
+          );
         })}
       </BottomWrapper>
 

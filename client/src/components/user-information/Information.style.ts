@@ -89,7 +89,7 @@ export const BottomWrapper = styled.div`
     justify-content: center;
     font-size: 1em;
     height: 30px;
-    margin: 0.25em 0;
+    margin: 0;
   }
 `;
 

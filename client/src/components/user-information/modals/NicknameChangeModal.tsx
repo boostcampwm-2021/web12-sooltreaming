@@ -58,7 +58,7 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
       absolutePos={{ top: '50%', left: '50%' }}
     >
       <Header>
-        <h2>닉네임 변경하기</h2>
+        <h2>프로필 변경하기</h2>
       </Header>
       <ChangeData>
         <ProfileSquareWrapper>
