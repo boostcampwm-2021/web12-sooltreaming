@@ -21,12 +21,14 @@ export const FriendRankData = styled.div`
   transform: translate(-50%, 0);
   height: 280px;
   overflow-y: scroll;
-  padding: 0 15px;
   div {
     display: flex;
     justify-content: space-between;
   }
 
+  .me {
+    background-color: ${COLOR.primary2};
+  }
   &::-webkit-scrollbar {
     width: 4px;
     height: 16px;
@@ -49,8 +51,8 @@ export const DropdownWrapper = styled.div`
 export const FriendRankBox = styled.div`
   display: flex;
   align-items: space-between;
-  width: 300px;
-  padding: 10px 0;
+  width: 320px;
+  padding: 15px;
   img {
     width: 1.5rem;
     height: 1.5rem;

@@ -25,6 +25,7 @@ const rankingMenuList = {
 
 const Ranking: React.FC = () => {
   const friendList = useSelector((state: RootState) => state.friend.friendList);
+  const myId = useSelector((state: RootState) => state.user.id);
   const [nowSelect, setNowSelect] = useState('갈고리 사용 횟수');
   const [rank, setRank] = useState([]);
   const choiceMenu = (toggleDropdown, item) => () => {
@@ -63,18 +64,16 @@ const Ranking: React.FC = () => {
       </DropdownWrapper>
       <FriendRankData>
         {Object.values(rank)
-          .filter(({ _id }) => friendList.includes(_id))
+          .filter(({ _id }) => [...friendList, myId].includes(_id))
           .map((friendInfo: any, index) => (
-            <>
-              <FriendRankBox key={friendInfo._id}>
-                <div>
-                  <RankNum>{index + 1}</RankNum>
-                  <img src={friendInfo.imgUrl} alt="프로필" />
-                  <div>{friendInfo.nickname}</div>
-                </div>
-                <div>{friendInfo[rankingMenuList[nowSelect]]}</div>
-              </FriendRankBox>
-            </>
+            <FriendRankBox key={friendInfo._id} className={friendInfo._id === myId ? 'me' : ''}>
+              <div>
+                <RankNum>{index + 1}</RankNum>
+                <img src={friendInfo.imgUrl} alt="프로필" />
+                <div>{friendInfo.nickname}</div>
+              </div>
+              <div>{friendInfo[rankingMenuList[nowSelect]]}</div>
+            </FriendRankBox>
           ))}
       </FriendRankData>
     </>
