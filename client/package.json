@@ -14,10 +14,11 @@
     "redux-saga": "^1.1.3",
     "socket.io-client": "^4.3.2",
     "styled-components": "^5.3.3",
-    "styled-normalize": "^8.0.7"
+    "styled-normalize": "^8.0.7",
+    "sooltreaming-domain": "file:../domain"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "npm link ../domain && craco start",
     "build": "craco build",
     "deploy": "craco build && nginx -s reload",
     "test": "craco test",

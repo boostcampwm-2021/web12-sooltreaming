@@ -3,10 +3,10 @@ import { Wrapper } from '@components/room/host/index.style';
 
 import ParticipantController from '@components/room/host/ParticipantController';
 import RoomController from '@components/room/host/RoomController';
-import useRoomControl from '@hooks/socket/useRoomControl';
+import useControlSocket from '@hooks/socket/useControlSocket';
 
 const Host: React.FC = () => {
-  const { toggleRoomEntry, turnOffOtherVideo, turnOffOtherAudio } = useRoomControl();
+  const { toggleRoomEntry, turnOffOtherVideo, turnOffOtherAudio } = useControlSocket();
   return (
     <Wrapper>
       <ParticipantController
