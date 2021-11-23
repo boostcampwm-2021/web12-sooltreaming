@@ -32,6 +32,8 @@ import ProfileSquareIcon from '@components/icons/ProfileSquareIcon';
 import GreenXButtonIcon from '@components/icons/GreenXButtonIcon';
 import AcceptIcon from '@components/icons/AcceptIcon';
 import RejectIcon from '@components/icons/RejectIcon';
+import CancelIcon from '@components/icons/CancelIcon';
+import DeleteIcon from '@components/icons/DeleteIcon';
 
 export type iconPropsType = {
   className?: string;
@@ -71,4 +73,6 @@ export {
   GreenXButtonIcon,
   AcceptIcon,
   RejectIcon,
+  CancelIcon,
+  DeleteIcon,
 };
