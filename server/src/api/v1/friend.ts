@@ -31,4 +31,10 @@ router.get('/receiveList', async (req, res, next) => {
   res.status(200).json({ receiveFriends: result.receiveFriend });
 });
 
+router.get('/fullReceiveFriend', async (req, res, next) => {
+  const { _id } = JSON.parse(JSON.stringify(req.user));
+  const { receiveFriend } = await User.findOne({_id}).select('receiveFriend -_id').populate('receiveFriend', 'nickname imgUrl');
+  res.status(200).json({ receiveList: receiveFriend });
+});
+
 export default router;
