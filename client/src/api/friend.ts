@@ -6,3 +6,10 @@ export const getReceiveFriend = async () => {
   } else throw new Error(status.toString());
 }
 
+export const patchReceiveFriend = async (targetId: string) => {
+  const result = await request.patch({ url: '/friend', body: { targetId } });
+  const { status, json } = result;
+  if (status === 201) {
+    return json;
+  } else throw new Error(status.toString());
+}
