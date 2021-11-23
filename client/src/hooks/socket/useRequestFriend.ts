@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import Socket from '@socket/socket';
 import { useDispatch } from 'react-redux';
-import { receiveFriendListRequest, requestFriend } from '@src/store/friend';
-
+import { sendFriendListRequest, receiveFriendListRequest } from '@src/store/friend';
+import { requestFriend } from '@src/api/user';
 const useRequestFriend = () => {
   const dispatch = useDispatch();
 
@@ -10,10 +10,13 @@ const useRequestFriend = () => {
     dispatch(receiveFriendListRequest([]));
   };
 
-  const onclickRequestFriend = ({ target }) => {
+  const onclickRequestFriend = async ({ target }) => {
     const targetData = target.dataset;
-    dispatch(requestFriend(targetData.uid));
+    await requestFriend(targetData.uid);
     socket.sendFriendRequest(targetData.sid);
+
+    dispatch(sendFriendListRequest([]));
+    dispatch(receiveFriendListRequest([]));
   };
   const socket = useMemo(() => Socket.requestFriend({ updateReceiveFriends }), []);
   useEffect(() => {
