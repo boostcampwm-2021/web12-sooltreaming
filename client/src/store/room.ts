@@ -4,7 +4,9 @@ import type { UserType } from '@store/user';
 type RoomStateType = {
   roomCode: string;
   menuType: string;
+  currentGame: GameInfoType;
   chatLog: Array<ChatLogType>;
+  unreadChat: number;
   users: { [sid: string]: UserType };
   usersDevices: { [sid: string]: UserDevicesType };
   streams: { [sid: string]: MediaStream };
@@ -12,12 +14,15 @@ type RoomStateType = {
   hostSID: string;
   isOpen: boolean;
   isCheers: boolean;
+  closeUpUser: string;
 };
 
 const initialState: RoomStateType = {
   roomCode: '',
   menuType: '',
+  currentGame: { title: '', host: '' },
   chatLog: [],
+  unreadChat: 0,
   users: {},
   usersDevices: {},
   streams: {},
@@ -25,6 +30,7 @@ const initialState: RoomStateType = {
   hostSID: '',
   isOpen: true,
   isCheers: false,
+  closeUpUser: '',
 };
 
 // 확장성을 생각해 별도의 Type 지정
@@ -38,6 +44,11 @@ type UserDevicesType = {
   isAudioOn: boolean;
 };
 
+type GameInfoType = {
+  title: string;
+  host: string;
+};
+
 export type ChatLogType = {
   sid: string;
   msg: string;
@@ -47,20 +58,23 @@ export type ChatLogType = {
 export const [SET_ROOM_CODE, setRoomCode] = createAction<string>('SET_ROOM_CODE');
 export const [SET_HOST, setHost] = createAction<RoomHostType>('SET_HOST');
 export const [SET_ISOPEN, setIsOpen] = createAction<boolean>('SET_ISOPEN');
-export const [SET_USERS, setUsers] = createAction<{
-  users: { [sid: string]: UserType };
-  usersDevices: { [sid: string]: UserDevicesType };
-}>('SET_USERS');
+export const [SET_USERS, setUsers] =
+  createAction<{
+    users: { [sid: string]: UserType };
+    usersDevices: { [sid: string]: UserDevicesType };
+  }>('SET_USERS');
 export const [SET_MENUTYPE, setMenuType] = createAction<string>('SET_MENUTYPE');
 export const [SET_STREAMS, setStreams] =
   createAction<{ [sid: string]: MediaStream }>('SET_STREAMS');
 export const [SET_ISCHEERS, setIsCheers] = createAction<boolean>('SET_ISCHEERS');
+export const [SET_CLOSEUP_USER, setCloseUpUser] = createAction<string>('SET_CLOSEUP_USER');
 
-export const [ADD_USERS, addUsers] = createAction<{
-  user: UserType;
-  userDevices: UserDevicesType;
-  sid: string;
-}>('ADD_USERS');
+export const [ADD_USERS, addUsers] =
+  createAction<{
+    user: UserType;
+    userDevices: UserDevicesType;
+    sid: string;
+  }>('ADD_USERS');
 export const [ADD_CHATLOG, addChatLog] = createAction<ChatLogType>('ADD_CHATLOG');
 export const [ADD_STREAMS, addStreams] =
   createAction<{ [sid: string]: MediaStream }>('ADD_STREAMS');
@@ -78,6 +92,7 @@ export const [TOGGLE_ISOPEN, toggleIsOpen] = createAction<{}>('TOGGLE_ISOPEN');
 export const [UPDATE_ROOM_VOTETIME, updateRoomVoteTime] =
   createAction<{ sid: string; time: number }>('UPDATE_ROOM_VOTETIME');
 
+export const [SET_CURRENT_GAME, setCurrentGame] = createAction<GameInfoType>('SET_CURRENT_GAME');
 type roomAction =
   | ReturnType<typeof setRoomCode>
   | ReturnType<typeof setHost>
@@ -123,6 +138,10 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
       const isCheers = action.payload as boolean;
       return { ...state, isCheers };
     }
+    case SET_CLOSEUP_USER: {
+      const closeUpUser = action.payload as string;
+      return { ...state, closeUpUser };
+    }
     case ADD_USERS: {
       const { sid, user, userDevices } = action.payload as {
         sid: string;
@@ -166,14 +185,19 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
       return { ...state, streams };
     }
     case SET_MENUTYPE: {
-      const menuType = action.payload as string;
-      return { ...state, menuType };
+      const menu = action.payload as string;
+      const menuType = menu === state.menuType ? '' : menu;
+      let unreadChat = state.unreadChat;
+      if (menu === '채팅') unreadChat = 0;
+      return { ...state, menuType, unreadChat };
     }
     case RESET_ROOM_INFO: {
       return {
         roomCode: '',
         menuType: '',
+        currentGame: { title: '', host: '' },
         chatLog: [],
+        unreadChat: 0,
         users: {},
         usersDevices: {},
         streams: {},
@@ -181,12 +205,15 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
         hostSID: '',
         isOpen: true,
         isCheers: false,
+        closeUpUser: '',
       };
     }
     case ADD_CHATLOG: {
       const data = { ...(action.payload as ChatLogType) };
       const newChatLog = [...state.chatLog, data];
-      return { ...state, chatLog: newChatLog };
+      let unreadChat = state.unreadChat;
+      if (state.menuType !== '채팅') unreadChat += 1;
+      return { ...state, chatLog: newChatLog, unreadChat };
     }
     case UPDATE_ROOM_VOTETIME: {
       const { sid, time } = action.payload as { sid: string; time: number };
@@ -196,6 +223,10 @@ function roomReducer(state: RoomStateType = initialState, action: roomAction): R
         ...state,
         voteTimes: newVoteTimes,
       };
+    }
+    case SET_CURRENT_GAME: {
+      const newGameState = action.payload as GameInfoType;
+      return { ...state, currentGame: newGameState };
     }
     default:
       return state;

@@ -34,6 +34,7 @@ import AcceptIcon from '@components/icons/AcceptIcon';
 import RejectIcon from '@components/icons/RejectIcon';
 import CancelIcon from '@components/icons/CancelIcon';
 import DeleteIcon from '@components/icons/DeleteIcon';
+import HomeIcon from '@components/icons/HomeIcon';
 
 export type iconPropsType = {
   className?: string;
@@ -75,4 +76,5 @@ export {
   RejectIcon,
   CancelIcon,
   DeleteIcon,
+  HomeIcon,
 };

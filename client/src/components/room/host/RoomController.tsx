@@ -19,8 +19,6 @@ const RoomController = ({ toggleRoomEntry }) => {
     navigator.clipboard.writeText(window.location.href);
   };
 
-  const requestToggleIsOpen = () => toggleRoomEntry();
-
   return (
     <Wrapper>
       <RowWrapper>
@@ -31,7 +29,7 @@ const RoomController = ({ toggleRoomEntry }) => {
       </RowWrapper>
       <RowWrapper>
         <span>방 접속 제한 : </span>
-        <ToggleButton onClick={requestToggleIsOpen}>
+        <ToggleButton onClick={toggleRoomEntry}>
           <DialogButton isSelected={isOpen}>{isOpen ? 'Open' : 'Close'}</DialogButton>
         </ToggleButton>
       </RowWrapper>

@@ -87,7 +87,7 @@ async function loadAudioStream({ audioInfo, stream }) {
   });
 
   const newAudioTrack = await customRTC.getAudioTrack(audioInfo?.deviceId);
-  if (!!newAudioTrack) stream.addTrack(newAudioTrack);
+  if (!!newAudioTrack) newStream.addTrack(newAudioTrack);
 
   return { stream: newStream };
 }

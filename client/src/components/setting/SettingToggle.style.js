@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const ToggleButton = styled.div`
   width: 45px;
+  height: 45px;
+
   background-color: none;
   background: none;
   border: none;
@@ -9,15 +11,12 @@ export const ToggleButton = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
 
-export const IconDiv = styled.div`
-  position: absolute;
-
-  &:hover {
-    svg {
+  & > svg {
+    position: absolute;
+    cursor: pointer;
+    &:hover {
       padding: 2px;
     }
-    cursor: pointer;
   }
 `;

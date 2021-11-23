@@ -37,4 +37,4 @@ const ChatItem: React.FC<ChatItemPropTypes> = ({ isSelf, message, date, sid }) =
   );
 };
 
-export default ChatItem;
+export default React.memo(ChatItem);
