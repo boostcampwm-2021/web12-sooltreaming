@@ -1,9 +1,16 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
+export const Container = styled.div`
+  width: 350px;
+  margin: 40px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 export const PersonalRankBox = styled.div`
   display: flex;
-  align-items: space-between;
+  justify-content: space-between;
   width: 100%;
   padding: 15px;
   img {
@@ -11,6 +18,10 @@ export const PersonalRankBox = styled.div`
     height: 1.5rem;
     margin-right: 1rem;
     border-radius: 5px;
+  }
+  div {
+    display: flex;
+    justify-content: space-between;
   }
 `;
 
@@ -24,14 +35,9 @@ export const RankData = styled.div`
   display: flex;
   flex-direction: column;
   height: 280px;
-  margin: 40px 20px 0px 20px;
-  width: 350px;
   overflow-y: scroll;
-  div {
-    display: flex;
-    justify-content: space-between;
-  }
-
+  width: 100%;
+  margin-top: 10px;
   .me {
     background-color: ${COLOR.primary2};
   }
@@ -45,4 +51,13 @@ export const RankData = styled.div`
     background-color: ${COLOR.primary3};
     border-radius: 10px;
   }
+`;
+
+export const RankTitle = styled.div`
+  width: 50%;
+  text-align: center;
+  padding: 10px;
+  color: ${COLOR.titleActive};
+  font-weight: bold;
+  border-bottom: 1px solid ${COLOR.line};
 `;

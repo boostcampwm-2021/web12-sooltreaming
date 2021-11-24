@@ -57,8 +57,18 @@ const Ranking: React.FC = () => {
         />
       </DropdownWrapper>
       <RankContainer>
-        <RankingBox rank={rank} nowSelect={rankingMenuList[nowSelect]} filterList={rank} />
-        <RankingBox rank={rank} nowSelect={rankingMenuList[nowSelect]} filterList={friendList} />
+        <RankingBox
+          title={'전체'}
+          rank={rank}
+          nowSelect={rankingMenuList[nowSelect]}
+          filterList={rank}
+        />
+        <RankingBox
+          title={'친구'}
+          rank={rank}
+          nowSelect={rankingMenuList[nowSelect]}
+          filterList={friendList}
+        />
       </RankContainer>
     </>
   );
