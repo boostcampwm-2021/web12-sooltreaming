@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import Modal from '@components/custom/Modal';
 import { useSelector, useDispatch } from 'react-redux';
 import { setNickname, setImage } from '@store/user';
@@ -11,7 +11,7 @@ import {
   DeleteChangePressSection,
   ChangeData,
   NewNicknameInput,
-  AcceptIconWrapper,
+  NicknameChangeAcceptIconWrapper,
   RejectIconWrapper,
   ProfileSquare,
   ProfileSquareWrapper,
@@ -34,8 +34,16 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
   const newNicknameData = useRef<HTMLInputElement>(null);
   const newImageData = useRef<HTMLInputElement>(null);
   const [preview, setPreview] = useState<any>(imgUrl);
+  const [nickChanged, setNickChanged] = useState<boolean>(false);
+  const [imgChanged, setImgChanged] = useState<boolean>(false);
 
-  // 이미지 업로드 함수
+  // 닉네임 변경 감지
+  const checkChanged = (e) => {
+    if (e.target.value !== nickname) setNickChanged(true);
+    else setNickChanged(false);
+  };
+
+  // 이미지 프리뷰 업로드 함수
   const uploadImage = useCallback((e) => {
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -51,8 +59,10 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
   const deleteImage = useCallback(async () => {
     const dataTransfer = new DataTransfer();
     if (!newImageData.current || !newImageData.current?.files) return;
-    newImageData.current.files = dataTransfer.files;
-    setPreview('http://localhost:5000/public/uploads/HumanIcon.svg');
+    else {
+      newImageData.current.files = dataTransfer.files;
+      setPreview('http://localhost:5000/public/uploads/HumanIcon.svg');
+    }
   }, []);
 
   // 닉네임 변경 함수
@@ -64,6 +74,7 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
     dispatch(setNickname(newNickname));
   };
 
+  // 이미지 서버에 전송하는 함수
   const requestChangeUserImage = async () => {
     if (!newImageData.current) return;
     if (preview === imgUrl) return;
@@ -77,11 +88,40 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
     dispatch(setImage(test));
   };
 
-  const changeProfile = (e) => {
-    Promise.all([changeNickname(), requestChangeUserImage()]).then(() => {
-      toggleNicknameJudgment();
-    });
+  const changeProfile = () => {
+    if (!nickChanged && imgChanged) {
+      Promise.all([requestChangeUserImage()]).then(() => {
+        setNickChanged(false);
+        setImgChanged(false);
+        toggleNicknameJudgment();
+      });
+    } else if (nickChanged && !imgChanged) {
+      Promise.all([changeNickname()]).then(() => {
+        setNickChanged(false);
+        setImgChanged(false);
+        toggleNicknameJudgment();
+      });
+    } else if (nickChanged && imgChanged) {
+      Promise.all([changeNickname(), requestChangeUserImage()]).then(() => {
+        setNickChanged(false);
+        setImgChanged(false);
+        toggleNicknameJudgment();
+      });
+    }
   };
+
+  // 닫기 버튼 클릭시
+  const rejectProfile = () => {
+    setNickChanged(false);
+    setImgChanged(false);
+    setPreview(imgUrl);
+    toggleNicknameJudgment();
+  };
+
+  useEffect(() => {
+    if (preview === imgUrl) setImgChanged(false);
+    else setImgChanged(true);
+  }, [preview]);
 
   return (
     <Modal
@@ -114,13 +154,18 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
           ref={newNicknameData}
           placeholder={'닉네임을 입력해주세요.'}
           defaultValue={nickname}
+          onChange={checkChanged}
         />
       </ChangeData>
       <DeleteChangePressSection>
-        <AcceptIconWrapper onClick={changeProfile}>
+        <NicknameChangeAcceptIconWrapper
+          onClick={changeProfile}
+          nickChanged={nickChanged}
+          imgChanged={imgChanged}
+        >
           <AcceptIcon />
-        </AcceptIconWrapper>
-        <RejectIconWrapper onClick={toggleNicknameJudgment}>
+        </NicknameChangeAcceptIconWrapper>
+        <RejectIconWrapper onClick={rejectProfile}>
           <CloseIcon />
         </RejectIconWrapper>
       </DeleteChangePressSection>
