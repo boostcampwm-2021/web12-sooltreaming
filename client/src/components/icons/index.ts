@@ -38,6 +38,9 @@ import HomeIcon from '@components/icons/HomeIcon';
 import NicknameChangeIcon from '@components/icons/NicknameChangeIcon';
 import CloseIcon from '@components/icons/CloseIcon';
 
+import LiarGameIcon from '@components/icons/LiarGameIcon';
+import UpdownGameIcon from '@components/icons/UpdownGameIcon';
+
 export type iconPropsType = {
   className?: string;
   width?: number;
@@ -81,4 +84,6 @@ export {
   HomeIcon,
   NicknameChangeIcon,
   CloseIcon,
+  LiarGameIcon,
+  UpdownGameIcon,
 };
