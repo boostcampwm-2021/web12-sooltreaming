@@ -3,12 +3,11 @@ import Modal from '@components/custom/Modal';
 
 import { API } from '@api/index';
 
-import { RequestData, Xbutton } from '@components/user-information/FriendList.style'
+import { RequestData, Xbutton } from '@components/user-information/FriendList.style';
 
 import NicknameLogModal from '@components/user-information/modals/NicknameLogModal';
 import DeleteFriendModal from '@components/user-information/modals/DeleteFriendModal';
-import type {NicknameLogType} from '@components/user-information/Information';
-
+import type { NicknameLogType } from '@components/user-information/Information';
 
 import {
   TopWrapper,
@@ -23,7 +22,6 @@ import {
 
 import { HistoryIcon, DeleteFriendIcon } from '@components/icons';
 
-
 const UNITS = {
   createdAt: (value) => `가입 일자 : ${value}`,
   chatCount: (value) => `총 채팅 횟수 : ${value}번`,
@@ -36,8 +34,7 @@ const UNITS = {
   totalSeconds: (value) => `총 접속 시간 : ${value}초`,
 };
 
-const FriendInfoModal = ({friend, friendInfoIsOpen, closeFriendInfoJudgment, setFriendList}) => {
-  
+const FriendInfoModal = ({ friend, friendInfoIsOpen, closeFriendInfoJudgment, setFriendList }) => {
   const [friendInformation, setFriendInfo] = useState<Object>({});
   const [friendNicknameLog, setFriendNicknameInfo] = useState<Array<NicknameLogType>>([]);
 
@@ -53,25 +50,22 @@ const FriendInfoModal = ({friend, friendInfoIsOpen, closeFriendInfoJudgment, set
   const toggleFriendJudgment = () => {
     setDeleteFriendIsOpen((prev) => !prev);
   };
-  
+
   const deleteFriend = async () => {
-    console.log(id, 'deleteFriend')
     await API.call(API.TYPE.DELETE_FRIEND, id);
     setFriendList(id);
     closeFriendInfoJudgment();
-  }
+  };
 
   useEffect(() => {
-    if(!id) return;
+    if (!id) return;
     const httpRequest = async () => {
       const { information, nicknameLog } = await API.call(API.TYPE.GET_USER_INFORMATION, id);
-      console.log(nicknameLog);
       setFriendInfo(information);
       setFriendNicknameInfo(nicknameLog);
-    }
+    };
     httpRequest();
-  }, [friend])
-
+  }, [friend]);
 
   return (
     <div>
@@ -128,7 +122,7 @@ const FriendInfoModal = ({friend, friendInfoIsOpen, closeFriendInfoJudgment, set
         toggleHistoryJudgment={toggleHistoryJudgment}
       />
     </div>
-  )
-}
+  );
+};
 
-export default FriendInfoModal
+export default FriendInfoModal;

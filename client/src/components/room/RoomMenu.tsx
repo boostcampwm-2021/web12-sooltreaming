@@ -9,9 +9,14 @@ import useChatSocket from '@hooks/socket/useChatSocket';
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
   startGamesRef: React.MutableRefObject<Object>;
+  onclickRequestFriend: any;
 };
 
-const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, startGamesRef }) => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = ({
+  startVoteRef,
+  startGamesRef,
+  onclickRequestFriend,
+}) => {
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const dispatch = useDispatch();
 
@@ -28,6 +33,7 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, startGamesRef }) 
         startVoteRef={startVoteRef}
         sendMessage={sendMessage}
         startGamesRef={startGamesRef}
+        onclickRequestFriend={onclickRequestFriend}
       />
     </MenuBox>
   );

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, Z_INDEX } from '@constant/style';
 
 export const Container = styled.div`
   max-width: 340px;
@@ -16,6 +16,7 @@ export const ItemListBox = styled.div`
   width: 100%;
   position: relative;
   top: -10px;
+  z-index: ${Z_INDEX.modal};
 `;
 
 export const ItemList = styled.ul`

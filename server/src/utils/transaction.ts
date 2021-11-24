@@ -1,13 +1,9 @@
 import { startSession } from 'mongoose';
 
-export const transaction = async (fn) => {
+export const transaction = async (fn: Function) => {
   const session = await startSession();
-  session.startTransaction();
-
-  const result = await fn();
-
-  await session.commitTransaction();
+  await session.withTransaction(async () => {
+    await fn(session);
+  });
   session.endSession();
-
-  return result;
 };
