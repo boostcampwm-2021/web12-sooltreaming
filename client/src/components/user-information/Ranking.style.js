@@ -1,22 +1,23 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
 
-export const Header = styled.div`
+export const HeaderContainer = styled.div`
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 40px;
+  margin-top: 30px;
+`;
+
+export const Header = styled.div`
   img {
-    width: 150px;
-    height: 125px;
+    width: 120px;
+    height: 100px;
   }
 `;
 
 export const DropdownWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 40px;
+  margin-top: 30px;
+  width: 300px;
 `;
 
 export const RankContainer = styled.div`

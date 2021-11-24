@@ -3,7 +3,7 @@ import { COLOR } from '@constant/style';
 
 export const Container = styled.div`
   width: 350px;
-  margin: 40px 20px 0 20px;
+  margin: 30px 20px 0 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
