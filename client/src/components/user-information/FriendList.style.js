@@ -132,3 +132,8 @@ export const Xbutton = styled.div`
   top: 2rem;
   cursor: pointer;
 `;
+
+export const InfoContainer = styled.div`
+  width: 600px;
+  height: 665px;
+`;
