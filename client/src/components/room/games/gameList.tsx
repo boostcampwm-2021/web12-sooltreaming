@@ -1,9 +1,9 @@
-import { GameIcon } from '@components/icons';
+import { UpdownGameIcon, LiarGameIcon } from '@components/icons';
 import { LIAR, UP_DOWN } from 'sooltreaming-domain/constant/gameName';
 
 export const gameList = [
   {
-    icon: <GameIcon />,
+    icon: <UpdownGameIcon />,
     title: UP_DOWN,
     content: (
       <div>
@@ -19,7 +19,7 @@ export const gameList = [
     ),
   },
   {
-    icon: <GameIcon />,
+    icon: <LiarGameIcon />,
     title: LIAR,
     content: (
       <div>
