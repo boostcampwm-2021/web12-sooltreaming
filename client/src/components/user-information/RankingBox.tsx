@@ -17,14 +17,14 @@ const RankingBox: React.FC<RankingBoxPropTypes> = ({ rank, nowSelect, filterList
 
   return (
     <RankData>
-      {Object.values(rankList).map((friendInfo: any, index) => (
-        <PersonalRankBox key={friendInfo._id} className={friendInfo._id === myId ? 'me' : ''}>
+      {Object.values(rankList).map((userInfo: any, index) => (
+        <PersonalRankBox key={userInfo._id} className={userInfo._id === myId ? 'me' : ''}>
           <div>
             <RankNum>{index + 1}</RankNum>
-            <img src={friendInfo.imgUrl} alt="프로필" />
-            <div>{friendInfo.nickname}</div>
+            <img src={userInfo.imgUrl} alt="프로필" />
+            <div>{userInfo.nickname}</div>
           </div>
-          <div>{friendInfo[nowSelect]}</div>
+          <div>{userInfo[nowSelect]}</div>
         </PersonalRankBox>
       ))}
     </RankData>
