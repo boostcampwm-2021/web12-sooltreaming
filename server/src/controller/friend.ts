@@ -1,7 +1,5 @@
-import { CustomError, errorWrapper } from '@utils/error';
+import { errorWrapper } from '@utils/error';
 import User from '@models/User';
-import { startSession } from 'mongoose';
-import { transaction } from '@utils/transaction';
 
 export const postFriendRequest = errorWrapper(async (req, res, next) => {
   const { targetId } = req.body;
