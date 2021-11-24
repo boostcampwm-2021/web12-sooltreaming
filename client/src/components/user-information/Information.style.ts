@@ -146,6 +146,17 @@ export const AcceptIconWrapper = styled.div`
   }
 `;
 
+export const NicknameChangeIconWrapper = styled.div`
+  cursor: pointer;
+  path:first-child:hover {
+    fill: ${COLOR.primary3};
+  }
+
+  path:first-child:active {
+    fill: 10px solid ${COLOR.titleActive};
+  }
+`;
+
 export const RejectIconWrapper = styled.div`
   cursor: pointer;
   path:first-child:hover {
@@ -255,18 +266,20 @@ export const ProfileSquareWrapper = styled.div`
   align-items: center;
 `;
 
-export const ProfileSquare = styled.div<{ fileUrl: string }>`
+export const ProfileSquare = styled.div`
   width: 125px;
   height: 125px;
-  background-image: url(${(props) => props.fileUrl || ''});
-  background-repeat: no-repeat;
-  background-size: 125px;
   display: flex;
   justify-content: center;
   align-items: center;
   img {
-    width: 120px;
-    height: 120px;
+    width: 125px;
+    height: 125px;
+  }
+  input {
+    position: absolute;
+    width: 125px;
+    height: 125px;
   }
 `;
 
