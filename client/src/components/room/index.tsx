@@ -8,6 +8,8 @@ import AnimationScreen from '@components/room/animation-screen/';
 import Scaffold from '@components/room/scaffold';
 import Games from '@components/room/games';
 import useAnimationSocket from '@hooks/socket/useAnimationSocket';
+import useFriendSocket from '@src/hooks/socket/useFriendSocket';
+
 import Socket from '@socket/socket';
 import {
   friendListRequest,
@@ -31,6 +33,7 @@ const ChatRoom: React.FC = () => {
   }, []);
 
   const { activateCheers, activateCloseup, deactivateCloseup } = useAnimationSocket();
+  const { onclickRequestFriend } = useFriendSocket();
   return (
     <FullScreen>
       <ColumnBox>
@@ -44,7 +47,11 @@ const ChatRoom: React.FC = () => {
           deactivateCloseup={deactivateCloseup}
         />
       </ColumnBox>
-      <RoomMenu startVoteRef={startVoteRef} startGamesRef={startGamesRef} />
+      <RoomMenu
+        startVoteRef={startVoteRef}
+        startGamesRef={startGamesRef}
+        onclickRequestFriend={onclickRequestFriend}
+      />
       <Scaffold startVoteRef={startVoteRef} />
       <Games startGamesRef={startGamesRef} />
     </FullScreen>
