@@ -12,7 +12,7 @@ import {
   ProfileData,
   InformationSpan,
 } from '@components/user-information/Information.style';
-import { HistoryIcon, ChangeNicknameIcon, DeleteFriendIcon } from '@components/icons';
+import { HistoryIcon, ChangeNicknameIcon } from '@components/icons';
 import NicknameLogModal from '@components/user-information/modals/NicknameLogModal';
 import NicknameChangeModal from '@components/user-information/modals/NicknameChangeModal';
 
@@ -37,15 +37,10 @@ const Information: React.FC = () => {
   const [nicknameLog, setNicknameLog] = useState<Array<NicknameLogType>>([]);
   const [historyIsOpen, setHistoryIsOpen] = useState<boolean>(false);
   const [changeNicknameIsOpen, setChangeNicknameIsOpen] = useState<boolean>(false);
-  const [deleteFriendIsOpen, setDeleteFriendIsOpen] = useState<boolean>(false);
   const { id, imgUrl, nickname } = useSelector((state: RootState) => state.user);
 
   const toggleHistoryJudgment = useCallback(() => {
     setHistoryIsOpen((prev) => !prev);
-  }, []);
-
-  const toggleFriendJudgment = useCallback(() => {
-    setDeleteFriendIsOpen((prev) => !prev);
   }, []);
 
   const toggleNicknameJudgment = useCallback(() => {
@@ -80,9 +75,6 @@ const Information: React.FC = () => {
               </Button>
               <Button onClick={toggleNicknameJudgment}>
                 <ChangeNicknameIcon />
-              </Button>
-              <Button onClick={toggleFriendJudgment}>
-                <DeleteFriendIcon />
               </Button>
             </ButtonsWrapper>
           </ProfileData>
