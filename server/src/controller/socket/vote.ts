@@ -67,7 +67,7 @@ const vote = ({
 
     rooms[code].status = STATUS_VOTE_VOTING;
     voteInfo.defendant = targetSID;
-    voteInfo.trial = setTimeout(stopVoting, VOTE_TIME);
+    voteInfo.trial = setTimeout(stopVoting, VOTE_TIME * 1000);
     voteInfo.voteBox = userKeys.reduce((box, key) => {
       box[key] = {
         isApprove: false,
