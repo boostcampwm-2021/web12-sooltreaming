@@ -137,6 +137,7 @@ export const DeleteFriendPressSection = styled.div`
 
 export const AcceptIconWrapper = styled.div`
   cursor: pointer;
+
   path:first-child:hover {
     fill: ${COLOR.primary3};
   }
@@ -144,6 +145,26 @@ export const AcceptIconWrapper = styled.div`
   path:first-child:active {
     fill: 10px solid ${COLOR.titleActive};
   }
+`;
+
+export const NicknameChangeAcceptIconWrapper = styled.div<{
+  nickChanged: boolean;
+  imgChanged: boolean;
+}>`
+  cursor: pointer;
+
+  path:first-child:hover {
+    fill: ${COLOR.primary3};
+  }
+
+  path:first-child:active {
+    fill: 10px solid ${COLOR.titleActive};
+  }
+
+  ${(props) =>
+    props.nickChanged || props.imgChanged
+      ? ''
+      : `path:first-child{fill:${COLOR.disabled}}; path:first-child:hover{fill:${COLOR.disabled}}; path:first-child:active{fill:${COLOR.disabled}}`};
 `;
 
 export const NicknameChangeIconWrapper = styled.div`
