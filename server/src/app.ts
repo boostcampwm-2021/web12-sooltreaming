@@ -12,6 +12,7 @@ app.set('port', PORT);
 Loader({ server, app });
 
 app.use('/api', apiRouter);
+app.use('/public/uploads', express.static('public/uploads'));
 
 function onListening(): void {
   const addr = server.address();

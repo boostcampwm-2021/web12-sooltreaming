@@ -55,14 +55,15 @@ export const postUserImage = async (req, res, next) => {
   let image = req.file;
 
   try {
-    if (!image) throw new CustomError(400, 'Invalid Data');
-    const id = req.user._id;
-    if (!id) throw new CustomError(401, 'id Error');
-    const imgUrl = image.path;
+    if (!image) {
+      image = 'http://localhost:5000/public/uploads/HumanIcon.svg';
+    } else {
+      image = 'http://localhost:5000/public/uploads/' + image.filename;
+    }
 
     const result = await User.findByIdAndUpdate(
       { _id: id },
-      { $set: { imgUrl } },
+      { $set: { imgUrl: image } },
       {
         new: true,
       },
