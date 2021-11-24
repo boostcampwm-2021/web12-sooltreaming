@@ -3,37 +3,36 @@ import Modal from '@components/custom/Modal';
 
 import { API } from '@api/index';
 
-import {RequestData, Xbutton} from '@components/user-information/FriendList.style'
+import { RequestData, Xbutton } from '@components/user-information/FriendList.style';
 import { FriendItem } from '@components/user-information/FriendItem';
 
 type FriendType = {
   _id: string;
   nickname: string;
   imgUrl: string;
-}
+};
 
-const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) => {
+const FriendRequestModal = ({ friendRequestIsOpen, closeFriendRequestJudgment }) => {
   const [sendFriend, setSendFriend] = useState<Array<FriendType>>([]);
   const [receiveFriend, setReceiveFriend] = useState<Array<FriendType>>([]);
 
-  const cancleFriendRequest = async (id) => {
-  }
+  const cancelFriendRequest = async (id) => {};
 
   const rejectFriendRequest = async (id) => {
     await API.call(API.TYPE.DELETE_RECEIVEFRIEND, id);
-    setReceiveFriend((prev) => [...prev].filter((friend) => friend._id !== id))
-  }
+    setReceiveFriend((prev) => [...prev].filter((friend) => friend._id !== id));
+  };
 
   const acceptFriendRequest = async (id) => {
-    await API.call(API.TYPE.PATHCH_RECEIVEREIEND, id);
-    setReceiveFriend((prev) => [...prev].filter((friend) => friend._id !== id))
-  }
-  
+    await API.call(API.TYPE.PATCH_RECEIVEFRIEND, id);
+    setReceiveFriend((prev) => [...prev].filter((friend) => friend._id !== id));
+  };
+
   useEffect(() => {
     const httpRequest = async () => {
       const receiveList = await API.call(API.TYPE.GET_RECEIVEFRIEND);
       setReceiveFriend(receiveList);
-    }
+    };
     httpRequest();
   }, []);
 
@@ -47,20 +46,33 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
       >
         <RequestData>
           <h2>친구 신청 목록</h2>
-          <ul className="application draggable-box">
-          </ul>
+          <ul className="application draggable-box"></ul>
         </RequestData>
         <RequestData>
           <h2>친구 요청 목록</h2>
           <ul className="request draggable-box">
-            {receiveFriend.map(({_id: id, nickname, imgUrl}) => 
+            {receiveFriend.map(({ _id: id, nickname, imgUrl }) => (
               <li>
                 <FriendItem imgUrl={imgUrl} nickname={nickname}>
-                  <button className='add-button' onClick={() => {acceptFriendRequest(id)}}>수락</button>
-                  <button className='cancle-button' onClick={() => {rejectFriendRequest(id)}}>거절</button>
+                  <button
+                    className="add-button"
+                    onClick={() => {
+                      acceptFriendRequest(id);
+                    }}
+                  >
+                    수락
+                  </button>
+                  <button
+                    className="cancle-button"
+                    onClick={() => {
+                      rejectFriendRequest(id);
+                    }}
+                  >
+                    거절
+                  </button>
                 </FriendItem>
               </li>
-            )}
+            ))}
           </ul>
         </RequestData>
         <Xbutton onClick={closeFriendRequestJudgment}>
@@ -68,7 +80,7 @@ const FriendRequestModal = ({friendRequestIsOpen, closeFriendRequestJudgment}) =
         </Xbutton>
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default FriendRequestModal
+export default FriendRequestModal;

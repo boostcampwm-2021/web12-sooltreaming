@@ -1,5 +1,9 @@
-import { getUserInformation, getUserNicknameLog, patchUserNickname } from '@api/user';
-import {  getReceiveFriend, patchReceiveFriend, deleteReceiveFriend } from '@api/friend';
+import {
+  getUserInformation,
+  getUserNicknameLog,
+  patchUserNickname,
+} from '@api/user';
+import { getReceiveFriend, patchReceiveFriend, deleteReceiveFriend } from '@api/friend';
 import { setNoticeMessage } from '@store/notice';
 import { store } from '@src/store/store';
 
@@ -10,10 +14,10 @@ export const API = {
     GET_USER_NICKNAME_LOG: getUserNicknameLog,
     GET_RECEIVEFRIEND: getReceiveFriend,
     DELETE_RECEIVEFRIEND: deleteReceiveFriend,
-    PATHCH_RECEIVEREIEND : patchReceiveFriend,
+    PATCH_RECEIVEFRIEND: patchReceiveFriend,
   },
 
-  call: async function (api, data={}) {
+  call: async function (api, data = {}) {
     try {
       const resolve = await api(data);
       return resolve;
