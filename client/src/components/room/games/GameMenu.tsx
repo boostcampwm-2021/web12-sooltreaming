@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { GameListBox } from '@components/room/games/GameMenu.style';
+import React from 'react';
+import { GameListBox, GameRuleBox, GameTitle } from '@components/room/games/GameMenu.style';
 import GameBox from '@components/room/games/GameBox';
 import { gameList } from '@src/components/room/games/gameList';
 
@@ -12,7 +12,10 @@ const GameMenu: React.FC<GameMenuPropTypes> = ({ startGamesRef }) => {
     <GameListBox>
       {gameList.map(({ icon, title, content }) => (
         <GameBox key={title} icon={icon} title={title} start={startGamesRef.current[title]}>
-          {content}
+          <GameRuleBox>
+            <GameTitle>{title} 설명서</GameTitle>
+            {content}
+          </GameRuleBox>
         </GameBox>
       ))}
     </GameListBox>

@@ -10,3 +10,15 @@ export const GameListBox = styled.ul`
   background-color: ${COLOR.primary2};
   overflow: hidden;
 `;
+
+export const GameRuleBox = styled.div`
+  padding: 10px;
+  font-size: 15px;
+`;
+
+export const GameTitle = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: ${COLOR.titleActive};
+  margin-bottom: 10px;
+`;
