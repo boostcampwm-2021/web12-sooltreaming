@@ -16,6 +16,10 @@ const GameBox: React.FC<GameType> = ({ children, icon, title, start }) => {
     e.stopPropagation();
     setIsOpen((prev) => !prev);
   };
+  const closeRule = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <InfoContainer onClick={start}>
@@ -23,7 +27,7 @@ const GameBox: React.FC<GameType> = ({ children, icon, title, start }) => {
           {icon}
           {title}게임
         </Title>
-        <div onClick={toggleRule}>
+        <div onClick={toggleRule} onBlur={closeRule} tabIndex={0}>
           <GameRuleIcon />
         </div>
       </InfoContainer>
