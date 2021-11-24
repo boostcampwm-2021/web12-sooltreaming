@@ -1,10 +1,13 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import Modal from '@components/custom/Modal';
 
 import { API } from '@api/index';
 
 import { RequestData, Xbutton } from '@components/user-information/FriendList.style';
 import { FriendItem } from '@components/user-information/FriendItem';
+
+import { useDispatch } from 'react-redux';
+import { friendListRequest } from '@src/store/friend';
 
 type FriendType = {
   _id: string;
@@ -13,6 +16,7 @@ type FriendType = {
 };
 
 const FriendRequestModal = ({ friendRequestIsOpen, closeFriendRequestJudgment }) => {
+  const dispatch = useDispatch();
   const [sendFriend, setSendFriend] = useState<Array<FriendType>>([]);
   const [receiveFriend, setReceiveFriend] = useState<Array<FriendType>>([]);
 
@@ -29,6 +33,7 @@ const FriendRequestModal = ({ friendRequestIsOpen, closeFriendRequestJudgment })
   const acceptFriendRequest = async (id) => {
     await API.call(API.TYPE.PATCH_RECEIVEFRIEND, id);
     setReceiveFriend((prev) => [...prev].filter((friend) => friend._id !== id));
+    dispatch(friendListRequest([]));
   };
 
   useEffect(() => {

@@ -8,7 +8,12 @@ import Users from '@components/user/Users';
 import Host from '@components/room/host/';
 import GameMenu from '@components/room/games/GameMenu';
 
-const RouteMenu = ({ startVoteRef, sendMessage, startGamesRef }): React.ReactElement => {
+const RouteMenu = ({
+  startVoteRef,
+  sendMessage,
+  startGamesRef,
+  onclickRequestFriend,
+}): React.ReactElement => {
   const menuType = useSelector((state: RootState) => state.room.menuType);
 
   switch (menuType) {
@@ -21,7 +26,7 @@ const RouteMenu = ({ startVoteRef, sendMessage, startGamesRef }): React.ReactEle
     case '채팅':
       return <Chat sendMessage={sendMessage} />;
     case '참가자':
-      return <Users startVoteRef={startVoteRef} />;
+      return <Users startVoteRef={startVoteRef} onclickRequestFriend={onclickRequestFriend} />;
     case '방장':
       return <Host />;
     case '게임':

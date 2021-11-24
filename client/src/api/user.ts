@@ -12,9 +12,8 @@ export const loginWithSession = async () => {
 export const getUserInformation = async (id) => {
   const { status, json } = await request.get({ url: '/user', query: { id } });
   if (status === 200) {
-    const nicknameLog = [ ...json.user.nicknameLog ];
-    delete json.user.nicknameLog;
-    return { nicknameLog, information: json.user };
+    const { information, nicknameLog } = json;
+    return { information, nicknameLog };
   } else throw new Error(json.error.toString());
 };
 
@@ -51,7 +50,7 @@ export const getFriends = async () => {
   const { status, json } = result;
   if (status === 200) {
     return json.friends;
-  } else throw new Error(status.toString());
+  } else throw new Error(json.error.toString());
 };
 
 export const getSendFriends = async () => {
@@ -59,7 +58,7 @@ export const getSendFriends = async () => {
   const { status, json } = result;
   if (status === 200) {
     return json.sendFriends;
-  } else throw new Error(status.toString());
+  } else throw new Error(json.error.toString());
 };
 
 export const getReceiveFriends = async () => {
@@ -67,7 +66,7 @@ export const getReceiveFriends = async () => {
   const { status, json } = result;
   if (status === 200) {
     return json.receiveFriends;
-  } else throw new Error(status.toString());
+  } else throw new Error(json.error.toString());
 };
 
 export const requestFriend = async (targetId: string) => {
@@ -75,5 +74,5 @@ export const requestFriend = async (targetId: string) => {
   const { status, json } = result;
   if (status === 201) {
     return json;
-  } else throw new Error(status.toString());
+  } else throw new Error(json.error.toString());
 };

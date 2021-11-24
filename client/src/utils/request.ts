@@ -12,19 +12,12 @@ interface fetchParams {
 
 const customFetch =
   (method: string) =>
-  async ({ url, query, body = new FormData(), headerOptions, options }: fetchParams) => {
+  async ({ url, query, body = {}, headerOptions, options }: fetchParams) => {
     const query_string = query
       ? `?${Object.entries(query)
           .reduce((prev, [key, value]) => [...prev, `${key}=${value}`], [] as Array<string>)
           .join('&')}`
       : '';
-
-    if (body.toString() !== '[object FormData]') {
-      body = Object.entries(body).reduce((form, [key, value]) => {
-        form.append(key, value);
-        return form;
-      }, new FormData());
-    }
 
     const init = {
       ...(options ?? {}),
@@ -35,7 +28,14 @@ const customFetch =
       },
     };
 
-    if (method !== 'GET') init.body = body as FormData;
+    if (method !== 'GET') {
+      if (body.toString() === '[object FormData]') {
+        init.body = body as FormData;
+      } else {
+        init.body = JSON.stringify(body);
+      }
+    }
+
     const resolve = await fetch(`${BASE_URL}${url}${query_string}`, init);
     const { status } = resolve;
     const json = await resolve.json();

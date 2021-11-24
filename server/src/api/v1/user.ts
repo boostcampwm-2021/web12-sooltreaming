@@ -4,7 +4,7 @@ import {
   getUserNicknameLog,
   postUserImage,
   patchUserNickname,
-} from '@controller/user/user';
+} from '@controller/user';
 
 import multer from 'multer';
 

@@ -13,6 +13,8 @@ import {
   deleteFriend,
   patchReceiveFriend,
 } from '@api/friend';
+
+import { getRank } from '@api/rank';
 import { setNoticeMessage } from '@store/notice';
 import { store } from '@src/store/store';
 
@@ -29,6 +31,7 @@ export const API = {
     DELETE_RECEIVEFRIEND: deleteReceiveFriend,
     PATCH_RECEIVEFRIEND: patchReceiveFriend,
     DELETE_FRIEND: deleteFriend,
+    GET_RANK: getRank,
   },
 
   call: async function (api, data = {}) {

@@ -62,7 +62,7 @@ const Information: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    setNicknameLog((prev) => [ ...prev, { nickname }]);
+    setNicknameLog((prev) => [{ nickname }, ...prev]);
   }, [nickname]);
 
   return (
