@@ -219,15 +219,29 @@ export const CheckPressSection = styled.div`
 
 export const HistoryData = styled.div`
   width: 640px;
-  padding: 20px 20px;
+  height: 200px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
 
-  justify-content: space-around;
   align-items: center;
 
   p {
     margin: 8px;
+  }
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 16px;
+    border-radius: 10px;
+    background: ${COLOR.line};
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${COLOR.primary3};
+    border-radius: 10px;
   }
 `;
 
