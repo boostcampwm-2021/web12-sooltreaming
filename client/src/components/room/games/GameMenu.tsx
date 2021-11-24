@@ -6,17 +6,14 @@ import { GameIcon } from '@components/icons';
 type GameMenuPropTypes = {
   startGamesRef: React.MutableRefObject<Object>;
 };
-const GameMenu: React.FC<GameMenuPropTypes> = ({ startGamesRef }) => {
-  const GameList = useMemo(
-    () => [
-      //아이콘, 설명은 임시
-      { icon: <GameIcon />, title: '랜덤뽑기', content: '설명' },
-      { icon: <GameIcon />, title: '업다운', content: '설명' },
-      { icon: <GameIcon />, title: '라이어게임', content: '설명' },
-    ],
-    [],
-  );
+const GameList = [
+  //아이콘, 설명은 임시
+  { icon: <GameIcon />, title: '랜덤뽑기', content: '설명' },
+  { icon: <GameIcon />, title: '업다운', content: '설명' },
+  { icon: <GameIcon />, title: '라이어게임', content: '설명' },
+];
 
+const GameMenu: React.FC<GameMenuPropTypes> = ({ startGamesRef }) => {
   return (
     <GameListBox>
       {GameList.map(({ icon, title, content }) => (
