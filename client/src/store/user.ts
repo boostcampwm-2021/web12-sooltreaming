@@ -29,13 +29,15 @@ export const [USER_LOGIN_FAILURE, userLoginFailure] =
   createAction<FailureType>('USER_LOGIN_FAILURE');
 
 export const [SET_NICKNAME, setNickname] = createAction<string>('SET_NICKNAME');
+export const [SET_IMAGE, setImage] = createAction<string>('SET_IMAGE');
 
 // Actions -- Types
 type userAction =
   | ReturnType<typeof userLoginRequest>
   | ReturnType<typeof userLoginSuccess>
   | ReturnType<typeof userLoginFailure>
-  | ReturnType<typeof setNickname>;
+  | ReturnType<typeof setNickname>
+  | ReturnType<typeof setImage>;
 
 // Reducer
 function userReducer(state: UserStateType = initialState, action: userAction): UserStateType {
@@ -71,6 +73,12 @@ function userReducer(state: UserStateType = initialState, action: userAction): U
       return {
         ...state,
         nickname,
+      };
+    case SET_IMAGE:
+      const imgUrl = action.payload as string;
+      return {
+        ...state,
+        imgUrl,
       };
     default:
       return state;
