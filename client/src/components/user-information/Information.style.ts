@@ -38,6 +38,7 @@ export const ProfileData = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 2rem;
 
   p {
     font-size: 24px;
@@ -81,7 +82,6 @@ export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 500px;
 
   p {
     display: flex;
@@ -247,12 +247,20 @@ export const HistoryData = styled.div`
 
   align-items: center;
 
-  p {
-    margin: 8px;
-  }
-
   overflow-x: hidden;
   overflow-y: scroll;
+
+  p {
+    margin: 0.5rem;
+  }
+
+  p:first-child {
+    margin-top: auto;
+  }
+
+  p:last-child {
+    margin-bottom: auto;
+  }
 
   &::-webkit-scrollbar {
     width: 4px;
