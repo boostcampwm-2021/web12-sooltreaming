@@ -4,6 +4,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setUsers, addUsers, deleteUsers, setHost } from '@store/room';
 import { setNoticeMessage } from '@store/notice';
+import {
+  friendListRequest,
+  sendFriendListRequest,
+  receiveFriendListRequest,
+} from '@src/store/friend';
+
 import Socket from '@socket/socket';
 
 const useEnterSocket = () => {
@@ -36,6 +42,12 @@ const useEnterSocket = () => {
     dispatch(setHost({ hostSID: Socket.getSID(), isOpen }));
   };
 
+  const updateFriendList = () => {
+    dispatch(friendListRequest([]));
+    dispatch(sendFriendListRequest([]));
+    dispatch(receiveFriendListRequest([]));
+  };
+
   const socket = useMemo(
     () =>
       Socket.enter({
@@ -44,6 +56,7 @@ const useEnterSocket = () => {
         deleteUser,
         initUsers,
         changeRoomHost,
+        updateFriendList,
       }),
     [],
   );

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   FullScreen,
   HeaderBox,
@@ -8,9 +8,12 @@ import {
   Contents,
 } from '@src/pages/UserInformation.style.js';
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { friendListRequest } from '@src/store/friend';
 import MainData from '@src/components/user-information/MainData';
 
 const UserInformation: React.FunctionComponent = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [menu, setMenu] = useState<string>('information');
 
@@ -29,6 +32,10 @@ const UserInformation: React.FunctionComponent = () => {
   const ranking = () => {
     setMenu('ranking');
   };
+
+  useEffect(() => {
+    dispatch(friendListRequest([]));
+  }, []);
 
   return (
     <FullScreen>
