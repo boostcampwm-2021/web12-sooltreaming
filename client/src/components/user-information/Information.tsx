@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { API } from '@src/api';
-
 import NicknameLogModal from '@components/user-information/modals/NicknameLogModal';
 import NicknameChangeModal from '@components/user-information/modals/NicknameChangeModal';
 import InfoComponent from '@components/user-information/InfoComponent';

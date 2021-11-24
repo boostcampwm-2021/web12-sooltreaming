@@ -32,7 +32,10 @@ export const STATUS_VOTE_EXECUTING = 'STATUS_VOTE_EXECUTING';
 export const STATUS_VOTE_VOTING = 'STATUS_VOTE_VOTING';
 
 export const LOG_EVENT = Object.freeze({
-  CLOSEUP: 'closeupCount',
-  CHAT_RECEIVE: 'chatCount',
-  QUESTION: 'hookCount',
+  CLOSEUP_ON: 'closeupCount',
+  CHAT_SENDING: 'chatCount',
+  MARK_BROADCAST: 'hookCount',
+  VOTE_START: 'pollCount',
+  STATUS_VOTE_EXECUTING: 'dieCount',
+  UPDOWN_START: 'starterCount',
 });

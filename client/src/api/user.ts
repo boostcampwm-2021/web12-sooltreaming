@@ -45,6 +45,16 @@ export const postUserImage = async (newFile) => {
   } else throw new Error(json.error.toString());
 };
 
+export const patchTotalSeconds = async (exitTime) => {
+  const { status, json } = await request.patch({
+    url: '/user/exit',
+    body: { exitTime },
+  });
+  if (status === 201) {
+    return;
+  } else throw new Error(json.error.toString());
+};
+
 export const getFriends = async () => {
   const result = await request.get({ url: '/friend/list' });
   const { status, json } = result;

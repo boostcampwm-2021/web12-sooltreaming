@@ -1,5 +1,5 @@
 import express from 'express';
-import passport from 'passport';
+import passport, { session } from 'passport';
 import { AUTH_REDIRECT_URL } from '@src/constant';
 import { CustomError, errorWrapper } from '@utils/error';
 
@@ -16,6 +16,8 @@ router.get(
     if (!isAuth) throw new CustomError(401, 'fail to login');
 
     const user = req.user;
+
+    if (!req.session.startTime) req.session.startTime = new Date().getTime();
     res.status(202).json(user);
   }),
 );

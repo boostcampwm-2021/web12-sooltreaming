@@ -1,7 +1,7 @@
 import React from 'react';
 import type { iconPropsType } from '@components/icons';
 
-const GameExplainIcon = ({
+const GameRuleIcon = ({
   className,
   width,
   height,
@@ -26,4 +26,4 @@ const GameExplainIcon = ({
   );
 };
 
-export default GameExplainIcon;
+export default GameRuleIcon;

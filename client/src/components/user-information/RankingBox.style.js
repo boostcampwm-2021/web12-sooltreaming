@@ -2,8 +2,9 @@ import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
 export const Container = styled.div`
-  width: 350px;
-  margin: 30px 20px 0 20px;
+  width: 28%;
+  height: 100%;
+  margin: 0 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,7 +13,7 @@ export const PersonalRankBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding: 15px;
+  padding: 1.2rem;
   img {
     width: 1.5rem;
     height: 1.5rem;
@@ -34,10 +35,9 @@ export const RankNum = styled.div`
 export const RankData = styled.div`
   display: flex;
   flex-direction: column;
-  height: 280px;
   overflow-y: scroll;
   width: 100%;
-  margin-top: 10px;
+  height: 100%;
   .me {
     background-color: ${COLOR.primary2};
   }
@@ -56,7 +56,7 @@ export const RankData = styled.div`
 export const RankTitle = styled.div`
   width: 50%;
   text-align: center;
-  padding: 10px;
+  padding: 1.2rem 0;
   color: ${COLOR.titleActive};
   font-weight: bold;
   border-bottom: 1px solid ${COLOR.line};
