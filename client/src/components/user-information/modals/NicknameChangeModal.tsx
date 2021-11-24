@@ -19,12 +19,12 @@ import {
 } from '@components/user-information/Information.style';
 import { AcceptIcon, GreenXButtonIcon, RejectIcon } from '@src/components/icons';
 
-type NicknameChangeModal = {
+type NicknameChangeModalType = {
   changeNicknameIsOpen: any;
   toggleNicknameJudgment: any;
 };
 
-const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
+const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
   changeNicknameIsOpen,
   toggleNicknameJudgment,
 }) => {
