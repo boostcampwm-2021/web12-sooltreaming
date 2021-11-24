@@ -1,5 +1,5 @@
 import User from '@models/User';
-import { errorHandler } from '@utils/error';
+import { errorWrapper } from '@utils/error';
 import cron from 'node-cron';
 
 //리팩토링 전
@@ -24,15 +24,11 @@ const SPEAK_COUNT = 'speakCount';
 const STARTER_COUNT = 'starterCount';
 const TOTAL_SECONDS = 'totalSeconds';
 
-export const getRank = async (req, res, next) => {
-  try {
-    const rankType = req.params.type;
-    const result = allRank[rankType];
-    res.status(200).json(result);
-  } catch (error) {
-    next(errorHandler(error));
-  }
-};
+export const getRank = errorWrapper(async (req, res, next) => {
+  const rankType = req.params.type;
+  const result = allRank[rankType];
+  res.status(200).json(result);
+});
 
 cron.schedule('*/5 * * * *', () => {
   updateAllUserRank();

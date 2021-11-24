@@ -1,5 +1,5 @@
 import express from 'express';
-import { getRank } from '@controller/user/rank';
+import { getRank } from '@controller/rank';
 const router = express.Router();
 
 router.get('/:type', getRank);
