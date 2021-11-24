@@ -20,8 +20,6 @@ export type UserType = {
   sendFriend: Array<String>;
   receiveFriend: Array<String>;
   friend: Array<String>;
-
-  nicknameLog: Array<String>;
 };
 
 const userSchema = new Schema<UserType>(
@@ -91,11 +89,6 @@ const userSchema = new Schema<UserType>(
       type: [{ type: Schema.Types.ObjectId, ref: 'User' }],
       default: [],
     },
-
-    nicknameLog: {
-      type: [{ type: Schema.Types.ObjectId, ref: 'NicknameLog' }],
-      default: [],
-    }
   },
   { timestamps: true },
 );
