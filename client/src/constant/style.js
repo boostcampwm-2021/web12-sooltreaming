@@ -31,6 +31,7 @@ export const COLOR = {
   offWhite: '#F6F6F6',
   point: '#A06000',
   black: '#000000',
+  disabled: '#EBEFD6',
 };
 
 export const INPUT_STYLE = css`
