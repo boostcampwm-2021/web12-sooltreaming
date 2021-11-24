@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import GlobalStyle from '@src/GlobalStyle';
 import ErrorToast from '@components/custom/ErrorToast';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
@@ -8,8 +8,14 @@ import Login from '@pages/Login';
 import AuthRoute from '@pages/Splash';
 import CreateRoom from '@pages/CreateRoom';
 import UserInformation from '@pages/UserInformation';
+import { API } from './api';
 
 const App: React.FC = () => {
+  useEffect(() => {
+    window.addEventListener('beforeunload', () => {
+      API.call(API.TYPE.PATCH_TOTAL_SECONDS, new Date().getTime());
+    });
+  }, []);
   return (
     <>
       <GlobalStyle />
