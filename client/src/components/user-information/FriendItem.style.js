@@ -11,6 +11,12 @@ export const Friend = styled.div`
   padding: 0 20px;
   border: 1px solid ${COLOR.primary1};
 
+  p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
   .left-items {
     display: inline-flex;
     align-items: center;
@@ -25,10 +31,9 @@ export const Friend = styled.div`
   }
 
   .right-items {
-    overflow: hidden;
     cursor: pointer;
 
-    button{
+    button {
       width: 60px;
       heigth: 20px;
       border-radius: 5px;
@@ -46,6 +51,8 @@ export const Friend = styled.div`
       display: flex;
       align-items: center;
       justify-content: center;
+
+      margin: 1rem;
 
       width: 1.5rem;
       height: 1.5rem;
