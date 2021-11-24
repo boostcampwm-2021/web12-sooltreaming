@@ -89,6 +89,19 @@ export const patchUserNickname = errorWrapper(async (req, res, next) => {
   });
 });
 
+export const patchTotalSeconds = errorWrapper(async (req, res, next) => {
+  const _id = req.user._id;
+  const { startTime } = req.session;
+  const { exitTime } = req.body;
+  if (!_id || !startTime || !exitTime) res.status(400).json({ message: 'invaild data' });
+  const result = await User.findOneAndUpdate(
+    { _id },
+    { $inc: { totalSeconds: Math.floor((exitTime - startTime) / 1000) } },
+  );
+  req.session.startTime = new Date().getTime();
+  res.status(200).json({ message: 'success!' });
+});
+
 export const postUserImage = errorWrapper(async (req, res, next) => {
   const id = req.user._id;
   if (!id) throw new CustomError(401, 'id Error');

@@ -4,6 +4,7 @@ import {
   getUserNicknameLog,
   postUserImage,
   patchUserNickname,
+  patchTotalSeconds,
 } from '@controller/user';
 
 import multer from 'multer';
@@ -30,5 +31,6 @@ router.get('/', getUserInformation);
 router.get('/nickname', getUserNicknameLog);
 router.post('/image', upload.single('image'), postUserImage);
 router.patch('/nickname', patchUserNickname);
+router.patch('/exit', patchTotalSeconds);
 
 export default router;
