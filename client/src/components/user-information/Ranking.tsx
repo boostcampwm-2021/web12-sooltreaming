@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Dropdown from '@components/custom/Dropdown';
-import {
-  Header,
-  DropdownWrapper,
-  RankContainer,
-  HeaderContainer,
-} from '@components/user-information/Ranking.style';
+import { RankContainer, HeaderContainer } from '@components/user-information/Ranking.style';
 import { DownIcon } from '@components/icons';
 import { MenuButton, MenuItem } from '@components/setting/SettingDropdown.style';
 import { API } from '@api/index';
@@ -43,25 +38,21 @@ const Ranking: React.FC = () => {
   return (
     <>
       <HeaderContainer>
-        <Header>
-          <img src="/images/logo.png" alt="메인 술잔" />
-        </Header>
-        <DropdownWrapper>
-          <Dropdown
-            renderButton={() => (
-              <MenuButton>
-                <span>{nowSelect}</span>
-                <DownIcon />
-              </MenuButton>
-            )}
-            renderItem={({ closeDropdown, item }) => (
-              <MenuItem key={item} onClick={choiceMenu(closeDropdown, item)}>
-                {item}
-              </MenuItem>
-            )}
-            itemList={Object.keys(rankingMenuList)}
-          />
-        </DropdownWrapper>
+        <img src="/images/logo.png" alt="메인 술잔" />
+        <Dropdown
+          renderButton={() => (
+            <MenuButton>
+              <span>{nowSelect}</span>
+              <DownIcon />
+            </MenuButton>
+          )}
+          renderItem={({ closeDropdown, item }) => (
+            <MenuItem key={item} onClick={choiceMenu(closeDropdown, item)}>
+              {item}
+            </MenuItem>
+          )}
+          itemList={Object.keys(rankingMenuList)}
+        />
       </HeaderContainer>
       <RankContainer>
         <RankingBox
