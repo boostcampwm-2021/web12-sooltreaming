@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Dropdown from '@components/custom/Dropdown';
-import {
-  Header,
-  FriendRankData,
-  DropdownWrapper,
-  FriendRankBox,
-  RankNum,
-} from '@components/user-information/Ranking.style';
+import { Header, DropdownWrapper, RankContainer } from '@components/user-information/Ranking.style';
 import { DownIcon } from '@components/icons';
 import { MenuButton, MenuItem } from '@components/setting/SettingDropdown.style';
 import { API } from '@api/index';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
+import RankingBox from '@components/user-information/RankingBox';
 
 const rankingMenuList = {
   '총 접속 시간': 'totalSeconds',
@@ -25,7 +20,6 @@ const rankingMenuList = {
 
 const Ranking: React.FC = () => {
   const friendList = useSelector((state: RootState) => state.friend.friendList);
-  const myId = useSelector((state: RootState) => state.user.id);
   const [nowSelect, setNowSelect] = useState('갈고리 사용 횟수');
   const [rank, setRank] = useState([]);
   const choiceMenu = (toggleDropdown, item) => () => {
@@ -62,20 +56,9 @@ const Ranking: React.FC = () => {
           itemList={Object.keys(rankingMenuList)}
         />
       </DropdownWrapper>
-      <FriendRankData>
-        {Object.values(rank)
-          .filter(({ _id }) => [...friendList, myId].includes(_id))
-          .map((friendInfo: any, index) => (
-            <FriendRankBox key={friendInfo._id} className={friendInfo._id === myId ? 'me' : ''}>
-              <div>
-                <RankNum>{index + 1}</RankNum>
-                <img src={friendInfo.imgUrl} alt="프로필" />
-                <div>{friendInfo.nickname}</div>
-              </div>
-              <div>{friendInfo[rankingMenuList[nowSelect]]}</div>
-            </FriendRankBox>
-          ))}
-      </FriendRankData>
+      <RankContainer>
+        <RankingBox rank={rank} nowSelect={rankingMenuList[nowSelect]} filterList={friendList} />
+      </RankContainer>
     </>
   );
 };
