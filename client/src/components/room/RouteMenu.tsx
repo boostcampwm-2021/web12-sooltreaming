@@ -6,9 +6,9 @@ import DeviceSelections from '@src/components/setting/DeviceSelections';
 import Chat from '@components/room/chat/';
 import Users from '@components/user/Users';
 import Host from '@components/room/host/';
-import Games from '@components/room/games';
+import GameMenu from '@components/room/games/GameMenu';
 
-const RouteMenu = ({ startVoteRef, sendMessage, GameStartHandlerList }): React.ReactElement => {
+const RouteMenu = ({ startVoteRef, sendMessage, startGamesRef }): React.ReactElement => {
   const menuType = useSelector((state: RootState) => state.room.menuType);
 
   switch (menuType) {
@@ -25,7 +25,7 @@ const RouteMenu = ({ startVoteRef, sendMessage, GameStartHandlerList }): React.R
     case '방장':
       return <Host />;
     case '게임':
-      return <Games GameStartHandlerList={GameStartHandlerList} />;
+      return <GameMenu startGamesRef={startGamesRef} />;
     default:
       return <></>;
   }

@@ -10,12 +10,12 @@ const getPositionCSS = (pos: ModalPosType) => {
     .join('');
 };
 
-export const Wrapper = styled.div<{ pos: ModalPosType }>`
+export const RelativeBox = styled.div<{ pos: ModalPosType }>`
   position: relative;
   ${(props) => getPositionCSS(props.pos)}
 `;
 
-export const ContentDiv = styled.div<{ renderCenter: boolean; pos: ModalPosType }>`
+export const AbsoluteBox = styled.div<{ renderCenter: boolean; pos: ModalPosType }>`
   position: absolute;
   z-index: ${Z_INDEX.modal};
   ${(props) => getPositionCSS(props.pos)}

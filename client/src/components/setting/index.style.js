@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, BTN_STYLE, CANCLE_BTN_STYLE } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const SettingContainer = styled.div`
   width: 100%;
   height: 100%;
 

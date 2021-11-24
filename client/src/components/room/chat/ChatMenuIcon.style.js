@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.button`
+export const IconContainer = styled.button`
   background-color: none;
   background: none;
   border: none;

@@ -1,10 +1,5 @@
 import User from '@models/User';
-
-const LOG_EVENT = {
-  CLOSEUP: 'closeupCount',
-  PASSING_MESSAGE: 'chatCount',
-  QUESTION: 'hookCount',
-};
+import { LOG_EVENT } from '@src/constant';
 
 export const createLog = async (id, eventType) => {
   await User.updateOne({ _id: id }, { $inc: { [LOG_EVENT[eventType]]: 1 } });

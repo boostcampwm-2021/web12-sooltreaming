@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Wrapper = styled.div<{ isVote: boolean }>`
+export const Content = styled.div<{ isVote: boolean }>`
   padding-bottom: ${(props) => (props.isVote ? 0 : '30px')};
 
   display: flex;

@@ -16,7 +16,10 @@ const FriendRequestModal = ({ friendRequestIsOpen, closeFriendRequestJudgment })
   const [sendFriend, setSendFriend] = useState<Array<FriendType>>([]);
   const [receiveFriend, setReceiveFriend] = useState<Array<FriendType>>([]);
 
-  const cancelFriendRequest = async (id) => {};
+  const cancleFriendRequest = async (id) => {
+    await API.call(API.TYPE.DELETE_SENDFRIEND, id);
+    setSendFriend((prev) => [...prev].filter((friend) => friend._id !== id));
+  };
 
   const rejectFriendRequest = async (id) => {
     await API.call(API.TYPE.DELETE_RECEIVEFRIEND, id);
@@ -30,7 +33,9 @@ const FriendRequestModal = ({ friendRequestIsOpen, closeFriendRequestJudgment })
 
   useEffect(() => {
     const httpRequest = async () => {
+      const sendList = await API.call(API.TYPE.GET_SENDFRIEND);
       const receiveList = await API.call(API.TYPE.GET_RECEIVEFRIEND);
+      setSendFriend(sendList);
       setReceiveFriend(receiveList);
     };
     httpRequest();
@@ -46,7 +51,22 @@ const FriendRequestModal = ({ friendRequestIsOpen, closeFriendRequestJudgment })
       >
         <RequestData>
           <h2>친구 신청 목록</h2>
-          <ul className="application draggable-box"></ul>
+          <ul className="application draggable-box">
+            {sendFriend.map(({ _id: id, nickname, imgUrl }) => (
+              <li>
+                <FriendItem imgUrl={imgUrl} nickname={nickname}>
+                  <button
+                    className="cancle-button"
+                    onClick={() => {
+                      cancleFriendRequest(id);
+                    }}
+                  >
+                    취소
+                  </button>
+                </FriendItem>
+              </li>
+            ))}
+          </ul>
         </RequestData>
         <RequestData>
           <h2>친구 요청 목록</h2>

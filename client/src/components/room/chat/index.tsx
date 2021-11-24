@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import Socket from '@socket/socket';
-import { Wrapper, MessageList } from '@components/room/chat/index.style';
+import { ScrollBox, MessageList } from '@components/room/chat/index.style';
 import ChatItem from '@components/room/chat/ChatItem';
 import ChatForm from '@components/room/chat/ChatForm';
 
@@ -26,7 +26,7 @@ const Chat: React.FC<ChatPropTypes> = ({ sendMessage }) => {
   }, [chatLog]);
 
   return (
-    <Wrapper>
+    <ScrollBox>
       <MessageList ref={chatWindow}>
         {chatLog.map(({ sid, msg, date }) => (
           <ChatItem
@@ -39,7 +39,7 @@ const Chat: React.FC<ChatPropTypes> = ({ sendMessage }) => {
         ))}
       </MessageList>
       <ChatForm sendMessage={sendMessage} />
-    </Wrapper>
+    </ScrollBox>
   );
 };
 

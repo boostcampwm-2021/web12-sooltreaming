@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const LineContainer = styled.div`
   position: absolute;
   top: 0;
   left: 0;

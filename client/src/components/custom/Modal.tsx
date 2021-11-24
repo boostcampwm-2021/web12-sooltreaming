@@ -1,5 +1,5 @@
 import React from 'react';
-import { Wrapper, ContentDiv } from '@components/custom/Modal.style';
+import { RelativeBox, AbsoluteBox } from '@components/custom/Modal.style';
 
 export type ModalPosType = {
   top?: string;
@@ -27,16 +27,16 @@ const Modal: React.FunctionComponent<ModalPropTypes> = ({
   if (!isOpen) return <></>;
   if (!isRelative)
     return (
-      <ContentDiv renderCenter={renderCenter} pos={absolutePos}>
+      <AbsoluteBox renderCenter={renderCenter} pos={absolutePos}>
         {children}
-      </ContentDiv>
+      </AbsoluteBox>
     );
   return (
-    <Wrapper pos={relativePos}>
-      <ContentDiv renderCenter={renderCenter} pos={absolutePos}>
+    <RelativeBox pos={relativePos}>
+      <AbsoluteBox renderCenter={renderCenter} pos={absolutePos}>
         {children}
-      </ContentDiv>
-    </Wrapper>
+      </AbsoluteBox>
+    </RelativeBox>
   );
 };
 

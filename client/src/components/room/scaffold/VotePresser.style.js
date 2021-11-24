@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const TitleH2 = styled.h2`
+export const Title = styled.h2`
   position: absolute;
   left: 0;
   top: 0;

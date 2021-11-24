@@ -21,7 +21,7 @@ const CreateRoom: React.FunctionComponent = () => {
       history.replace(`/room/${roomCode}`);
     };
 
-    const functions = Socket.host({ joining });
+    const functions = Socket.create({ joining });
     functions.createRoom();
 
     return () => {

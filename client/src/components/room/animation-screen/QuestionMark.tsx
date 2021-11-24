@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { QuestionImg } from '@components/room/animation-screen/QuestionMark.style';
+import { QuestionScreen } from '@components/room/animation-screen/QuestionMark.style';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 
@@ -16,7 +16,7 @@ const QuestionMark: React.FC<QuestionMarkPropTypes> = ({ x, y }) => {
 
   return (
     <>
-      <QuestionImg x={x} y={y} />
+      <QuestionScreen x={x} y={y} />
       <audio ref={audioRef} src="/audios/mia-ping.mp3" autoPlay></audio>
     </>
   );

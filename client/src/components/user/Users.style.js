@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, BTN_STYLE } from '@constant/style';
 
-export const Wrapper = styled.div`
+export const MenuBox = styled.div`
   flex: 1 1 auto;
   padding: 0 20;
   display: flex;
@@ -24,7 +24,7 @@ export const UserList = styled.li`
   }
 `;
 
-export const ProfileDiv = styled.div`
+export const Profile = styled.div`
   width: 100%;
   height: 32px;
   display: flex;

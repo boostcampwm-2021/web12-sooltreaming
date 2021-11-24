@@ -1,25 +1,25 @@
 import React from 'react';
-import { Wrapper, TopBar, CloseButton } from '@components/room/RoomMenu.style';
+import { MenuBox, TopBar, CloseButton } from '@components/room/RoomMenu.style';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
 import RouteMenu from '@components/room/RouteMenu';
-import useMessage from '@hooks/socket/useMessage';
+import useChatSocket from '@hooks/socket/useChatSocket';
 
 type RoomMenuPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
-  GameStartHandlerList: Object;
+  startGamesRef: React.MutableRefObject<Object>;
 };
 
-const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartHandlerList }) => {
+const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, startGamesRef }) => {
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const dispatch = useDispatch();
 
-  const { sendMessage } = useMessage();
+  const { sendMessage } = useChatSocket();
 
   if (!menuType) return <></>;
   return (
-    <Wrapper>
+    <MenuBox>
       <TopBar>
         <span>{menuType}</span>
         <CloseButton onClick={() => dispatch(setMenuType(''))}></CloseButton>
@@ -27,9 +27,9 @@ const RoomMenu: React.FC<RoomMenuPropTypes> = ({ startVoteRef, GameStartHandlerL
       <RouteMenu
         startVoteRef={startVoteRef}
         sendMessage={sendMessage}
-        GameStartHandlerList={GameStartHandlerList}
+        startGamesRef={startGamesRef}
       />
-    </Wrapper>
+    </MenuBox>
   );
 };
 

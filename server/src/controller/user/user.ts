@@ -17,9 +17,17 @@ export const getUserInformation = async (req, res, next) => {
       'speakCount',
       'starterCount',
       'totalSeconds',
+      'nicknameLog',
+      '-_id',
     ];
+
     const query = selectList.join(' ');
-    const user = await User.findOne({ _id: id }).select(query);
+    const user = await User.findOne({ _id: id })
+      .select(query)
+      .populate('nicknameLog', 'nickname -_id')
+      .sort({ createdAt: 'desc' })
+      .exec();
+
     if (!user) throw new CustomError(400, 'id Error');
     res.status(200).json({
       user: user,
@@ -87,18 +95,19 @@ export const patchUserNickname = async (req, res, next) => {
     if (!id) throw new CustomError(401, 'id Error');
 
     const result = await transaction(async () => {
+      const newNickname = await new NicknameLog({
+        userId: id,
+        nickname: nickname,
+      }).save();
+
       const value = await User.findByIdAndUpdate(
         { _id: id },
-        { $set: { nickname } },
+        { $set: { nickname }, $addToSet: { nicknameLog: newNickname._id } },
         {
           new: true,
         },
       ).exec();
 
-      await new NicknameLog({
-        userId: id,
-        nickname: nickname,
-      }).save();
       return value;
     });
 

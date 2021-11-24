@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import {
-  Wrapper,
-  UserSection,
-  CircleDiv,
-  NameSpan,
+  ColumnBox,
+  UserContainer,
+  ProfileContainer,
+  Name,
   MsgContent,
 } from '@components/room/chat/ChatItem.style';
 import { HumanIcon } from '@components/icons';
@@ -24,16 +24,16 @@ const ChatItem: React.FC<ChatItemPropTypes> = ({ isSelf, message, date, sid }) =
   const targetImg = isSelf ? imgUrl : users[sid]?.imgUrl;
 
   return (
-    <Wrapper isSelf={isSelf}>
-      <UserSection isSelf={isSelf}>
-        <CircleDiv>
+    <ColumnBox isSelf={isSelf}>
+      <UserContainer isSelf={isSelf}>
+        <ProfileContainer>
           {targetImg ? <img src={targetImg} alt="UserProfile" /> : <HumanIcon />}
-        </CircleDiv>
-        <NameSpan>{targetNick || 'judangs'}</NameSpan>
+        </ProfileContainer>
+        <Name>{targetNick || 'judangs'}</Name>
         <span>{date}</span>
-      </UserSection>
+      </UserContainer>
       <MsgContent isSelf={isSelf}>{message}</MsgContent>
-    </Wrapper>
+    </ColumnBox>
   );
 };
 

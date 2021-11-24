@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import {
-  Wrapper,
-  MyPageHeaderWrapper,
-  MyPageHeader,
-  MyPageSecondHeaderWrapper,
-  MyPageSecondHeader,
-  MainDataWrapper,
+  FullScreen,
+  HeaderBox,
+  Title,
+  SecondHeaderBox,
+  MenuList,
+  Contents,
 } from '@src/pages/UserInformation.style.js';
 import { useHistory } from 'react-router-dom';
 import MainData from '@src/components/user-information/MainData';
@@ -31,13 +31,13 @@ const UserInformation: React.FunctionComponent = () => {
   };
 
   return (
-    <Wrapper>
-      <MyPageHeaderWrapper>
+    <FullScreen>
+      <HeaderBox>
         <img src="/images/LeftIcon.png" alt="뒤로가기" onClick={goBack} />
-        <MyPageHeader>마이 페이지</MyPageHeader>
-      </MyPageHeaderWrapper>
-      <MyPageSecondHeaderWrapper>
-        <MyPageSecondHeader>
+        <Title>마이 페이지</Title>
+      </HeaderBox>
+      <SecondHeaderBox>
+        <MenuList>
           <p className={menu === 'information' ? 'on' : ''} onClick={information}>
             내 정보
           </p>
@@ -47,12 +47,12 @@ const UserInformation: React.FunctionComponent = () => {
           <p className={menu === 'ranking' ? 'on' : ''} onClick={ranking}>
             랭킹
           </p>
-        </MyPageSecondHeader>
-      </MyPageSecondHeaderWrapper>
-      <MainDataWrapper>
+        </MenuList>
+      </SecondHeaderBox>
+      <Contents>
         <MainData menu={menu} />
-      </MainDataWrapper>
-    </Wrapper>
+      </Contents>
+    </FullScreen>
   );
 };
 
