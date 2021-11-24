@@ -48,8 +48,12 @@ export const getUserNicknameLog = async (req, res, next) => {
   }
 };
 
-export const patchUserImage = async (req, res, next) => {
-  const image = req.file;
+export const postUserImage = async (req, res, next) => {
+  console.log(req.file, 'postUserImage');
+  const id = req.user._id;
+  if (!id) throw new CustomError(401, 'id Error');
+  let image = req.file;
+
   try {
     if (!image) throw new CustomError(400, 'Invalid Data');
     const id = req.user._id;
