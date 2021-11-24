@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { InfoContainer, Title } from '@components/room/games/GameBox.style';
-import { GameExplainIcon } from '@components/icons';
+import { GameRuleIcon } from '@components/icons';
 import Modal from '@components/custom/Modal';
 
 type GameType = {
@@ -11,19 +11,24 @@ type GameType = {
 
 const GameBox: React.FC<GameType> = ({ children, icon, title, start }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const toggleExplain = (e) => {
+
+  const toggleRule = (e) => {
     e.stopPropagation();
     setIsOpen((prev) => !prev);
   };
+  const closeRule = () => {
+    setIsOpen(false);
+  };
+
   return (
     <>
       <InfoContainer onClick={start}>
         <Title>
           {icon}
-          {title}
+          {title}게임
         </Title>
-        <div onClick={toggleExplain}>
-          <GameExplainIcon />
+        <div onClick={toggleRule} onBlur={closeRule} tabIndex={0}>
+          <GameRuleIcon />
         </div>
       </InfoContainer>
       <Modal isOpen={isOpen} absolutePos={{ right: '15px' }}>

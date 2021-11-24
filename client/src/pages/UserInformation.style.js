@@ -89,4 +89,5 @@ export const MenuList = styled.div`
 
 export const Contents = styled.div`
   padding-top: 120px;
+  height: 100%;
 `;
