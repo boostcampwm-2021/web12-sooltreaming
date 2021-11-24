@@ -1,4 +1,9 @@
-import { getUserInformation, getUserNicknameLog, patchUserNickname } from '@api/user';
+import {
+  getUserInformation,
+  getUserNicknameLog,
+  postUserImage,
+  patchUserNickname,
+} from '@api/user';
 import {
   getSendFriend,
   getReceiveFriend,
@@ -16,6 +21,7 @@ import { store } from '@src/store/store';
 export const API = {
   TYPE: {
     PATCH_USER_NICKNAME: patchUserNickname,
+    POST_USER_IMAGE: postUserImage,
     GET_USER_INFORMATION: getUserInformation,
     GET_USER_NICKNAME_LOG: getUserNicknameLog,
     GET_SENDFRIEND: getSendFriend,
@@ -23,8 +29,8 @@ export const API = {
     GET_FRIEND: getFriend,
     DELETE_SENDFRIEND: deleteSendFriend,
     DELETE_RECEIVEFRIEND: deleteReceiveFriend,
-    DELETE_FRIEND: deleteFriend,
     PATCH_RECEIVEFRIEND: patchReceiveFriend,
+    DELETE_FRIEND: deleteFriend,
     GET_RANK: getRank,
   },
 

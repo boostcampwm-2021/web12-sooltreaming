@@ -35,6 +35,8 @@ import RejectIcon from '@components/icons/RejectIcon';
 import CancelIcon from '@components/icons/CancelIcon';
 import DeleteIcon from '@components/icons/DeleteIcon';
 import HomeIcon from '@components/icons/HomeIcon';
+import NicknameChangeIcon from '@components/icons/NicknameChangeIcon';
+import CloseIcon from '@components/icons/CloseIcon';
 
 export type iconPropsType = {
   className?: string;
@@ -77,4 +79,6 @@ export {
   CancelIcon,
   DeleteIcon,
   HomeIcon,
+  NicknameChangeIcon,
+  CloseIcon,
 };

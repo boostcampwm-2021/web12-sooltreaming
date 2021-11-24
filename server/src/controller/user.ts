@@ -88,3 +88,27 @@ export const patchUserNickname = errorWrapper(async (req, res, next) => {
     message: 'User Information Update Success',
   });
 });
+
+export const postUserImage = errorWrapper(async (req, res, next) => {
+  const id = req.user._id;
+  if (!id) throw new CustomError(401, 'id Error');
+  let image = req.file;
+  if (!image) {
+    image = 'http://localhost:5000/public/uploads/HumanIcon.svg';
+  } else {
+    image = 'http://localhost:5000/public/uploads/' + image.filename;
+  }
+
+  const result = await User.findByIdAndUpdate(
+    { _id: id },
+    { $set: { imgUrl: image } },
+    {
+      new: true,
+    },
+  ).exec();
+
+  res.status(200).json({
+    imgUrl: result.imgUrl,
+    message: 'User Information Update Success',
+  });
+});

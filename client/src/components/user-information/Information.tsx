@@ -52,8 +52,6 @@ const Information: React.FC = () => {
     setChangeNicknameIsOpen((prev) => !prev);
   }, []);
 
-  const changeProfileImage = useCallback(() => {}, []);
-
   useEffect(() => {
     const requestGetUserInformation = async () => {
       const { information, nicknameLog } = await API.call(API.TYPE.GET_USER_INFORMATION, id);

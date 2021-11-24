@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback } from 'react';
 import Modal from '@components/custom/Modal';
 import { useSelector, useDispatch } from 'react-redux';
-import { setNickname } from '@store/user';
+import { setNickname, setImage } from '@store/user';
 import { RootState } from '@src/store';
 
 import { API } from '@src/api';
@@ -17,14 +17,14 @@ import {
   ProfileSquareWrapper,
   XButtonWrapper,
 } from '@components/user-information/Information.style';
-import { AcceptIcon, GreenXButtonIcon, RejectIcon } from '@src/components/icons';
+import { GreenXButtonIcon, CloseIcon, AcceptIcon } from '@src/components/icons';
 
-type NicknameChangeModal = {
+type NicknameChangeModalType = {
   changeNicknameIsOpen: any;
   toggleNicknameJudgment: any;
 };
 
-const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
+const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
   changeNicknameIsOpen,
   toggleNicknameJudgment,
 }) => {
@@ -32,24 +32,56 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const newNicknameData = useRef<HTMLInputElement>(null);
-  const inputImage = useRef<HTMLInputElement>(null);
-  const [fileUrl, setFileUrl] = useState<string>(imgUrl);
+  const newImageData = useRef<HTMLInputElement>(null);
+  const [preview, setPreview] = useState<any>(imgUrl);
 
   // 이미지 업로드 함수
-  const uploadImage = async () => {};
+  const uploadImage = useCallback((e) => {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const file = reader.result;
+      if (file) setPreview(file);
+    };
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+  }, []);
+
+  // 이미지 삭제 함수
+  const deleteImage = useCallback(async () => {
+    const dataTransfer = new DataTransfer();
+    if (!newImageData.current || !newImageData.current?.files) return;
+    newImageData.current.files = dataTransfer.files;
+    setPreview('http://localhost:5000/public/uploads/HumanIcon.svg');
+  }, []);
 
   // 닉네임 변경 함수
-  const changeNickname = useCallback(() => {
+  const changeNickname = async () => {
     const newNickname = newNicknameData.current?.value;
     if (newNickname === nickname || !newNickname) return;
 
-    const requestChangeUserNickname = async () => {
-      await API.call(API.TYPE.PATCH_USER_NICKNAME, newNickname);
+    await API.call(API.TYPE.PATCH_USER_NICKNAME, newNickname);
+    dispatch(setNickname(newNickname));
+  };
+
+  const requestChangeUserImage = async () => {
+    if (!newImageData.current) return;
+    if (preview === imgUrl) return;
+
+    // 서버에서 보내기
+    const newImage = newImageData.current.files;
+    const formData = new FormData();
+    // newImage가 없을 때 FormData에 안넣기
+    if (newImage && newImage[0]) formData.append('image', newImage[0]);
+    const test = await API.call(API.TYPE.POST_USER_IMAGE, formData);
+    dispatch(setImage(test));
+  };
+
+  const changeProfile = (e) => {
+    Promise.all([changeNickname(), requestChangeUserImage()]).then(() => {
       toggleNicknameJudgment();
-      dispatch(setNickname(newNickname));
-    };
-    requestChangeUserNickname();
-  }, []);
+    });
+  };
 
   return (
     <Modal
@@ -63,20 +95,16 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
       </Header>
       <ChangeData>
         <ProfileSquareWrapper>
-          <ProfileSquare fileUrl={fileUrl}>
-            <form
-              action="https://localhost:5000/user/image"
-              method="post"
-              encType="multipart/form-data"
-            >
-              <input
-                type="file"
-                style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
-                accept="image/jpeg, image/png"
-                onChange={uploadImage}
-              />
-            </form>
-            <XButtonWrapper>
+          <ProfileSquare>
+            <img src={preview} alt="" />
+            <input
+              ref={newImageData}
+              type="file"
+              style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
+              accept="image/jpeg, image/png"
+              onChange={uploadImage}
+            />
+            <XButtonWrapper onClick={deleteImage}>
               <GreenXButtonIcon />
             </XButtonWrapper>
           </ProfileSquare>
@@ -89,11 +117,11 @@ const NicknameChangeModal: React.FC<NicknameChangeModal> = ({
         />
       </ChangeData>
       <DeleteChangePressSection>
-        <AcceptIconWrapper onClick={changeNickname}>
+        <AcceptIconWrapper onClick={changeProfile}>
           <AcceptIcon />
         </AcceptIconWrapper>
         <RejectIconWrapper onClick={toggleNicknameJudgment}>
-          <RejectIcon />
+          <CloseIcon />
         </RejectIconWrapper>
       </DeleteChangePressSection>
     </Modal>

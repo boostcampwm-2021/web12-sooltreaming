@@ -13,7 +13,6 @@ export const getUserInformation = async (id) => {
   const { status, json } = await request.get({ url: '/user', query: { id } });
   if (status === 200) {
     const { information, nicknameLog } = json;
-    console.log(information, nicknameLog);
     return { information, nicknameLog };
   } else throw new Error(json.error.toString());
 };
@@ -35,13 +34,14 @@ export const patchUserNickname = async (newNickname) => {
   } else throw new Error(json.error.toString());
 };
 
-export const patchUserImage = async (newFileUrl) => {
-  const { status, json } = await request.patch({
+export const postUserImage = async (newFile) => {
+  const { status, json } = await request.post({
     url: '/user/image',
-    body: { imgUrl: newFileUrl },
+    headerOptions: {},
+    body: newFile,
   });
   if (status === 200) {
-    return json.message;
+    return json.imgUrl;
   } else throw new Error(json.error.toString());
 };
 
