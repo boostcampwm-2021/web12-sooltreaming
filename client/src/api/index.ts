@@ -14,7 +14,7 @@ export const API = {
     DELETE_SENDFRIEND: deleteSendFriend,
     DELETE_RECEIVEFRIEND: deleteReceiveFriend,
     DELETE_FRIEND: deleteFriend,
-    PATCH_RECEIVEREIEND : patchReceiveFriend,
+    PATCH_RECEIVEFRIEND : patchReceiveFriend,
   },
 
   call: async function (api, data={}) {
