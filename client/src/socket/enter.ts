@@ -9,13 +9,15 @@ import {
 } from 'sooltreaming-domain/constant/socketEvent';
 
 const enter = (socket: Socket) => (closure: any) => {
-  const { errorControl, addUser, deleteUser, initUsers, changeRoomHost } = closure;
+  const { errorControl, addUser, deleteUser, initUsers, changeRoomHost, updateFriendList } =
+    closure;
 
   socket.on(ENTER_ALL_USER, (allUsers, allUsersDevices) => {
     initUsers({ users: { ...allUsers }, usersDevices: { ...allUsersDevices } });
   });
   socket.on(ENTER_ONE_USER, (user, userDevices, sid) => {
     addUser({ user, userDevices, sid });
+    updateFriendList();
   });
   socket.on(DISCONNECT_USER, (id) => {
     if (socket.id === id) return;
