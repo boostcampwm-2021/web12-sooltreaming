@@ -13,7 +13,7 @@ const GameMenu: React.FC<GameMenuPropTypes> = ({ startGamesRef }) => {
       {gameList.map(({ icon, title, content }) => (
         <GameBox key={title} icon={icon} title={title} start={startGamesRef.current[title]}>
           <GameRuleBox>
-            <GameTitle>{title} 설명서</GameTitle>
+            <GameTitle>{title} 게임 설명서</GameTitle>
             {content}
           </GameRuleBox>
         </GameBox>

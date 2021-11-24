@@ -3,6 +3,7 @@ import Socket from '@socket/socket';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setCurrentGame } from '@store/room';
+import { LIAR, UP_DOWN } from 'sooltreaming-domain/constant/gameName';
 
 const useGameSocket = () => {
   const dispatch = useDispatch();
@@ -11,20 +12,18 @@ const useGameSocket = () => {
   const onClickUpdown = useCallback(() => {
     socket.requestUpdownStart();
   }, []);
-  const onClickRandom = useCallback(() => {}, []);
   const onClickLiar = useCallback(() => {}, []);
 
   const GameStartHandlerList = useMemo(
     () => ({
-      랜덤뽑기: onClickRandom,
-      업다운: onClickUpdown,
-      라이어: onClickLiar,
+      [UP_DOWN]: onClickUpdown,
+      [LIAR]: onClickLiar,
     }),
     [],
   );
 
   const startUpdown = (startingSID) => {
-    dispatch(setCurrentGame({ title: '업다운', host: startingSID }));
+    dispatch(setCurrentGame({ title: UP_DOWN, host: startingSID }));
   };
   const stopUpdown = () => {
     dispatch(setCurrentGame({ title: '', host: '' }));

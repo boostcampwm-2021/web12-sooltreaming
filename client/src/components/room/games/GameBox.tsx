@@ -21,7 +21,7 @@ const GameBox: React.FC<GameType> = ({ children, icon, title, start }) => {
       <InfoContainer onClick={start}>
         <Title>
           {icon}
-          {title}
+          {title}게임
         </Title>
         <div onClick={toggleRule}>
           <GameRuleIcon />

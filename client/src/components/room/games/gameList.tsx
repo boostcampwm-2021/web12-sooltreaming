@@ -1,9 +1,10 @@
 import { GameIcon } from '@components/icons';
+import { LIAR, UP_DOWN } from 'sooltreaming-domain/constant/gameName';
 
 export const gameList = [
   {
     icon: <GameIcon />,
-    title: '업다운 게임',
+    title: UP_DOWN,
     content: (
       <div>
         업다운 게임은 주최자에게 주어진 숫자를 맞히는 게임입니다.
@@ -19,7 +20,7 @@ export const gameList = [
   },
   {
     icon: <GameIcon />,
-    title: '라이어 게임',
+    title: LIAR,
     content: (
       <div>
         라이어 게임은 라이어를 찾는 게임입니다. <br />
