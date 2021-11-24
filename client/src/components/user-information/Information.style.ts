@@ -38,6 +38,7 @@ export const ProfileData = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-left: 2rem;
 
   p {
     font-size: 24px;
@@ -81,7 +82,6 @@ export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 500px;
 
   p {
     display: flex;
@@ -137,6 +137,7 @@ export const DeleteFriendPressSection = styled.div`
 
 export const AcceptIconWrapper = styled.div`
   cursor: pointer;
+
   path:first-child:hover {
     fill: ${COLOR.primary3};
   }
@@ -144,6 +145,26 @@ export const AcceptIconWrapper = styled.div`
   path:first-child:active {
     fill: 10px solid ${COLOR.titleActive};
   }
+`;
+
+export const NicknameChangeAcceptIconWrapper = styled.div<{
+  nickChanged: boolean;
+  imgChanged: boolean;
+}>`
+  cursor: pointer;
+
+  path:first-child:hover {
+    fill: ${COLOR.primary3};
+  }
+
+  path:first-child:active {
+    fill: 10px solid ${COLOR.titleActive};
+  }
+
+  ${(props) =>
+    props.nickChanged || props.imgChanged
+      ? ''
+      : `path:first-child{fill:${COLOR.disabled}}; path:first-child:hover{fill:${COLOR.disabled}}; path:first-child:active{fill:${COLOR.disabled}}`};
 `;
 
 export const NicknameChangeIconWrapper = styled.div`
@@ -219,15 +240,37 @@ export const CheckPressSection = styled.div`
 
 export const HistoryData = styled.div`
   width: 640px;
-  padding: 20px 20px;
+  height: 200px;
+  padding: 0px;
   display: flex;
   flex-direction: column;
 
-  justify-content: space-around;
   align-items: center;
 
+  overflow-x: hidden;
+  overflow-y: scroll;
+
   p {
-    margin: 8px;
+    margin: 0.5rem;
+  }
+
+  p:first-child {
+    margin-top: auto;
+  }
+
+  p:last-child {
+    margin-bottom: auto;
+  }
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 16px;
+    border-radius: 10px;
+    background: ${COLOR.line};
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: ${COLOR.primary3};
+    border-radius: 10px;
   }
 `;
 

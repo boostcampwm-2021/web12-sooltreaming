@@ -2,31 +2,9 @@ import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { API } from '@src/api';
-import {
-  TopWrapper,
-  Profile,
-  BottomWrapper,
-  ButtonsWrapper,
-  Button,
-  ProfileImgSlot,
-  ProfileData,
-  InformationSpan,
-} from '@components/user-information/Information.style';
-import { HistoryIcon, ChangeNicknameIcon } from '@components/icons';
 import NicknameLogModal from '@components/user-information/modals/NicknameLogModal';
 import NicknameChangeModal from '@components/user-information/modals/NicknameChangeModal';
-
-const UNITS = {
-  createdAt: (value) => `가입 일자 : ${value}`,
-  chatCount: (value) => `총 채팅 횟수 : ${value}번`,
-  hookCount: (value) => `갈고리 사용 횟수 : ${value}번`,
-  pollCount: (value) => `투표 선정 횟수 : ${value}번`,
-  closeupCount: (value) => `클로즈업 횟수 : ${value}번`,
-  dieCount: (value) => `단두대 횟수 : ${value}회 (%)`,
-  speakCount: (value) => `건배사 횟수 : ${value}회`,
-  starterCount: (value) => `게임 주최 횟수 : ${value}번`,
-  totalSeconds: (value) => `총 접속 시간 : ${value}초`,
-};
+import InfoComponent from '@components/user-information/InfoComponent';
 
 export type NicknameLogType = {
   nickname: string;
@@ -62,33 +40,13 @@ const Information: React.FC = () => {
 
   return (
     <>
-      <TopWrapper>
-        <Profile>
-          <ProfileImgSlot>
-            <img src={imgUrl} alt="프로필" />
-          </ProfileImgSlot>
-          <ProfileData>
-            <p>{nickname}</p>
-            <ButtonsWrapper>
-              <Button onClick={toggleHistoryJudgment}>
-                <HistoryIcon />
-              </Button>
-              <Button onClick={toggleNicknameJudgment}>
-                <ChangeNicknameIcon />
-              </Button>
-            </ButtonsWrapper>
-          </ProfileData>
-        </Profile>
-      </TopWrapper>
-      <BottomWrapper>
-        {Object.entries(userInformation).map(([key, value], index) => {
-          return (
-            <InformationSpan key={index}>
-              <p>{UNITS[key](value)}</p>
-            </InformationSpan>
-          );
-        })}
-      </BottomWrapper>
+      <InfoComponent
+        nickname={nickname}
+        imgUrl={imgUrl}
+        toggleHistoryJudgment={toggleHistoryJudgment}
+        toggleNicknameJudgment={toggleNicknameJudgment}
+        userInformation={userInformation}
+      ></InfoComponent>
 
       <NicknameChangeModal
         changeNicknameIsOpen={changeNicknameIsOpen}
