@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
+import { createLog } from '@utils/log';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
-import { createLog } from '@controller/socket/logController';
 import { MARK_BROADCAST } from 'sooltreaming-domain/constant/socketEvent';
 
 const mark = ({
