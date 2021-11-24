@@ -21,4 +21,5 @@ export const GameTitle = styled.div`
   font-weight: bold;
   color: ${COLOR.titleActive};
   margin-bottom: 10px;
+  align-items: center;
 `;
