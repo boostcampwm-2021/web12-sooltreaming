@@ -1,25 +1,14 @@
 import { CustomError, errorWrapper } from '@utils/error';
 import User from '@models/User';
+import { userCount } from '@utils/userCount';
 import NicknameLog from '@models/NicknameLog';
 
 export const getUserInformation = errorWrapper(async (req, res, next) => {
   const { id } = req.query;
   if (!id) throw new CustomError(400, 'id Error');
-  const selectList = [
-    'createdAt',
-    'chatCount',
-    'hookCount',
-    'pollCount',
-    'closeupCount',
-    'dieCount',
-    'speakCount',
-    'starterCount',
-    'totalSeconds',
-    'nicknameLog',
-    '-_id',
-  ];
 
-  const query = selectList.join(' ');
+  const query = [...userCount, 'createdAt -_id'].join(' ');
+
   const information = await User.findOne({ _id: id }).select(query).exec();
 
   const nicknameLog = await NicknameLog.find({ userId: id })
