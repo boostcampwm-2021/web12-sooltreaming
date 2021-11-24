@@ -27,7 +27,7 @@ import SmallAcceptIcon from '@components/icons/SmallAcceptIcon';
 import SmallCancelIcon from '@components/icons/SmallCancelIcon';
 import ExitIcon from '@components/icons/ExitIcon';
 
-import GameExplainIcon from '@components/icons/GameExplainIcon';
+import GameRuleIcon from '@src/components/icons/GameRuleIcon';
 import ProfileSquareIcon from '@components/icons/ProfileSquareIcon';
 import GreenXButtonIcon from '@components/icons/GreenXButtonIcon';
 import AcceptIcon from '@components/icons/AcceptIcon';
@@ -71,7 +71,7 @@ export {
   SmallAcceptIcon,
   SmallCancelIcon,
   ExitIcon,
-  GameExplainIcon,
+  GameRuleIcon,
   ProfileSquareIcon,
   GreenXButtonIcon,
   AcceptIcon,
