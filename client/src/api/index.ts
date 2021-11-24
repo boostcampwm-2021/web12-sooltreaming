@@ -3,6 +3,7 @@ import {
   getUserNicknameLog,
   postUserImage,
   patchUserNickname,
+  patchTotalSeconds,
 } from '@api/user';
 import {
   getSendFriend,
@@ -20,6 +21,7 @@ import { store } from '@src/store/store';
 
 export const API = {
   TYPE: {
+    PATCH_TOTAL_SECONDS: patchTotalSeconds,
     PATCH_USER_NICKNAME: patchUserNickname,
     POST_USER_IMAGE: postUserImage,
     GET_USER_INFORMATION: getUserInformation,

@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
-import { createLog } from '@controller/socket/logController';
+import { createLog } from '@utils/log';
 import {
   CHEERS_BROADCAST,
   CLOSEUP_ON,

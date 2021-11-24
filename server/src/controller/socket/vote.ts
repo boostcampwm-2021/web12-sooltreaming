@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import { createLog } from '@utils/log';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
 import {
@@ -45,6 +46,8 @@ const vote = ({
       rooms[code].status = STATUS_VOTE_EXECUTING;
       rooms[code].closeupUser = targetSID;
       io.to(code).emit(CLOSEUP_ON, targetSID);
+
+      createLog(STATUS_VOTE_EXECUTING, rooms[code].users[targetSID].id);
     }
 
     const targetName = rooms[code].users[targetSID]?.nickname ?? '';
@@ -78,6 +81,8 @@ const vote = ({
 
     const targetName = rooms[code].users[targetSID]?.nickname ?? '';
     io.to(code).emit(VOTE_JUDGE_ON, { targetName, participants: userKeys.length });
+
+    createLog(VOTE_START, rooms[code].users[targetSID].id);
   });
 
   socket.on(VOTE_DECISION, ({ isApprove }) => {

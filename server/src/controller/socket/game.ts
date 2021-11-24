@@ -1,4 +1,5 @@
 import { Socket } from 'socket.io';
+import { createLog } from '@utils/log';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
 import { UPDOWN_START, UPDOWN_STOP } from 'sooltreaming-domain/constant/socketEvent';
@@ -26,6 +27,7 @@ const game = ({
 
     rooms[code].game = { title: UP_DOWN, host: startingSID };
     io.emit(UPDOWN_START, startingSID);
+    createLog(UPDOWN_START, rooms[code].users[startingSID].id);
   });
   socket.on(UPDOWN_STOP, () => {
     const { code } = targetInfo;

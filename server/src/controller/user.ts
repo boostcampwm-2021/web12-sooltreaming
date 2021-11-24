@@ -1,25 +1,14 @@
 import { CustomError, errorWrapper } from '@utils/error';
 import User from '@models/User';
+import { userCount } from '@utils/userCount';
 import NicknameLog from '@models/NicknameLog';
 
 export const getUserInformation = errorWrapper(async (req, res, next) => {
   const { id } = req.query;
   if (!id) throw new CustomError(400, 'id Error');
-  const selectList = [
-    'createdAt',
-    'chatCount',
-    'hookCount',
-    'pollCount',
-    'closeupCount',
-    'dieCount',
-    'speakCount',
-    'starterCount',
-    'totalSeconds',
-    'nicknameLog',
-    '-_id',
-  ];
 
-  const query = selectList.join(' ');
+  const query = [...userCount, 'createdAt -_id'].join(' ');
+
   const information = await User.findOne({ _id: id }).select(query).exec();
 
   const nicknameLog = await NicknameLog.find({ userId: id })
@@ -87,6 +76,19 @@ export const patchUserNickname = errorWrapper(async (req, res, next) => {
   res.status(200).json({
     message: 'User Information Update Success',
   });
+});
+
+export const patchTotalSeconds = errorWrapper(async (req, res, next) => {
+  const _id = req.user._id;
+  const { startTime } = req.session;
+  const { exitTime } = req.body;
+  if (!_id || !startTime || !exitTime) res.status(400).json({ message: 'invaild data' });
+  const result = await User.findOneAndUpdate(
+    { _id },
+    { $inc: { totalSeconds: Math.floor((exitTime - startTime) / 1000) } },
+  );
+  req.session.startTime = new Date().getTime();
+  res.status(200).json({ message: 'success!' });
 });
 
 export const postUserImage = errorWrapper(async (req, res, next) => {
