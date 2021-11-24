@@ -22,13 +22,9 @@ export const getUserInformation = errorWrapper(async (req, res, next) => {
   const query = selectList.join(' ');
   const information = await User.findOne({ _id: id }).select(query).exec();
 
-  console.log(await User.find());
-
   const nicknameLog = await NicknameLog.find({ userId: id })
     .sort({ createdAt: 'desc' })
     .select('nickname -_id');
-
-  console.log(nicknameLog);
 
   if (!information) throw new CustomError(400, 'id Error');
   res.status(200).json({
