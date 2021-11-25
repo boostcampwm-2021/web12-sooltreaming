@@ -7,7 +7,10 @@ export const MenuBox = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${COLOR.primary2};
+  overflow-x: hidden;
   overflow-y: scroll;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   &::-webkit-scrollbar {
     width: 4px;
     height: 16px;
