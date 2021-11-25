@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, Z_INDEX } from '@constant/style';
+import { COLOR, Z_INDEX, BOX_SHADOW } from '@constant/style';
 
 export const Container = styled.div`
   max-width: 340px;
@@ -20,6 +20,8 @@ export const ItemListBox = styled.div`
 `;
 
 export const ItemList = styled.ul`
+  ${BOX_SHADOW}
+
   max-width: 340px;
   width: 100%;
 
@@ -27,9 +29,7 @@ export const ItemList = styled.ul`
   list-style: none;
   padding-left: 0px;
 
-  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
-  border-radius: 10px;
 
   background: ${COLOR.background};
 `;

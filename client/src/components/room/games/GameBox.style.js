@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, BOX_SHADOW } from '@constant/style';
 
 export const InfoContainer = styled.li`
+  ${BOX_SHADOW}
   display: flex;
   background-color: ${COLOR.white};
   padding: 15px;
-  border-radius: 10px;
   margin: 15px;
-  box-shadow: 1px 1px 1px 1px #ccc;
   cursor: pointer;
   justify-content: space-between;
   align-items: center;
