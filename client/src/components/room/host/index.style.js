@@ -3,7 +3,6 @@ import { COLOR } from '@constant/style';
 
 export const ControlBox = styled.div`
   flex: 1 1 auto;
-  padding: 15px;
   display: flex;
   justify-content: space-between;
   flex-direction: column;
