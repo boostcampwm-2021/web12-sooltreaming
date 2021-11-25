@@ -9,7 +9,8 @@ import { CHEERS_GIF_NUM, CHEERS_TIME, LISTED_GIF } from 'sooltreaming-domain/con
 
 const AnimationScreen: React.FC = () => {
   const dispatch = useDispatch();
-  const screenRef = useRef<HTMLImageElement>(null);
+  const screenRef = useRef<HTMLDivElement>(null);
+  const cheersRef = useRef<HTMLImageElement>(null);
   const isCheers = useSelector((state: RootState) => state.room.isCheers);
 
   const { marks, addQuestionMark } = useMarkSocket();
@@ -18,17 +19,17 @@ const AnimationScreen: React.FC = () => {
     const randomNum = Math.floor(Math.random() * CHEERS_GIF_NUM);
     const targetGif = LISTED_GIF[randomNum];
 
-    if (screenRef.current) {
-      screenRef.current.src = targetGif as any;
-      screenRef.current.style.display = 'block';
+    if (cheersRef.current) {
+      cheersRef.current.src = targetGif as any;
+      cheersRef.current.style.display = 'block';
     }
 
     // 5초후에 false로 바꿔서 버튼 동작하게 만듦
     setTimeout(() => {
       dispatch(setIsCheers(false));
-      if (screenRef.current) {
-        screenRef.current.src = '';
-        screenRef.current.style.display = 'none';
+      if (cheersRef.current) {
+        cheersRef.current.src = '';
+        cheersRef.current.style.display = 'none';
       }
     }, CHEERS_TIME);
   };
@@ -41,16 +42,23 @@ const AnimationScreen: React.FC = () => {
 
   const onClickScreen = (e) => {
     e.preventDefault();
-    const { clientX: x, clientY: y } = e;
-    addQuestionMark({ x, y });
+    if (!screenRef.current) return;
+
+    const { clientWidth, clientHeight } = screenRef.current;
+    const { clientX, clientY } = e;
+    addQuestionMark({ x: clientX / clientWidth, y: clientY / clientHeight });
   };
 
   return (
-    <Screen onContextMenu={onClickScreen}>
+    <Screen onContextMenu={onClickScreen} ref={screenRef}>
       {Object.entries(marks).map(([key, { x, y }]) => {
-        return <QuestionMark key={`Question-${key}`} x={x} y={y} />;
+        if (!screenRef.current) return;
+        const { clientWidth, clientHeight } = screenRef.current;
+        const clientX = x * clientWidth;
+        const clinetY = y * clientHeight;
+        return <QuestionMark key={`Question-${key}`} x={clientX} y={clinetY} />;
       })}
-      <CheersScreen ref={screenRef} />
+      <CheersScreen ref={cheersRef} />
     </Screen>
   );
 };
