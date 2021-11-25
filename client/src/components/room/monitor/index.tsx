@@ -39,8 +39,8 @@ const ChatMonitor: React.FC = () => {
         <Name>
           {!isAudioOn && (
             <>
-              <MicIcon width={8} height={17} stroke={'red'} />
-              <XIcon width={8} height={17} />
+              <MicIcon width={8} height={18} stroke={'red'} />
+              <XIcon width={10} height={18} />
             </>
           )}
           {nickname}
@@ -75,8 +75,8 @@ const OtherVideo = ({ className, srcObject, count, sid }) => {
       <Name>
         {!isAudioOn && (
           <>
-            <MicIcon width={8} height={17} stroke={'red'} />
-            <XIcon width={8} height={17} />
+            <MicIcon width={8} height={18} stroke={'red'} />
+            <XIcon width={10} height={18} />
           </>
         )}
         {users[sid].nickname}
