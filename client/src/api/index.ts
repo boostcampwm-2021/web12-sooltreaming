@@ -6,13 +6,14 @@ import {
   patchTotalSeconds,
 } from '@api/user';
 import {
+  postFriend,
   getSendFriend,
   getReceiveFriend,
   getFriend,
-  deleteSendFriend,
-  deleteReceiveFriend,
-  deleteFriend,
+  patchSendFriend,
   patchReceiveFriend,
+  patchUnfriend,
+  patchFriend,
 } from '@api/friend';
 
 import { getRank } from '@api/rank';
@@ -26,13 +27,16 @@ export const API = {
     POST_USER_IMAGE: postUserImage,
     GET_USER_INFORMATION: getUserInformation,
     GET_USER_NICKNAME_LOG: getUserNicknameLog,
-    GET_SENDFRIEND: getSendFriend,
-    GET_RECEIVEFRIEND: getReceiveFriend,
+
+    POST_FRIEND: postFriend,
+    GET_SEND_FRIEND: getSendFriend,
+    GET_RECEIVE_FRIEND: getReceiveFriend,
     GET_FRIEND: getFriend,
-    DELETE_SENDFRIEND: deleteSendFriend,
-    DELETE_RECEIVEFRIEND: deleteReceiveFriend,
-    PATCH_RECEIVEFRIEND: patchReceiveFriend,
-    DELETE_FRIEND: deleteFriend,
+    PATCH_SEND_FRIEND: patchSendFriend,
+    PATCH_RECEIVE_FRIEND: patchReceiveFriend,
+    PATCH_UNFRIEND: patchUnfriend,
+    PATCH_FRIEND: patchFriend,
+
     GET_RANK: getRank,
   },
 

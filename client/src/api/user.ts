@@ -11,7 +11,7 @@ export const loginWithSession = async () => {
 
 export const getUserInformation = async (id) => {
   const { status, json } = await request.get({ url: '/user', query: { id } });
-  if (status === 200) {
+  if (status < 400) {
     const { information, nicknameLog } = json;
     return { information, nicknameLog };
   } else throw new Error(json.error.toString());
@@ -19,7 +19,7 @@ export const getUserInformation = async (id) => {
 
 export const getUserNicknameLog = async (id) => {
   const { status, json } = await request.get({ url: '/user/nickname', query: { id } });
-  if (status === 200) {
+  if (status < 400) {
     return json.nicknameLog;
   } else throw new Error(json.error.toString());
 };
@@ -29,7 +29,7 @@ export const patchUserNickname = async (newNickname) => {
     url: '/user/nickname',
     body: { nickname: newNickname },
   });
-  if (status === 200) {
+  if (status < 400) {
     return json.message;
   } else throw new Error(json.error.toString());
 };
@@ -40,7 +40,7 @@ export const postUserImage = async (newFile) => {
     headerOptions: {},
     body: newFile,
   });
-  if (status === 200) {
+  if (status < 400) {
     return json.imgUrl;
   } else throw new Error(json.error.toString());
 };
@@ -51,36 +51,4 @@ export const patchTotalSeconds = async (exitTime) => {
     body: { exitTime },
   });
   return;
-};
-
-export const getFriends = async () => {
-  const result = await request.get({ url: '/friend/list' });
-  const { status, json } = result;
-  if (status === 200) {
-    return json.friends;
-  } else throw new Error(json.error.toString());
-};
-
-export const getSendFriends = async () => {
-  const result = await request.get({ url: '/friend/sendList' });
-  const { status, json } = result;
-  if (status === 200) {
-    return json.sendFriends;
-  } else throw new Error(json.error.toString());
-};
-
-export const getReceiveFriends = async () => {
-  const result = await request.get({ url: '/friend/receiveList' });
-  const { status, json } = result;
-  if (status === 200) {
-    return json.receiveFriends;
-  } else throw new Error(json.error.toString());
-};
-
-export const requestFriend = async (targetId: string) => {
-  const result = await request.post({ url: '/friend', body: { targetId } });
-  const { status, json } = result;
-  if (status === 201) {
-    return json;
-  } else throw new Error(json.error.toString());
 };
