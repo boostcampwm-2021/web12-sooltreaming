@@ -1,13 +1,63 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLOR, Z_INDEX } from '@constant/style';
 
-export const Monitor = styled.div`
+const oneGrid = css`
+  grid-template-columns: 1fr;
+`;
+const twoGrid = css`
+  @media only screen and (max-width: 1100px) and (max-height: 700px) {
+    grid-template-rows: 1fr 1fr;
+  }
+  @media only screen and (min-width: 1100px) and (min-height: 700px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  grid-gap: 10px;
+`;
+const fourGrid = css`
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+`;
+const sixGrid = css`
+  @media only screen and (max-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+  }
+  @media only screen and (min-width: 1000px) {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  grid-gap: 10px;
+`;
+const nineGrid = css`
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 5px;
+`;
+
+export const Monitor = styled.div<{ count: number }>`
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  background-color: ${COLOR.background};
+  padding: 10px;
+
+  display: grid;
+  ${(props) => {
+    const count = props.count;
+    switch (count) {
+      case 1:
+        return oneGrid;
+      case 2:
+        return twoGrid;
+      case 3:
+      case 4:
+        return fourGrid;
+      case 5:
+      case 6:
+        return sixGrid;
+      default:
+        return nineGrid;
+    }
+  }}
 
   .closeup {
     position: absolute;
@@ -24,38 +74,44 @@ export const Monitor = styled.div`
   }
 `;
 
-export const CameraContainer = styled.div<{ count: number }>`
+export const CameraContainer = styled.div`
   position: relative;
-  min-width: 200px;
-  max-width: calc(100% / ${(props) => (props.count === 2 ? 2 : Math.ceil(props.count / 2))});
-  min-height: 100px;
-  width: ${(props) => (props.count > 2 ? 50 : 100)}%;
-  height: ${(props) => (props.count > 2 ? 50 : 100)}%;
-  z-index: ${Z_INDEX.camOn};
-  padding: 10px;
-`;
-
-export const Camera = styled.video<{ count: number }>`
-  position: absolute;
-  top: 0;
-  left: 0;
-  padding: 11px;
   width: 100%;
   height: 100%;
+  z-index: ${Z_INDEX.camOn};
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden;
 `;
 
-export const ProfileImage = styled.img<{
-  count: number;
-  isVideoOn: any;
-}>`
+export const Camera = styled.video`
   position: absolute;
   top: 0;
   left: 0;
-  padding: 10px;
+  width: 100%;
+  height: 100%;
+  background-color: #c4c4c4;
+`;
+
+export const ImageBox = styled.div<{ isVideoOn: any }>`
+  background-color: ${COLOR.body};
+  object-fit: contain;
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   visibility: ${(props) => (props.isVideoOn ? 'hidden' : 'block')};
   z-index: ${Z_INDEX.camOff};
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+export const ProfileImage = styled.img`
+  height: 80%;
+  object-fit: contain;
+  border-radius: 50%;
 `;
 
 export const Name = styled.span`

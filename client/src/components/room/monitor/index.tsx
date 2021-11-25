@@ -4,6 +4,7 @@ import {
   Monitor,
   CameraContainer,
   Camera,
+  ImageBox,
   ProfileImage,
   Name,
 } from '@components/room/monitor/index.style';
@@ -23,45 +24,49 @@ const ChatMonitor: React.FC = () => {
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const myVideoRef = useRef<HTMLVideoElement>(null);
   const className = closeUpUser ? (Socket.getSID() === closeUpUser ? 'closeup' : 'mini') : '';
-  let count = Object.values(streams).length + 1;
+  const count = Object.values(streams).length + 1;
 
   const { changeStream } = useSignalSocket();
   const sendStream = () => changeStream(stream);
   useUpdateStream(myVideoRef, stream, sendStream);
 
   return (
-    <Monitor>
-      <CameraContainer count={count} className={className}>
-        <Camera count={count} ref={myVideoRef} autoPlay playsInline muted />
-        <ProfileImage count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn} />
+    <Monitor count={count}>
+      <CameraContainer className={className}>
+        <Camera ref={myVideoRef} autoPlay playsInline muted />
+        <ImageBox isVideoOn={isVideoOn}>
+          <ProfileImage className="myImg" src={imgUrl} />
+        </ImageBox>
         <Name>{nickname}</Name>
       </CameraContainer>
 
       {Object.entries(streams).map(([sid, otherStream]) => {
         const peerClassName = closeUpUser ? (sid === closeUpUser ? 'closeup' : 'mini') : '';
         return (
-          <OtherVideo count={count} className={peerClassName} srcObject={otherStream} sid={sid} />
+          <OtherVideo key={sid} className={peerClassName} otherStream={otherStream} sid={sid} />
         );
       })}
     </Monitor>
   );
 };
 
-const OtherVideo = ({ className, srcObject, count, sid }) => {
+const OtherVideo = ({ className, otherStream, sid }) => {
   const users = useSelector((state: RootState) => state.room.users);
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);
 
   const otherRef = useRef<HTMLVideoElement>(null);
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
-  useUpdateStream(otherRef, srcObject); // srcObject은 otherStream
-  let isVideoOn = usersDevices[sid].isVideoOn;
-  let imgUrl = users[sid].imgUrl;
+  useUpdateStream(otherRef, otherStream);
+  const isVideoOn = usersDevices[sid].isVideoOn;
+  const imgUrl = users[sid].imgUrl;
 
   return (
-    <CameraContainer count={count} className={className}>
-      <Camera count={count} ref={otherRef} autoPlay playsInline />
-      <ProfileImage count={count} src={imgUrl} isVideoOn={isVideoOn} />
+    <CameraContainer className={className}>
+      <Camera ref={otherRef} autoPlay playsInline />
+      <ImageBox isVideoOn={isVideoOn}>
+        <ProfileImage src={imgUrl} />
+      </ImageBox>
       <Name>{users[sid].nickname}</Name>
     </CameraContainer>
   );

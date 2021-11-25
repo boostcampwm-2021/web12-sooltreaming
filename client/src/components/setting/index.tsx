@@ -56,8 +56,8 @@ const Setting: React.FC<SettingPropTypes> = ({ renderRoom }) => {
         </ControlBox>
       </Contents>
       <LineBox>
-        <CancelButton onClick={onClickCancel}>취소</CancelButton>
         <EnterButton onClick={onClickJoin}>입장</EnterButton>
+        <CancelButton onClick={onClickCancel}>취소</CancelButton>
       </LineBox>
     </SettingContainer>
   );
