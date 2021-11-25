@@ -14,6 +14,7 @@ import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 import useSignalSocket from '@hooks/socket/useSignalSocket';
+import { MicIcon, XIcon } from '@src/components/icons';
 
 const ChatMonitor: React.FC = () => {
   const streams = useSelector((state: RootState) => state.room.streams);
@@ -21,6 +22,7 @@ const ChatMonitor: React.FC = () => {
   const stream = useSelector((state: RootState) => state.device.stream);
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
+  const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const myVideoRef = useRef<HTMLVideoElement>(null);
   const className = closeUpUser ? (Socket.getSID() === closeUpUser ? 'closeup' : 'mini') : '';
@@ -37,7 +39,15 @@ const ChatMonitor: React.FC = () => {
         <ImageBox isVideoOn={isVideoOn}>
           <ProfileImage className="myImg" src={imgUrl} />
         </ImageBox>
-        <Name>{nickname}</Name>
+        <Name>
+          {nickname}
+          {!isAudioOn && (
+            <>
+              <MicIcon width={8} height={18} stroke={'red'} />
+              <XIcon width={10} height={18} />
+            </>
+          )}
+        </Name>
       </CameraContainer>
 
       {Object.entries(streams).map(([sid, otherStream]) => {
@@ -58,7 +68,7 @@ const OtherVideo = ({ className, otherStream, sid }) => {
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
   useUpdateStream(otherRef, otherStream);
-  const isVideoOn = usersDevices[sid].isVideoOn;
+  const { isVideoOn, isAudioOn } = usersDevices[sid];
   const imgUrl = users[sid].imgUrl;
 
   return (
@@ -67,7 +77,15 @@ const OtherVideo = ({ className, otherStream, sid }) => {
       <ImageBox isVideoOn={isVideoOn}>
         <ProfileImage src={imgUrl} />
       </ImageBox>
-      <Name>{users[sid].nickname}</Name>
+      <Name>
+        {users[sid].nickname}
+        {!isAudioOn && (
+          <>
+            <MicIcon width={8} height={18} stroke={'red'} />
+            <XIcon width={10} height={18} />
+          </>
+        )}
+      </Name>
     </CameraContainer>
   );
 };

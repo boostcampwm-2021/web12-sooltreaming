@@ -46,13 +46,11 @@ export const postUserImage = async (newFile) => {
 };
 
 export const patchTotalSeconds = async (exitTime) => {
-  const { status, json } = await request.patch({
+  await request.patch({
     url: '/user/exit',
     body: { exitTime },
   });
-  if (status === 201) {
-    return;
-  } else throw new Error(json.error.toString());
+  return;
 };
 
 export const getFriends = async () => {
