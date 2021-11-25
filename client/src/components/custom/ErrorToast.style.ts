@@ -1,5 +1,5 @@
-import styled, { keyframes, css } from 'styled-components';
-import { COLOR, Z_INDEX } from '@constant/style';
+import styled, { keyframes } from 'styled-components';
+import { COLOR, Z_INDEX, BOX_SHADOW } from '@constant/style';
 import { TOAST_TIME } from 'sooltreaming-domain/constant/addition';
 
 const fadeOut = keyframes`
@@ -22,13 +22,12 @@ const fadeOut = keyframes`
 `;
 
 export const ErrorToastBox = styled.div`
+  ${BOX_SHADOW}
   position: fixed;
   left: 100%;
   bottom: 100px;
   min-width: 200px;
-  border-radius: 10px;
   border: 2px solid ${COLOR.error};
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
   padding: 15px 25px;
 
   transform: translateX(-50%);

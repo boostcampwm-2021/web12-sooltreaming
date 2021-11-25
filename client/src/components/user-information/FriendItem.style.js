@@ -1,15 +1,22 @@
 import styled from 'styled-components';
-import { COLOR, BTN_STYLE, CANCLE_BTN_STYLE } from '@constant/style';
+import { COLOR, BTN_STYLE, CANCEL_BTN_STYLE, BOX_SHADOW } from '@constant/style';
 
 export const Friend = styled.div`
-  display: inline-flex;
+  ${BOX_SHADOW};
+  border: 1px solid ${COLOR.primary1};
+
+  background-color: ${COLOR.white};
+  padding: 15px;
+  margin: 15px;
+
+  display: flex;
+
+  justify-content: space-between;
+  align-items: center;
+
+  min-width: 250px;
   width: 250px;
   height: 60px;
-  align-items: center;
-  justify-content: space-between;
-  margin: 8px;
-  padding: 0 20px;
-  border: 1px solid ${COLOR.primary1};
 
   p {
     overflow: hidden;
@@ -20,27 +27,24 @@ export const Friend = styled.div`
   .left-items {
     display: inline-flex;
     align-items: center;
-    overflow: hidden;
 
     img {
       width: 1.5rem;
       height: 1.5rem;
       margin-right: 1rem;
-      border-radius: 5px;
+      border-radius: 3px;
     }
   }
 
   .right-items {
-    cursor: pointer;
-
     button {
       width: 60px;
-      heigth: 20px;
+      height: 20px;
       border-radius: 5px;
     }
 
-    .cancle-button {
-      ${CANCLE_BTN_STYLE}
+    .cancel-button {
+      ${CANCEL_BTN_STYLE}
     }
 
     .add-button {
@@ -52,12 +56,8 @@ export const Friend = styled.div`
       align-items: center;
       justify-content: center;
 
-      margin: 1rem;
-
       width: 1.5rem;
       height: 1.5rem;
-      margin-right: 1rem;
-      border-radius: 5px;
 
       ${BTN_STYLE}
     }

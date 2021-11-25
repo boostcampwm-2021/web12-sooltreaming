@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, BTN_STYLE, CANCLE_BTN_STYLE } from '@constant/style';
+import { COLOR, BTN_STYLE, CANCEL_BTN_STYLE } from '@constant/style';
 
 export const SettingContainer = styled.div`
   width: 100%;
@@ -89,7 +89,7 @@ const DefaultButton = styled.button`
 `;
 
 export const CancelButton = styled(DefaultButton)`
-  ${CANCLE_BTN_STYLE}
+  ${CANCEL_BTN_STYLE}
 `;
 
 export const EnterButton = styled(DefaultButton)`

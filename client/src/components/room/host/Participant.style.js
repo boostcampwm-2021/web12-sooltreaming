@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, BOX_SHADOW } from '@constant/style';
 
 export const RowBox = styled.div`
   display: flex;
@@ -9,7 +9,10 @@ export const RowBox = styled.div`
   justify-content: space-between;
   background-color: ${COLOR.white};
   list-style: none;
-  padding: 10px;
+
+  ${BOX_SHADOW}
+  padding: 15px;
+  margin-bottom: 15px;
   & > div {
     display: flex;
   }

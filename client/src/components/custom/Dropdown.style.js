@@ -1,5 +1,5 @@
-import styled, { keyframes } from 'styled-components';
-import { COLOR, Z_INDEX } from '@constant/style';
+import styled from 'styled-components';
+import { COLOR, Z_INDEX, BOX_SHADOW } from '@constant/style';
 
 export const Container = styled.div`
   max-width: 340px;
@@ -26,6 +26,7 @@ export const soft = keyframes`
 
 export const ItemList = styled.ul`
   width: 80%;
+  ${BOX_SHADOW}
 
   position: absolute;
   /* right: 0; */
@@ -33,7 +34,6 @@ export const ItemList = styled.ul`
   padding-left: 0px;
   overflow: hidden;
 
-  box-shadow: 0px 0px 4px rgba(204, 204, 204, 0.5), 0px 2px 4px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
 
   -webkit-animation: ${soft} 0.2s linear;

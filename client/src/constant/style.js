@@ -23,7 +23,7 @@ export const COLOR = {
   darkError: '#CD6766',
   titleActive: '#006737',
   body: '#5C5C5C',
-  lable: '#888888',
+  label: '#888888',
   placeholder: '#888888',
   line: '#D9DBC8',
   background: '#FCFFFC',
@@ -64,7 +64,7 @@ export const BTN_STYLE = css`
   }
 `;
 
-export const CANCLE_BTN_STYLE = css`
+export const CANCEL_BTN_STYLE = css`
   padding: 0;
   margin: 0;
   background-color: ${COLOR.error};
@@ -81,4 +81,9 @@ export const CANCLE_BTN_STYLE = css`
   &:disabled {
     background-color: ${COLOR.lightError};
   }
+`;
+
+export const BOX_SHADOW = css`
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px #ccc;
 `;
