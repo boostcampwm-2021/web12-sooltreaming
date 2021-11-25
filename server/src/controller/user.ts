@@ -2,6 +2,8 @@ import { CustomError, errorWrapper } from '@utils/error';
 import User from '@models/User';
 import { userCount } from '@utils/userCount';
 import NicknameLog from '@models/NicknameLog';
+import { BACK_BASE_URL } from '@src/constant';
+import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
 
 export const getUserInformation = errorWrapper(async (req, res, next) => {
   const { id } = req.query;
@@ -96,9 +98,9 @@ export const postUserImage = errorWrapper(async (req, res, next) => {
   if (!id) throw new CustomError(401, 'id Error');
   let image = req.file;
   if (!image) {
-    image = 'http://localhost:5000/public/uploads/HumanIcon.svg';
+    image = `${BACK_BASE_URL}${FILE_PUBLIC_URL}/${DEFAULT_PROFILE_IMAGE}`;
   } else {
-    image = 'http://localhost:5000/public/uploads/' + image.filename;
+    image = `${BACK_BASE_URL}${FILE_PUBLIC_URL}/` + image.filename;
   }
 
   const result = await User.findByIdAndUpdate(

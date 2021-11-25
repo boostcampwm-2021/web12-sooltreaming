@@ -2,9 +2,11 @@ import styled, { css } from 'styled-components';
 import { COLOR, Z_INDEX } from '@constant/style';
 
 const oneGrid = css`
+  display: grid;
   grid-template-columns: 1fr;
 `;
 const twoGrid = css`
+  display: grid;
   @media only screen and (max-width: 1100px) and (max-height: 700px) {
     grid-template-rows: 1fr 1fr;
   }
@@ -14,11 +16,13 @@ const twoGrid = css`
   grid-gap: 10px;
 `;
 const fourGrid = css`
+  display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
 `;
 const sixGrid = css`
+  display: grid;
   @media only screen and (max-width: 1000px) {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
@@ -30,19 +34,55 @@ const sixGrid = css`
   grid-gap: 10px;
 `;
 const nineGrid = css`
+  display: grid;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 5px;
 `;
+const lineDisplay = css`
+  flex: 1 1 auto;
+  height: 200px;
 
-export const Monitor = styled.div<{ count: number }>`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap-reverse;
+  background-color: ${COLOR.background};
+`;
+
+export const Monitor = styled.div`
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: flex-end;
+  overflow: hidden;
+
+  .closeup {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: ${Z_INDEX.closeUp};
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+  }
+
+  .mini {
+    flex: 0 0 auto;
+    margin: 15px;
+    width: 240px;
+    height: 180px;
+  }
+`;
+
+export const CloseUpContainer = styled.div<{ count: number; isCloseUp: boolean }>`
   width: 100%;
   height: 100%;
   padding: 10px;
 
-  display: grid;
   ${(props) => {
-    const count = props.count;
+    const { count, isCloseUp } = props;
+    if (isCloseUp) return lineDisplay;
     switch (count) {
       case 1:
         return oneGrid;
@@ -58,20 +98,6 @@ export const Monitor = styled.div<{ count: number }>`
         return nineGrid;
     }
   }}
-
-  .closeup {
-    position: absolute;
-    z-index: ${Z_INDEX.closeUp};
-    max-width: 100%;
-    width: 100%;
-    height: 100%;
-  }
-
-  .mini {
-    width: 230px;
-    height: 178px;
-    align-self: flex-end;
-  }
 `;
 
 export const CameraContainer = styled.div`
@@ -108,6 +134,7 @@ export const ImageBox = styled.div<{ isVideoOn: any }>`
   justify-content: center;
   align-items: center;
 `;
+
 export const ProfileImage = styled.img`
   height: 80%;
   object-fit: contain;

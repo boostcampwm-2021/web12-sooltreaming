@@ -1,12 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { COLOR } from '@constant/style';
-
-export const FullScreen = styled.div`
-  width: 100%;
-  height: 100%;
-
-  background-color: ${COLOR.background};
-`;
 
 export const HeaderBox = styled.div`
   position: absolute;
@@ -67,27 +60,25 @@ export const MenuList = styled.div`
   color: ${COLOR.titleActive};
   user-select: none;
   white-space: nowrap;
-
-  p {
-    display: flex;
-    width: 86px;
-    height: 46px;
-    align-items: center;
-    text-align: center;
-    justify-content: center;
-    margin: 0 16px;
-    color: ${COLOR.placeholder};
-    cursor: pointer;
-
-    &.on {
-      color: ${COLOR.titleActive};
-      font-weight: 600;
-      border-bottom: 2px solid;
-    }
-  }
 `;
 
-export const Contents = styled.div`
-  padding-top: 120px;
-  height: 100%;
+const selectedMenu = css`
+  color: ${COLOR.titleActive};
+  font-weight: 600;
+  border-bottom: 2px solid;
+`;
+const defaultMenu = css`
+  color: ${COLOR.placeholder};
+`;
+export const MenuItem = styled.p<{ isSelected: boolean }>`
+  display: flex;
+  width: 86px;
+  height: 46px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  margin: 0 16px;
+  cursor: pointer;
+
+  ${(props) => (props?.isSelected ? selectedMenu : defaultMenu)};
 `;

@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { COLOR, Z_INDEX, BOX_SHADOW } from '@constant/style';
 
 export const Container = styled.div`

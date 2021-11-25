@@ -3,5 +3,9 @@
   "version": "1.0.0",
   "description": "Sooltreaming Default Domain",
   "author": "Judangs",
-  "license": "ISC"
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  }
 }

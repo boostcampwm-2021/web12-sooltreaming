@@ -6,8 +6,8 @@ import {
   CONTROL_TOGGLE_ENTRY,
   CONTROL_OTHER_VIDEO_OFF,
   CONTROL_OTHER_AUDIO_OFF,
-  STREAM_CHANGE_VIDEO,
-  STREAM_CHANGE_AUDIO,
+  STREAM_FORCE_CHANGE_VIDEO,
+  STREAM_FORCE_CHANGE_AUDIO,
   TICKET_FAILURE,
 } from 'sooltreaming-domain/constant/socketEvent';
 
@@ -47,7 +47,7 @@ const control = ({
       return socket.emit(CONTROL_AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
     const targetRoom = rooms[code];
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isVideoOn };
-    io.to(code).emit(STREAM_CHANGE_VIDEO, { sid, isVideoOn });
+    io.to(code).emit(STREAM_FORCE_CHANGE_VIDEO, { sid, isVideoOn });
   });
 
   socket.on(CONTROL_OTHER_AUDIO_OFF, ({ sid, isAudioOn }) => {
@@ -57,7 +57,7 @@ const control = ({
       return socket.emit(CONTROL_AUTHORITY_ERROR, '당신은 방장이 아닙니다.');
     const targetRoom = rooms[code];
     targetRoom.usersDevices[sid] = { ...targetRoom.usersDevices[sid], isAudioOn };
-    io.to(code).emit(STREAM_CHANGE_AUDIO, { sid, isAudioOn });
+    io.to(code).emit(STREAM_FORCE_CHANGE_AUDIO, { sid, isAudioOn });
   });
 
   return { io, socket, rooms, targetInfo };

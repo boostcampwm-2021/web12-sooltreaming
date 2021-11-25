@@ -7,10 +7,10 @@ const initialState: NoticeStateType = {
   errorMessage: '',
 };
 
-// 확장성을 생각해 별도의 Type 지정
 type ErrorMessageType = {
   errorMessage: string;
 };
+
 export const [SET_NOTICE_MESSAGE, setNoticeMessage] =
   createAction<ErrorMessageType>('SET_NOTICE_MESSAGE');
 

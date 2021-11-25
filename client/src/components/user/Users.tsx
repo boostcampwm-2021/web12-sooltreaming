@@ -14,18 +14,23 @@ type UsersPropTypes = {
   startVoteRef: React.MutableRefObject<Function>;
   onclickRequestFriend: any;
 };
-
 const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend }) => {
   const users = useSelector((state: RootState) => state.room.users);
+
   const { friendList, sendFriendList, receiveFriendList } = useSelector(
     (state: RootState) => state.friend,
   );
+
+  const friendListId = Object.values(friendList).map(({ _id }) => _id);
+  const sendFriendListId = Object.values(sendFriendList).map(({ _id }) => _id);
+  const receiveFriendListId = Object.values(receiveFriendList).map(({ _id }) => _id);
+
   const {
     imgUrl: myImgUrl,
     nickname: myNickname,
     id: myId,
   } = useSelector((state: RootState) => state.user);
-  const imPossibleFriends = [...friendList, ...sendFriendList, ...receiveFriendList];
+  const imPossibleFriends = [...friendListId, ...sendFriendListId, ...receiveFriendListId];
   return (
     <MenuBox>
       <UserList>
@@ -47,7 +52,9 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend })
                 심판
               </VoteButton>
               {!imPossibleFriends.includes(id) && id !== myId ? (
-                <ReqFriendButton onClick={onclickRequestFriend} data-uid={id} data-sid={key}>
+                <ReqFriendButton
+                  onClick={() => onclickRequestFriend({ imgUrl, nickname, id, sid: key })}
+                >
                   +
                 </ReqFriendButton>
               ) : (

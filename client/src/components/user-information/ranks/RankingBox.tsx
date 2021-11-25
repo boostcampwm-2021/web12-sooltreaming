@@ -5,7 +5,7 @@ import {
   RankNum,
   RankTitle,
   Container,
-} from '@components/user-information/RankingBox.style';
+} from '@components/user-information/ranks/RankingBox.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 type RankingBoxPropTypes = {

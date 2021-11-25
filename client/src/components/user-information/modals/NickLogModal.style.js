@@ -1,42 +1,23 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, INPUT_STYLE } from '@constant/style';
 
-export const BottomWrapper = styled.div`
-  padding-top: 2em;
+export const Header = styled.div`
+  padding: 15px;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
 
-  p {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1em;
-    height: 30px;
-    margin: 0;
+  & > h2 {
+    padding: 0;
+    margin: 30px 0 0 15px;
+    color: ${COLOR.titleActive};
+    user-select: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
-`;
-
-export const AcceptIconWrapper = styled.div`
-  cursor: pointer;
-
-  path:first-child:hover {
-    fill: ${COLOR.primary3};
-  }
-
-  path:first-child:active {
-    fill: 10px solid ${COLOR.titleActive};
-  }
-`;
-
-export const NicknameChangeIconWrapper = styled.div`
-  cursor: pointer;
-  path:first-child:hover {
-    fill: ${COLOR.primary3};
-  }
-
-  path:first-child:active {
-    fill: 10px solid ${COLOR.titleActive};
+  & span {
+    color: ${COLOR.point};
   }
 `;
 
@@ -100,5 +81,17 @@ export const HistoryData = styled.div`
   &::-webkit-scrollbar-thumb {
     background-color: ${COLOR.primary3};
     border-radius: 10px;
+  }
+`;
+
+export const AcceptIconWrapper = styled.div`
+  cursor: pointer;
+
+  path:first-child:hover {
+    fill: ${COLOR.primary3};
+  }
+
+  path:first-child:active {
+    fill: 10px solid ${COLOR.titleActive};
   }
 `;

@@ -1,30 +1,24 @@
 import express from 'express';
 import {
-  postFriendRequest,
-  getFriendList,
-  getSendFriendList,
-  getReceiveFriendList,
-  getFullSendFriend,
-  getFullReceiveFriend,
-  getFullFriend,
-  deleteSendFriend,
-  deleteReceiveFriend,
-  deleteFriend,
+  postFriend,
+  getSendFriend,
+  getReceiveFriend,
+  getFriend,
+  patchSendFriend,
+  patchReceiveFriend,
+  patchUnfriend,
   patchFriend,
 } from '@controller/friend';
 
 const router = express.Router();
 
-router.post('/', postFriendRequest);
-router.get('/list', getFriendList);
-router.get('/sendList', getSendFriendList);
-router.get('/receiveList', getReceiveFriendList);
-router.get('/fullSendFriend', getFullSendFriend);
-router.get('/fullReceiveFriend', getFullReceiveFriend);
-router.get('/fullFriend', getFullFriend);
-router.delete('/sendFriend', deleteSendFriend);
-router.delete('/receiveFriend', deleteReceiveFriend);
-router.delete('/', deleteFriend);
-router.patch('/', patchFriend);
+router.post('/', postFriend);
+router.get('/send', getSendFriend);
+router.get('/receive', getReceiveFriend);
+router.get('/', getFriend);
+router.patch('/send', patchSendFriend);
+router.patch('/receive', patchReceiveFriend);
+router.patch('/remove', patchUnfriend);
+router.patch('/accept', patchFriend);
 
 export default router;

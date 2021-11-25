@@ -4,52 +4,52 @@ import {
   SEND_FRIEND_LIST_REQUEST,
   RECEIVE_FRIEND_LIST_REQUEST,
   friendListSuccess,
-  friendListFailuer,
+  friendListFailure,
   sendFriendListSuccess,
-  sendFriendListFailuer,
+  sendFriendListFailure,
   receiveFriendListSuccess,
-  receiveFriendListFailuer,
+  receiveFriendListFailure,
 } from '@store/friend';
+import { API } from '@api/index';
+import type { friendInfoType } from '@store/friend';
 
-import { getFriends, getSendFriends, getReceiveFriends } from '@api/user';
-
-async function getFriendListAPI() {
-  const data = await getFriends();
+const getFriendListAPI = async () => {
+  const data = await API.call(API.TYPE.GET_FRIEND);
   return data;
-}
-async function getSendFriendListAPI() {
-  const data = await getSendFriends();
+};
+const getSendFriendListAPI = async () => {
+  const data = await API.call(API.TYPE.GET_SEND_FRIEND);
   return data;
-}
-async function getReceiveFriendListAPI() {
-  const data = await getReceiveFriends();
+};
+const getReceiveFriendListAPI = async () => {
+  const data = await API.call(API.TYPE.GET_RECEIVE_FRIEND);
   return data;
-}
+};
 
 function* getFriendList() {
   try {
-    const result: string[] = yield call(getFriendListAPI);
+    const result: friendInfoType[] = yield call(getFriendListAPI);
     yield put(friendListSuccess(result));
   } catch ({ message }) {
-    yield put(friendListFailuer({ message: message as string }));
+    yield put(friendListFailure({ message: message as string }));
   }
 }
 
 function* getSendFriendList() {
   try {
-    const result: string[] = yield call(getSendFriendListAPI);
+    const result: friendInfoType[] = yield call(getSendFriendListAPI);
     yield put(sendFriendListSuccess(result));
   } catch ({ message }) {
-    yield put(sendFriendListFailuer({ message: message as string }));
+    yield put(sendFriendListFailure({ message: message as string }));
   }
 }
 
 function* getReceiveFriendList() {
   try {
-    const result: string[] = yield call(getReceiveFriendListAPI);
+    const result: friendInfoType[] = yield call(getReceiveFriendListAPI);
     yield put(receiveFriendListSuccess(result));
   } catch ({ message }) {
-    yield put(receiveFriendListFailuer({ message: message as string }));
+    yield put(receiveFriendListFailure({ message: message as string }));
   }
 }
 

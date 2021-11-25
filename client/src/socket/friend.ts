@@ -4,12 +4,12 @@ import { FRIEND_REQUEST } from 'sooltreaming-domain/constant/socketEvent';
 const friend = (socket: Socket) => (closure: any) => {
   const { updateReceiveFriends } = closure;
 
-  socket.on(FRIEND_REQUEST, () => {
-    updateReceiveFriends();
+  socket.on(FRIEND_REQUEST, (data) => {
+    updateReceiveFriends(data);
   });
 
-  const sendFriendRequest = (receiverSID) => {
-    socket.emit(FRIEND_REQUEST, receiverSID);
+  const sendFriendRequest = (data) => {
+    socket.emit(FRIEND_REQUEST, data);
   };
 
   const disconnecting = () => {

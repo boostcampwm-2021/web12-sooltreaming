@@ -55,8 +55,8 @@ const AnimationScreen: React.FC = () => {
         if (!screenRef.current) return;
         const { clientWidth, clientHeight } = screenRef.current;
         const clientX = x * clientWidth;
-        const clinetY = y * clientHeight;
-        return <QuestionMark key={`Question-${key}`} x={clientX} y={clinetY} />;
+        const clientY = y * clientHeight;
+        return <QuestionMark key={`Question-${key}`} x={clientX} y={clientY} />;
       })}
       <CheersScreen ref={cheersRef} />
     </Screen>
