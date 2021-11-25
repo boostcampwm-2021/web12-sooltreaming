@@ -31,6 +31,7 @@ export const UserList = styled.li`
   background-color: ${COLOR.white};
   list-style: none;
   ${BOX_SHADOW}
+  margin-bottom: 15px;
   padding: 15px;
   & > div {
     display: flex;
