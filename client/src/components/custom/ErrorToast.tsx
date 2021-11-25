@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setNoticeMessage } from '@store/notice';
+import { TOAST_TIME } from 'sooltreaming-domain/constant/addition';
 
 const ErrorToast: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const ErrorToast: React.FC = () => {
   useEffect(() => {
     if (!errorMessage) return;
     if (previousAct) clearTimeout(previousAct);
-    const closeMethod = setTimeout(activeMessage, 1500);
+    const closeMethod = setTimeout(activeMessage, TOAST_TIME);
     setPreviousAct(closeMethod);
     setDisplayMessage(errorMessage);
     dispatch(setNoticeMessage({ errorMessage: '' }));
