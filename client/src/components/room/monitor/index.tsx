@@ -37,13 +37,13 @@ const ChatMonitor: React.FC = () => {
         <Camera count={count} ref={myVideoRef} autoPlay playsInline muted />
         <ProfileImage count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn} />
         <Name>
+          {nickname}
           {!isAudioOn && (
             <>
               <MicIcon width={8} height={18} stroke={'red'} />
               <XIcon width={10} height={18} />
             </>
           )}
-          {nickname}
         </Name>
       </CameraContainer>
 
@@ -73,13 +73,13 @@ const OtherVideo = ({ className, srcObject, count, sid }) => {
       <Camera count={count} ref={otherRef} autoPlay playsInline />
       <ProfileImage count={count} src={imgUrl} isVideoOn={isVideoOn} />
       <Name>
+        {users[sid].nickname}
         {!isAudioOn && (
           <>
             <MicIcon width={8} height={18} stroke={'red'} />
             <XIcon width={10} height={18} />
           </>
         )}
-        {users[sid].nickname}
       </Name>
     </CameraContainer>
   );

@@ -69,10 +69,10 @@ export const Name = styled.span`
   z-index: ${Z_INDEX.nickname};
 
   & > svg {
-    margin-right: 5px;
+    margin-left: 7px;
     &:last-child {
       position: absolute;
-      left: 6px;
+      right: 6px;
     }
   }
 `;
