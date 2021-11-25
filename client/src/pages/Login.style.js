@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, BOX_SHADOW } from '@constant/style';
 
 const flexColumnCenter = css`
   display: flex;
@@ -52,8 +52,8 @@ export const LoginLink = styled.a`
 
   outline: none;
   border: none;
-  border-radius: 100px;
   cursor: pointer;
+  ${BOX_SHADOW}
 
   & > img {
     width: 100%;

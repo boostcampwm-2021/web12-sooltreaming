@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, INPUT_STYLE, BTN_STYLE } from '@constant/style';
+import { COLOR, INPUT_STYLE, BTN_STYLE, BOX_SHADOW } from '@constant/style';
 
 export const FullScreen = styled.div`
   width: 100%;
@@ -27,6 +27,9 @@ export const Title = styled.div`
 `;
 
 export const CodeInput = styled.input`
+  &:focus {
+    ${BOX_SHADOW}
+  }
   ${INPUT_STYLE}
   width: 100%;
   max-width: 616px;
@@ -35,7 +38,7 @@ export const CodeInput = styled.input`
   margin-bottom: 20px;
   display: flex;
   align-items: center;
-  border-radius: 100px;
+  border-radius: 10px;
   font-weight: 500;
   font-size: 32px;
   text-align: center;
@@ -43,6 +46,7 @@ export const CodeInput = styled.input`
 
 export const BigButton = styled.button`
   ${BTN_STYLE}
+  ${BOX_SHADOW}
   width: 100%;
   max-width: 469px;
   height: 76px;
