@@ -6,6 +6,7 @@ import {
   patchUserNickname,
   patchTotalSeconds,
 } from '@controller/user';
+import { FILE_PUBLIC_URL } from 'sooltreaming-domain/constant/addition';
 
 import multer from 'multer';
 
@@ -17,7 +18,7 @@ const upload = multer({ storage });
 const upload = multer({
   storage: multer.diskStorage({
     destination: (req, file, cb) => {
-      cb(null, 'public/uploads/');
+      cb(null, `${FILE_PUBLIC_URL?.slice(1)}/`);
     },
     filename: (req, file, cb) => {
       cb(null, `${Date.now()}__${file.originalname}`);

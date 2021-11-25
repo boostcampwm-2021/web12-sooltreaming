@@ -6,3 +6,6 @@ export const SECOND_TO_MS = 1000;
 export const VOTE_TIME = 60;
 
 export const TOAST_TIME = 3500;
+
+export const FILE_PUBLIC_URL = '/uploads';
+export const DEFAULT_PROFILE_IMAGE = 'HumanIcon.svg';
