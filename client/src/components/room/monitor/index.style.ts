@@ -59,11 +59,20 @@ export const ProfileImage = styled.img<{
 `;
 
 export const Name = styled.span`
+  display: flex;
   position: absolute;
   bottom: 10px;
   background-color: ${COLOR.black};
   color: ${COLOR.white};
-  padding: 5px;
+  padding: 5px 7px;
   opacity: 0.5;
   z-index: ${Z_INDEX.nickname};
+
+  & > svg {
+    margin-left: 7px;
+    &:last-child {
+      position: absolute;
+      right: 6px;
+    }
+  }
 `;
