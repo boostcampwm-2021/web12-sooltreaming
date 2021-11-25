@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR } from '@constant/style';
+import { COLOR, BOX_SHADOW } from '@constant/style';
 
 export const ColumnBox = styled.div`
   display: flex;
@@ -62,8 +62,7 @@ export const DialogButton = styled.div<{ isSelected: boolean }>`
   color: ${COLOR.white};
 
   box-sizing: border-box;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
-  border-radius: 10px;
+  ${BOX_SHADOW}
 
   padding: 8px 12px;
 
