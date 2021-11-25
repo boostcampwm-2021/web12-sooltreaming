@@ -13,7 +13,7 @@ app.set('port', PORT);
 Loader({ server, app });
 
 app.use('/api', apiRouter);
-app.use(FILE_PUBLIC_URL, express.static(FILE_PUBLIC_URL));
+app.use(FILE_PUBLIC_URL, express.static(FILE_PUBLIC_URL.slice(1)));
 
 function onListening(): void {
   const addr = server.address();
