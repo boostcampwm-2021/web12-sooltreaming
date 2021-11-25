@@ -18,21 +18,33 @@ const customRTC = () => {
   };
 
   const getVideos = async () => {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const videos = devices.filter(({ kind }) => kind === 'videoinput');
-    return videos;
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const videos = devices.filter(({ kind }) => kind === 'videoinput');
+      return videos;
+    } catch (e) {
+      return [];
+    }
   };
 
   const getAudios = async () => {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const audios = devices.filter(({ kind }) => kind === 'audioinput');
-    return audios;
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const audios = devices.filter(({ kind }) => kind === 'audioinput');
+      return audios;
+    } catch (e) {
+      return [];
+    }
   };
 
   const getSpeakers = async () => {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    const speakers = devices.filter(({ kind }) => kind === 'audiooutput');
-    return speakers;
+    try {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const speakers = devices.filter(({ kind }) => kind === 'audiooutput');
+      return speakers;
+    } catch (e) {
+      return [];
+    }
   };
 
   const getVideoTrack = async (deviceId: string) => {

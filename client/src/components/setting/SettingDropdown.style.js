@@ -11,7 +11,7 @@ export const MenuButton = styled.div`
   justify-content: space-between;
   align-items: center;
 
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 500px;
   border-radius: 100px;
 
@@ -23,25 +23,21 @@ export const MenuButton = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  & > svg {
-    flex: 0 0 auto;
-  }
 `;
 
 export const MenuItem = styled.li`
   width: 100%;
-  height: 50px;
-
+  min-height: 50px;
   display: flex;
   align-items: center;
 
   list-style: none;
-  padding-left: 15px;
+  padding: 12px 23px;
   color: ${COLOR.titleActive};
+  word-break: break-all;
 
   &:hover {
     background: ${COLOR.titleActive};
     color: ${COLOR.background};
-    border-radius: 10px 10px 10px 10px;
   }
 `;

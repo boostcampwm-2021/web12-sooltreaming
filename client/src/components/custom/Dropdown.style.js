@@ -19,19 +19,33 @@ export const ItemListBox = styled.div`
   z-index: ${Z_INDEX.modal};
 `;
 
+export const soft = keyframes`
+  from { opacity: 0; }
+  to { opacity: 1; }
+`;
+
 export const ItemList = styled.ul`
+  width: 80%;
   ${BOX_SHADOW}
 
-  max-width: 340px;
-  width: 100%;
-
   position: absolute;
+  /* right: 0; */
   list-style: none;
   padding-left: 0px;
+  overflow: hidden;
 
-  backdrop-filter: blur(4px);
+  border-radius: 10px;
 
+  -webkit-animation: ${soft} 0.2s linear;
+  animation: ${soft} 0.2s linear;
   background: ${COLOR.background};
+
+  & > li {
+    border-bottom: 1px solid ${COLOR.line};
+    &:last-child {
+      border-bottom: none;
+    }
+  }
 `;
 
 export const ToggleButton = styled.button`
@@ -42,4 +56,16 @@ export const ToggleButton = styled.button`
   border: none;
   background: transparent;
   outline: none;
+
+  svg {
+    flex: 0 0 auto;
+    margin-left: 10px;
+    transition: transform 0.3s;
+    transform: rotate(-180deg);
+  }
+  &:focus {
+    svg {
+      transform: rotate(0deg);
+    }
+  }
 `;

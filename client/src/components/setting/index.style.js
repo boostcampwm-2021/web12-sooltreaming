@@ -29,14 +29,15 @@ export const PreviewCamera = styled.video`
   max-width: 469px;
   width: 100%;
   height: 250px;
+  box-shadow: 1px 1px 1px 1px #ccc;
+  background-color: #c4c4c4;
+  border-radius: 10px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   margin: 30px;
-
-  border: 1px solid black;
 `;
 
 export const ControlBox = styled.div`
@@ -60,6 +61,7 @@ export const ControlBox = styled.div`
 `;
 
 export const LineBox = styled.div`
+  min-width: 469px;
   width: 100%;
 
   display: flex;
@@ -92,4 +94,5 @@ export const CancelButton = styled(DefaultButton)`
 
 export const EnterButton = styled(DefaultButton)`
   ${BTN_STYLE}
+  margin-right: 30px;
 `;
