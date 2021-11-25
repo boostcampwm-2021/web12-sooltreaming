@@ -6,7 +6,7 @@ export const InfoContainer = styled.li`
   display: flex;
   background-color: ${COLOR.white};
   padding: 15px;
-  margin: 15px;
+  margin-bottom: 15px;
   cursor: pointer;
   justify-content: space-between;
   align-items: center;
