@@ -29,7 +29,7 @@ const SettingDropdown: React.FC<settingDropdownTypeProps> = ({
         </MenuButton>
       )}
       renderItem={({ closeDropdown, item }) => (
-        <MenuItem key={item?.label} onClick={choiceMenu(closeDropdown, item)}>
+        <MenuItem key={`Device-${item?.label}`} onClick={choiceMenu(closeDropdown, item)}>
           {filterLabel(item?.label)}
         </MenuItem>
       )}
