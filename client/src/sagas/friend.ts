@@ -4,11 +4,11 @@ import {
   SEND_FRIEND_LIST_REQUEST,
   RECEIVE_FRIEND_LIST_REQUEST,
   friendListSuccess,
-  friendListFailuer,
+  friendListFailure,
   sendFriendListSuccess,
-  sendFriendListFailuer,
+  sendFriendListFailure,
   receiveFriendListSuccess,
-  receiveFriendListFailuer,
+  receiveFriendListFailure,
 } from '@store/friend';
 
 import { getFriends, getSendFriends, getReceiveFriends } from '@api/user';
@@ -31,7 +31,7 @@ function* getFriendList() {
     const result: string[] = yield call(getFriendListAPI);
     yield put(friendListSuccess(result));
   } catch ({ message }) {
-    yield put(friendListFailuer({ message: message as string }));
+    yield put(friendListFailure({ message: message as string }));
   }
 }
 
@@ -40,7 +40,7 @@ function* getSendFriendList() {
     const result: string[] = yield call(getSendFriendListAPI);
     yield put(sendFriendListSuccess(result));
   } catch ({ message }) {
-    yield put(sendFriendListFailuer({ message: message as string }));
+    yield put(sendFriendListFailure({ message: message as string }));
   }
 }
 
@@ -49,7 +49,7 @@ function* getReceiveFriendList() {
     const result: string[] = yield call(getReceiveFriendListAPI);
     yield put(receiveFriendListSuccess(result));
   } catch ({ message }) {
-    yield put(receiveFriendListFailuer({ message: message as string }));
+    yield put(receiveFriendListFailure({ message: message as string }));
   }
 }
 
