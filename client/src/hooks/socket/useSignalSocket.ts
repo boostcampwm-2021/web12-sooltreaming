@@ -16,7 +16,6 @@ const useSignalSocket = () => {
 
   const socket = useMemo(() => Socket.signal({ addStream, stream }), []);
   useEffect(() => {
-    // Socket으로 Peer Connection 만들기
     return () => {
       socket.disconnecting();
     };
