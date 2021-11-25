@@ -121,7 +121,7 @@ function deviceReducer(
     case SUCCESS_VIDEO_INFO: {
       const { stream } = action.payload as { stream: MediaStream };
       const { isVideoOn } = state;
-      stream.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
+      stream?.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
       return {
         ...state,
         stream,
@@ -130,7 +130,7 @@ function deviceReducer(
     case SUCCESS_AUDIO_INFO: {
       const { stream } = action.payload as { stream: MediaStream };
       const { isAudioOn } = state;
-      stream.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
+      stream?.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
       return {
         ...state,
         stream,
