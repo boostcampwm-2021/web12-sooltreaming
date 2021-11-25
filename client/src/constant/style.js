@@ -82,3 +82,8 @@ export const CANCLE_BTN_STYLE = css`
     background-color: ${COLOR.lightError};
   }
 `;
+
+export const BOX_SHADOW = css`
+  border-radius: 10px;
+  box-shadow: 1px 1px 1px 1px #ccc;
+`;
