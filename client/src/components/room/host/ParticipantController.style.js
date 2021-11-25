@@ -9,6 +9,8 @@ export const ColumnBox = styled.div`
 
   margin-bottom: 10px;
   padding: 15px;
+  position: relative;
+
   &::-webkit-scrollbar {
     width: 4px;
     height: 16px;
