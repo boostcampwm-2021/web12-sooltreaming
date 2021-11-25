@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import Socket from '@socket/socket';
 import {
   Monitor,
+  CloseUpContainer,
   CameraContainer,
   Camera,
   ImageBox,
@@ -33,29 +34,31 @@ const ChatMonitor: React.FC = () => {
   useUpdateStream(myVideoRef, stream, sendStream);
 
   return (
-    <Monitor count={count}>
-      <CameraContainer className={className}>
-        <Camera ref={myVideoRef} autoPlay playsInline muted />
-        <ImageBox isVideoOn={isVideoOn}>
-          <ProfileImage className="myImg" src={imgUrl} />
-        </ImageBox>
-        <Name>
-          {nickname}
-          {!isAudioOn && (
-            <>
-              <MicIcon width={8} height={18} stroke={'red'} />
-              <XIcon width={10} height={18} />
-            </>
-          )}
-        </Name>
-      </CameraContainer>
+    <Monitor>
+      <CloseUpContainer count={count} isCloseUp={!!closeUpUser}>
+        <CameraContainer className={className}>
+          <Camera ref={myVideoRef} autoPlay playsInline muted />
+          <ImageBox isVideoOn={isVideoOn}>
+            <ProfileImage src={imgUrl} />
+          </ImageBox>
+          <Name>
+            {nickname}
+            {!isAudioOn && (
+              <>
+                <MicIcon width={8} height={18} stroke={'red'} />
+                <XIcon width={10} height={18} />
+              </>
+            )}
+          </Name>
+        </CameraContainer>
 
-      {Object.entries(streams).map(([sid, otherStream]) => {
-        const peerClassName = closeUpUser ? (sid === closeUpUser ? 'closeup' : 'mini') : '';
-        return (
-          <OtherVideo key={sid} className={peerClassName} otherStream={otherStream} sid={sid} />
-        );
-      })}
+        {Object.entries(streams).map(([sid, otherStream]) => {
+          const peerClassName = closeUpUser ? (sid === closeUpUser ? 'closeup' : 'mini') : '';
+          return (
+            <OtherVideo key={sid} className={peerClassName} otherStream={otherStream} sid={sid} />
+          );
+        })}
+      </CloseUpContainer>
     </Monitor>
   );
 };
