@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Container, ItemList, ItemListBox, ToggleButton } from './Dropdown.style.js';
 
 interface dropdownPropTypes {
@@ -9,18 +9,21 @@ interface dropdownPropTypes {
 
 const Dropdown: React.FC<dropdownPropTypes> = ({ renderButton, renderItem, itemList }) => {
   const [isActive, setActive] = useState(false);
-  const [isMouseOn, setIsMouseOn] = useState(false);
+  const isMouseOn = useRef(false);
 
   const toggleDropdown = () => {
     setActive((prev) => !prev);
   };
   const closeDropdown = () => {
-    if (isMouseOn) return;
+    if (isMouseOn.current) return;
     setActive(false);
   };
 
   return (
-    <Container onMouseEnter={() => setIsMouseOn(true)} onMouseLeave={() => setIsMouseOn(false)}>
+    <Container
+      onMouseEnter={() => (isMouseOn.current = true)}
+      onMouseLeave={() => (isMouseOn.current = false)}
+    >
       <ToggleButton onClick={toggleDropdown} onBlur={closeDropdown}>
         {renderButton()}
       </ToggleButton>
