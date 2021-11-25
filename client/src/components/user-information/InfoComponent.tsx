@@ -40,10 +40,6 @@ const InfoComponent: React.FC<InfoComponentType> = ({
   toggleFriendJudgment,
   userInformation,
 }) => {
-  console.log(toggleHistoryJudgment);
-  console.log(toggleNicknameJudgment);
-  console.log(toggleFriendJudgment);
-
   return (
     <>
       <TopWrapper>
