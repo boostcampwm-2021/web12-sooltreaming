@@ -51,7 +51,7 @@ export const ButtonsWrapper = styled.button`
   border: none;
   cursor: pointer;
   margin: 0 5px;
-  &: hover {
+  &:hover {
     & > svg {
       padding: 2px;
     }
@@ -67,7 +67,7 @@ export const Button = styled.button`
   border: none;
   cursor: pointer;
   margin: 0 5px;
-  &: hover {
+  &:hover {
     & > svg {
       padding: 2px;
     }
