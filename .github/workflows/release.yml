@@ -22,7 +22,9 @@ jobs:
             cd ${{ secrets.SSH_REPOSITORY }}
             git fetch --all
             git reset --hard origin/main
-            cd ./client
+            cd ./domain
+            npm run build
+            cd ../client
             npm install
             rm -rf build
             npm run deploy
