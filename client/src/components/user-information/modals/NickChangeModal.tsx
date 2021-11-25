@@ -7,7 +7,6 @@ import { RootState } from '@src/store';
 import { API } from '@src/api';
 
 import {
-  Header,
   DeleteChangePressSection,
   ChangeData,
   NewNicknameInput,
@@ -15,19 +14,14 @@ import {
   RejectIconWrapper,
   ProfileSquare,
   ProfileSquareWrapper,
-  XButtonWrapper,
-} from '@components/user-information/Information.style';
-import { GreenXButtonIcon, CloseIcon, AcceptIcon } from '@src/components/icons';
+  DeleteBox,
+} from '@components/user-information/modals/NickChangeModal.style';
+import { Header, Button } from '@components/user-information/modals/index.style';
+import { GreenXButtonIcon, CloseIcon, AcceptIcon, ChangeNicknameIcon } from '@components/icons';
 
-type NicknameChangeModalType = {
-  changeNicknameIsOpen: any;
-  toggleNicknameJudgment: any;
-};
+import { BACK_BASE_URL } from '@constant/envs';
 
-const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
-  changeNicknameIsOpen,
-  toggleNicknameJudgment,
-}) => {
+const NickChangeModal = () => {
   const dispatch = useDispatch();
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
@@ -37,6 +31,8 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
   const [nickChanged, setNickChanged] = useState<boolean>(false);
   const [imgChanged, setImgChanged] = useState<boolean>(false);
 
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const closeModal = () => setIsOpen(false);
   // 닉네임 변경 감지
   const checkChanged = (e) => {
     if (e.target.value !== nickname) setNickChanged(true);
@@ -61,7 +57,7 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
     if (!newImageData.current || !newImageData.current?.files) return;
     else {
       newImageData.current.files = dataTransfer.files;
-      setPreview('http://localhost:5000/public/uploads/HumanIcon.svg');
+      setPreview(`${BACK_BASE_URL}/public/uploads/HumanIcon.svg`);
     }
   }, []);
 
@@ -93,19 +89,19 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
       Promise.all([requestChangeUserImage()]).then(() => {
         setNickChanged(false);
         setImgChanged(false);
-        toggleNicknameJudgment();
+        closeModal();
       });
     } else if (nickChanged && !imgChanged) {
       Promise.all([changeNickname()]).then(() => {
         setNickChanged(false);
         setImgChanged(false);
-        toggleNicknameJudgment();
+        closeModal();
       });
     } else if (nickChanged && imgChanged) {
       Promise.all([changeNickname(), requestChangeUserImage()]).then(() => {
         setNickChanged(false);
         setImgChanged(false);
-        toggleNicknameJudgment();
+        closeModal();
       });
     }
   };
@@ -115,7 +111,7 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
     setNickChanged(false);
     setImgChanged(false);
     setPreview(imgUrl);
-    toggleNicknameJudgment();
+    closeModal();
   };
 
   useEffect(() => {
@@ -124,53 +120,59 @@ const NicknameChangeModal: React.FC<NicknameChangeModalType> = ({
   }, [preview]);
 
   return (
-    <Modal
-      isOpen={changeNicknameIsOpen}
-      isRelative={false}
-      renderCenter={true}
-      absolutePos={{ top: '50%', left: '50%' }}
-    >
-      <Header>
-        <h2>프로필 변경하기</h2>
-      </Header>
-      <ChangeData>
-        <ProfileSquareWrapper>
-          <ProfileSquare>
-            <img src={preview} alt="" />
-            <input
-              ref={newImageData}
-              type="file"
-              style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
-              accept="image/jpeg, image/png"
-              onChange={uploadImage}
-            />
-            <XButtonWrapper onClick={deleteImage}>
-              <GreenXButtonIcon />
-            </XButtonWrapper>
-          </ProfileSquare>
-        </ProfileSquareWrapper>
+    <>
+      <Button onClick={() => setIsOpen(true)}>
+        <ChangeNicknameIcon />
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        isRelative={false}
+        renderCenter={true}
+        absolutePos={{ top: '50%', left: '50%' }}
+      >
+        <Header>
+          <h2>프로필 변경하기</h2>
+        </Header>
+        <ChangeData>
+          <ProfileSquareWrapper>
+            <ProfileSquare>
+              <img src={preview} alt="" />
+              <input
+                ref={newImageData}
+                type="file"
+                style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
+                accept="image/jpeg, image/png"
+                onChange={uploadImage}
+              />
+              <DeleteBox onClick={deleteImage}>
+                <GreenXButtonIcon />
+              </DeleteBox>
+            </ProfileSquare>
+          </ProfileSquareWrapper>
 
-        <NewNicknameInput
-          ref={newNicknameData}
-          placeholder={'닉네임을 입력해주세요.'}
-          defaultValue={nickname}
-          onChange={checkChanged}
-        />
-      </ChangeData>
-      <DeleteChangePressSection>
-        <NicknameChangeAcceptIconWrapper
-          onClick={changeProfile}
-          nickChanged={nickChanged}
-          imgChanged={imgChanged}
-        >
-          <AcceptIcon />
-        </NicknameChangeAcceptIconWrapper>
-        <RejectIconWrapper onClick={rejectProfile}>
-          <CloseIcon />
-        </RejectIconWrapper>
-      </DeleteChangePressSection>
-    </Modal>
+          <NewNicknameInput
+            ref={newNicknameData}
+            placeholder={'닉네임을 입력해주세요.'}
+            defaultValue={nickname}
+            onChange={checkChanged}
+            maxLength={15}
+          />
+        </ChangeData>
+        <DeleteChangePressSection>
+          <NicknameChangeAcceptIconWrapper
+            onClick={changeProfile}
+            nickChanged={nickChanged}
+            imgChanged={imgChanged}
+          >
+            <AcceptIcon />
+          </NicknameChangeAcceptIconWrapper>
+          <RejectIconWrapper onClick={rejectProfile}>
+            <CloseIcon />
+          </RejectIconWrapper>
+        </DeleteChangePressSection>
+      </Modal>
+    </>
   );
 };
 
-export default NicknameChangeModal;
+export default NickChangeModal;

@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import Dropdown from '@components/custom/Dropdown';
-import { RankContainer, HeaderContainer } from '@components/user-information/Ranking.style';
+import { RankContainer, HeaderContainer } from '@components/user-information/ranks/index.style';
 import { DownIcon } from '@components/icons';
 import { MenuButton, MenuItem } from '@components/setting/SettingDropdown.style';
 import { API } from '@api/index';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import RankingBox from '@components/user-information/RankingBox';
+import RankingBox from '@components/user-information/ranks/RankingBox';
+import Loading from '@components/custom/Loading';
 
 const rankingMenuList = {
   '총 접속 시간': 'totalSeconds',
@@ -18,8 +19,11 @@ const rankingMenuList = {
   '주최자 횟수': 'starterCount',
 };
 
-const Ranking: React.FC = () => {
+const Ranks: React.FC = () => {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const friendList = useSelector((state: RootState) => state.friend.friendList);
+  const friendListId = Object.values(friendList).map(({ _id }) => _id);
+
   const [nowSelect, setNowSelect] = useState('갈고리 사용 횟수');
   const [rank, setRank] = useState([]);
   const choiceMenu = (toggleDropdown, item) => () => {
@@ -31,10 +35,12 @@ const Ranking: React.FC = () => {
     const getRank = async () => {
       const rank = await API.call(API.TYPE.GET_RANK, rankingMenuList[nowSelect]);
       setRank(rank);
+      setIsLoading(false);
     };
     getRank();
   }, [nowSelect]);
 
+  if (isLoading) return <Loading />;
   return (
     <>
       <HeaderContainer>
@@ -65,11 +71,11 @@ const Ranking: React.FC = () => {
           title={'친구'}
           rank={rank}
           nowSelect={rankingMenuList[nowSelect]}
-          filterList={friendList}
+          filterList={friendListId}
         />
       </RankContainer>
     </>
   );
 };
 
-export default Ranking;
+export default Ranks;

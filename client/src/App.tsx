@@ -7,7 +7,7 @@ import JoinRoom from '@pages/JoinRoom';
 import Login from '@pages/Login';
 import AuthRoute from '@pages/Splash';
 import CreateRoom from '@pages/CreateRoom';
-import UserInformation from '@pages/UserInformation';
+import UserPage from '@pages/UserPage';
 import { API } from './api';
 
 const App: React.FC = () => {
@@ -26,7 +26,7 @@ const App: React.FC = () => {
             <Route exact path="/" component={Lobby} />
             <Route exact path="/create" component={CreateRoom} />
             <Route exact path="/room/:code" component={JoinRoom} />
-            <Route exact path="/myPage/:id" component={UserInformation} />
+            <Route exact path="/myPage/:id" component={UserPage} />
             <Route path="*" component={() => <Redirect to="/" />} />
           </Switch>
         </AuthRoute>

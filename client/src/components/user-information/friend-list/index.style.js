@@ -50,6 +50,7 @@ export const Header = styled.div`
 export const RequestData = styled.div`
   width: 640px;
   padding: 20px 20px;
+  margin-bottom: 5rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
