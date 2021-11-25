@@ -14,8 +14,8 @@ const friend = ({
   rooms: roomType;
   targetInfo: TargetInfoType;
 }) => {
-  socket.on(FRIEND_REQUEST, (receiverSID) => {
-    io.to(receiverSID).emit(FRIEND_REQUEST);
+  socket.on(FRIEND_REQUEST, ({ sid, id, imgUrl, nickname }) => {
+    io.to(sid).emit(FRIEND_REQUEST, { id, imgUrl, nickname });
   });
   return { io, socket, rooms, targetInfo };
 };
