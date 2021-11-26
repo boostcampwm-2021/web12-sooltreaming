@@ -1,74 +1,95 @@
 import React, { useRef } from 'react';
 import Socket from '@socket/socket';
 import {
-  Wrapper,
-  VideoWrapper,
-  Video,
-  Image,
-  NameSpan,
+  Monitor,
+  CloseUpContainer,
+  CameraContainer,
+  Camera,
+  ImageBox,
+  ProfileImage,
+  Name,
 } from '@components/room/monitor/index.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
-import useWebRTC from '@hooks/socket/useWebRTC';
+import useSignalSocket from '@hooks/socket/useSignalSocket';
+import { MicIcon, XIcon } from '@src/components/icons';
 
-type ChatFormPropTypes = {
-  closeupUser: any;
-};
-
-const ChatMonitor: React.FC<ChatFormPropTypes> = ({ closeupUser }) => {
+const ChatMonitor: React.FC = () => {
   const streams = useSelector((state: RootState) => state.room.streams);
+  const closeUpUser = useSelector((state: RootState) => state.room.closeUpUser);
   const stream = useSelector((state: RootState) => state.device.stream);
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
+  const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
   const myVideoRef = useRef<HTMLVideoElement>(null);
-  const className = closeupUser ? (Socket.getSID() === closeupUser ? 'closeup' : 'mini') : '';
-  let count = Object.values(streams).length + 1;
+  const className = closeUpUser ? (Socket.getSID() === closeUpUser ? 'closeup' : 'mini') : '';
+  const count = Object.values(streams).length + 1;
 
-  const { changeStream } = useWebRTC();
+  const { changeStream } = useSignalSocket();
   const sendStream = () => changeStream(stream);
   useUpdateStream(myVideoRef, stream, sendStream);
 
   return (
-    <Wrapper>
-      <VideoWrapper count={count} className={className}>
-        <Video count={count} ref={myVideoRef} autoPlay playsInline muted></Video>
-        <Image count={count} className="myImg" src={imgUrl} isVideoOn={isVideoOn}></Image>
-        <NameSpan>{nickname}</NameSpan>
-      </VideoWrapper>
+    <Monitor>
+      <CloseUpContainer count={count} isCloseUp={!!closeUpUser}>
+        <CameraContainer className={className}>
+          <Camera ref={myVideoRef} autoPlay playsInline muted />
+          <ImageBox isVideoOn={isVideoOn}>
+            <ProfileImage src={imgUrl} />
+          </ImageBox>
+          <Name>
+            {nickname}
+            {!isAudioOn && (
+              <>
+                <MicIcon width={8} height={18} stroke={'red'} />
+                <XIcon width={10} height={18} />
+              </>
+            )}
+          </Name>
+        </CameraContainer>
 
-      {Object.entries(streams).map(([sid, otherStream]) => {
-        const peerClassName = closeupUser ? (sid === closeupUser ? 'closeup' : 'mini') : '';
-        return (
-          <OtherVideo count={count} className={peerClassName} srcObject={otherStream} sid={sid} />
-        );
-      })}
-    </Wrapper>
+        {Object.entries(streams).map(([sid, otherStream]) => {
+          const peerClassName = closeUpUser ? (sid === closeUpUser ? 'closeup' : 'mini') : '';
+          return (
+            <OtherVideo key={sid} className={peerClassName} otherStream={otherStream} sid={sid} />
+          );
+        })}
+      </CloseUpContainer>
+    </Monitor>
   );
 };
 
-const OtherVideo = ({ className, srcObject, count, sid }) => {
+const OtherVideo = ({ className, otherStream, sid }) => {
   const users = useSelector((state: RootState) => state.room.users);
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);
 
   const otherRef = useRef<HTMLVideoElement>(null);
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
-  useUpdateStream(otherRef, srcObject); // srcObject은 otherStream
-  let isVideoOn = usersDevices[sid].isVideoOn;
-  let imgUrl = users[sid].imgUrl;
+  useUpdateStream(otherRef, otherStream);
+  const { isVideoOn, isAudioOn } = usersDevices[sid];
+  const imgUrl = users[sid].imgUrl;
 
   return (
-    <>
-      <VideoWrapper count={count} className={className}>
-        <Video count={count} ref={otherRef} autoPlay playsInline></Video>
-        <Image count={count} src={imgUrl} isVideoOn={isVideoOn}></Image>
-        <NameSpan>{users[sid].nickname}</NameSpan>
-      </VideoWrapper>
-    </>
+    <CameraContainer className={className}>
+      <Camera ref={otherRef} autoPlay playsInline />
+      <ImageBox isVideoOn={isVideoOn}>
+        <ProfileImage src={imgUrl} />
+      </ImageBox>
+      <Name>
+        {users[sid].nickname}
+        {!isAudioOn && (
+          <>
+            <MicIcon width={8} height={18} stroke={'red'} />
+            <XIcon width={10} height={18} />
+          </>
+        )}
+      </Name>
+    </CameraContainer>
   );
 };
 
