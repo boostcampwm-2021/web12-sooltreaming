@@ -3,11 +3,13 @@ import { UPDOWN_START, UPDOWN_STOP } from 'sooltreaming-domain/constant/socketEv
 
 const game =
   (socket: Socket) =>
-  ({ startUpdown, stopUpdown }) => {
-    socket.on(UPDOWN_START, (startingSID) => {
+  ({ startUpdown, stopUpdown, randomNumRef }) => {
+    socket.on(UPDOWN_START, (startingSID, randomNum) => {
+      randomNumRef.current = randomNum;
       startUpdown(startingSID);
     });
     socket.on(UPDOWN_STOP, () => {
+      randomNumRef.current = '';
       stopUpdown();
     });
     const requestUpdownStart = () => {

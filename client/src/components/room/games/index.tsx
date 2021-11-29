@@ -11,14 +11,14 @@ type GamesPropTypes = {
 const Games: React.FC<GamesPropTypes> = ({ startGamesRef }) => {
   const currentGame = useSelector((state: RootState) => state.room.currentGame.title);
 
-  const { GameStartHandlerList } = useGameSocket();
+  const { GameStartHandlerList, randomNumRef } = useGameSocket();
   useEffect(() => {
     startGamesRef.current = GameStartHandlerList;
   }, []);
 
   switch (currentGame) {
     case '업다운':
-      return <UpdownGame />;
+      return <UpdownGame randomNumRef={randomNumRef} />;
     default:
       return <></>;
   }

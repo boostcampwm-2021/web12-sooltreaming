@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useCallback } from 'react';
+import { useEffect, useMemo, useCallback, useRef } from 'react';
 import Socket from '@socket/socket';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
@@ -8,7 +8,7 @@ import { LIAR, UP_DOWN } from 'sooltreaming-domain/constant/gameName';
 const useGameSocket = () => {
   const dispatch = useDispatch();
   const currentGame = useSelector((state: RootState) => state.room.currentGame);
-
+  const randomNumRef = useRef('');
   const onClickUpdown = useCallback(() => {
     socket.requestUpdownStart();
   }, []);
@@ -29,7 +29,7 @@ const useGameSocket = () => {
     dispatch(setCurrentGame({ title: '', host: '' }));
   };
 
-  const socket = useMemo(() => Socket.game({ startUpdown, stopUpdown }), []);
+  const socket = useMemo(() => Socket.game({ startUpdown, stopUpdown, randomNumRef }), []);
   useEffect(() => {
     if (currentGame.host === Socket.getSID() && !currentGame.title) {
       socket.requestUpdownStop();
@@ -42,7 +42,7 @@ const useGameSocket = () => {
     };
   }, []);
 
-  return { GameStartHandlerList };
+  return { GameStartHandlerList, randomNumRef };
 };
 
 export default useGameSocket;

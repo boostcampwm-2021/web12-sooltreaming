@@ -6,7 +6,11 @@ import { RootState } from '@src/store';
 import { setCurrentGame } from '@store/room';
 import { Contents, GameTitle, GameStopButton } from '@components/room/games/UpdownGame.style';
 
-const UpdownGame: React.FC = () => {
+type UpdownGamePropType = {
+  randomNumRef: React.MutableRefObject<string>;
+};
+
+const UpdownGame: React.FC<UpdownGamePropType> = ({ randomNumRef }) => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
   const gameHost = useSelector((state: RootState) => state.room.currentGame.host);
@@ -24,7 +28,7 @@ const UpdownGame: React.FC = () => {
         <Contents>
           <GameTitle>업다운 게임</GameTitle>
           <img src="/images/soju-cap.png" alt="" />
-          <div className="random-num">{Math.floor(Math.random() * 50) + 1}</div>
+          <div className="random-num">{randomNumRef.current}</div>
           <GameStopButton onClick={stopGame}>게임 종료</GameStopButton>
         </Contents>
       ) : (
