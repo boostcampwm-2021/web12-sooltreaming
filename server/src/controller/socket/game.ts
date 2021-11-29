@@ -26,7 +26,9 @@ const game = ({
       return;
 
     rooms[code].game = { title: UP_DOWN, host: startingSID };
-    io.emit(UPDOWN_START, startingSID);
+    const randomNum = Math.floor(Math.random() * 50) + 1;
+
+    io.emit(UPDOWN_START, startingSID, randomNum);
     createLog(UPDOWN_START, rooms[code].users[startingSID].id);
   });
   socket.on(UPDOWN_STOP, () => {
