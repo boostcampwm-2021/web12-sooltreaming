@@ -5,12 +5,9 @@ import Modal from '@components/custom/Modal';
 import TimerBomb from '@src/components/room/scaffold/TimerBomb';
 import VotePresser from '@src/components/room/scaffold/VotePresser';
 import Voters from '@src/components/room/scaffold/Voters';
+import type { ScaffoldPropType } from '@ts-types/components/room';
 
-type ScaffoldPropTypes = {
-  startVoteRef: React.MutableRefObject<Function>;
-};
-
-const Scaffold: React.FC<ScaffoldPropTypes> = ({ startVoteRef }) => {
+const Scaffold: React.FC<ScaffoldPropType> = ({ startVoteRef }) => {
   const [isVote, setIsVote] = useState<boolean>(false);
   const { isOpen, target, total, approves, rejects, startVoting, makeDecision } = useVoteSocket();
 

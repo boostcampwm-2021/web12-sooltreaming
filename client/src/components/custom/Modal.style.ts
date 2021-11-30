@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { COLOR, Z_INDEX } from '@constant/style';
-import type { ModalPosType } from '@components/custom/Modal';
+import type { ModalPosType } from '@ts-types/components/custom';
 
 const getPositionCSS = (pos: ModalPosType) => {
   return Object.entries(pos)

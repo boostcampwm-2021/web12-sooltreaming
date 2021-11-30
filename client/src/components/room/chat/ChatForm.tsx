@@ -4,12 +4,9 @@ import { SendingForm } from '@components/room/chat/ChatForm.style';
 import { PaperPlaneIcon } from '@components/icons';
 import { RootState } from '@src/store';
 import { useSelector } from 'react-redux';
+import type { ChatPropType } from '@ts-types/components/room';
 
-type ChatFormPropTypes = {
-  sendMessage: any;
-};
-
-const ChatForm: React.FC<ChatFormPropTypes> = ({ sendMessage }) => {
+const ChatForm: React.FC<ChatPropType> = ({ sendMessage }) => {
   const { code } = useParams();
   const [message, setMessage] = useState<string>('');
   const user = useSelector((state: RootState) => state.user);

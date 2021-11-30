@@ -7,14 +7,9 @@ import {
 } from '@components/user-information/modals/NickLogModal.style';
 import { Header, Button } from '@components/user-information/modals/index.style';
 import { HistoryIcon, AcceptIcon } from '@components/icons';
-import type { NicknameLogType } from '@components/user-information/information';
+import type { NickLogModalPropType } from '@ts-types/components/user-information';
 
-type NickLogModalType = {
-  nickname: string;
-  nicknameLog: NicknameLogType;
-};
-
-const NickLogModal: React.FC<NickLogModalType> = ({ nickname, nicknameLog }) => {
+const NickLogModal: React.FC<NickLogModalPropType> = ({ nickname, nicknameLog }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>

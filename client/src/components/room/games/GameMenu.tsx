@@ -2,12 +2,9 @@ import React from 'react';
 import { GameListBox, GameRuleBox, GameTitle } from '@components/room/games/GameMenu.style';
 import GameBox from '@components/room/games/GameBox';
 import { gameList } from '@src/components/room/games/gameList';
+import type { GamesPropType } from '@ts-types/components/room';
 
-type GameMenuPropTypes = {
-  startGamesRef: React.MutableRefObject<Object>;
-};
-
-const GameMenu: React.FC<GameMenuPropTypes> = ({ startGamesRef }) => {
+const GameMenu: React.FC<GamesPropType> = ({ startGamesRef }) => {
   return (
     <GameListBox>
       {gameList.map(({ icon, title, content }) => (

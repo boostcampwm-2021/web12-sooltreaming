@@ -8,14 +8,9 @@ import {
 } from '@components/user-information/ranks/RankingBox.style';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-type RankingBoxPropTypes = {
-  title: string;
-  rank: any[];
-  nowSelect: string;
-  filterList: string[];
-};
+import type { RankingBoxPropType } from '@ts-types/components/user-information';
 
-const RankingBox: React.FC<RankingBoxPropTypes> = ({ title, rank, nowSelect, filterList }) => {
+const RankingBox: React.FC<RankingBoxPropType> = ({ title, rank, nowSelect, filterList }) => {
   const myId = useSelector((state: RootState) => state.user.id);
   const rankList =
     filterList.length === rank.length

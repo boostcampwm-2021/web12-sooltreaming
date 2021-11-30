@@ -12,14 +12,9 @@ import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 import { MicIcon, XIcon } from '@components/icons';
+import type { OtherVideoPropType } from '@ts-types/components/room';
 
-type OtherVideoType = {
-  className: string;
-  otherStream: MediaStream;
-  sid: string;
-};
-
-const OtherVideo: React.FC<OtherVideoType> = ({ className, otherStream, sid }) => {
+const OtherVideo: React.FC<OtherVideoPropType> = ({ className, otherStream, sid }) => {
   const users = useSelector((state: RootState) => state.room.users);
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);
 

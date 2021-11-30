@@ -41,14 +41,6 @@ import CloseIcon from '@components/icons/CloseIcon';
 import LiarGameIcon from '@components/icons/LiarGameIcon';
 import UpdownGameIcon from '@components/icons/UpdownGameIcon';
 
-export type iconPropsType = {
-  className?: string;
-  width?: number;
-  height?: number;
-  fill?: string;
-  stroke?: string;
-};
-
 export {
   HumanIcon,
   PaperPlaneIcon,

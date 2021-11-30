@@ -9,12 +9,9 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import Socket from '@socket/socket';
+import type { UsersPropType } from '@ts-types/components/user';
 
-type UsersPropTypes = {
-  startVoteRef: React.MutableRefObject<Function>;
-  onclickRequestFriend: any;
-};
-const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend }) => {
+const Users: React.FC<UsersPropType> = ({ startVoteRef, onclickRequestFriend }) => {
   const users = useSelector((state: RootState) => state.room.users);
 
   const { friendList, sendFriendList, receiveFriendList } = useSelector(

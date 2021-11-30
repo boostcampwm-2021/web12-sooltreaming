@@ -4,10 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setCurrentGame } from '@store/room';
 import { Contents, GameTitle, GameStopButton } from '@components/room/games/LiarGame.style';
-
-type LiarGamePropType = {
-  randomNumRef: React.MutableRefObject<string>;
-};
+import type { LiarGamePropType } from '@ts-types/components/room';
 
 const LiarGame: React.FC<LiarGamePropType> = ({ randomNumRef }) => {
   const dispatch = useDispatch();

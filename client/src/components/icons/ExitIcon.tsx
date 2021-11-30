@@ -1,13 +1,7 @@
 import React from 'react';
-import type { iconPropsType } from '@components/icons';
+import type { iconPropType } from '@ts-types/components/icons';
 
-const ExitIcon = ({
-  className,
-  width,
-  height,
-  fill,
-  stroke,
-}: iconPropsType): React.ReactElement => {
+const ExitIcon = ({ className, width, height, fill, stroke }: iconPropType): React.ReactElement => {
   return (
     <svg
       width={width ?? 28}

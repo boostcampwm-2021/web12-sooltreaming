@@ -1,22 +1,8 @@
 import React from 'react';
 import { RelativeBox, AbsoluteBox } from '@components/custom/Modal.style';
+import type { ModalPropType } from '@ts-types/components/custom';
 
-export type ModalPosType = {
-  top?: string;
-  right?: string;
-  bottom?: string;
-  left?: string;
-};
-type ModalPropTypes = {
-  children: any;
-  isOpen: boolean;
-  renderCenter?: boolean;
-  isRelative?: boolean;
-  relativePos?: ModalPosType;
-  absolutePos?: ModalPosType;
-};
-
-const Modal: React.FunctionComponent<ModalPropTypes> = ({
+const Modal: React.FunctionComponent<ModalPropType> = ({
   children,
   isOpen,
   renderCenter = false,

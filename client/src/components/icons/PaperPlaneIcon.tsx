@@ -1,5 +1,5 @@
 import React from 'react';
-import type { iconPropsType } from '@components/icons';
+import type { iconPropType } from '@ts-types/components/icons';
 
 const PaperPlaneIcon = ({
   className,
@@ -7,7 +7,7 @@ const PaperPlaneIcon = ({
   height,
   fill,
   stroke,
-}: iconPropsType): React.ReactElement => {
+}: iconPropType): React.ReactElement => {
   return (
     <svg
       className={className ?? ''}

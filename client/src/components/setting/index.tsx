@@ -18,12 +18,9 @@ import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 import DeviceSelections from '@components/setting/DeviceSelections';
 import DeviceToggles from '@components/setting/DeviceToggles';
+import type { SettingPropType } from '@ts-types/components/setting';
 
-type SettingPropTypes = {
-  renderRoom: Function;
-};
-
-const Setting: React.FC<SettingPropTypes> = ({ renderRoom }) => {
+const Setting: React.FC<SettingPropType> = ({ renderRoom }) => {
   const history = useHistory();
   const stream = useSelector((state: RootState) => state.device.stream);
   const previewFace = useRef<HTMLVideoElement>(null);

@@ -5,14 +5,9 @@ import { RootState } from '@src/store';
 import { setMenuType } from '@store/room';
 import RouteMenu from '@components/room/RouteMenu';
 import useChatSocket from '@hooks/socket/useChatSocket';
+import type { RoomMenuPropType } from '@ts-types/components/room';
 
-type RoomMenuPropTypes = {
-  startVoteRef: React.MutableRefObject<Function>;
-  startGamesRef: React.MutableRefObject<Object>;
-  onclickRequestFriend: any;
-};
-
-const RoomMenu: React.FC<RoomMenuPropTypes> = ({
+const RoomMenu: React.FC<RoomMenuPropType> = ({
   startVoteRef,
   startGamesRef,
   onclickRequestFriend,
