@@ -8,7 +8,8 @@ import { LIAR, UP_DOWN } from 'sooltreaming-domain/constant/gameName';
 const useGameSocket = () => {
   const dispatch = useDispatch();
   const currentGame = useSelector((state: RootState) => state.room.currentGame);
-  const randomNumRef = useRef('');
+  const randomNumRef = useRef<string>('');
+  const keywordRef = useRef<string>('');
 
   const onClickUpdown = useCallback(() => {
     socket.requestUpdownStart();
@@ -37,12 +38,8 @@ const useGameSocket = () => {
     dispatch(setCurrentGame({ title: LIAR, host: startingSID }));
   };
 
-  const stopLiar = () => {
-    dispatch(setCurrentGame({ title: '', host: '' }));
-  };
-
   const socket = useMemo(
-    () => Socket.game({ startUpdown, stopUpdown, startLiar, stopLiar, randomNumRef }),
+    () => Socket.game({ startUpdown, stopUpdown, startLiar, randomNumRef, keywordRef }),
     [],
   );
 

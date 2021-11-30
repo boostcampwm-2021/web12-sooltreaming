@@ -8,7 +8,7 @@ import {
 
 const game =
   (socket: Socket) =>
-  ({ startUpdown, stopUpdown, startLiar, stopLiar, randomNumRef, keywordRef }) => {
+  ({ startUpdown, stopUpdown, startLiar, randomNumRef, keywordRef }) => {
     socket.on(UPDOWN_START, (startingSID, randomNum) => {
       randomNumRef.current = randomNum;
       startUpdown(startingSID);
@@ -24,7 +24,7 @@ const game =
     });
     socket.on(LIAR_STOP, () => {
       keywordRef.current = '';
-      stopLiar();
+      stopUpdown();
     });
 
     // 업다운 시작과 끝
