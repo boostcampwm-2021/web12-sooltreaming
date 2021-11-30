@@ -31,7 +31,9 @@ const UpdownGame: React.FC<UpdownGamePropType> = ({ randomNumRef }): React.React
       ) : (
         <Contents>
           <GameTitle>업다운 게임</GameTitle>
-          <div>{users[gameHost].nickname}님이 게임을 시작하셨습니다.</div>
+          <div>
+            <span>{users[gameHost].nickname}</span> 님이 게임을 시작하셨습니다.
+          </div>
           <GameStopButton onClick={stopGame}>닫기</GameStopButton>
         </Contents>
       )}
