@@ -55,6 +55,10 @@ export const DeleteBox = styled.div`
 `;
 
 export const ButtonContainer = styled.section`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 40px 0;
 `;
 const buttonMaker = (buttonStyle) => styled.button`

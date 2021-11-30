@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { COLOR, BTN_STYLE, BOX_SHADOW } from '@constant/style';
+import { COLOR } from '@constant/style';
 
 export const ModalContents = styled.div`
-  width: 640px;
-  height: 200px;
-  padding: 0px;
+  width: 500px;
+  height: 300px;
+  padding: 20px;
+  margin-bottom: 40px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -26,17 +27,9 @@ export const ModalContents = styled.div`
 `;
 
 export const LogData = styled.p`
+  font-size: 20px;
   margin: 0 0 20px 0;
   &:last-child {
     margin: 0;
   }
-`;
-
-export const CheckButton = styled.button`
-  ${BOX_SHADOW}
-  ${BTN_STYLE}
-  width: 120px;
-  padding: 10px;
-  margin: 30px 0;
-  border-radius: 100px;
 `;

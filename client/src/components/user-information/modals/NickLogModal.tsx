@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import Modal from '@components/custom/Modal';
-import {
-  ModalContents,
-  LogData,
-  CheckButton,
-} from '@components/user-information/modals/NickLogModal.style';
-import { Header, Button } from '@components/user-information/modals/index.style';
-import { HistoryIcon } from '@components/icons';
+import { ModalContents, LogData } from '@components/user-information/modals/NickLogModal.style';
+import { Header, Button, CloseBox } from '@components/user-information/modals/index.style';
+import { HistoryIcon, GreenXButtonIcon } from '@components/icons';
 import type { NicknameLogType } from '@components/user-information/information';
 
 type NickLogModalType = {
@@ -35,7 +31,9 @@ const NickLogModal: React.FC<NickLogModalType> = ({ nickname, nicknameLog }) => 
             <LogData>{prevNickname}</LogData>
           ))}
         </ModalContents>
-        <CheckButton onClick={() => setIsOpen(false)}>확인</CheckButton>
+        <CloseBox onClick={() => setIsOpen(false)}>
+          <GreenXButtonIcon />
+        </CloseBox>
       </Modal>
     </>
   );
