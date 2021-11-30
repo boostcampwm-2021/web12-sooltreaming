@@ -9,7 +9,7 @@ const SettingDropdown: React.FC<SettingDropdownPropType> = ({
   menuList,
   selected,
   setSelected,
-}) => {
+}): React.ReactElement => {
   const choiceMenu = (toggleDropdown, item) => () => {
     setSelected(item);
     toggleDropdown();

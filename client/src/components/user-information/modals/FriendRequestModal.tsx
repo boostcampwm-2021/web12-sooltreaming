@@ -14,7 +14,7 @@ import { RootState } from '@store/index';
 import { GreenXButtonIcon } from '@src/components/icons';
 import { cancelFriendRequest, rejectFriendRequest, acceptFriendRequest } from '@store/friend';
 
-const FriendRequestModal = () => {
+const FriendRequestModal: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const { sendFriendList, receiveFriendList } = useSelector((state: RootState) => state.friend);
 

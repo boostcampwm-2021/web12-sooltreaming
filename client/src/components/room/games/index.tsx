@@ -5,7 +5,7 @@ import UpdownGame from '@components/room/games/UpdownGame';
 import useGameSocket from '@hooks/socket/useGameSocket';
 import type { GamesPropType } from '@ts-types/components/room';
 
-const Games: React.FC<GamesPropType> = ({ startGamesRef }) => {
+const Games: React.FC<GamesPropType> = ({ startGamesRef }): React.ReactElement => {
   const currentGame = useSelector((state: RootState) => state.room.currentGame.title);
   const { GameStartHandlerList, randomNumRef } = useGameSocket();
 

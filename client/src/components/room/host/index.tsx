@@ -5,7 +5,7 @@ import ParticipantController from '@components/room/host/ParticipantController';
 import RoomController from '@components/room/host/RoomController';
 import useControlSocket from '@hooks/socket/useControlSocket';
 
-const Host: React.FC = () => {
+const Host: React.FC = (): React.ReactElement => {
   const { toggleRoomEntry, turnOffOtherVideo, turnOffOtherAudio } = useControlSocket();
   return (
     <ControlBox>

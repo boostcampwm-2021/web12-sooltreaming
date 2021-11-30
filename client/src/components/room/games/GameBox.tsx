@@ -4,7 +4,12 @@ import { GameRuleIcon } from '@components/icons';
 import Modal from '@components/custom/Modal';
 import type { GameBoxPropType } from '@ts-types/components/room';
 
-const GameBox: React.FC<GameBoxPropType> = ({ children, icon, title, start }) => {
+const GameBox: React.FC<GameBoxPropType> = ({
+  children,
+  icon,
+  title,
+  start,
+}): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleRule = (e) => {

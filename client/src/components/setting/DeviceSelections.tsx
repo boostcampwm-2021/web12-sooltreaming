@@ -4,7 +4,7 @@ import { RootState } from '@src/store';
 import { requestVideoInfo, requestAudioInfo, requestSpeakerInfo } from '@store/device';
 import SettingDropdown from '@components/setting/SettingDropdown';
 
-const DeviceSelections: React.FC = () => {
+const DeviceSelections: React.FC = (): React.ReactElement => {
   const { videoInfo, audioInfo, speakerInfo, videoDevices, audioDevices, speakerDevices, stream } =
     useSelector((state: RootState) => state.device);
   const dispatch = useDispatch();

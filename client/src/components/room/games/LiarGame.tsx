@@ -6,7 +6,7 @@ import { setCurrentGame } from '@store/room';
 import { Contents, GameTitle, GameStopButton } from '@components/room/games/LiarGame.style';
 import type { LiarGamePropType } from '@ts-types/components/room';
 
-const LiarGame: React.FC<LiarGamePropType> = ({ randomNumRef }) => {
+const LiarGame: React.FC<LiarGamePropType> = ({ randomNumRef }): React.ReactElement => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
   const gameHost = useSelector((state: RootState) => state.room.currentGame.host);

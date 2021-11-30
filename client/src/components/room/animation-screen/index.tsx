@@ -7,7 +7,7 @@ import { setIsCheers } from '@store/room';
 import useMarkSocket from '@hooks/socket/useMarkSocket';
 import { CHEERS_GIF_NUM, CHEERS_TIME, LISTED_GIF } from 'sooltreaming-domain/constant/addition';
 
-const AnimationScreen: React.FC = () => {
+const AnimationScreen: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const screenRef = useRef<HTMLDivElement>(null);
   const cheersRef = useRef<HTMLImageElement>(null);

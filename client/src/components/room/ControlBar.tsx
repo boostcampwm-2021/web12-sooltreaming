@@ -33,7 +33,7 @@ const ControlBar: React.FC<ControlBarPropType> = ({
   onClickCheers,
   activateCloseup,
   deactivateCloseup,
-}) => {
+}): React.ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
   const hostSID = useSelector((state: RootState) => state.room.hostSID);

@@ -6,7 +6,7 @@ import { userLoginRequest } from '@store/user';
 import Loading from '@components/custom/Loading';
 import ServerError from '@components/custom/ServerError';
 
-const Splash: React.FC = ({ children }) => {
+const Splash: React.FC<React.ReactNode> = ({ children }): React.ReactElement => {
   const history = useHistory();
   const dispatch = useDispatch();
   const { id, isLoadingUser, errorStatus } = useSelector((state: RootState) => state.user);

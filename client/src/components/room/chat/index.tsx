@@ -7,12 +7,12 @@ import ChatItem from '@components/room/chat/ChatItem';
 import ChatForm from '@components/room/chat/ChatForm';
 import type { ChatPropType } from '@ts-types/components/room';
 
-const Chat: React.FC<ChatPropType> = ({ sendMessage }) => {
+const Chat: React.FC<ChatPropType> = ({ sendMessage }): React.ReactElement => {
   const chatLog = useSelector((state: RootState) => state.room.chatLog);
   const chatWindow = useRef<HTMLUListElement>(null);
   const myID = Socket.getSID();
 
-  const downScroll = () => {
+  const downScroll = (): void => {
     const refDom = chatWindow.current;
     if (!refDom) return;
     refDom.scrollTop = refDom.scrollHeight;

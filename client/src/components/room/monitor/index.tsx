@@ -5,7 +5,7 @@ import { RootState } from '@src/store';
 import OtherVideo from '@components/room/monitor/OtherVideo';
 import MyVideo from '@components/room/monitor/MyVideo';
 
-const ChatMonitor: React.FC = () => {
+const ChatMonitor: React.FC = (): React.ReactElement => {
   const streams = useSelector((state: RootState) => state.room.streams);
   const closeUpUser = useSelector((state: RootState) => state.room.closeUpUser);
   const count = Object.values(streams).length + 1;

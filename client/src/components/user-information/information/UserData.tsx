@@ -12,7 +12,7 @@ const UNITS = {
   totalSeconds: (value) => `총 접속 시간 : ${value}초`,
 };
 
-const UserData = ({ userInformation }) => {
+const UserData = ({ userInformation }): React.ReactElement => {
   return (
     <DataList>
       {Object.entries(userInformation).map(([key, value], index) => {

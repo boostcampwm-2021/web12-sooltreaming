@@ -9,7 +9,7 @@ const Modal: React.FunctionComponent<ModalPropType> = ({
   isRelative = true,
   relativePos = {},
   absolutePos = {},
-}) => {
+}): React.ReactElement => {
   if (!isOpen) return <></>;
   if (!isRelative)
     return (

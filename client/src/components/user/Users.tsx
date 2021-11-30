@@ -11,7 +11,10 @@ import { RootState } from '@src/store';
 import Socket from '@socket/socket';
 import type { UsersPropType } from '@ts-types/components/user';
 
-const Users: React.FC<UsersPropType> = ({ startVoteRef, onclickRequestFriend }) => {
+const Users: React.FC<UsersPropType> = ({
+  startVoteRef,
+  onclickRequestFriend,
+}): React.ReactElement => {
   const users = useSelector((state: RootState) => state.room.users);
 
   const { friendList, sendFriendList, receiveFriendList } = useSelector(

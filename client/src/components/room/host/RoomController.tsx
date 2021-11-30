@@ -11,11 +11,11 @@ import {
   DialogButton,
 } from '@components/room/host/RoomController.style';
 
-const copyURL = () => {
+const copyURL = (): void => {
   navigator.clipboard.writeText(window.location.href);
 };
 
-const RoomController = ({ toggleRoomEntry }) => {
+const RoomController = ({ toggleRoomEntry }): React.ReactElement => {
   const code = useSelector((state: RootState) => state.room.roomCode);
   const isOpen = useSelector((state: RootState) => state.room.isOpen);
 

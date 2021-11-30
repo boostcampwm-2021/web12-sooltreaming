@@ -6,7 +6,7 @@ import { RootState } from '@src/store';
 import { useSelector } from 'react-redux';
 import type { ChatPropType } from '@ts-types/components/room';
 
-const ChatForm: React.FC<ChatPropType> = ({ sendMessage }) => {
+const ChatForm: React.FC<ChatPropType> = ({ sendMessage }): React.ReactElement => {
   const { code } = useParams();
   const [message, setMessage] = useState<string>('');
   const user = useSelector((state: RootState) => state.user);

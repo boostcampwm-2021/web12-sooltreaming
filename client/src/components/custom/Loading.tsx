@@ -1,6 +1,6 @@
 import { Container, Spinner } from './Loading.style';
 
-const Loading = () => {
+const Loading = (): React.ReactElement => {
   return (
     <Container>
       <Spinner>

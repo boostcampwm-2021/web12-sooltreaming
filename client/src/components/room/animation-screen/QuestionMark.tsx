@@ -4,7 +4,7 @@ import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
 import type { QuestionMarkPropType } from '@ts-types/components/room';
 
-const QuestionMark: React.FC<QuestionMarkPropType> = ({ x, y }) => {
+const QuestionMark: React.FC<QuestionMarkPropType> = ({ x, y }): React.ReactElement => {
   const audioRef = useRef<HTMLAudioElement>(null);
 
   useUpdateSpeaker(audioRef);

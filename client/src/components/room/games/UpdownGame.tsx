@@ -7,7 +7,7 @@ import { setCurrentGame } from '@store/room';
 import { Contents, GameTitle, GameStopButton } from '@components/room/games/UpdownGame.style';
 import type { UpdownGamePropType } from '@ts-types/components/room';
 
-const UpdownGame: React.FC<UpdownGamePropType> = ({ randomNumRef }) => {
+const UpdownGame: React.FC<UpdownGamePropType> = ({ randomNumRef }): React.ReactElement => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
   const gameHost = useSelector((state: RootState) => state.room.currentGame.host);

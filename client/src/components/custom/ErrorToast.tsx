@@ -5,7 +5,7 @@ import { setNoticeMessage } from '@store/notice';
 import { ErrorToastBox } from '@components/custom/ErrorToast.style';
 import { TOAST_TIME } from 'sooltreaming-domain/constant/addition';
 
-const ErrorToast: React.FC = () => {
+const ErrorToast: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const errorMessage = useSelector((state: RootState) => state.notice.errorMessage);
   const [displayMessage, setDisplayMessage] = useState<string>('');

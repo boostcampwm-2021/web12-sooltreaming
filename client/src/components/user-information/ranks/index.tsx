@@ -19,7 +19,7 @@ const rankingMenuList = {
   '주최자 횟수': 'starterCount',
 };
 
-const Ranks: React.FC = () => {
+const Ranks: React.FC = (): React.ReactElement => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const friendList = useSelector((state: RootState) => state.friend.friendList);
   const friendListId = Object.values(friendList).map(({ _id }) => _id);

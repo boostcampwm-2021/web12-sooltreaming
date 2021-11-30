@@ -22,7 +22,7 @@ import { GreenXButtonIcon, CloseIcon, AcceptIcon, ChangeNicknameIcon } from '@co
 import { BACK_BASE_URL } from '@constant/envs';
 import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
 
-const NickChangeModal = () => {
+const NickChangeModal: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
@@ -31,29 +31,31 @@ const NickChangeModal = () => {
   const [preview, setPreview] = useState<any>(imgUrl);
   const [nickChanged, setNickChanged] = useState<boolean>(false);
   const [imgChanged, setImgChanged] = useState<boolean>(false);
-
   const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  // 모달 닫기
   const closeModal = () => setIsOpen(false);
+
   // 닉네임 변경 감지
-  const checkChanged = (e) => {
+  const checkChanged = (e: React.ChangeEvent<HTMLInputElement>): void => {
     if (e.target.value !== nickname) setNickChanged(true);
     else setNickChanged(false);
   };
 
   // 이미지 프리뷰 업로드 함수
-  const uploadImage = useCallback((e) => {
+  const uploadImage = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     const reader = new FileReader();
     reader.onloadend = () => {
       const file = reader.result;
       if (file) setPreview(file);
     };
-    if (e.target.files[0]) {
+    if (e.target.files && e.target.files[0]) {
       reader.readAsDataURL(e.target.files[0]);
     }
   }, []);
 
   // 이미지 삭제 함수
-  const deleteImage = useCallback(async () => {
+  const deleteImage = useCallback(async (): Promise<void> => {
     const dataTransfer = new DataTransfer();
     if (!newImageData.current || !newImageData.current?.files) return;
     else {
@@ -63,7 +65,7 @@ const NickChangeModal = () => {
   }, []);
 
   // 닉네임 변경 함수
-  const changeNickname = async () => {
+  const changeNickname = async (): Promise<void> => {
     const newNickname = newNicknameData.current?.value;
     if (newNickname === nickname || !newNickname) return;
 
@@ -72,7 +74,7 @@ const NickChangeModal = () => {
   };
 
   // 이미지 서버에 전송하는 함수
-  const requestChangeUserImage = async () => {
+  const requestChangeUserImage = async (): Promise<void> => {
     if (!newImageData.current) return;
     if (preview === imgUrl) return;
 
@@ -85,13 +87,13 @@ const NickChangeModal = () => {
     dispatch(setImage(test));
   };
 
-  const profileChangeCallback = () => {
+  const profileChangeCallback = (): void => {
     setNickChanged(false);
     setImgChanged(false);
     closeModal();
   };
 
-  const changeProfile = () => {
+  const changeProfile = (): void => {
     if (!nickChanged && imgChanged) {
       Promise.all([requestChangeUserImage()]).then(() => {
         profileChangeCallback();
@@ -108,7 +110,7 @@ const NickChangeModal = () => {
   };
 
   // 닫기 버튼 클릭시
-  const rejectProfile = () => {
+  const rejectProfile = (): void => {
     setNickChanged(false);
     setImgChanged(false);
     setPreview(imgUrl);
