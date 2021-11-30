@@ -10,8 +10,8 @@ import {
 } from 'sooltreaming-domain/constant/addition';
 import { CustomError } from '@utils/error';
 
-export const createLog = async (id, eventType, value = 1) => {
-  const user = await User.updateOne({ _id: id }, { $inc: { [LOG_EVENT[eventType]]: value } });
+export const createLog = async (_id, eventType, value = 1) => {
+  const user = await User.updateOne({ _id }, { $inc: { [LOG_EVENT[eventType]]: value } });
 };
 
 export const getUserInfoService = async (_id) => {
