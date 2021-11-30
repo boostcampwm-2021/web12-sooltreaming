@@ -2,8 +2,12 @@ import User from '@models/User';
 import NicknameLog from '@models/NicknameLog';
 import { userCount } from '@utils/userCount';
 import { LOG_EVENT } from '@src/constant';
-import { BACK_BASE_URL } from '@src/constant';
-import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
+import {
+  FILE_PUBLIC_URL,
+  DEFAULT_PROFILE_IMAGE,
+  NCP_ENDPOINT,
+  NCP_BUCKET,
+} from 'sooltreaming-domain/constant/addition';
 import { CustomError } from '@utils/error';
 
 export const createLog = async (id, eventType, value = 1) => {
@@ -31,11 +35,10 @@ export const updateNickname = async (_id, nickname) => {
 
 export const updateUserImage = async (_id, image) => {
   if (!image) {
-    image = `${BACK_BASE_URL}${FILE_PUBLIC_URL}/${DEFAULT_PROFILE_IMAGE}`;
+    image = `${NCP_ENDPOINT}/${NCP_BUCKET}${FILE_PUBLIC_URL}/${DEFAULT_PROFILE_IMAGE}`;
   } else {
-    image = `${BACK_BASE_URL}${FILE_PUBLIC_URL}/` + image.filename;
+    image = image.location;
   }
-
   const result = await User.findByIdAndUpdate(
     _id,
     { $set: { imgUrl: image } },
