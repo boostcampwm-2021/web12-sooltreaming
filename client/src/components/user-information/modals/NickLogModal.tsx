@@ -27,8 +27,8 @@ const NickLogModal: React.FC<NickLogModalType> = ({ nickname, nicknameLog }) => 
           <span>{nickname}</span> 님의 닉네임 변경 내역
         </Header>
         <ModalContents>
-          {nicknameLog.map(({ nickname: prevNickname }) => (
-            <LogData>{prevNickname}</LogData>
+          {nicknameLog.map(({ nickname: prevNickname }, index) => (
+            <LogData key={`nickLog-${index}-${prevNickname}`}>{prevNickname}</LogData>
           ))}
         </ModalContents>
         <CloseBox onClick={() => setIsOpen(false)}>
