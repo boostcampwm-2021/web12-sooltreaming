@@ -1,5 +1,5 @@
 import {
-  Friend,
+  FriendItemBox,
   LeftBox,
   RightBox,
 } from '@components/user-information/friend-list/FriendItem.style';
@@ -12,12 +12,12 @@ type FriendType = {
 
 export const FriendItem: React.FC<FriendType> = ({ imgUrl, nickname, children }) => {
   return (
-    <Friend>
+    <FriendItemBox>
       <LeftBox>
         <img src={imgUrl} alt="프로필사진" />
         <p>{nickname}</p>
       </LeftBox>
       <RightBox>{children}</RightBox>
-    </Friend>
+    </FriendItemBox>
   );
 };
