@@ -35,7 +35,7 @@ export const updateNickname = async (_id, nickname) => {
 
 export const updateUserImage = async (_id, image) => {
   if (!image) {
-    image = `${NCP_ENDPOINT}/${NCP_BUCKET}${FILE_PUBLIC_URL}/${DEFAULT_PROFILE_IMAGE}`;
+    image = DEFAULT_PROFILE_IMAGE_URL;
   } else {
     image = image.location;
   }

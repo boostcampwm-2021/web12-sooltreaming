@@ -12,3 +12,5 @@ export const DEFAULT_PROFILE_IMAGE = 'HumanIcon.svg';
 
 export const NCP_ENDPOINT = 'https://kr.object.ncloudstorage.com';
 export const NCP_BUCKET = 'sooltreaming';
+
+export const DEFAULT_PROFILE_IMAGE_URL = `${NCP_ENDPOINT}/${NCP_BUCKET}${FILE_PUBLIC_URL}/${DEFAULT_PROFILE_IMAGE}`;
