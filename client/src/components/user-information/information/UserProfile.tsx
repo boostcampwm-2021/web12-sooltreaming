@@ -11,15 +11,9 @@ import {
 import NickLogModal from '@components/user-information/modals/NickLogModal';
 import NickChangeModal from '@components/user-information/modals/NickChangeModal';
 import FriendDeleteModal from '@components/user-information/modals/FriendDeleteModal';
+import type { UserProfilePropType } from '@ts-types/components/user-information';
 
-type UserProfilePropTypes = {
-  id: string;
-  imgUrl: string;
-  nickname: string;
-  nicknameLog: any[];
-};
-
-const UserProfile: React.FC<UserProfilePropTypes> = ({ id, imgUrl, nickname, nicknameLog }) => {
+const UserProfile: React.FC<UserProfilePropType> = ({ id, imgUrl, nickname, nicknameLog }) => {
   const myID = useSelector((state: RootState) => state.user.id);
 
   return (

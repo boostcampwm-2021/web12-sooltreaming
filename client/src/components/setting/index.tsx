@@ -7,23 +7,20 @@ import {
   LineBox,
   EnterButton,
   CancelButton,
-} from '@src/components/setting/index.style';
+} from '@components/setting/index.style';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import Header from '@components/Header';
-import useTicketSocket from '@src/hooks/socket/useTicketSocket';
+import useTicketSocket from '@hooks/socket/useTicketSocket';
 import useUpdateSpeaker from '@hooks/useUpdateSpeaker';
 import useUpdateStream from '@hooks/useUpdateStream';
 import useToggleSpeaker from '@hooks/useToggleSpeaker';
-import DeviceSelections from '@src/components/setting/DeviceSelections';
-import DeviceToggles from '@src/components/setting/DeviceToggles';
+import DeviceSelections from '@components/setting/DeviceSelections';
+import DeviceToggles from '@components/setting/DeviceToggles';
+import type { SettingPropType } from '@ts-types/components/setting';
 
-type SettingPropTypes = {
-  renderRoom: Function;
-};
-
-const Setting: React.FC<SettingPropTypes> = ({ renderRoom }) => {
+const Setting: React.FC<SettingPropType> = ({ renderRoom }) => {
   const history = useHistory();
   const stream = useSelector((state: RootState) => state.device.stream);
   const previewFace = useRef<HTMLVideoElement>(null);

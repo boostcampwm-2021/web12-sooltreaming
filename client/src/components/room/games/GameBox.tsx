@@ -2,14 +2,9 @@ import React, { useState } from 'react';
 import { InfoContainer, Title } from '@components/room/games/GameBox.style';
 import { GameRuleIcon } from '@components/icons';
 import Modal from '@components/custom/Modal';
+import type { GameBoxPropType } from '@ts-types/components/room';
 
-type GameType = {
-  icon: React.ReactNode;
-  title: string;
-  start: any;
-};
-
-const GameBox: React.FC<GameType> = ({ children, icon, title, start }) => {
+const GameBox: React.FC<GameBoxPropType> = ({ children, icon, title, start }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleRule = (e) => {

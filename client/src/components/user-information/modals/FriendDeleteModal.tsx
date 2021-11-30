@@ -10,13 +10,9 @@ import { DeleteIcon, CancelIcon, DeleteFriendIcon } from '@src/components/icons'
 import { API } from '@api/index';
 import { useDispatch } from 'react-redux';
 import { deleteFriend } from '@store/friend';
+import type { FriendDeleteModalPropType } from '@ts-types/components/user-information';
 
-type FriendDeleteModalType = {
-  id: string;
-  nickname: string;
-};
-
-const FriendDeleteModal: React.FC<FriendDeleteModalType> = ({ id, nickname }) => {
+const FriendDeleteModal: React.FC<FriendDeleteModalPropType> = ({ id, nickname }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const closeModal = () => setIsOpen(false);
   const dispatch = useDispatch();
@@ -24,10 +20,6 @@ const FriendDeleteModal: React.FC<FriendDeleteModalType> = ({ id, nickname }) =>
   const unfriend = async () => {
     await API.call(API.TYPE.PATCH_UNFRIEND, id);
     dispatch(deleteFriend(id));
-    closeModal();
-  };
-
-  const requestDeleteFriend = () => {
     closeModal();
   };
 

@@ -5,12 +5,9 @@ import Socket from '@socket/socket';
 import { ScrollBox, MessageList } from '@components/room/chat/index.style';
 import ChatItem from '@components/room/chat/ChatItem';
 import ChatForm from '@components/room/chat/ChatForm';
+import type { ChatPropType } from '@ts-types/components/room';
 
-type ChatPropTypes = {
-  sendMessage: Function;
-};
-
-const Chat: React.FC<ChatPropTypes> = ({ sendMessage }) => {
+const Chat: React.FC<ChatPropType> = ({ sendMessage }) => {
   const chatLog = useSelector((state: RootState) => state.room.chatLog);
   const chatWindow = useRef<HTMLUListElement>(null);
   const myID = Socket.getSID();
