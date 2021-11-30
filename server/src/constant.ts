@@ -50,4 +50,5 @@ export const LOG_EVENT = Object.freeze({
   VOTE_START: 'pollCount',
   STATUS_VOTE_EXECUTING: 'dieCount',
   UPDOWN_START: 'starterCount',
+  EXIT: 'totalSeconds',
 });

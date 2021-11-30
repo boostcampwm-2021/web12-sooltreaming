@@ -1,7 +1,6 @@
 import express from 'express';
 import {
   getUserInformation,
-  getUserNicknameLog,
   postUserImage,
   patchUserNickname,
   patchTotalSeconds,
@@ -9,11 +8,6 @@ import {
 import { FILE_PUBLIC_URL } from 'sooltreaming-domain/constant/addition';
 
 import multer from 'multer';
-
-/*
-const storage = multer.memoryStorage();
-const upload = multer({ storage });
-*/
 
 const upload = multer({
   storage: multer.diskStorage({
@@ -29,7 +23,6 @@ const upload = multer({
 const router = express.Router();
 
 router.get('/', getUserInformation);
-router.get('/nickname', getUserNicknameLog);
 router.post('/image', upload.single('image'), postUserImage);
 router.patch('/nickname', patchUserNickname);
 router.patch('/exit', patchTotalSeconds);
