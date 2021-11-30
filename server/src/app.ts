@@ -4,6 +4,7 @@ import Loader from '@src/loader';
 import http from 'http';
 import apiRouter from '@src/api';
 import { PORT } from '@src/constant';
+import { updateRankCron } from '@utils/cron';
 import { updateRank } from '@utils/updateRank';
 
 const app = express();
@@ -15,6 +16,8 @@ Loader({ server, app });
 app.use('/api', apiRouter);
 
 updateRank();
+updateRankCron.start();
+
 function onListening(): void {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
