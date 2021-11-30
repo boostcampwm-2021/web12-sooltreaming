@@ -16,7 +16,7 @@ const game = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType
     rooms[code].game = { title: UP_DOWN, host: startingSID };
     const randomNum = Math.floor(Math.random() * 50) + 1;
 
-    io.emit(UPDOWN_START, startingSID, randomNum);
+    io.to(code).emit(UPDOWN_START, startingSID, randomNum);
     createLog(rooms[code].users[startingSID].id, UPDOWN_START);
   });
   socket.on(UPDOWN_STOP, () => {
@@ -24,7 +24,7 @@ const game = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType
     if (!(code in rooms)) return;
 
     rooms[code].game = { title: '', host: '' };
-    io.emit(UPDOWN_STOP);
+    io.to(code).emit(GAME_STOP);
   });
   return { io, socket, rooms, targetInfo };
 };
