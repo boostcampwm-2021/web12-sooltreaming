@@ -18,8 +18,12 @@ import {
 } from '@components/user-information/modals/NickChangeModal.style';
 import { Header, Button } from '@components/user-information/modals/index.style';
 import { GreenXButtonIcon, CloseIcon, AcceptIcon, ChangeNicknameIcon } from '@components/icons';
-import { NCP_ENDPOINT, NCP_BUCKET } from '@constant/envs';
-import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
+import {
+  FILE_PUBLIC_URL,
+  DEFAULT_PROFILE_IMAGE,
+  NCP_ENDPOINT,
+  NCP_BUCKET,
+} from 'sooltreaming-domain/constant/addition';
 
 const NickChangeModal = () => {
   const dispatch = useDispatch();

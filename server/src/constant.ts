@@ -46,8 +46,6 @@ export const STATUS_VOTE_VOTING = 'STATUS_VOTE_VOTING';
 export const NCP_ACCESS_KEY = process.env.NCP_ACCESS_KEY;
 export const NCP_SECRET_KEY = process.env.NCP_SECRET_KEY;
 export const NCP_REGION = process.env.NCP_REGION;
-export const NCP_ENDPOINT = process.env.NCP_ENDPOINT;
-export const NCP_BUCKET = process.env.NCP_BUCKET;
 
 export const LOG_EVENT = Object.freeze({
   CLOSEUP_ON: 'closeupCount',

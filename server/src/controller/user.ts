@@ -2,8 +2,12 @@ import { CustomError, errorWrapper } from '@utils/error';
 import User from '@models/User';
 import { userCount } from '@utils/userCount';
 import NicknameLog from '@models/NicknameLog';
-import { NCP_ENDPOINT, NCP_BUCKET } from '@src/constant';
-import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
+import {
+  FILE_PUBLIC_URL,
+  DEFAULT_PROFILE_IMAGE,
+  NCP_ENDPOINT,
+  NCP_BUCKET,
+} from 'sooltreaming-domain/constant/addition';
 
 export const getUserInformation = errorWrapper(async (req, res, next) => {
   const { id } = req.query;
