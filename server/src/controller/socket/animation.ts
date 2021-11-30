@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
-import { createLog } from '@utils/log';
+import { createLog } from '@service/user';
 import {
   CHEERS_BROADCAST,
   CLOSEUP_ON,
@@ -24,6 +24,7 @@ const animation = ({
     const { code } = targetInfo;
     if (!(code in rooms)) return;
     io.to(code).emit(CHEERS_BROADCAST);
+    createLog(rooms[code].users[socket.id].id, CHEERS_BROADCAST);
   });
 
   socket.on(CLOSEUP_ON, () => {

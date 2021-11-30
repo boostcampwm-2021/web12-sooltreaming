@@ -4,7 +4,7 @@ export const userCount = [
   'pollCount',
   'closeupCount',
   'dieCount',
-  'speakCount',
+  'cheersCount',
   'starterCount',
   'totalSeconds',
 ];

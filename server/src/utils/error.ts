@@ -1,3 +1,5 @@
+import { ERROR } from '@src/constant';
+
 export class CustomError extends Error {
   status: number;
   constructor(status: number, message: string) {
@@ -14,6 +16,8 @@ const errorHandler = (error) => {
 export const errorWrapper = (fn) => {
   return async (req, res, next) => {
     try {
+      // TODO
+      // if (!req.user) throw new CustomError(401, ERROR.SESSION_EXPIRE);
       await fn(req, res, next);
     } catch (error) {
       next(errorHandler(error));
