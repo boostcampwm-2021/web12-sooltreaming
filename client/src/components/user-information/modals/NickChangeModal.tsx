@@ -18,8 +18,7 @@ import {
 } from '@components/user-information/modals/NickChangeModal.style';
 import { Header, Button } from '@components/user-information/modals/index.style';
 import { GreenXButtonIcon, CloseIcon, AcceptIcon, ChangeNicknameIcon } from '@components/icons';
-
-import { BACK_BASE_URL } from '@constant/envs';
+import { NCP_ENDPOINT, NCP_BUCKET } from '@constant/envs';
 import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
 
 const NickChangeModal = () => {
@@ -58,7 +57,7 @@ const NickChangeModal = () => {
     if (!newImageData.current || !newImageData.current?.files) return;
     else {
       newImageData.current.files = dataTransfer.files;
-      setPreview(`${BACK_BASE_URL}${FILE_PUBLIC_URL}/${DEFAULT_PROFILE_IMAGE}`);
+      setPreview(`${NCP_ENDPOINT}/${NCP_BUCKET}${FILE_PUBLIC_URL}/${DEFAULT_PROFILE_IMAGE}`);
     }
   }, []);
 
