@@ -85,24 +85,24 @@ const NickChangeModal = () => {
     dispatch(setImage(test));
   };
 
+  const profileChangeCallback = () => {
+    setNickChanged(false);
+    setImgChanged(false);
+    closeModal();
+  };
+
   const changeProfile = () => {
     if (!nickChanged && imgChanged) {
       Promise.all([requestChangeUserImage()]).then(() => {
-        setNickChanged(false);
-        setImgChanged(false);
-        closeModal();
+        profileChangeCallback();
       });
     } else if (nickChanged && !imgChanged) {
       Promise.all([changeNickname()]).then(() => {
-        setNickChanged(false);
-        setImgChanged(false);
-        closeModal();
+        profileChangeCallback();
       });
     } else if (nickChanged && imgChanged) {
       Promise.all([changeNickname(), requestChangeUserImage()]).then(() => {
-        setNickChanged(false);
-        setImgChanged(false);
-        closeModal();
+        profileChangeCallback();
       });
     }
   };
