@@ -9,3 +9,6 @@ export const TOAST_TIME = 3500;
 
 export const FILE_PUBLIC_URL = '/uploads';
 export const DEFAULT_PROFILE_IMAGE = 'HumanIcon.svg';
+
+export const NCP_ENDPOINT = 'https://kr.object.ncloudstorage.com';
+export const NCP_BUCKET = 'sooltreaming';

@@ -22,7 +22,6 @@ export const postUserImage = errorWrapper(async (req, res, next) => {
   const id = req.user._id;
   if (!id) throw new CustomError(401, 'id Error');
   let image = req.file;
-
   const imgUrl = await updateUserImage(id, image);
 
   res.status(200).json({
@@ -49,7 +48,6 @@ export const patchTotalSeconds = errorWrapper(async (req, res, next) => {
   const _id = req.user._id;
   const { startTime } = req.session;
   const { exitTime } = req.body;
-
   if (!_id || !startTime || !exitTime) throw new CustomError(400, 'invalid data');
   await updateTotalSeconds(_id, startTime, exitTime);
 

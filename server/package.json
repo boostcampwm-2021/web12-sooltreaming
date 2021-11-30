@@ -34,6 +34,8 @@
     "@types/passport-github": "^1.1.6",
     "@types/passport-naver": "^0.2.1",
     "@types/socket.io": "^3.0.2",
+    "aws-sdk": "^2.348.0",
+    "multer-s3": "^2.10.0",
     "node-cron": "^3.0.0",
     "nodemon": "^2.0.14",
     "ts-node": "^10.4.0",
