@@ -25,8 +25,14 @@ export type UserType = {
 const userSchema = new Schema<UserType>(
   {
     // User
-    githubId: String,
-    naverId: String,
+    githubId: {
+      type: String,
+      index: true,
+    },
+    naverId: {
+      type: String,
+      index: true,
+    },
     nickname: {
       type: String,
       required: true,
