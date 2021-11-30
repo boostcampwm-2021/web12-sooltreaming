@@ -5,12 +5,11 @@ import {
   updateTotalSeconds,
   updateUserImage,
 } from '@service/user';
+import { ERROR } from '@src/constant';
 
 export const getUserInformation = errorWrapper(async (req, res, next) => {
-  const { id } = req.query;
-  if (!id) throw new CustomError(400, 'id Error');
-
-  const { information, nicknameLog } = await getUserInfoService(id);
+  const { id: _id } = req.query;
+  const { information, nicknameLog } = await getUserInfoService(_id);
 
   res.status(200).json({
     information,
@@ -19,10 +18,9 @@ export const getUserInformation = errorWrapper(async (req, res, next) => {
 });
 
 export const postUserImage = errorWrapper(async (req, res, next) => {
-  const id = req.user._id;
-  if (!id) throw new CustomError(401, 'id Error');
+  const _id = req.user._id;
   let image = req.file;
-  const imgUrl = await updateUserImage(id, image);
+  const imgUrl = await updateUserImage(_id, image);
 
   res.status(200).json({
     imgUrl,
@@ -31,11 +29,9 @@ export const postUserImage = errorWrapper(async (req, res, next) => {
 });
 
 export const patchUserNickname = errorWrapper(async (req, res, next) => {
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  if (!_id) throw new CustomError(401, 'id Error');
-
+  const _id = req.user._id;
   const { nickname } = req.body;
-  if (!nickname) throw new CustomError(400, 'Invalid Data');
+  if (!nickname) throw new CustomError(400, ERROR.INVALID_DATA);
 
   await updateNickname(_id, nickname);
 
@@ -48,7 +44,7 @@ export const patchTotalSeconds = errorWrapper(async (req, res, next) => {
   const _id = req.user._id;
   const { startTime } = req.session;
   const { exitTime } = req.body;
-  if (!_id || !startTime || !exitTime) throw new CustomError(400, 'invalid data');
+  if (!startTime || !exitTime) throw new CustomError(400, ERROR.INVALID_DATA);
   await updateTotalSeconds(_id, startTime, exitTime);
 
   req.session.startTime = new Date().getTime();

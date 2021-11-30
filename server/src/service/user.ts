@@ -1,17 +1,12 @@
 import User from '@models/User';
 import NicknameLog from '@models/NicknameLog';
 import { userCount } from '@utils/userCount';
-import { LOG_EVENT } from '@src/constant';
-import {
-  FILE_PUBLIC_URL,
-  DEFAULT_PROFILE_IMAGE,
-  NCP_ENDPOINT,
-  NCP_BUCKET,
-} from 'sooltreaming-domain/constant/addition';
+import { LOG_EVENT, ERROR } from '@src/constant';
+import { DEFAULT_PROFILE_IMAGE_URL } from 'sooltreaming-domain/constant/addition';
 import { CustomError } from '@utils/error';
 
 export const createLog = async (_id, eventType, value = 1) => {
-  const user = await User.updateOne({ _id }, { $inc: { [LOG_EVENT[eventType]]: value } });
+  await User.updateOne({ _id }, { $inc: { [LOG_EVENT[eventType]]: value } });
 };
 
 export const getUserInfoService = async (_id) => {
@@ -25,7 +20,7 @@ export const getUserInfoService = async (_id) => {
 
 export const updateNickname = async (_id, nickname) => {
   const user = await User.updateOne({ _id }, { $set: { nickname } });
-  if (!user) throw new CustomError(400, 'id Error');
+  if (!user) throw new CustomError(400, ERROR.NOT_EXIST_USER);
 
   await new NicknameLog({
     userId: _id,
