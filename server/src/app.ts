@@ -5,7 +5,7 @@ import http from 'http';
 import apiRouter from '@src/api';
 import { PORT } from '@src/constant';
 import { updateRankCron } from '@utils/cron';
-import { updateRank } from '@utils/updateRank';
+import { updateRank } from '@service/rank';
 
 const app = express();
 const server = http.createServer(app);
