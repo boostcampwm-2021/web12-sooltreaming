@@ -1,5 +1,3 @@
-import { Socket } from 'socket.io';
-import type { roomType } from '@loader/socket';
 import {
   ENTER_ROOM,
   ENTER_ROOM_ERROR,
@@ -12,12 +10,9 @@ import {
   CLOSEUP_BREAK,
   TICKET_FAILURE,
 } from 'sooltreaming-domain/constant/socketEvent';
+import type { EnterPropType, SocketPropType } from '@src/types';
 
-export type TargetInfoType = {
-  code: string;
-};
-
-const enter = ({ io, socket, rooms }: { io: any; socket: Socket; rooms: roomType }) => {
+const enter = ({ io, socket, rooms }: EnterPropType): SocketPropType => {
   const targetInfo = { code: '' };
 
   socket.on(ENTER_ROOM, ({ chatRoomCode: code, user, userDevices }) => {

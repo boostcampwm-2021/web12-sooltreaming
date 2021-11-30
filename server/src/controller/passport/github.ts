@@ -1,11 +1,7 @@
 import GitHubStrategy from 'passport-github';
 import User from '@models/User';
 import { GITHUB_ID, GITHUB_SECRET, OAUTH_CALLBACK_URL } from '@src/constant';
-
-interface profileType {
-  login: string;
-  avatar_url: string;
-}
+import type { GithubProfileType } from '@src/types';
 
 const gitHubStrategy = new GitHubStrategy.Strategy(
   {
@@ -15,7 +11,7 @@ const gitHubStrategy = new GitHubStrategy.Strategy(
   },
   async (_accessToken, _refreshToken, profile, cb) => {
     try {
-      const { login: githubId, avatar_url: imgUrl } = profile._json as profileType;
+      const { login: githubId, avatar_url: imgUrl } = profile._json as GithubProfileType;
       const existUser = await User.findOne({ githubId });
       if (existUser) return cb(null, existUser);
 

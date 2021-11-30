@@ -1,19 +1,7 @@
-import { Socket } from 'socket.io';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { SIGNAL_OFFER, SIGNAL_ANSWER, SIGNAL_ICE } from 'sooltreaming-domain/constant/socketEvent';
+import type { SocketPropType } from '@src/types';
 
-const signal = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const signal = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(SIGNAL_OFFER, ({ offer, receiverSID, senderSID }) => {
     io.to(receiverSID).emit(SIGNAL_OFFER, { offer, targetSID: senderSID });
   });

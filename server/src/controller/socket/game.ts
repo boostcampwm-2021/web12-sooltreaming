@@ -1,22 +1,10 @@
-import { Socket } from 'socket.io';
 import { createLog } from '@utils/log';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { UPDOWN_START, UPDOWN_STOP } from 'sooltreaming-domain/constant/socketEvent';
 import { STATUS_VOTE_NORMAL } from '@src/constant';
 import { UP_DOWN } from 'sooltreaming-domain/constant/gameName';
+import type { SocketPropType } from '@src/types';
 
-const game = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const game = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(UPDOWN_START, (startingSID) => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
