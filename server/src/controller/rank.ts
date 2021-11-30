@@ -3,7 +3,7 @@ import cron from 'node-cron';
 import { userCount } from '@utils/userCount';
 import { errorWrapper } from '@utils/error';
 
-const allRank = {
+const allRank: Object = {
   chatCount: [],
   hookCount: [],
   pollCount: [],
@@ -14,17 +14,17 @@ const allRank = {
   totalSeconds: [],
 };
 
-cron.schedule('*/5 * * * *', () => {
+cron.schedule('*/5 * * * *', (): void => {
   updateAllUserRank();
 });
 
-export const getRank = errorWrapper(async (req, res, next) => {
+export const getRank = errorWrapper(async (req, res, next): Promise<void> => {
   const rankType = req.params.type;
   const result = allRank[rankType];
   res.status(200).json(result);
 });
 
-export const updateAllUserRank = async () => {
+export const updateAllUserRank = async (): Promise<void> => {
   try {
     const newRank = await Promise.all(
       userCount.map((count) =>

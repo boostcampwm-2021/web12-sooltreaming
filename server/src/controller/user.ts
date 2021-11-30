@@ -5,7 +5,7 @@ import NicknameLog from '@models/NicknameLog';
 import { BACK_BASE_URL } from '@src/constant';
 import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
 
-export const getUserInformation = errorWrapper(async (req, res, next) => {
+export const getUserInformation = errorWrapper(async (req, res, next): Promise<void> => {
   const { id } = req.query;
   if (!id) throw new CustomError(400, 'id Error');
 
@@ -24,7 +24,7 @@ export const getUserInformation = errorWrapper(async (req, res, next) => {
   });
 });
 
-export const getUserNicknameLog = errorWrapper(async (req, res, next) => {
+export const getUserNicknameLog = errorWrapper(async (req, res, next): Promise<void> => {
   const id = req.user._id;
   if (!id) throw new CustomError(401, 'id Error');
   const nicknameLog = await NicknameLog.find({ userId: id })
@@ -39,7 +39,7 @@ export const getUserNicknameLog = errorWrapper(async (req, res, next) => {
   });
 });
 
-export const patchUserImage = errorWrapper(async (req, res, next) => {
+export const patchUserImage = errorWrapper(async (req, res, next): Promise<void> => {
   const image = req.file;
   if (!image) throw new CustomError(400, 'Invalid Data');
   const id = req.user._id;
@@ -60,7 +60,7 @@ export const patchUserImage = errorWrapper(async (req, res, next) => {
   });
 });
 
-export const patchUserNickname = errorWrapper(async (req, res, next) => {
+export const patchUserNickname = errorWrapper(async (req, res, next): Promise<void> => {
   const { nickname } = req.body;
   if (!nickname) throw new CustomError(400, 'Invalid Data');
 
@@ -80,7 +80,7 @@ export const patchUserNickname = errorWrapper(async (req, res, next) => {
   });
 });
 
-export const patchTotalSeconds = errorWrapper(async (req, res, next) => {
+export const patchTotalSeconds = errorWrapper(async (req, res, next): Promise<void> => {
   const _id = req.user._id;
   const { startTime } = req.session;
   const { exitTime } = req.body;
@@ -93,7 +93,7 @@ export const patchTotalSeconds = errorWrapper(async (req, res, next) => {
   res.status(200).json({ message: 'success!' });
 });
 
-export const postUserImage = errorWrapper(async (req, res, next) => {
+export const postUserImage = errorWrapper(async (req, res, next): Promise<void> => {
   const id = req.user._id;
   if (!id) throw new CustomError(401, 'id Error');
   let image = req.file;

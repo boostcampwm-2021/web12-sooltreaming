@@ -8,7 +8,7 @@ db.once('open', () => {
   console.log('MongoDB Connected');
 });
 
-const initMongo = (dbConfig) => {
+const initMongo = (dbConfig): void => {
   const { host, port, dbName, user, pwd } = dbConfig;
   mongoose.connect(`mongodb://${user}:${pwd}@${host}:${port}/${dbName}`);
 };

@@ -9,7 +9,7 @@ const gitHubStrategy = new GitHubStrategy.Strategy(
     clientSecret: GITHUB_SECRET,
     callbackURL: OAUTH_CALLBACK_URL,
   },
-  async (_accessToken, _refreshToken, profile, cb) => {
+  async (_accessToken, _refreshToken, profile, cb): Promise<Function | void> => {
     try {
       const { login: githubId, avatar_url: imgUrl } = profile._json as GithubProfileType;
       const existUser = await User.findOne({ githubId });

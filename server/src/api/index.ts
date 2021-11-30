@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.use('/v1', v1Router);
 
-router.use(function (err: any, req: any, res: any, next: any) {
+router.use(function (err: any, req: any, res: any, next: any): void {
   const { status, message } = err;
   if (status < 400) next();
   res.status(status).send({ error: message });

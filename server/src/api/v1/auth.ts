@@ -11,7 +11,7 @@ router.get('/naver', passport.authenticate('naver'), redirectRouter);
 
 router.get(
   '/login',
-  errorWrapper((req, res, next) => {
+  errorWrapper((req, res, next): any => {
     const isAuth = req.isAuthenticated();
     if (!isAuth) throw new CustomError(401, 'fail to login');
 

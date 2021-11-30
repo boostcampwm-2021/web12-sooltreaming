@@ -6,13 +6,13 @@ export class CustomError extends Error {
   }
 }
 
-const errorHandler = (error) => {
+const errorHandler = (error): Object => {
   const { status, message } = error;
   return { status: status || 500, message };
 };
 
-export const errorWrapper = (fn) => {
-  return async (req, res, next) => {
+export const errorWrapper = (fn): any => {
+  return async (req, res, next): Promise<void> => {
     try {
       await fn(req, res, next);
     } catch (error) {

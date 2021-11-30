@@ -1,7 +1,7 @@
 import { errorWrapper, CustomError } from '@utils/error';
 import User from '@models/User';
 
-export const postFriend = errorWrapper(async (req, res, next) => {
+export const postFriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { targetId } = req.body;
   const { _id } = JSON.parse(JSON.stringify(req.user));
 
@@ -16,7 +16,7 @@ export const postFriend = errorWrapper(async (req, res, next) => {
   res.status(201).json({ message: 'Request Friend Success' });
 });
 
-export const getSendFriend = errorWrapper(async (req, res, next) => {
+export const getSendFriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { _id } = JSON.parse(JSON.stringify(req.user));
   const { sendFriend } = await User.findOne({ _id })
     .select('sendFriend -_id')
@@ -24,7 +24,7 @@ export const getSendFriend = errorWrapper(async (req, res, next) => {
   res.status(200).json({ sendList: sendFriend });
 });
 
-export const getReceiveFriend = errorWrapper(async (req, res, next) => {
+export const getReceiveFriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { _id } = JSON.parse(JSON.stringify(req.user));
   const { receiveFriend } = await User.findOne({ _id })
     .select('receiveFriend -_id')
@@ -32,7 +32,7 @@ export const getReceiveFriend = errorWrapper(async (req, res, next) => {
   res.status(200).json({ receiveList: receiveFriend });
 });
 
-export const getFriend = errorWrapper(async (req, res, next) => {
+export const getFriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { _id } = JSON.parse(JSON.stringify(req.user));
   const { friend } = await User.findOne({ _id })
     .select('friend -_id')
@@ -41,7 +41,7 @@ export const getFriend = errorWrapper(async (req, res, next) => {
   res.status(200).json({ friendList: friend });
 });
 
-export const patchSendFriend = errorWrapper(async (req, res, next) => {
+export const patchSendFriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { targetId } = req.body;
   const { _id } = JSON.parse(JSON.stringify(req.user));
   await User.updateOne({ _id }, { $pull: { sendFriend: { $in: [targetId] } } });
@@ -49,7 +49,7 @@ export const patchSendFriend = errorWrapper(async (req, res, next) => {
   res.status(200).json({ message: 'Request Cancel Success' });
 });
 
-export const patchReceiveFriend = errorWrapper(async (req, res, next) => {
+export const patchReceiveFriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { targetId } = req.body;
   const { _id } = JSON.parse(JSON.stringify(req.user));
   await User.updateOne({ _id }, { $pull: { receiveFriend: { $in: [targetId] } } });
@@ -57,7 +57,7 @@ export const patchReceiveFriend = errorWrapper(async (req, res, next) => {
   res.status(200).json({ message: 'Request Reject Success' });
 });
 
-export const patchUnfriend = errorWrapper(async (req, res, next) => {
+export const patchUnfriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { targetId } = req.body;
   const { _id } = JSON.parse(JSON.stringify(req.user));
   await User.updateOne({ _id }, { $pull: { friend: { $in: [targetId] } } });
@@ -65,7 +65,7 @@ export const patchUnfriend = errorWrapper(async (req, res, next) => {
   res.status(200).json({ message: 'Delete Friend Success' });
 });
 
-export const patchFriend = errorWrapper(async (req, res, next) => {
+export const patchFriend = errorWrapper(async (req, res, next): Promise<void> => {
   const { targetId } = req.body;
   const { _id } = JSON.parse(JSON.stringify(req.user));
 

@@ -26,7 +26,7 @@ const socketLoader = (server, app): any => {
   });
   const rooms: RoomType = {};
 
-  io.on('connection', (socket: Socket) => {
+  io.on('connection', (socket: Socket): void => {
     console.log('socket connection!!', socket.id);
 
     pipe(

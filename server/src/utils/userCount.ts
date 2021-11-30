@@ -1,4 +1,4 @@
-export const userCount = [
+export const userCount: string[] = [
   'chatCount',
   'hookCount',
   'pollCount',
