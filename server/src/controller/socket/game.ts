@@ -1,4 +1,4 @@
-import { createLog } from '@utils/log';
+import { createLog } from '@service/user';
 import { UPDOWN_START, UPDOWN_STOP } from 'sooltreaming-domain/constant/socketEvent';
 import { STATUS_VOTE_NORMAL } from '@src/constant';
 import { UP_DOWN } from 'sooltreaming-domain/constant/gameName';
@@ -17,7 +17,7 @@ const game = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType
     const randomNum = Math.floor(Math.random() * 50) + 1;
 
     io.emit(UPDOWN_START, startingSID, randomNum);
-    createLog(UPDOWN_START, rooms[code].users[startingSID].id);
+    createLog(rooms[code].users[startingSID].id, UPDOWN_START);
   });
   socket.on(UPDOWN_STOP, () => {
     const { code } = targetInfo;

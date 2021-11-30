@@ -7,6 +7,7 @@ const nicknameLogSchema = new Schema<NicknameLog>(
       type: Schema.Types.ObjectId,
       ref: 'User',
       required: true,
+      index: true,
     },
     nickname: {
       type: String,

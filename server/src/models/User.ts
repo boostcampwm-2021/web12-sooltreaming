@@ -4,8 +4,14 @@ import type { UserType } from '@src/types';
 const userSchema = new Schema<UserType>(
   {
     // User
-    githubId: String,
-    naverId: String,
+    githubId: {
+      type: String,
+      index: true,
+    },
+    naverId: {
+      type: String,
+      index: true,
+    },
     nickname: {
       type: String,
       required: true,
@@ -36,7 +42,7 @@ const userSchema = new Schema<UserType>(
       type: Number,
       default: 0,
     },
-    speakCount: {
+    cheersCount: {
       type: Number,
       default: 0,
     },

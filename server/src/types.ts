@@ -88,7 +88,7 @@ export type UserType = {
   pollCount: number;
   closeupCount: number;
   dieCount: number;
-  speakCount: number;
+  cheersCount: number;
   starterCount: number;
   totalSeconds: number;
 

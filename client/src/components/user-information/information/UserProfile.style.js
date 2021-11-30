@@ -1,27 +1,18 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const ProfileContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  height: 300px;
-
-  border-bottom: 1px solid ${COLOR.offWhite};
-`;
-
 export const ProfileBox = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 `;
 
-export const ImgSlot = styled.div`
+export const ImageBox = styled.div`
   width: 175px;
   height: 175px;
   padding: 15px;
 
-  background-color: ${COLOR.offWhite};
+  background-color: ${COLOR.white};
 
   border: 1px solid #d7d7d7;
   box-sizing: border-box;
@@ -30,23 +21,36 @@ export const ImgSlot = styled.div`
   img {
     width: 144px;
     height: 144px;
+    -webkit-user-drag: none;
+    border-radius: 5px;
   }
 `;
 
 export const Contents = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin-left: 2rem;
-
-  p {
-    font-size: 24px;
-  }
+  margin-left: 40px;
 `;
 
-export const ButtonsContainer = styled.button`
-  background-color: none;
-  background: none;
-  border: none;
-  margin: 0 5px;
+export const Nickname = styled.div`
+  width: 200px;
+  margin: 10px 0 20px 0;
+  padding-bottom: 10px;
+  color: ${COLOR.body};
+  font-size: 25px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  user-select: none;
+  -webkit-user-drag: none;
+
+  border-bottom: 1px solid ${COLOR.line};
+`;
+
+export const ButtonsContainer = styled.div`
+  width: 110px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;

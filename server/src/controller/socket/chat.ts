@@ -1,4 +1,4 @@
-import { createLog } from '@utils/log';
+import { createLog } from '@service/user';
 import { getTimeString } from '@utils/time';
 import { CHAT_RECEIVE, CHAT_SENDING } from 'sooltreaming-domain/constant/socketEvent';
 import type { SocketPropType } from '@src/types';

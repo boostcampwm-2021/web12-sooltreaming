@@ -1,4 +1,4 @@
-import { createLog } from '@utils/log';
+import { createLog } from '@service/user';
 import { MARK_BROADCAST } from 'sooltreaming-domain/constant/socketEvent';
 import type { SocketPropType } from '@src/types';
 

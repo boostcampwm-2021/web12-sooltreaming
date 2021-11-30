@@ -1,4 +1,4 @@
-import { createLog } from '@utils/log';
+import { createLog } from '@service/user';
 import {
   CHEERS_BROADCAST,
   CLOSEUP_ON,
@@ -12,6 +12,7 @@ const animation = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPro
     const { code } = targetInfo;
     if (!(code in rooms)) return;
     io.to(code).emit(CHEERS_BROADCAST);
+    createLog(rooms[code].users[socket.id].id, CHEERS_BROADCAST);
   });
 
   socket.on(CLOSEUP_ON, () => {
