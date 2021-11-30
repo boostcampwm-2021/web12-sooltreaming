@@ -4,9 +4,8 @@ export const CLOSEUP_OFF = 'CLOSEUP_OFF';
 export const CLOSEUP_BREAK = 'CLOSEUP_BREAK';
 
 export const UPDOWN_START = 'UPDOWN_START';
-export const UPDOWN_STOP = 'UPDOWN_STOP';
 export const LIAR_START = 'LIAR_START';
-export const LIAR_STOP = 'LIAR_STOP';
+export const GAME_STOP = 'GAME_STOP';
 
 export const CREATE_REQUEST = 'CREATE_REQUEST';
 export const CREATE_SUCCESS = 'CREATE_SUCCESS';
