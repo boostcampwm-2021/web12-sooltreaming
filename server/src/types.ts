@@ -1,6 +1,7 @@
 import type { Socket } from 'socket.io';
 import type { SchemaDefinitionProperty } from 'mongoose';
 
+// controller : passport
 export type GithubProfileType = {
   login: string;
   avatar_url: string;
@@ -14,6 +15,7 @@ export type NaverProfileType = {
   birthday: any;
 };
 
+// controller : socket
 export type TargetInfoType = {
   code: string;
 };
@@ -65,6 +67,7 @@ export type EnterPropType = {
   rooms: RoomType;
 };
 
+// models
 export type LiarGameKeywords = {
   keywords: string;
 };
