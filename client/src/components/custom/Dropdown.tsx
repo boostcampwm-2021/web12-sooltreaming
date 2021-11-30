@@ -5,9 +5,9 @@ import {
   ItemListBox,
   ToggleButton,
 } from '@components/custom/Dropdown.style.js';
-import type { dropdownPropType } from '@ts-types/components/custom';
+import type { DropdownPropType } from '@ts-types/components/custom';
 
-const Dropdown: React.FC<dropdownPropType> = ({ renderButton, renderItem, itemList }) => {
+const Dropdown: React.FC<DropdownPropType> = ({ renderButton, renderItem, itemList }) => {
   const [isActive, setActive] = useState<boolean>(false);
   const isMouseOn = useRef<boolean>(false);
 

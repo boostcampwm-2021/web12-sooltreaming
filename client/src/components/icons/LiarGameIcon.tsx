@@ -1,5 +1,5 @@
 import React from 'react';
-import type { iconPropType } from '@ts-types/components/icons';
+import type { IconPropType } from '@ts-types/components/icons';
 
 const LiarGameIcon = ({
   className,
@@ -7,7 +7,7 @@ const LiarGameIcon = ({
   height,
   fill,
   stroke,
-}: iconPropType): React.ReactElement => {
+}: IconPropType): React.ReactElement => {
   return (
     <svg
       width={width ?? 30}

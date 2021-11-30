@@ -42,6 +42,6 @@ export type RankingBoxPropType = {
   filterList: string[];
 };
 
-export type menuPropType = {
+export type MenuPropType = {
   menu: string;
 };

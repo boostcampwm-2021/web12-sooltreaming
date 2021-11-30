@@ -3,9 +3,9 @@ import Dropdown from '@components/custom/Dropdown';
 import { DownIcon } from '@components/icons';
 import { MenuButton, MenuItem } from '@components/setting/SettingDropdown.style';
 import { filterLabel } from '@utils/regExpr';
-import type { settingDropdownPropType } from '@ts-types/components/setting';
+import type { SettingDropdownPropType } from '@ts-types/components/setting';
 
-const SettingDropdown: React.FC<settingDropdownPropType> = ({
+const SettingDropdown: React.FC<SettingDropdownPropType> = ({
   menuList,
   selected,
   setSelected,
