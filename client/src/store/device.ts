@@ -1,18 +1,6 @@
 import { createAction } from '@hooks/redux';
+import type { DeviceStateType, DeviceInitTypes } from '@ts-types/store';
 
-export type DeviceStateType = {
-  isVideoOn: boolean;
-  isAudioOn: boolean;
-  isSpeakerOn: boolean;
-  videoInfo: MediaDeviceInfo | null;
-  audioInfo: MediaDeviceInfo | null;
-  speakerInfo: MediaDeviceInfo | null;
-  videoDevices: MediaDeviceInfo[];
-  audioDevices: MediaDeviceInfo[];
-  speakerDevices: MediaDeviceInfo[];
-  stream: MediaStream;
-  isLoading: boolean;
-};
 const initialState: DeviceStateType = {
   isVideoOn: false,
   isAudioOn: false,
@@ -44,15 +32,6 @@ export const [SUCCESS_AUDIO_INFO, successAudioInfo] =
 export const [REQUEST_SPEAKER_INFO, requestSpeakerInfo] =
   createAction<{ speakerInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_SPEAKER_INFO');
 
-export type DeviceInitTypes = {
-  videoInfo: MediaDeviceInfo | null;
-  audioInfo: MediaDeviceInfo | null;
-  speakerInfo: MediaDeviceInfo | null;
-  videoDevices: MediaDeviceInfo[];
-  audioDevices: MediaDeviceInfo[];
-  speakerDevices: MediaDeviceInfo[];
-  stream: MediaStream;
-};
 export const [REQUEST_INIT_INFO, requestInitInfo] = createAction<{}>('REQUEST_INIT_INFO');
 export const [SUCCESS_INIT_INFO, successInitInfo] =
   createAction<DeviceInitTypes>('SUCCESS_INIT_INFO');

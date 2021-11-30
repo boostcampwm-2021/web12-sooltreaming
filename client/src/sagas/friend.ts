@@ -11,7 +11,7 @@ import {
   receiveFriendListFailure,
 } from '@store/friend';
 import { API } from '@api/index';
-import type { friendInfoType } from '@store/friend';
+import type { FriendInfoType } from '@ts-types/store';
 
 const getFriendListAPI = async () => {
   const data = await API.call(API.TYPE.GET_FRIEND);
@@ -28,7 +28,7 @@ const getReceiveFriendListAPI = async () => {
 
 function* getFriendList() {
   try {
-    const result: friendInfoType[] = yield call(getFriendListAPI);
+    const result: FriendInfoType[] = yield call(getFriendListAPI);
     yield put(friendListSuccess(result));
   } catch ({ message }) {
     yield put(friendListFailure({ message: message as string }));
@@ -37,7 +37,7 @@ function* getFriendList() {
 
 function* getSendFriendList() {
   try {
-    const result: friendInfoType[] = yield call(getSendFriendListAPI);
+    const result: FriendInfoType[] = yield call(getSendFriendListAPI);
     yield put(sendFriendListSuccess(result));
   } catch ({ message }) {
     yield put(sendFriendListFailure({ message: message as string }));
@@ -46,7 +46,7 @@ function* getSendFriendList() {
 
 function* getReceiveFriendList() {
   try {
-    const result: friendInfoType[] = yield call(getReceiveFriendListAPI);
+    const result: FriendInfoType[] = yield call(getReceiveFriendListAPI);
     yield put(receiveFriendListSuccess(result));
   } catch ({ message }) {
     yield put(receiveFriendListFailure({ message: message as string }));

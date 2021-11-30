@@ -1,21 +1,12 @@
 import { createAction } from '@hooks/redux';
-import type { UserType } from '@store/user';
-
-type RoomStateType = {
-  roomCode: string;
-  menuType: string;
-  currentGame: GameInfoType;
-  chatLog: Array<ChatLogType>;
-  unreadChat: number;
-  users: { [sid: string]: UserType };
-  usersDevices: { [sid: string]: UserDevicesType };
-  streams: { [sid: string]: MediaStream };
-  voteTimes: { [sid: string]: number };
-  hostSID: string;
-  isOpen: boolean;
-  isCheers: boolean;
-  closeUpUser: string;
-};
+import type {
+  RoomStateType,
+  RoomHostType,
+  UserDevicesType,
+  GameInfoType,
+  ChatLogType,
+  UserType,
+} from '@ts-types/store';
 
 const initialState: RoomStateType = {
   roomCode: '',
@@ -33,48 +24,24 @@ const initialState: RoomStateType = {
   closeUpUser: '',
 };
 
-// 확장성을 생각해 별도의 Type 지정
-type RoomHostType = {
-  hostSID: string;
-  isOpen: boolean;
-};
-
-type UserDevicesType = {
-  isVideoOn: boolean;
-  isAudioOn: boolean;
-};
-
-type GameInfoType = {
-  title: string;
-  host: string;
-};
-
-export type ChatLogType = {
-  sid: string;
-  msg: string;
-  date: string;
-};
-
 export const [SET_ROOM_CODE, setRoomCode] = createAction<string>('SET_ROOM_CODE');
 export const [SET_HOST, setHost] = createAction<RoomHostType>('SET_HOST');
 export const [SET_ISOPEN, setIsOpen] = createAction<boolean>('SET_ISOPEN');
-export const [SET_USERS, setUsers] =
-  createAction<{
-    users: { [sid: string]: UserType };
-    usersDevices: { [sid: string]: UserDevicesType };
-  }>('SET_USERS');
+export const [SET_USERS, setUsers] = createAction<{
+  users: { [sid: string]: UserType };
+  usersDevices: { [sid: string]: UserDevicesType };
+}>('SET_USERS');
 export const [SET_MENUTYPE, setMenuType] = createAction<string>('SET_MENUTYPE');
 export const [SET_STREAMS, setStreams] =
   createAction<{ [sid: string]: MediaStream }>('SET_STREAMS');
 export const [SET_ISCHEERS, setIsCheers] = createAction<boolean>('SET_ISCHEERS');
 export const [SET_CLOSEUP_USER, setCloseUpUser] = createAction<string>('SET_CLOSEUP_USER');
 
-export const [ADD_USERS, addUsers] =
-  createAction<{
-    user: UserType;
-    userDevices: UserDevicesType;
-    sid: string;
-  }>('ADD_USERS');
+export const [ADD_USERS, addUsers] = createAction<{
+  user: UserType;
+  userDevices: UserDevicesType;
+  sid: string;
+}>('ADD_USERS');
 export const [ADD_CHATLOG, addChatLog] = createAction<ChatLogType>('ADD_CHATLOG');
 export const [ADD_STREAMS, addStreams] =
   createAction<{ [sid: string]: MediaStream }>('ADD_STREAMS');

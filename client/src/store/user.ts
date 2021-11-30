@@ -1,13 +1,6 @@
 import { createAction } from '@hooks/redux';
+import type { UserStateType, FailureType, UserType } from '@ts-types/store';
 
-// State
-export type UserStateType = {
-  id: string;
-  imgUrl: string;
-  nickname: string;
-  isLoadingUser: boolean;
-  errorStatus: string;
-};
 const initialState: UserStateType = {
   id: '',
   imgUrl: '',
@@ -16,12 +9,6 @@ const initialState: UserStateType = {
   errorStatus: '',
 };
 
-export type FailureType = { message: string };
-export type UserType = {
-  id: string;
-  imgUrl: string;
-  nickname: string;
-};
 // 세션으로 로그인 요청하는 Types / Actions
 export const [USER_LOGIN_REQUEST, userLoginRequest] = createAction<{}>('USER_LOGIN_REQUEST');
 export const [USER_LOGIN_SUCCESS, userLoginSuccess] = createAction<UserType>('USER_LOGIN_SUCCESS');
