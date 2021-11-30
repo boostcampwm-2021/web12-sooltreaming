@@ -7,14 +7,9 @@ import { CloseBox } from '@components/user-information/modals/index.style';
 import Modal from '@components/custom/Modal';
 import Information from '@components/user-information/information/';
 import { HomeIcon, GreenXButtonIcon } from '@components/icons';
+import type { FriendInfoModalPropType } from '@ts-types/components/user-information';
 
-type FriendInfoModalPropTypes = {
-  id: string;
-  nickname: string;
-  imgUrl: string;
-};
-
-const FriendInfoModal: React.FC<FriendInfoModalPropTypes> = ({ id, nickname, imgUrl }) => {
+const FriendInfoModal: React.FC<FriendInfoModalPropType> = ({ id, nickname, imgUrl }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);

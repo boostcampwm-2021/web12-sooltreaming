@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { createLog } from '@utils/log';
+import { createLog } from '@service/user';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
 import { MARK_BROADCAST } from 'sooltreaming-domain/constant/socketEvent';

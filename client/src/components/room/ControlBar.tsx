@@ -18,6 +18,7 @@ import DeviceToggles from '@components/setting/DeviceToggles';
 import Socket from '@socket/socket';
 import useEnterSocket from '@hooks/socket/useEnterSocket';
 import useStreamSocket from '@hooks/socket/useStreamSocket';
+import type { ControlBarPropType } from '@ts-types/components/room';
 
 const IconButton = ({ Icon, type }) => {
   return (
@@ -27,14 +28,8 @@ const IconButton = ({ Icon, type }) => {
   );
 };
 
-export type ControlBarPropTypes = {
-  onClickCheers: Function;
-  activateCloseup: Function;
-  deactivateCloseup: Function;
-};
-
 // 방장 개임기/ 사람 채팅 설정 클로즈업 건배
-const ControlBar: React.FC<ControlBarPropTypes> = ({
+const ControlBar: React.FC<ControlBarPropType> = ({
   onClickCheers,
   activateCloseup,
   deactivateCloseup,

@@ -1,14 +1,9 @@
 import React from 'react';
 import { XIcon } from '@components/icons';
 import { ToggleButton } from '@components/setting/SettingToggle.style';
+import type { SettingTogglePropType } from '@ts-types/components/setting';
 
-type SettingToggleTypes = {
-  isDeviceOn: boolean;
-  setIsDeviceOn: any;
-  Icon: React.ReactElement | any;
-};
-
-const SettingToggle: React.FC<SettingToggleTypes> = ({ Icon, isDeviceOn, setIsDeviceOn }) => {
+const SettingToggle: React.FC<SettingTogglePropType> = ({ Icon, isDeviceOn, setIsDeviceOn }) => {
   return (
     <ToggleButton onClick={() => setIsDeviceOn((prev) => !prev)}>
       <Icon />

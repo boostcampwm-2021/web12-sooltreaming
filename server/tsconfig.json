@@ -13,6 +13,7 @@
       "@src/*": ["./*"],
       "@api/*": ["./api/*"],
       "@controller/*": ["./controller/*"],
+      "@service/*": ["./service/*"],
       "@loader/*": ["./loader/*"],
       "@models/*": ["./models/*"],
       "@utils/*": ["./utils/*"]

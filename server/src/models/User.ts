@@ -11,7 +11,7 @@ export type UserType = {
   pollCount: number;
   closeupCount: number;
   dieCount: number;
-  speakCount: number;
+  cheersCount: number;
   starterCount: number;
   totalSeconds: number;
 
@@ -25,8 +25,14 @@ export type UserType = {
 const userSchema = new Schema<UserType>(
   {
     // User
-    githubId: String,
-    naverId: String,
+    githubId: {
+      type: String,
+      index: true,
+    },
+    naverId: {
+      type: String,
+      index: true,
+    },
     nickname: {
       type: String,
       required: true,
@@ -57,7 +63,7 @@ const userSchema = new Schema<UserType>(
       type: Number,
       default: 0,
     },
-    speakCount: {
+    cheersCount: {
       type: Number,
       default: 0,
     },

@@ -16,11 +16,13 @@ const Header: React.FC = () => {
   return (
     <LineContainer>
       <LogoLink href="/">
-        <img src={'/images/logo.png'} />
+        <img src={'/images/logo.png'} alt="로고" />
         <span>Sooltreaming</span>
       </LogoLink>
       <UserLink onClick={goToMyPage}>
-        <div className="User-Profile">{!imgUrl ? <HumanIcon /> : <img src={imgUrl} />}</div>
+        <div className="User-Profile">
+          {!imgUrl ? <HumanIcon /> : <img src={imgUrl} alt="프로필사진" />}
+        </div>
         <span>{nickname || 'judangs'}</span>
       </UserLink>
     </LineContainer>

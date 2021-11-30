@@ -11,13 +11,13 @@ import {
   DialogButton,
 } from '@components/room/host/RoomController.style';
 
+const copyURL = () => {
+  navigator.clipboard.writeText(window.location.href);
+};
+
 const RoomController = ({ toggleRoomEntry }) => {
   const code = useSelector((state: RootState) => state.room.roomCode);
   const isOpen = useSelector((state: RootState) => state.room.isOpen);
-
-  const copyURL = () => {
-    navigator.clipboard.writeText(window.location.href);
-  };
 
   return (
     <ColumnBox>

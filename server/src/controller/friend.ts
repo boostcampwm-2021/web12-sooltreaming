@@ -1,87 +1,70 @@
 import { errorWrapper, CustomError } from '@utils/error';
-import User from '@models/User';
+import {
+  friendRequestService,
+  getFriendService,
+  getReceiveFriendService,
+  getSendFriendService,
+  cancelRequestService,
+  rejectRequestService,
+  unFriendService,
+  acceptFriendRequestService,
+} from '@service/friend';
+import { ERROR } from '@src/constant';
 
 export const postFriend = errorWrapper(async (req, res, next) => {
+  const _id = req.user._id;
   const { targetId } = req.body;
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-
-  const { receiveFriend: myReceiveFriend } = await User.findOne({ _id }).select(
-    'receiveFriend -_id',
-  );
-  if (myReceiveFriend.includes(targetId))
-    throw new CustomError(400, '♡ 상대방이 이미 칭구 걸었지용가리 ^0^ ♡');
-
-  await User.updateOne({ _id }, { $addToSet: { sendFriend: targetId } });
-  await User.updateOne({ _id: targetId }, { $addToSet: { receiveFriend: _id } });
+  if (!targetId) throw new CustomError(400, ERROR.INVALID_DATA);
+  await friendRequestService(_id, targetId);
   res.status(201).json({ message: 'Request Friend Success' });
 });
 
 export const getSendFriend = errorWrapper(async (req, res, next) => {
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  const { sendFriend } = await User.findOne({ _id })
-    .select('sendFriend -_id')
-    .populate('sendFriend', 'nickname imgUrl');
-  res.status(200).json({ sendList: sendFriend });
+  const _id = req.user._id;
+  const sendList = await getSendFriendService(_id);
+  res.status(200).json({ sendList });
 });
 
 export const getReceiveFriend = errorWrapper(async (req, res, next) => {
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  const { receiveFriend } = await User.findOne({ _id })
-    .select('receiveFriend -_id')
-    .populate('receiveFriend', 'nickname imgUrl');
-  res.status(200).json({ receiveList: receiveFriend });
+  const _id = req.user._id;
+  const receiveList = await getReceiveFriendService(_id);
+  res.status(200).json({ receiveList });
 });
 
 export const getFriend = errorWrapper(async (req, res, next) => {
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  const { friend } = await User.findOne({ _id })
-    .select('friend -_id')
-    .populate('friend', 'nickname imgUrl');
-
-  res.status(200).json({ friendList: friend });
+  const _id = req.user._id;
+  const friendList = await getFriendService(_id);
+  res.status(200).json({ friendList });
 });
 
 export const patchSendFriend = errorWrapper(async (req, res, next) => {
+  const _id = req.user._id;
   const { targetId } = req.body;
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  await User.updateOne({ _id }, { $pull: { sendFriend: { $in: [targetId] } } });
-  await User.updateOne({ _id: targetId }, { $pull: { receiveFriend: { $in: [_id] } } });
+  if (!targetId) throw new CustomError(400, ERROR.INVALID_DATA);
+  await cancelRequestService(_id, targetId);
   res.status(200).json({ message: 'Request Cancel Success' });
 });
 
 export const patchReceiveFriend = errorWrapper(async (req, res, next) => {
+  const _id = req.user._id;
   const { targetId } = req.body;
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  await User.updateOne({ _id }, { $pull: { receiveFriend: { $in: [targetId] } } });
-  await User.updateOne({ _id: targetId }, { $pull: { sendFriend: { $in: [_id] } } });
+  if (!targetId) throw new CustomError(400, ERROR.INVALID_DATA);
+  await rejectRequestService(_id, targetId);
   res.status(200).json({ message: 'Request Reject Success' });
 });
 
 export const patchUnfriend = errorWrapper(async (req, res, next) => {
+  const _id = req.user._id;
   const { targetId } = req.body;
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-  await User.updateOne({ _id }, { $pull: { friend: { $in: [targetId] } } });
-  await User.updateOne({ _id: targetId }, { $pull: { friend: { $in: [_id] } } });
+  if (!targetId) throw new CustomError(400, ERROR.INVALID_DATA);
+  await unFriendService(_id, targetId);
   res.status(200).json({ message: 'Delete Friend Success' });
 });
 
 export const patchFriend = errorWrapper(async (req, res, next) => {
+  const _id = req.user._id;
   const { targetId } = req.body;
-  const { _id } = JSON.parse(JSON.stringify(req.user));
-
-  const { receiveFriend: myReceiveFriend } = await User.findOne({ _id }).select(
-    'receiveFriend -_id',
-  );
-  if (!myReceiveFriend.includes(targetId))
-    throw new CustomError(400, ' 엥 님 손 절 당했을 지 도, ,., . ?');
-
-  await User.updateOne(
-    { _id },
-    { $pull: { receiveFriend: { $in: [targetId] } }, $addToSet: { friend: targetId } },
-  );
-  await User.updateOne(
-    { _id: targetId },
-    { $pull: { sendFriend: { $in: [_id] } }, $addToSet: { friend: _id } },
-  );
+  if (!targetId) throw new CustomError(400, ERROR.INVALID_DATA);
+  await acceptFriendRequestService(_id, targetId);
   res.status(200).json({ message: 'Request Accept Success' });
 });

@@ -3,19 +3,12 @@ import { API } from '@src/api';
 import UserProfile from '@components/user-information/information/UserProfile';
 import UserData from '@components/user-information/information/UserData';
 import Loading from '@components/custom/Loading';
+import type { NicknameLogType, InformationPropType } from '@ts-types/components/user-information';
 
-export type NicknameLogType = Array<{ nickname: string }>;
-
-type InformationPropTypes = {
-  id: string;
-  imgUrl: string;
-  nickname: string;
-};
-
-const Information: React.FC<InformationPropTypes> = ({ id, imgUrl, nickname }) => {
+const Information: React.FC<InformationPropType> = ({ id, imgUrl, nickname }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [userInformation, setUserInformation] = useState({});
-  const [nicknameLog, setNicknameLog] = useState<Array<NicknameLogType>>([]);
+  const [userInformation, setUserInformation] = useState<Object>({});
+  const [nicknameLog, setNicknameLog] = useState<NicknameLogType>([]);
 
   useEffect(() => {
     const requestGetUserInformation = async () => {

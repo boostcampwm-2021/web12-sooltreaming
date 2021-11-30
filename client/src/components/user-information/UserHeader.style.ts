@@ -2,12 +2,10 @@ import styled, { css } from 'styled-components';
 import { COLOR } from '@constant/style';
 
 export const HeaderBox = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
+  width: 100%;
   height: 70px;
   padding: 0 30px;
+  flex: 0 0 auto;
 
   display: flex;
   justify-content: center;
@@ -37,12 +35,10 @@ export const Title = styled.div`
 `;
 
 export const SecondHeaderBox = styled.div`
-  position: absolute;
-  top: 70px;
-  left: 0;
-  width: 100vw;
+  width: 100%;
   height: 50px;
   padding: 0 30px;
+  flex: 0 0 auto;
 
   display: flex;
   flex-direction: row;

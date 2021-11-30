@@ -9,12 +9,9 @@ import {
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import Socket from '@socket/socket';
+import type { UsersPropType } from '@ts-types/components/user';
 
-type UsersPropTypes = {
-  startVoteRef: React.MutableRefObject<Function>;
-  onclickRequestFriend: any;
-};
-const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend }) => {
+const Users: React.FC<UsersPropType> = ({ startVoteRef, onclickRequestFriend }) => {
   const users = useSelector((state: RootState) => state.room.users);
 
   const { friendList, sendFriendList, receiveFriendList } = useSelector(
@@ -35,7 +32,7 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend })
     <MenuBox>
       <UserList>
         <Profile>
-          <img src={myImgUrl} />
+          <img src={myImgUrl} alt="내 프로필" />
           <div>{myNickname}</div>
         </Profile>
       </UserList>
@@ -44,7 +41,7 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend })
         .map(([key, { imgUrl, nickname, id }]) => (
           <UserList key={id}>
             <Profile>
-              <img src={imgUrl} />
+              <img src={imgUrl} alt="다른 사람 프로필" />
               <div>{nickname}</div>
             </Profile>
             <div>

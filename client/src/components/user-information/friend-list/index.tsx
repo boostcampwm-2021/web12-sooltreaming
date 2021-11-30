@@ -1,5 +1,5 @@
 import React from 'react';
-import { FriendWrapper } from '@components/user-information/friend-list/index.style';
+import { FriendsContainer } from '@components/user-information/friend-list/index.style';
 
 import FriendRequestModal from '@components/user-information/modals/FriendRequestModal';
 import FriendInfoModal from '@components/user-information/modals/FriendInfoModal';
@@ -13,13 +13,13 @@ const FriendList: React.FC = () => {
 
   return (
     <>
-      <FriendWrapper>
+      <FriendsContainer>
         {friendList.map(({ _id: id, imgUrl, nickname }) => (
           <FriendItem imgUrl={imgUrl} nickname={nickname}>
             <FriendInfoModal id={id} imgUrl={imgUrl} nickname={nickname} />
           </FriendItem>
         ))}
-      </FriendWrapper>
+      </FriendsContainer>
       <FriendRequestModal />
     </>
   );

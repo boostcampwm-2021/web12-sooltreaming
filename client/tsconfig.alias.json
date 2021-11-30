@@ -11,6 +11,7 @@
       "@socket/*": ["./socket/*"],
       "@store/*": ["./store/*"],
       "@sagas/*": ["./sagas/*"],
+      "@ts-types/*": ["./ts-types/*"],
       "@utils/*": ["./utils/*"]
     }
   }

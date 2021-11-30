@@ -1,5 +1,5 @@
 import React from 'react';
-import type { iconPropsType } from '@components/icons';
+import type { iconPropType } from '@ts-types/components/icons';
 
 const ChangeNicknameIcon = ({
   className,
@@ -7,7 +7,7 @@ const ChangeNicknameIcon = ({
   height,
   fill,
   stroke,
-}: iconPropsType): React.ReactElement => {
+}: iconPropType): React.ReactElement => {
   return (
     <svg
       width={width ?? 49}

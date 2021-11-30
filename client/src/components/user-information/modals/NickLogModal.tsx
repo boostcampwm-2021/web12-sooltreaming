@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
 import Modal from '@components/custom/Modal';
-import {
-  CheckPressSection,
-  HistoryData,
-  AcceptIconWrapper,
-} from '@components/user-information/modals/NickLogModal.style';
-import { Header, Button } from '@components/user-information/modals/index.style';
-import { HistoryIcon, AcceptIcon } from '@components/icons';
-import type { NicknameLogType } from '@components/user-information/information';
+import { ModalContents, LogData } from '@components/user-information/modals/NickLogModal.style';
+import { Header, Button, CloseBox } from '@components/user-information/modals/index.style';
+import { HistoryIcon, GreenXButtonIcon } from '@components/icons';
+import type { NickLogModalPropType } from '@ts-types/components/user-information';
 
-type NickLogModalType = {
-  nickname: string;
-  nicknameLog: NicknameLogType;
-};
-
-const NickLogModal: React.FC<NickLogModalType> = ({ nickname, nicknameLog }) => {
+const NickLogModal: React.FC<NickLogModalPropType> = ({ nickname, nicknameLog }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -28,20 +19,16 @@ const NickLogModal: React.FC<NickLogModalType> = ({ nickname, nicknameLog }) => 
         absolutePos={{ top: '50%', left: '50%' }}
       >
         <Header>
-          <h2>
-            <span>{nickname}</span> 님의 닉네임 변경 내역
-          </h2>
+          <span>{nickname}</span> 님의 닉네임 변경 내역
         </Header>
-        <HistoryData>
-          {nicknameLog.map(({ nickname: prevNickname }) => (
-            <p>{prevNickname}</p>
+        <ModalContents>
+          {nicknameLog.map(({ nickname: prevNickname }, index) => (
+            <LogData key={`nickLog-${index}-${prevNickname}`}>{prevNickname}</LogData>
           ))}
-        </HistoryData>
-        <CheckPressSection>
-          <AcceptIconWrapper onClick={() => setIsOpen(false)}>
-            <AcceptIcon />
-          </AcceptIconWrapper>
-        </CheckPressSection>
+        </ModalContents>
+        <CloseBox onClick={() => setIsOpen(false)}>
+          <GreenXButtonIcon />
+        </CloseBox>
       </Modal>
     </>
   );

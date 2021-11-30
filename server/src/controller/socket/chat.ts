@@ -1,5 +1,5 @@
 import { Socket } from 'socket.io';
-import { createLog } from '@utils/log';
+import { createLog } from '@service/user';
 import { getTimeString } from '@utils/time';
 import type { roomType } from '@loader/socket';
 import type { TargetInfoType } from '@controller/socket/enter';
