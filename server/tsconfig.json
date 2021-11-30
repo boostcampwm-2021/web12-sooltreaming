@@ -15,7 +15,8 @@
       "@controller/*": ["./controller/*"],
       "@loader/*": ["./loader/*"],
       "@models/*": ["./models/*"],
-      "@utils/*": ["./utils/*"]
+      "@utils/*": ["./utils/*"],
+      "@ts-types": ["./ts-types/*"]
     }
   },
   "include": ["src"],
