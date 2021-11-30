@@ -21,11 +21,13 @@ export const Header = styled.h2`
 `;
 
 export const Button = styled.button`
-  background-color: none;
-  background: none;
+  padding: 0;
+  margin: 0;
+
   border: none;
   cursor: pointer;
-  margin: 0 5px;
+  background-color: transparent;
+
   &:hover {
     & > svg {
       padding: 2px;

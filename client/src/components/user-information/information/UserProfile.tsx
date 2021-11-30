@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import {
-  ProfileContainer,
   ProfileBox,
-  ImgSlot,
+  ImageBox,
   Contents,
+  Nickname,
   ButtonsContainer,
 } from '@components/user-information/information/UserProfile.style';
 import NickLogModal from '@components/user-information/modals/NickLogModal';
@@ -23,22 +23,19 @@ const UserProfile: React.FC<UserProfilePropTypes> = ({ id, imgUrl, nickname, nic
   const myID = useSelector((state: RootState) => state.user.id);
 
   return (
-    <ProfileContainer>
-      <ProfileBox>
-        <ImgSlot>
-          <img src={imgUrl} alt="프로필" />
-        </ImgSlot>
-        <Contents>
-          <p>{nickname}</p>
-          <ButtonsContainer>
-            {/* 닉네임 로그 받아서 아래로 뿌려주기 */}
-            <NickLogModal nickname={nickname} nicknameLog={nicknameLog} />
-            {id === myID && <NickChangeModal />}
-            {id !== myID && <FriendDeleteModal id={id} nickname={nickname} />}
-          </ButtonsContainer>
-        </Contents>
-      </ProfileBox>
-    </ProfileContainer>
+    <ProfileBox>
+      <ImageBox>
+        <img src={imgUrl} alt="프로필" />
+      </ImageBox>
+      <Contents>
+        <Nickname>{nickname}</Nickname>
+        <ButtonsContainer>
+          <NickLogModal nickname={nickname} nicknameLog={nicknameLog} />
+          {id === myID && <NickChangeModal />}
+          {id !== myID && <FriendDeleteModal id={id} nickname={nickname} />}
+        </ButtonsContainer>
+      </Contents>
+    </ProfileBox>
   );
 };
 
