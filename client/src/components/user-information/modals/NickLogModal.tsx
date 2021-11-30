@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import Modal from '@components/custom/Modal';
 import {
-  CheckPressSection,
-  HistoryData,
-  AcceptIconWrapper,
+  ModalContents,
+  LogData,
+  CheckButton,
 } from '@components/user-information/modals/NickLogModal.style';
 import { Header, Button } from '@components/user-information/modals/index.style';
 import { HistoryIcon } from '@components/icons';
@@ -28,18 +28,14 @@ const NickLogModal: React.FC<NickLogModalType> = ({ nickname, nicknameLog }) => 
         absolutePos={{ top: '50%', left: '50%' }}
       >
         <Header>
-          <h2>
-            <span>{nickname}</span> 님의 닉네임 변경 내역
-          </h2>
+          <span>{nickname}</span> 님의 닉네임 변경 내역
         </Header>
-        <HistoryData>
+        <ModalContents>
           {nicknameLog.map(({ nickname: prevNickname }) => (
-            <p>{prevNickname}</p>
+            <LogData>{prevNickname}</LogData>
           ))}
-        </HistoryData>
-        <CheckPressSection>
-          <AcceptIconWrapper onClick={() => setIsOpen(false)}>확인</AcceptIconWrapper>
-        </CheckPressSection>
+        </ModalContents>
+        <CheckButton onClick={() => setIsOpen(false)}>확인</CheckButton>
       </Modal>
     </>
   );

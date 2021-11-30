@@ -7,12 +7,13 @@ export const Header = styled.h2`
   align-items: center;
 
   padding: 0;
-  margin: 35px 0 25px 0;
+  margin: 30px 0 40px 0;
   color: ${COLOR.titleActive};
   user-select: none;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-size: 28px;
 
   & span {
     color: ${COLOR.point};
