@@ -1,6 +1,5 @@
-import cron from 'node-cron';
-import User from '@models/User';
 import { userCount } from '@utils/userCount';
+import User from '@models/User';
 
 export const allRank = {
   chatCount: [],
@@ -8,16 +7,12 @@ export const allRank = {
   pollCount: [],
   closeupCount: [],
   dieCount: [],
-  cheersCount: [],
+  speakCount: [],
   starterCount: [],
   totalSeconds: [],
 };
 
-cron.schedule('*/5 * * * *', () => {
-  updateAllUserRank();
-});
-
-const updateAllUserRank = async () => {
+export const updateRank = async () => {
   try {
     const newRank = await Promise.all(
       userCount.map((count) =>
@@ -31,5 +26,3 @@ const updateAllUserRank = async () => {
     console.error(error);
   }
 };
-
-updateAllUserRank();
