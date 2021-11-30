@@ -69,7 +69,7 @@ export type EnterPropType = {
 
 // models
 export type LiarGameKeywords = {
-  keywords: string;
+  keyword: string;
 };
 
 export type NicknameLog = {
