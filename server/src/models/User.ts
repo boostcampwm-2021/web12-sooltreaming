@@ -11,7 +11,7 @@ export type UserType = {
   pollCount: number;
   closeupCount: number;
   dieCount: number;
-  speakCount: number;
+  cheersCount: number;
   starterCount: number;
   totalSeconds: number;
 
@@ -57,7 +57,7 @@ const userSchema = new Schema<UserType>(
       type: Number,
       default: 0,
     },
-    speakCount: {
+    cheersCount: {
       type: Number,
       default: 0,
     },

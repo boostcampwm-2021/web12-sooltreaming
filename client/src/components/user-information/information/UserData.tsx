@@ -7,7 +7,7 @@ const UNITS = {
   pollCount: (value) => `투표 선정 횟수 : ${value}번`,
   closeupCount: (value) => `클로즈업 횟수 : ${value}번`,
   dieCount: (value) => `단두대 횟수 : ${value}회 (%)`,
-  speakCount: (value) => `건배사 횟수 : ${value}회`,
+  cheersCount: (value) => `건배 횟수 : ${value}회`,
   starterCount: (value) => `게임 주최 횟수 : ${value}번`,
   totalSeconds: (value) => `총 접속 시간 : ${value}초`,
 };

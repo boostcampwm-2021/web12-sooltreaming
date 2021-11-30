@@ -24,6 +24,7 @@ const animation = ({
     const { code } = targetInfo;
     if (!(code in rooms)) return;
     io.to(code).emit(CHEERS_BROADCAST);
+    createLog(rooms[code].users[socket.id].id, CHEERS_BROADCAST);
   });
 
   socket.on(CLOSEUP_ON, () => {

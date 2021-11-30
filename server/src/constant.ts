@@ -53,6 +53,7 @@ export const LOG_EVENT = Object.freeze({
   MARK_BROADCAST: 'hookCount',
   VOTE_START: 'pollCount',
   STATUS_VOTE_EXECUTING: 'dieCount',
+  CHEERS_BROADCAST: 'cheersCount',
   UPDOWN_START: 'starterCount',
   EXIT: 'totalSeconds',
 });

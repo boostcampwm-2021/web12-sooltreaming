@@ -8,7 +8,7 @@ export const allRank = {
   pollCount: [],
   closeupCount: [],
   dieCount: [],
-  speakCount: [],
+  cheersCount: [],
   starterCount: [],
   totalSeconds: [],
 };
