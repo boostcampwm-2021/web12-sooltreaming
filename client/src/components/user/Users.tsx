@@ -35,7 +35,7 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend })
     <MenuBox>
       <UserList>
         <Profile>
-          <img src={myImgUrl} />
+          <img src={myImgUrl} alt="내 프로필" />
           <div>{myNickname}</div>
         </Profile>
       </UserList>
@@ -44,7 +44,7 @@ const Users: React.FC<UsersPropTypes> = ({ startVoteRef, onclickRequestFriend })
         .map(([key, { imgUrl, nickname, id }]) => (
           <UserList key={id}>
             <Profile>
-              <img src={imgUrl} />
+              <img src={imgUrl} alt="다른 사람 프로필" />
               <div>{nickname}</div>
             </Profile>
             <div>
