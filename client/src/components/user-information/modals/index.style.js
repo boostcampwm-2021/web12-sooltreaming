@@ -1,21 +1,19 @@
 import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
-export const Header = styled.div`
-  padding: 15px;
+export const Header = styled.h2`
   display: flex;
   justify-content: center;
   align-items: center;
 
-  & > h2 {
-    padding: 0;
-    margin: 30px 0 0 15px;
-    color: ${COLOR.titleActive};
-    user-select: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+  padding: 0;
+  margin: 35px 0 25px 0;
+  color: ${COLOR.titleActive};
+  user-select: none;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   & span {
     color: ${COLOR.point};
   }

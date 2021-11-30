@@ -7,22 +7,21 @@ import { RootState } from '@src/store';
 import { API } from '@src/api';
 
 import {
-  DeleteChangePressSection,
-  ChangeData,
+  ModalContents,
   NewNicknameInput,
-  NicknameChangeAcceptIconWrapper,
-  RejectIconWrapper,
-  ProfileSquare,
-  ProfileSquareWrapper,
+  ImageContainer,
   DeleteBox,
+  AcceptButton,
+  CloseButton,
+  ButtonContainer,
 } from '@components/user-information/modals/NickChangeModal.style';
 import { Header, Button } from '@components/user-information/modals/index.style';
-import { GreenXButtonIcon, CloseIcon, AcceptIcon, ChangeNicknameIcon } from '@components/icons';
+import { GreenXButtonIcon, ChangeNicknameIcon } from '@components/icons';
 
 import { BACK_BASE_URL } from '@constant/envs';
 import { FILE_PUBLIC_URL, DEFAULT_PROFILE_IMAGE } from 'sooltreaming-domain/constant/addition';
 
-const NickChangeModal = () => {
+const NickChangeModal: React.FC = () => {
   const dispatch = useDispatch();
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const imgUrl = useSelector((state: RootState) => state.user.imgUrl);
@@ -131,25 +130,21 @@ const NickChangeModal = () => {
         renderCenter={true}
         absolutePos={{ top: '50%', left: '50%' }}
       >
-        <Header>
-          <h2>프로필 변경하기</h2>
-        </Header>
-        <ChangeData>
-          <ProfileSquareWrapper>
-            <ProfileSquare>
-              <img src={preview} alt="" />
-              <input
-                ref={newImageData}
-                type="file"
-                style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
-                accept="image/jpeg, image/png"
-                onChange={uploadImage}
-              />
-              <DeleteBox onClick={deleteImage}>
-                <GreenXButtonIcon />
-              </DeleteBox>
-            </ProfileSquare>
-          </ProfileSquareWrapper>
+        <Header>프로필 변경하기</Header>
+        <ModalContents>
+          <ImageContainer>
+            <img src={preview} alt="" />
+            <input
+              ref={newImageData}
+              type="file"
+              style={{ width: 150, height: 150, opacity: 0, cursor: 'pointer' }}
+              accept="image/jpeg, image/png"
+              onChange={uploadImage}
+            />
+            <DeleteBox onClick={deleteImage}>
+              <GreenXButtonIcon />
+            </DeleteBox>
+          </ImageContainer>
 
           <NewNicknameInput
             ref={newNicknameData}
@@ -158,19 +153,13 @@ const NickChangeModal = () => {
             onChange={checkChanged}
             maxLength={15}
           />
-        </ChangeData>
-        <DeleteChangePressSection>
-          <NicknameChangeAcceptIconWrapper
-            onClick={changeProfile}
-            nickChanged={nickChanged}
-            imgChanged={imgChanged}
-          >
-            <AcceptIcon />
-          </NicknameChangeAcceptIconWrapper>
-          <RejectIconWrapper onClick={rejectProfile}>
-            <CloseIcon />
-          </RejectIconWrapper>
-        </DeleteChangePressSection>
+        </ModalContents>
+        <ButtonContainer>
+          <AcceptButton onClick={changeProfile} disabled={!(nickChanged || imgChanged)}>
+            확인
+          </AcceptButton>
+          <CloseButton onClick={rejectProfile}>닫기</CloseButton>
+        </ButtonContainer>
       </Modal>
     </>
   );

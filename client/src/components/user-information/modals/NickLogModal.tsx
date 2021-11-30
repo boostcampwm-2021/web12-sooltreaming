@@ -6,7 +6,7 @@ import {
   AcceptIconWrapper,
 } from '@components/user-information/modals/NickLogModal.style';
 import { Header, Button } from '@components/user-information/modals/index.style';
-import { HistoryIcon, AcceptIcon } from '@components/icons';
+import { HistoryIcon } from '@components/icons';
 import type { NicknameLogType } from '@components/user-information/information';
 
 type NickLogModalType = {
@@ -38,9 +38,7 @@ const NickLogModal: React.FC<NickLogModalType> = ({ nickname, nicknameLog }) => 
           ))}
         </HistoryData>
         <CheckPressSection>
-          <AcceptIconWrapper onClick={() => setIsOpen(false)}>
-            <AcceptIcon />
-          </AcceptIconWrapper>
+          <AcceptIconWrapper onClick={() => setIsOpen(false)}>확인</AcceptIconWrapper>
         </CheckPressSection>
       </Modal>
     </>
