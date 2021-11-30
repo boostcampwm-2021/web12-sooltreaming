@@ -9,6 +9,6 @@ export const FullScreen = styled.div`
 `;
 
 export const Contents = styled.div`
-  padding-top: 120px;
-  height: 100%;
+  flex: 1;
+  padding: 40px 20px;
 `;
