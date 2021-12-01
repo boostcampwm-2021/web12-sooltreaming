@@ -15,8 +15,11 @@ const initialState: DeviceStateType = {
   isLoading: true,
 };
 
+//
 export const [SET_VIDEO_POWER, setVideoPower] =
-  createAction<{ isVideoOn: boolean }>('SET_VIDEO_POWER');
+  createAction<{ isVideoOn: boolean; videoInfo: MediaDeviceInfo | null; stream: MediaStream }>(
+    'SET_VIDEO_POWER',
+  );
 export const [SET_AUDIO_POWER, setAudioPower] =
   createAction<{ isAudioOn: boolean }>('SET_AUDIO_POWER');
 export const [SET_SPEAKER_POWER, setSpeakerPower] =
@@ -55,7 +58,10 @@ function deviceReducer(
   switch (action.type) {
     case SET_VIDEO_POWER: {
       const { isVideoOn } = action.payload as { isVideoOn: boolean };
-      state.stream.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
+      state.stream.getVideoTracks().forEach((track) => {
+        track.enabled = isVideoOn;
+        if (isVideoOn === false) track.stop();
+      });
       return {
         ...state,
         isVideoOn,
