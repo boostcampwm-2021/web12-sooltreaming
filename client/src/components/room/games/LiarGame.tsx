@@ -1,5 +1,6 @@
 import React from 'react';
 import Modal from '@src/components/custom/Modal';
+import Socket from '@socket/socket';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { setCurrentGame } from '@store/room';
@@ -34,7 +35,11 @@ const LiarGame: React.FC<LiarGamePropType> = ({ keywordRef }): React.ReactElemen
             키워드는 <span>{keywordRef.current}</span> 입니다.
           </div>
         )}
-        <GameStopButton onClick={stopGame}>게임 종료</GameStopButton>
+        {gameHost === Socket.getSID() ? (
+          <GameStopButton onClick={stopGame}>전체 닫기</GameStopButton>
+        ) : (
+          <GameStopButton onClick={stopGame}>닫기</GameStopButton>
+        )}
       </Contents>
     </Modal>
   );

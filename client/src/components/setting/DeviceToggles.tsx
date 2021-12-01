@@ -8,11 +8,13 @@ import { VideoIcon, MicIcon, SpeakerIcon } from '@components/icons';
 const DeviceToggles: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
+  const myVideoInfo = useSelector((state: RootState) => state.device.videoInfo);
+  const myStream = useSelector((state: RootState) => state.device.stream);
   const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);
   const isSpeakerOn = useSelector((state: RootState) => state.device.isSpeakerOn);
 
   const toggleVideoPower = () => {
-    dispatch(setVideoPower({ isVideoOn: !isVideoOn }));
+    dispatch(setVideoPower({ isVideoOn: !isVideoOn, stream: myStream, videoInfo: myVideoInfo }));
   };
   const toggleAudioPower = () => {
     dispatch(setAudioPower({ isAudioOn: !isAudioOn }));
