@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { lazy, useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { requestInitInfo } from '@store/device';
 import { setRoomCode } from '@store/room';
 import Setting from '@src/components/setting';
-import Room from '@components/room/';
 import Loading from '@components/custom/Loading';
+const Room = lazy(() => import('@components/room/'));
 
 const JoinRoom: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();

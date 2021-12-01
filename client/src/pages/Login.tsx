@@ -8,15 +8,15 @@ const Login: React.FC = (): React.ReactElement => {
   return (
     <FullScreen>
       <LogoBox>
-        <img src="/images/logo.png" alt="logo" />
+        <img src="/images/logo.png" alt="logo" loading="lazy" />
         <span>Sooltreaming</span>
       </LogoBox>
       <ButtonsDiv>
         <LoginLink href={githubUrl}>
-          <img src={'/images/github-login.png'} alt="github_button" />
+          <img src={'/images/github-login.png'} alt="github login" loading="lazy" />
         </LoginLink>
         <LoginLink href={naverUrl}>
-          <img src={'/images/naver-login.png'} alt="naver_button" />
+          <img src={'/images/naver-login.png'} alt="naver login" loading="lazy" />
         </LoginLink>
       </ButtonsDiv>
       <Title>
