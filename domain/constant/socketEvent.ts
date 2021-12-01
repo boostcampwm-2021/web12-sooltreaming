@@ -5,6 +5,7 @@ export const CLOSEUP_BREAK = 'CLOSEUP_BREAK';
 
 export const UPDOWN_START = 'UPDOWN_START';
 export const LIAR_START = 'LIAR_START';
+export const RANDOM_PICK_START = 'RANDOM_PICK_START';
 export const GAME_STOP = 'GAME_STOP';
 
 export const CREATE_REQUEST = 'CREATE_REQUEST';
