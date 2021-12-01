@@ -14,7 +14,7 @@ export const Contents = styled.div`
   .host {
     span {
       font-weight: 600;
-      color: ${COLOR.body};
+      color: ${COLOR.black};
     }
   }
 
