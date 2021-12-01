@@ -37,9 +37,11 @@ const game = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType
     const usersSID = Object.keys(rooms[code].users); // 방 안의 유저들의 sid들을 모아놓은 string 배열
     const randomSID = usersSID[Math.floor(Math.random() * Object.keys(rooms[code].users).length)];
     const randomKeyword = KEYWORDS[Math.floor(Math.random() * KEYWORDS.length)];
+    const liarKeyword = LIAR_KEYWORD;
+    liarKeyword.subject = randomKeyword.subject;
 
     usersSID.forEach((elem) => {
-      if (elem === randomSID) io.to(elem).emit(LIAR_START, startingSID, LIAR_KEYWORD);
+      if (elem === randomSID) io.to(elem).emit(LIAR_START, startingSID, liarKeyword);
       else io.to(elem).emit(LIAR_START, startingSID, randomKeyword);
     });
 
