@@ -25,7 +25,9 @@ const game =
     });
 
     socket.on(GAME_STOP, () => {
-      keywordRef.current = '';
+      randomNumRef.current = '';
+      keywordRef.current = { subject: '', keyword: '' };
+      onePickRef.current = '';
       stopGame();
     });
 
@@ -46,6 +48,7 @@ const game =
     const disconnecting = () => {
       socket.off(UPDOWN_START);
       socket.off(LIAR_START);
+      socket.off(RANDOM_PICK_START);
       socket.off(GAME_STOP);
     };
     return {

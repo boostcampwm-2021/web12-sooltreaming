@@ -21,18 +21,21 @@ const LiarGame: React.FC<LiarGamePropType> = ({ keywordRef }): React.ReactElemen
       isRelative={false}
       absolutePos={{ top: '50%', left: '50%' }}
     >
-      <Contents keyword={keywordRef.current}>
+      <Contents keyword={keywordRef}>
         <GameTitle>라이어 게임</GameTitle>
         <div className="host">
           <span>{users[gameHost].nickname}</span> 님이 게임을 시작하셨습니다.
         </div>
-        {keywordRef.current === '라이어' ? (
+        <div className="subject">
+          주제는 <span>{keywordRef.current.subject}</span> 입니다.
+        </div>
+        {keywordRef.current.keyword === '라이어' ? (
           <div className="keyword">
-            당신은 <span>{keywordRef.current}</span> 입니다.
+            당신은 <span>{keywordRef.current.keyword}</span> 입니다.
           </div>
         ) : (
           <div className="keyword">
-            키워드는 <span>{keywordRef.current}</span> 입니다.
+            키워드는 <span> {keywordRef.current.keyword}</span> 입니다.
           </div>
         )}
         {gameHost === Socket.getSID() ? (

@@ -9,7 +9,7 @@ const useGameSocket = () => {
   const dispatch = useDispatch();
   const currentGame = useSelector((state: RootState) => state.room.currentGame);
   const randomNumRef = useRef<string>('');
-  const keywordRef = useRef<string>('');
+  const keywordRef = useRef<{ subject: string; keyword: string }>({ subject: '', keyword: '' });
   const onePickRef = useRef<string>('');
 
   const onClickUpdown = useCallback(() => {
