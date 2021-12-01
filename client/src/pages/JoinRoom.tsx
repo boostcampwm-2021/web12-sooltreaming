@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { requestInitInfo } from '@store/device';
 import { setRoomCode } from '@store/room';
-import Setting from '@src/components/setting';
+import Setting from '@components/setting';
 import Room from '@components/room/';
 import Loading from '@components/custom/Loading';
 

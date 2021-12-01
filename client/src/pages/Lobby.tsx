@@ -3,7 +3,7 @@ import { FullScreen, Title, CodeInput, BigButton } from '@pages/Lobby.style.js';
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
-import Header from '@src/components/Header';
+import Header from '@components/Header';
 
 const Lobby: React.FC = (): React.ReactElement => {
   const history = useHistory();
