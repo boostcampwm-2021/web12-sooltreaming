@@ -9,7 +9,7 @@ const naverStrategy = new NaverStrategy.Strategy(
     clientSecret: NAVER_SECRET,
     callbackURL: OAUTH_CALLBACK_URL,
   },
-  async (accessToken, refreshToken, profile, cb): Promise<Function | void> => {
+  async (_accessToken, _refreshToken, profile, cb): Promise<Function | void> => {
     try {
       const { email: naverId, nickname, profile_image: imgUrl } = profile._json as NaverProfileType;
 
