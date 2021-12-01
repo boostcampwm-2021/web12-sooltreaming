@@ -27,7 +27,7 @@ export type GamesPropType = {
 };
 
 export type LiarGamePropType = {
-  randomNumRef: React.MutableRefObject<string>;
+  keywordRef: React.MutableRefObject<string>;
 };
 
 export type UpdownGamePropType = {

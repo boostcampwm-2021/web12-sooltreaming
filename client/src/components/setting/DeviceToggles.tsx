@@ -5,7 +5,7 @@ import { setVideoPower, setAudioPower, setSpeakerPower } from '@store/device';
 import SettingToggle from '@components/setting/SettingToggle';
 import { VideoIcon, MicIcon, SpeakerIcon } from '@components/icons';
 
-const DeviceToggles: React.FC = () => {
+const DeviceToggles: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);
   const isAudioOn = useSelector((state: RootState) => state.device.isAudioOn);

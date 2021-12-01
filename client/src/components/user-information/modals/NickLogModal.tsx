@@ -5,7 +5,10 @@ import { Header, Button, CloseBox } from '@components/user-information/modals/in
 import { HistoryIcon, GreenXButtonIcon } from '@components/icons';
 import type { NickLogModalPropType } from '@ts-types/components/user-information';
 
-const NickLogModal: React.FC<NickLogModalPropType> = ({ nickname, nicknameLog }) => {
+const NickLogModal: React.FC<NickLogModalPropType> = ({
+  nickname,
+  nicknameLog,
+}): React.ReactElement => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>

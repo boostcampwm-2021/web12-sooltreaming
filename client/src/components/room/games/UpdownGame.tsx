@@ -7,7 +7,7 @@ import { setCurrentGame } from '@store/room';
 import { Contents, GameTitle, GameStopButton } from '@components/room/games/UpdownGame.style';
 import type { UpdownGamePropType } from '@ts-types/components/room';
 
-const UpdownGame: React.FC<UpdownGamePropType> = ({ randomNumRef }) => {
+const UpdownGame: React.FC<UpdownGamePropType> = ({ randomNumRef }): React.ReactElement => {
   const dispatch = useDispatch();
   const users = useSelector((state: RootState) => state.room.users);
   const gameHost = useSelector((state: RootState) => state.room.currentGame.host);
@@ -31,7 +31,9 @@ const UpdownGame: React.FC<UpdownGamePropType> = ({ randomNumRef }) => {
       ) : (
         <Contents>
           <GameTitle>업다운 게임</GameTitle>
-          <div>{users[gameHost].nickname}님이 게임을 시작하셨습니다.</div>
+          <div>
+            <span>{users[gameHost].nickname}</span> 님이 게임을 시작하셨습니다.
+          </div>
           <GameStopButton onClick={stopGame}>닫기</GameStopButton>
         </Contents>
       )}

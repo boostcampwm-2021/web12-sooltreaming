@@ -1,10 +1,7 @@
 import { Schema, model } from 'mongoose';
-
-interface LiarGameKeywords {
-  keywords: string;
-}
+import type { LiarGameKeywords } from '@src/types';
 
 const LiarGameKeywordsSchema = new Schema<LiarGameKeywords>({
-  keywords: String,
+  keyword: String,
 });
 export default model<LiarGameKeywords>('LiarGameKeywords', LiarGameKeywordsSchema);

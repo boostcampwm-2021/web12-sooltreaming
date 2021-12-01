@@ -1,7 +1,7 @@
 import { useMemo, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { addChatLog } from '@store/room';
-import type { ChatLogType } from '@store/room';
+import type { ChatLogType } from '@ts-types/store';
 import Socket from '@socket/socket';
 
 const useChatSocket = () => {

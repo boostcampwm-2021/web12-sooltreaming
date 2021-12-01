@@ -7,7 +7,7 @@ import {
 } from '@service/user';
 import { ERROR } from '@src/constant';
 
-export const getUserInformation = errorWrapper(async (req, res, next) => {
+export const getUserInformation = errorWrapper(async (req, res, next): Promise<void> => {
   const { id: _id } = req.query;
   const { information, nicknameLog } = await getUserInfoService(_id);
 
@@ -17,7 +17,7 @@ export const getUserInformation = errorWrapper(async (req, res, next) => {
   });
 });
 
-export const postUserImage = errorWrapper(async (req, res, next) => {
+export const postUserImage = errorWrapper(async (req, res, next): Promise<void> => {
   const _id = req.user._id;
   let image = req.file;
   const imgUrl = await updateUserImage(_id, image);
@@ -28,7 +28,7 @@ export const postUserImage = errorWrapper(async (req, res, next) => {
   });
 });
 
-export const patchUserNickname = errorWrapper(async (req, res, next) => {
+export const patchUserNickname = errorWrapper(async (req, res, next): Promise<void> => {
   const _id = req.user._id;
   const { nickname } = req.body;
   if (!nickname) throw new CustomError(400, ERROR.INVALID_DATA);
@@ -40,7 +40,7 @@ export const patchUserNickname = errorWrapper(async (req, res, next) => {
   });
 });
 
-export const patchTotalSeconds = errorWrapper(async (req, res, next) => {
+export const patchTotalSeconds = errorWrapper(async (req, res, next): Promise<void> => {
   const _id = req.user._id;
   const { startTime } = req.session;
   const { exitTime } = req.body;

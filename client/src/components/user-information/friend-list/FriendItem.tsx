@@ -5,7 +5,11 @@ import {
 } from '@components/user-information/friend-list/FriendItem.style';
 import type { FriendType } from '@ts-types/components/user-information';
 
-export const FriendItem: React.FC<FriendType> = ({ imgUrl, nickname, children }) => {
+export const FriendItem: React.FC<FriendType> = ({
+  imgUrl,
+  nickname,
+  children,
+}): React.ReactElement => {
   return (
     <FriendItemBox>
       <LeftBox>

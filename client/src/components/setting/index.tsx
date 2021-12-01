@@ -20,7 +20,7 @@ import DeviceSelections from '@components/setting/DeviceSelections';
 import DeviceToggles from '@components/setting/DeviceToggles';
 import type { SettingPropType } from '@ts-types/components/setting';
 
-const Setting: React.FC<SettingPropType> = ({ renderRoom }) => {
+const Setting: React.FC<SettingPropType> = ({ renderRoom }): React.ReactElement => {
   const history = useHistory();
   const stream = useSelector((state: RootState) => state.device.stream);
   const previewFace = useRef<HTMLVideoElement>(null);

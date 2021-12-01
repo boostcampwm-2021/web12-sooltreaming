@@ -30,24 +30,21 @@ const useGameSocket = () => {
     dispatch(setCurrentGame({ title: UP_DOWN, host: startingSID }));
   };
 
-  const stopUpdown = () => {
-    dispatch(setCurrentGame({ title: '', host: '' }));
-  };
-
   const startLiar = (startingSID) => {
     dispatch(setCurrentGame({ title: LIAR, host: startingSID }));
   };
 
+  const stopGame = () => {
+    dispatch(setCurrentGame({ title: '', host: '' }));
+  };
+
   const socket = useMemo(
-    () => Socket.game({ startUpdown, stopUpdown, startLiar, randomNumRef, keywordRef }),
+    () => Socket.game({ startUpdown, startLiar, stopGame, randomNumRef, keywordRef }),
     [],
   );
 
   useEffect(() => {
-    if (currentGame.host === Socket.getSID() && !currentGame.title) {
-      socket.requestUpdownStop();
-      socket.requestLiarStop();
-    }
+    if (currentGame.host === Socket.getSID() && !currentGame.title) socket.requestGameStop();
   }, [currentGame]);
 
   useEffect(() => {
@@ -56,7 +53,7 @@ const useGameSocket = () => {
     };
   }, []);
 
-  return { GameStartHandlerList, randomNumRef };
+  return { GameStartHandlerList, randomNumRef, keywordRef };
 };
 
 export default useGameSocket;

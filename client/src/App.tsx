@@ -10,7 +10,7 @@ import CreateRoom from '@pages/CreateRoom';
 import UserPage from '@pages/UserPage';
 import { API } from './api';
 
-const App: React.FC = () => {
+const App: React.FC = (): React.ReactElement => {
   useEffect(() => {
     window.addEventListener('beforeunload', () => {
       API.call(API.TYPE.PATCH_TOTAL_SECONDS, new Date().getTime());

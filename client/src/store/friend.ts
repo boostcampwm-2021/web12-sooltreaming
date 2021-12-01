@@ -1,44 +1,32 @@
 import { createAction } from '@hooks/redux';
-export type FailureType = { message: string };
+import type { FailureType, FriendStateType, FriendInfoType } from '@ts-types/store';
 
-type friendStateType = {
-  friendList: friendInfoType[];
-  sendFriendList: friendInfoType[];
-  receiveFriendList: friendInfoType[];
-};
-
-export type friendInfoType = {
-  _id: string;
-  nickname: string;
-  imgUrl: string;
-};
-
-const initialState: friendStateType = {
+const initialState: FriendStateType = {
   friendList: [],
   sendFriendList: [],
   receiveFriendList: [],
 };
 
 export const [FRIEND_LIST_REQUEST, friendListRequest] =
-  createAction<friendInfoType[]>('FRIEND_LIST_REQUEST');
+  createAction<FriendInfoType[]>('FRIEND_LIST_REQUEST');
 export const [FRIEND_LIST_SUCCESS, friendListSuccess] =
-  createAction<friendInfoType[]>('FRIEND_LIST_SUCCESS');
+  createAction<FriendInfoType[]>('FRIEND_LIST_SUCCESS');
 export const [FRIEND_LIST_FAILURE, friendListFailure] =
   createAction<FailureType>('FRIEND_LIST_FAILURE');
-export const [SEND_FRIEND_LIST_REQUEST, sendFriendListRequest] = createAction<friendInfoType[]>(
+export const [SEND_FRIEND_LIST_REQUEST, sendFriendListRequest] = createAction<FriendInfoType[]>(
   'SEND_FRIEND_LIST_REQUEST',
 );
-export const [SEND_FRIEND_LIST_SUCCESS, sendFriendListSuccess] = createAction<friendInfoType[]>(
+export const [SEND_FRIEND_LIST_SUCCESS, sendFriendListSuccess] = createAction<FriendInfoType[]>(
   'SEND_FRIEND_LIST_SUCCESS',
 );
 export const [SEND_FRIEND_LIST_FAILURE, sendFriendListFailure] = createAction<FailureType>(
   'SEND_FRIEND_LIST_FAILURE',
 );
 export const [RECEIVE_FRIEND_LIST_REQUEST, receiveFriendListRequest] = createAction<
-  friendInfoType[]
+  FriendInfoType[]
 >('RECEIVE_FRIEND_LIST_REQUEST');
 export const [RECEIVE_FRIEND_LIST_SUCCESS, receiveFriendListSuccess] = createAction<
-  friendInfoType[]
+  FriendInfoType[]
 >('RECEIVE_FRIEND_LIST_SUCCESS');
 export const [RECEIVE_FRIEND_LIST_FAILURE, receiveFriendListFailure] = createAction<FailureType>(
   'RECEIVE_FRIEND_LIST_FAILURE',
@@ -47,14 +35,14 @@ export const [RECEIVE_FRIEND_LIST_FAILURE, receiveFriendListFailure] = createAct
 export const [REJECT_FRIEND_REQUEST, rejectFriendRequest] =
   createAction<string>('REJECT_FRIEND_REQUEST');
 export const [ACCEPT_FRIEND_REQUEST, acceptFriendRequest] =
-  createAction<friendInfoType>('ACCEPT_FRIEND_REQUEST');
+  createAction<FriendInfoType>('ACCEPT_FRIEND_REQUEST');
 export const [CANCEL_FRIEND_REQUEST, cancelFriendRequest] =
-  createAction<friendInfoType>('CANCEL_FRIEND_REQUEST');
+  createAction<FriendInfoType>('CANCEL_FRIEND_REQUEST');
 
 export const [SEND_FRIEND_REQUEST, sendFriendRequest] =
-  createAction<friendInfoType>('SEND_FRIEND_REQUEST');
+  createAction<FriendInfoType>('SEND_FRIEND_REQUEST');
 export const [RECEIVE_FRIEND_REQUEST, receiveFriendRequest] =
-  createAction<friendInfoType>('RECEIVE_FRIEND_REQUEST');
+  createAction<FriendInfoType>('RECEIVE_FRIEND_REQUEST');
 
 export const [DELETE_FRIEND, deleteFriend] = createAction<string>('DELETE_FRIEND');
 
@@ -76,25 +64,25 @@ type friendAction =
   | ReturnType<typeof receiveFriendRequest>;
 
 function friendReducer(
-  state: friendStateType = initialState,
+  state: FriendStateType = initialState,
   action: friendAction,
-): friendStateType {
+): FriendStateType {
   switch (action.type) {
     case FRIEND_LIST_SUCCESS:
-      const friendList = action.payload as friendInfoType[];
+      const friendList = action.payload as FriendInfoType[];
       return {
         ...state,
         friendList,
       };
     case SEND_FRIEND_LIST_SUCCESS: {
-      const sendFriendList = action.payload as friendInfoType[];
+      const sendFriendList = action.payload as FriendInfoType[];
       return {
         ...state,
         sendFriendList,
       };
     }
     case RECEIVE_FRIEND_LIST_SUCCESS: {
-      const receiveFriendList = action.payload as friendInfoType[];
+      const receiveFriendList = action.payload as FriendInfoType[];
       return {
         ...state,
         receiveFriendList,
@@ -111,7 +99,7 @@ function friendReducer(
     }
 
     case ACCEPT_FRIEND_REQUEST: {
-      const receiveFriend = action.payload as friendInfoType;
+      const receiveFriend = action.payload as FriendInfoType;
       const newReceiveList = state.receiveFriendList.filter(({ _id }) => _id !== receiveFriend._id);
       const newFriendList = [...state.friendList, receiveFriend];
       return {
@@ -140,14 +128,14 @@ function friendReducer(
     }
 
     case SEND_FRIEND_REQUEST: {
-      const newFriend = action.payload as friendInfoType;
+      const newFriend = action.payload as FriendInfoType;
       return {
         ...state,
         sendFriendList: [...state.sendFriendList, newFriend],
       };
     }
     case RECEIVE_FRIEND_REQUEST: {
-      const newFriend = action.payload as friendInfoType;
+      const newFriend = action.payload as FriendInfoType;
       return {
         ...state,
         receiveFriendList: [...state.receiveFriendList, newFriend],

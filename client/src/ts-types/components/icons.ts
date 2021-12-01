@@ -1,4 +1,4 @@
-export type iconPropType = {
+export type IconPropType = {
   className?: string;
   width?: number;
   height?: number;

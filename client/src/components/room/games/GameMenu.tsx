@@ -4,7 +4,7 @@ import GameBox from '@components/room/games/GameBox';
 import { gameList } from '@src/components/room/games/gameList';
 import type { GamesPropType } from '@ts-types/components/room';
 
-const GameMenu: React.FC<GamesPropType> = ({ startGamesRef }) => {
+const GameMenu: React.FC<GamesPropType> = ({ startGamesRef }): React.ReactElement => {
   return (
     <GameListBox>
       {gameList.map(({ icon, title, content }) => (

@@ -1,20 +1,8 @@
-import { Socket } from 'socket.io';
 import { createLog } from '@service/user';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { MARK_BROADCAST } from 'sooltreaming-domain/constant/socketEvent';
+import type { SocketPropType } from '@src/types';
 
-const mark = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const mark = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(MARK_BROADCAST, ({ x, y }) => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;

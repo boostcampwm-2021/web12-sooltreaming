@@ -1,6 +1,5 @@
 import { call, put, all, fork, takeLatest } from 'redux-saga/effects';
 import {
-  DeviceInitTypes,
   REQUEST_INIT_INFO,
   requestInitInfo,
   successInitInfo,
@@ -12,6 +11,7 @@ import {
   successAudioInfo,
 } from '@store/device';
 import customRTC from '@utils/customRTC';
+import type { DeviceInitTypes } from '@ts-types/store';
 
 // 처음 디바이스 셋팅
 async function loadInfosWithDevices({}) {

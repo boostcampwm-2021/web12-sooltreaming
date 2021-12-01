@@ -13,7 +13,7 @@ import useUpdateStream from '@hooks/useUpdateStream';
 import useSignalSocket from '@hooks/socket/useSignalSocket';
 import { MicIcon, XIcon } from '@components/icons';
 
-const MyVideo: React.FC = () => {
+const MyVideo: React.FC = (): React.ReactElement => {
   const myVideoRef = useRef<HTMLVideoElement>(null);
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const isVideoOn = useSelector((state: RootState) => state.device.isVideoOn);

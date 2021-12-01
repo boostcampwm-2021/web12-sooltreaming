@@ -8,7 +8,7 @@ import Setting from '@src/components/setting';
 import Room from '@components/room/';
 import Loading from '@components/custom/Loading';
 
-const JoinRoom: React.FunctionComponent = () => {
+const JoinRoom: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const stream = useSelector((state: RootState) => state.device.stream);
   const isLoading = useSelector((state: RootState) => state.device.isLoading);

@@ -11,7 +11,7 @@ const RoomMenu: React.FC<RoomMenuPropType> = ({
   startVoteRef,
   startGamesRef,
   onclickRequestFriend,
-}) => {
+}): React.ReactElement => {
   const menuType = useSelector((state: RootState) => state.room.menuType);
   const dispatch = useDispatch();
 

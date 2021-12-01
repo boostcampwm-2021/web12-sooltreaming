@@ -1,19 +1,7 @@
-import { Socket } from 'socket.io';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { STREAM_CHANGE_VIDEO, STREAM_CHANGE_AUDIO } from 'sooltreaming-domain/constant/socketEvent';
+import type { SocketPropType } from '@src/types';
 
-const stream = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const stream = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(STREAM_CHANGE_VIDEO, ({ isVideoOn }) => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;

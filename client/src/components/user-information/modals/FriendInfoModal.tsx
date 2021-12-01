@@ -9,7 +9,11 @@ import Information from '@components/user-information/information/';
 import { HomeIcon, GreenXButtonIcon } from '@components/icons';
 import type { FriendInfoModalPropType } from '@ts-types/components/user-information';
 
-const FriendInfoModal: React.FC<FriendInfoModalPropType> = ({ id, nickname, imgUrl }) => {
+const FriendInfoModal: React.FC<FriendInfoModalPropType> = ({
+  id,
+  nickname,
+  imgUrl,
+}): React.ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);

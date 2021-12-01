@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { COLOR, BTN_STYLE } from '@constant/style';
 
-export const Contents = styled.div`
+export const Contents = styled.div<{ keyword: String }>`
   width: 400px;
   height: 200px;
   display: flex;
@@ -10,6 +10,21 @@ export const Contents = styled.div`
   align-items: center;
   padding: 20px;
   position: relative;
+
+  .host {
+    span {
+      font-weight: 600;
+      color: ${COLOR.body};
+    }
+  }
+
+  .keyword {
+    span {
+      font-weight: 600;
+      ${(props) =>
+        props.keyword === '라이어' ? `color: ${COLOR.error3}` : `color: ${COLOR.titleActive}`};
+    }
+  }
 `;
 
 export const GameTitle = styled.div`

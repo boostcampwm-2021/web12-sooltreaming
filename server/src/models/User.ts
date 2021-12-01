@@ -1,26 +1,5 @@
 import { Schema, model } from 'mongoose';
-
-export type UserType = {
-  githubId: string;
-  naverId: string;
-  nickname: string;
-  imgUrl: string;
-
-  chatCount: number;
-  hookCount: number;
-  pollCount: number;
-  closeupCount: number;
-  dieCount: number;
-  cheersCount: number;
-  starterCount: number;
-  totalSeconds: number;
-
-  title: Array<String>;
-
-  sendFriend: Array<String>;
-  receiveFriend: Array<String>;
-  friend: Array<String>;
-};
+import type { UserType } from '@src/types';
 
 const userSchema = new Schema<UserType>(
   {

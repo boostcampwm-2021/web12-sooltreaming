@@ -1,21 +1,9 @@
-import { Socket } from 'socket.io';
 import { createLog } from '@service/user';
 import { getTimeString } from '@utils/time';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { CHAT_RECEIVE, CHAT_SENDING } from 'sooltreaming-domain/constant/socketEvent';
+import type { SocketPropType } from '@src/types';
 
-const chat = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const chat = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(CHAT_SENDING, ({ msg }) => {
     const { code } = targetInfo;
 

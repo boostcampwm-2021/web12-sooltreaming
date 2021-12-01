@@ -1,12 +1,12 @@
 import { call, put, all, fork, takeLatest } from 'redux-saga/effects';
 import {
-  UserStateType,
   USER_LOGIN_REQUEST,
   userLoginRequest,
   userLoginSuccess,
   userLoginFailure,
 } from '@store/user';
 import { loginWithSession } from '@api/user';
+import { UserStateType } from '@ts-types/store';
 
 // 로그인
 async function UserLoginAPI({}: any) {

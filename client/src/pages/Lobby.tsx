@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import Header from '@src/components/Header';
 
-const Lobby: React.FunctionComponent = () => {
+const Lobby: React.FC = (): React.ReactElement => {
   const history = useHistory();
   const nickname = useSelector((state: RootState) => state.user.nickname);
   const chatRoomCodeInput = useRef<HTMLInputElement>(null);

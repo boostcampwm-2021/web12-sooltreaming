@@ -1,7 +1,4 @@
-import { Socket } from 'socket.io';
 import { createLog } from '@service/user';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import {
   VOTE_START,
   VOTE_DECISION,
@@ -13,18 +10,9 @@ import {
 } from 'sooltreaming-domain/constant/socketEvent';
 import { VOTE_TIME } from 'sooltreaming-domain/constant/addition';
 import { STATUS_VOTE_NORMAL, STATUS_VOTE_EXECUTING, STATUS_VOTE_VOTING } from '@src/constant';
+import type { SocketPropType } from '@src/types';
 
-const vote = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const vote = ({ io, socket, rooms, targetInfo }: SocketPropType) => {
   const stopVoting = () => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;

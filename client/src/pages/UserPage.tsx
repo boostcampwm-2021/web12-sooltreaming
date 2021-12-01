@@ -5,7 +5,7 @@ import { friendListRequest, sendFriendListRequest, receiveFriendListRequest } fr
 import UserHeader from '@components/user-information/UserHeader';
 import UserInformation from '@components/user-information';
 
-const UserPage: React.FunctionComponent = () => {
+const UserPage: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const [menu, setMenu] = useState<string>('information');
 

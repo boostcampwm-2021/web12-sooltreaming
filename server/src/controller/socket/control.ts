@@ -1,6 +1,3 @@
-import { Socket } from 'socket.io';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { ERROR } from '@src/constant';
 import {
   CONTROL_AUTHORITY_ERROR,
@@ -11,18 +8,9 @@ import {
   STREAM_FORCE_CHANGE_AUDIO,
   TICKET_FAILURE,
 } from 'sooltreaming-domain/constant/socketEvent';
+import type { SocketPropType } from '@src/types';
 
-const control = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const control = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(CONTROL_TOGGLE_ENTRY, () => {
     const { code } = targetInfo;
 

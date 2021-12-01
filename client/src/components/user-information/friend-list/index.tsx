@@ -8,7 +8,7 @@ import { FriendItem } from '@components/user-information/friend-list/FriendItem'
 import { useSelector } from 'react-redux';
 import { RootState } from '@store/index';
 
-const FriendList: React.FC = () => {
+const FriendList: React.FC = (): React.ReactElement => {
   const friendList = useSelector((state: RootState) => state.friend.friendList);
 
   return (

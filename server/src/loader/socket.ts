@@ -14,40 +14,7 @@ import vote from '@controller/socket/vote';
 
 import pipe from '@utils/pipe';
 import { FRONT_BASE_URL } from '@src/constant';
-
-export type roomType = {
-  [code: string]: {
-    hostSID: string;
-    isOpen: boolean;
-    waiters: Array<string>;
-    closeupUser: string;
-    users: {
-      [sid: string]: {
-        id: string;
-        nickname: string;
-        imgURL: string;
-      };
-    };
-    usersDevices: {
-      [sid: string]: {
-        [deviceOn: string]: boolean;
-      };
-    };
-    status: string;
-    vote: {
-      trial: NodeJS.Timeout | null;
-      defendant: string;
-      cool: { [sid: string]: number };
-      voteBox: {
-        [sid: string]: { isApprove: boolean; isVoted: boolean };
-      };
-    };
-    game: {
-      title: string;
-      host: string;
-    };
-  };
-};
+import type { RoomType } from '@src/types';
 
 const socketLoader = (server, app): any => {
   const io = new Server(server, {
@@ -57,9 +24,9 @@ const socketLoader = (server, app): any => {
       methods: ['GET', 'POST'],
     },
   });
-  const rooms: roomType = {};
+  const rooms: RoomType = {};
 
-  io.on('connection', (socket: Socket) => {
+  io.on('connection', (socket: Socket): void => {
     console.log('socket connection!!', socket.id);
 
     pipe(
