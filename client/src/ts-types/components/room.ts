@@ -34,6 +34,10 @@ export type UpdownGamePropType = {
   randomNumRef: React.MutableRefObject<string>;
 };
 
+export type RandomPickGamePropType = {
+  onePickRef: React.MutableRefObject<string>;
+};
+
 export type OtherVideoPropType = {
   className: string;
   otherStream: MediaStream;
