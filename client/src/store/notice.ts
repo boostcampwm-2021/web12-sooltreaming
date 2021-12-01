@@ -7,6 +7,7 @@ const initialState: NoticeStateType = {
 
 export const [SET_NOTICE_MESSAGE, setNoticeMessage] =
   createAction<ErrorMessageType>('SET_NOTICE_MESSAGE');
+export const [RESET_NOTICE_MESSAGE, resetNoticeMessage] = createAction<{}>('RESET_NOTICE_MESSAGE');
 
 type NoticeAction = ReturnType<typeof setNoticeMessage>;
 
@@ -20,6 +21,12 @@ function noticeReducer(
       return {
         ...state,
         errorMessage,
+      };
+    }
+    case RESET_NOTICE_MESSAGE: {
+      return {
+        ...state,
+        errorMessage: '',
       };
     }
     default:
