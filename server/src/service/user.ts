@@ -5,7 +5,11 @@ import { LOG_EVENT, ERROR } from '@src/constant';
 import { DEFAULT_PROFILE_IMAGE_URL } from 'sooltreaming-domain/constant/addition';
 import { CustomError } from '@utils/error';
 
-export const createLog = async (_id, eventType, value = 1) => {
+export const createLog = async (
+  _id: string,
+  eventType: string,
+  value: number = 1,
+): Promise<void> => {
   await User.updateOne({ _id }, { $inc: { [LOG_EVENT[eventType]]: value } });
 };
 

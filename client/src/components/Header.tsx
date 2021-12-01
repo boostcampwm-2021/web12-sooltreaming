@@ -5,7 +5,7 @@ import { RootState } from '@src/store';
 import { HumanIcon } from '@components/icons';
 import { useHistory } from 'react-router-dom';
 
-const Header: React.FC = () => {
+const Header: React.FC = (): React.ReactElement => {
   const history = useHistory();
   const { id, nickname, imgUrl } = useSelector((state: RootState) => state.user);
 

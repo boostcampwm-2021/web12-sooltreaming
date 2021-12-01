@@ -1,19 +1,7 @@
-import { Socket } from 'socket.io';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { FRIEND_REQUEST } from 'sooltreaming-domain/constant/socketEvent';
+import type { SocketPropType } from '@src/types';
 
-const friend = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const friend = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(FRIEND_REQUEST, ({ sid, id, imgUrl, nickname }) => {
     io.to(sid).emit(FRIEND_REQUEST, { id, imgUrl, nickname });
   });

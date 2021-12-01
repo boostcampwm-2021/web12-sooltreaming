@@ -7,7 +7,7 @@ import VotePresser from '@src/components/room/scaffold/VotePresser';
 import Voters from '@src/components/room/scaffold/Voters';
 import type { ScaffoldPropType } from '@ts-types/components/room';
 
-const Scaffold: React.FC<ScaffoldPropType> = ({ startVoteRef }) => {
+const Scaffold: React.FC<ScaffoldPropType> = ({ startVoteRef }): React.ReactElement => {
   const [isVote, setIsVote] = useState<boolean>(false);
   const { isOpen, target, total, approves, rejects, startVoting, makeDecision } = useVoteSocket();
 

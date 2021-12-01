@@ -1,4 +1,4 @@
-export type dropdownPropType = {
+export type DropdownPropType = {
   renderButton: (prop?: any) => React.ReactNode;
   renderItem: (prop?: any) => React.ReactNode;
   itemList: any[];

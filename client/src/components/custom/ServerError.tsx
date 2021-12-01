@@ -1,6 +1,6 @@
 import { Container, StatusText, GuideText } from './ServerError.style';
 
-const ServerError = ({ status }) => {
+const ServerError = ({ status }): React.ReactElement => {
   return (
     <Container>
       <StatusText>

@@ -5,7 +5,7 @@ import cors from 'cors';
 import session from 'express-session';
 import { FRONT_BASE_URL, SESSION_SECRET } from '@src/constant';
 
-const basicLoader = (app) => {
+const basicLoader = (app): any => {
   app.use(
     cors({
       origin: [FRONT_BASE_URL],

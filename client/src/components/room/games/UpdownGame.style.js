@@ -10,10 +10,17 @@ export const Contents = styled.div`
   align-items: center;
   padding: 20px;
   position: relative;
+
   img {
     position: absolute;
     top: 40px;
   }
+
+  span {
+    font-weight: 600;
+    color: ${COLOR.body};
+  }
+
   .random-num {
     position: relative;
     z-index: ${Z_INDEX.updownNum};

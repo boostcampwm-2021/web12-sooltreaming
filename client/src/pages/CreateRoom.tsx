@@ -5,7 +5,7 @@ import { setNoticeMessage } from '@store/notice';
 import Socket from '@socket/socket';
 import Loading from '@components/custom/Loading';
 
-const CreateRoom: React.FunctionComponent = () => {
+const CreateRoom: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const history = useHistory();
 

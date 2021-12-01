@@ -12,7 +12,10 @@ import { useDispatch } from 'react-redux';
 import { deleteFriend } from '@store/friend';
 import type { FriendDeleteModalPropType } from '@ts-types/components/user-information';
 
-const FriendDeleteModal: React.FC<FriendDeleteModalPropType> = ({ id, nickname }) => {
+const FriendDeleteModal: React.FC<FriendDeleteModalPropType> = ({
+  id,
+  nickname,
+}): React.ReactElement => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const closeModal = () => setIsOpen(false);
   const dispatch = useDispatch();

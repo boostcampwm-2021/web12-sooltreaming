@@ -16,7 +16,7 @@ import { API } from '@api/index';
 import { FriendItem } from '@components/user-information/friend-list/FriendItem';
 import { GreenXButtonIcon } from '@src/components/icons';
 
-const FriendRequestModal: React.FC = () => {
+const FriendRequestModal: React.FC = (): React.ReactElement => {
   const dispatch = useDispatch();
   const { sendFriendList, receiveFriendList } = useSelector((state: RootState) => state.friend);
 

@@ -14,7 +14,7 @@ const MENU_NAME = {
   ranking: '랭킹',
 };
 
-const UserHeader = ({ menu, defineMenu }) => {
+const UserHeader: React.FC<any> = ({ menu, defineMenu }): React.ReactElement => {
   const history = useHistory();
 
   const goBack = () => {

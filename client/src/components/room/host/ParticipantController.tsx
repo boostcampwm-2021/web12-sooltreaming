@@ -3,7 +3,7 @@ import { RootState } from '@src/store';
 import { ColumnBox } from '@components/room/host/ParticipantController.style';
 import Participant from '@components/room/host/Participant';
 
-const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }) => {
+const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }): React.ReactElement => {
   const users = useSelector((state: RootState) => state.room.users);
   const hostSID = useSelector((state: RootState) => state.room.hostSID);
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);

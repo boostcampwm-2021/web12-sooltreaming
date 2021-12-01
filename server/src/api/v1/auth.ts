@@ -13,7 +13,7 @@ const redirectRouter = (req, res) => res.redirect(AUTH_REDIRECT_URL);
 router.get('/github', passport.authenticate('github'), redirectRouter);
 router.get('/naver', passport.authenticate('naver'), redirectRouter);
 
-router.get('/login', (req, res, next) => {
+router.get('/login', (req, res, next): any => {
   try {
     const isAuth = req.isAuthenticated();
     if (!isAuth) throw new CustomError(401, 'fail to login');

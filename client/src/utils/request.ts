@@ -1,14 +1,7 @@
 import { BACK_BASE_URL, BACK_VERSION } from '@constant/envs';
+import { fetchParams } from '@ts-types/utils';
 
 const BASE_URL = `${BACK_BASE_URL}/api/${BACK_VERSION}`;
-
-interface fetchParams {
-  url: string;
-  query?: { [key: string]: string };
-  body?: FormData | Object;
-  headerOptions?: HeadersInit;
-  options?: RequestInit;
-}
 
 const customFetch =
   (method: string) =>

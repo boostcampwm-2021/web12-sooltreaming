@@ -18,7 +18,7 @@ import {
 
 import { getRank } from '@api/rank';
 import { setNoticeMessage } from '@store/notice';
-import { store } from '@src/store/store';
+import { store } from '@store/store';
 
 export const API = {
   TYPE: {

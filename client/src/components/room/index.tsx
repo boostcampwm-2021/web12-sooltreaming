@@ -11,7 +11,7 @@ import useFriendSocket from '@src/hooks/socket/useFriendSocket';
 
 import Socket from '@socket/socket';
 
-const ChatRoom: React.FC = () => {
+const ChatRoom: React.FC = (): React.ReactElement => {
   const startVoteRef = useRef<Function>(() => {});
   const startGamesRef = useRef<Function>(() => {});
 

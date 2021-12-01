@@ -1,5 +1,5 @@
 import React from 'react';
-import type { iconPropType } from '@ts-types/components/icons';
+import type { IconPropType } from '@ts-types/components/icons';
 
 const RejectIcon = ({
   className,
@@ -7,7 +7,7 @@ const RejectIcon = ({
   height,
   fill,
   stroke,
-}: iconPropType): React.ReactElement => {
+}: IconPropType): React.ReactElement => {
   return (
     <svg
       width={width ?? 136}

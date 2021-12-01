@@ -14,7 +14,11 @@ import useToggleSpeaker from '@hooks/useToggleSpeaker';
 import { MicIcon, XIcon } from '@components/icons';
 import type { OtherVideoPropType } from '@ts-types/components/room';
 
-const OtherVideo: React.FC<OtherVideoPropType> = ({ className, otherStream, sid }) => {
+const OtherVideo: React.FC<OtherVideoPropType> = ({
+  className,
+  otherStream,
+  sid,
+}): React.ReactElement => {
   const users = useSelector((state: RootState) => state.room.users);
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);
 

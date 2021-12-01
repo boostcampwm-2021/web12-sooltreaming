@@ -1,6 +1,3 @@
-import { Socket } from 'socket.io';
-import type { roomType } from '@loader/socket';
-import type { TargetInfoType } from '@controller/socket/enter';
 import { createLog } from '@service/user';
 import {
   CHEERS_BROADCAST,
@@ -8,18 +5,9 @@ import {
   CLOSEUP_OFF,
 } from 'sooltreaming-domain/constant/socketEvent';
 import { STATUS_VOTE_NORMAL, STATUS_VOTE_EXECUTING } from '@src/constant';
+import type { SocketPropType } from '@src/types';
 
-const animation = ({
-  io,
-  socket,
-  rooms,
-  targetInfo,
-}: {
-  io: any;
-  socket: Socket;
-  rooms: roomType;
-  targetInfo: TargetInfoType;
-}) => {
+const animation = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropType => {
   socket.on(CHEERS_BROADCAST, () => {
     const { code } = targetInfo;
     if (!(code in rooms)) return;
