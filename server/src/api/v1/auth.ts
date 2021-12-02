@@ -27,4 +27,11 @@ router.get('/login', (req, res, next): any => {
   }
 });
 
+router.get('/logout', (req, res, next) => {
+  req.logout();
+  req.session.destroy(function () {
+    res.redirect('http://localhost:3000/login');
+  });
+});
+
 export default router;
