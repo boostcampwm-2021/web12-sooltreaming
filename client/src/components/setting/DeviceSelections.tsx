@@ -5,7 +5,7 @@ import { requestVideoInfo, requestAudioInfo, requestSpeakerInfo } from '@store/d
 import SettingDropdown from '@components/setting/SettingDropdown';
 
 const DeviceSelections: React.FC = (): React.ReactElement => {
-  const { videoInfo, audioInfo, speakerInfo, videoDevices, audioDevices, speakerDevices, stream } =
+  const { videoInfo, audioInfo, speakerInfo, videoDevices, audioDevices, speakerDevices } =
     useSelector((state: RootState) => state.device);
   const dispatch = useDispatch();
 
@@ -15,21 +15,21 @@ const DeviceSelections: React.FC = (): React.ReactElement => {
         menuList={videoDevices}
         selected={videoInfo}
         setSelected={(item) => {
-          dispatch(requestVideoInfo({ videoInfo: item, stream }));
+          dispatch(requestVideoInfo({ videoInfo: item }));
         }}
       />
       <SettingDropdown
         menuList={audioDevices}
         selected={audioInfo}
         setSelected={(item) => {
-          dispatch(requestAudioInfo({ audioInfo: item, stream }));
+          dispatch(requestAudioInfo({ audioInfo: item }));
         }}
       />
       <SettingDropdown
         menuList={speakerDevices}
         selected={speakerInfo}
         setSelected={(item) => {
-          dispatch(requestSpeakerInfo({ speakerInfo: item, stream }));
+          dispatch(requestSpeakerInfo({ speakerInfo: item }));
         }}
       />
     </>

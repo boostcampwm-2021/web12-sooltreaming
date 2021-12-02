@@ -17,23 +17,21 @@ const initialState: DeviceStateType = {
 
 //
 export const [SET_VIDEO_POWER, setVideoPower] =
-  createAction<{ isVideoOn: boolean; videoInfo: MediaDeviceInfo | null; stream: MediaStream }>(
-    'SET_VIDEO_POWER',
-  );
+  createAction<{ isVideoOn: boolean }>('SET_VIDEO_POWER');
 export const [SET_AUDIO_POWER, setAudioPower] =
   createAction<{ isAudioOn: boolean }>('SET_AUDIO_POWER');
 export const [SET_SPEAKER_POWER, setSpeakerPower] =
   createAction<{ isSpeakerOn: boolean }>('SET_SPEAKER_POWER');
 export const [REQUEST_VIDEO_INFO, requestVideoInfo] =
-  createAction<{ videoInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_VIDEO_INFO');
+  createAction<{ videoInfo: MediaDeviceInfo }>('REQUEST_VIDEO_INFO');
 export const [SUCCESS_VIDEO_INFO, successVideoInfo] =
   createAction<{ stream: MediaStream }>('SUCCESS_VIDEO_INFO');
 export const [REQUEST_AUDIO_INFO, requestAudioInfo] =
-  createAction<{ audioInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_AUDIO_INFO');
+  createAction<{ audioInfo: MediaDeviceInfo }>('REQUEST_AUDIO_INFO');
 export const [SUCCESS_AUDIO_INFO, successAudioInfo] =
   createAction<{ stream: MediaStream }>('SUCCESS_AUDIO_INFO');
 export const [REQUEST_SPEAKER_INFO, requestSpeakerInfo] =
-  createAction<{ speakerInfo: MediaDeviceInfo; stream: MediaStream }>('REQUEST_SPEAKER_INFO');
+  createAction<{ speakerInfo: MediaDeviceInfo }>('REQUEST_SPEAKER_INFO');
 
 export const [REQUEST_INIT_INFO, requestInitInfo] = createAction<{}>('REQUEST_INIT_INFO');
 export const [SUCCESS_INIT_INFO, successInitInfo] =
@@ -58,10 +56,7 @@ function deviceReducer(
   switch (action.type) {
     case SET_VIDEO_POWER: {
       const { isVideoOn } = action.payload as { isVideoOn: boolean };
-      state.stream.getVideoTracks().forEach((track) => {
-        track.enabled = isVideoOn;
-        if (isVideoOn === false) track.stop();
-      });
+      state.stream.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
       return {
         ...state,
         isVideoOn,
