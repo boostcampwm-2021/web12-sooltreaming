@@ -33,8 +33,9 @@ const Ranks: React.FC = (): React.ReactElement => {
 
   useEffect(() => {
     const getRank = async () => {
-      const rank = await API.call(API.TYPE.GET_RANK, rankingMenuList[nowSelect]);
-      setRank(rank);
+      const newRank = await API.call(API.TYPE.GET_RANK, rankingMenuList[nowSelect]);
+      if (!newRank) return;
+      setRank(newRank);
       setIsLoading(false);
     };
     getRank();

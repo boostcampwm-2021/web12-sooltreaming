@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
-import { setNoticeMessage } from '@store/notice';
+import { resetNoticeMessage } from '@store/notice';
 import { ErrorToastBox } from '@components/custom/ErrorToast.style';
 import { TOAST_TIME } from 'sooltreaming-domain/constant/addition';
 
@@ -22,7 +22,7 @@ const ErrorToast: React.FC = (): React.ReactElement => {
     const closeMethod = setTimeout(activeMessage, TOAST_TIME);
     setPreviousAct(closeMethod);
     setDisplayMessage(errorMessage);
-    dispatch(setNoticeMessage({ errorMessage: '' }));
+    dispatch(resetNoticeMessage({}));
   }, [errorMessage]);
 
   if (!displayMessage) return <></>;

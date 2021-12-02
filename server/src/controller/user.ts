@@ -1,6 +1,6 @@
 import { CustomError, errorWrapper } from '@utils/error';
 import { getUserInfoService, updateNickname, updateUserImage } from '@service/user';
-import { ERROR } from '@src/constant';
+import { ERROR, SUCCESS } from '@src/constant';
 
 export const getUserInformation = errorWrapper(async (req, res, next): Promise<void> => {
   const { id: _id } = req.query;
@@ -19,7 +19,7 @@ export const postUserImage = errorWrapper(async (req, res, next): Promise<void> 
 
   res.status(200).json({
     imgUrl,
-    message: 'User Information Update Success',
+    message: SUCCESS.message,
   });
 });
 
@@ -31,6 +31,6 @@ export const patchUserNickname = errorWrapper(async (req, res, next): Promise<vo
   await updateNickname(_id, nickname);
 
   res.status(200).json({
-    message: 'User Information Update Success',
+    message: SUCCESS.message,
   });
 });

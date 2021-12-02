@@ -18,39 +18,25 @@ export const logoutAPI = async (history) => {
 };
 
 export const getUserInformation = async (id) => {
-  const { status, json } = await request.get({ url: '/user', query: { id } });
-  if (status < 400) {
-    const { information, nicknameLog } = json;
-    return { information, nicknameLog };
-  } else throw new Error(json.error.toString());
-};
-
-export const getUserNicknameLog = async (id) => {
-  const { status, json } = await request.get({ url: '/user/nickname', query: { id } });
-  if (status < 400) {
-    return json.nicknameLog;
-  } else throw new Error(json.error.toString());
+  const result = await request.get({ url: '/user', query: { id } });
+  return result;
 };
 
 export const patchUserNickname = async (newNickname) => {
-  const { status, json } = await request.patch({
+  const result = await request.patch({
     url: '/user/nickname',
     body: { nickname: newNickname },
   });
-  if (status < 400) {
-    return json.message;
-  } else throw new Error(json.error.toString());
+  return result;
 };
 
 export const postUserImage = async (newFile) => {
-  const { status, json } = await request.post({
+  const result = await request.post({
     url: '/user/image',
     headerOptions: {},
     body: newFile,
   });
-  if (status < 400) {
-    return json.imgUrl;
-  } else throw new Error(json.error.toString());
+  return result;
 };
 
 export const patchTotalSeconds = async (exitTime) => {

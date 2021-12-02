@@ -85,8 +85,10 @@ const NickChangeModal: React.FC = (): React.ReactElement => {
     const formData = new FormData();
     // newImage가 없을 때 FormData에 안넣기
     if (newImage && newImage[0]) formData.append('image', newImage[0]);
-    const test = await API.call(API.TYPE.POST_USER_IMAGE, formData);
-    dispatch(setImage(test));
+    const result = await API.call(API.TYPE.POST_USER_IMAGE, formData);
+    if (!result) return;
+    const { imgUrl: newImgUrl } = result;
+    dispatch(setImage(newImgUrl));
   };
 
   const profileChangeCallback = (): void => {

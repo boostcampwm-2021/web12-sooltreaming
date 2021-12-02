@@ -1,10 +1,4 @@
-import {
-  getUserInformation,
-  getUserNicknameLog,
-  postUserImage,
-  patchUserNickname,
-  patchTotalSeconds,
-} from '@api/user';
+import { getUserInformation, postUserImage, patchUserNickname, patchTotalSeconds } from '@api/user';
 import {
   postFriend,
   getSendFriend,
@@ -15,10 +9,10 @@ import {
   patchUnfriend,
   patchFriend,
 } from '@api/friend';
-
 import { getRank } from '@api/rank';
 import { setNoticeMessage } from '@store/notice';
 import { store } from '@store/store';
+import { resetUser } from '@store/user';
 
 export const API = {
   TYPE: {
@@ -26,7 +20,6 @@ export const API = {
     PATCH_USER_NICKNAME: patchUserNickname,
     POST_USER_IMAGE: postUserImage,
     GET_USER_INFORMATION: getUserInformation,
-    GET_USER_NICKNAME_LOG: getUserNicknameLog,
 
     POST_FRIEND: postFriend,
     GET_SEND_FRIEND: getSendFriend,
@@ -42,8 +35,12 @@ export const API = {
 
   call: async function (api, data = {}) {
     try {
-      const resolve = await api(data);
-      return resolve;
+      const { json, status } = await api(data);
+      if (status < 400) return json;
+      if (status === 401) {
+        store.dispatch(resetUser({}));
+      }
+      throw new Error(json.error);
     } catch (error: any) {
       store.dispatch(setNoticeMessage({ errorMessage: error.message }));
     }

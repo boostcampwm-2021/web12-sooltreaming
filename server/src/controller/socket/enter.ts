@@ -55,7 +55,7 @@ const enter = ({ io, socket, rooms }: EnterPropType): SocketPropType => {
     delete rooms[code].users[sid];
     if (!Object.keys(rooms[code].users).length) {
       rooms[code].waiters.forEach((sid) => {
-        io.to(sid).emit(TICKET_FAILURE, { message: '방이 사라졌습니다.' });
+        io.to(sid).emit(TICKET_FAILURE, { message: ERROR.DELETED_ROOM });
       });
       delete rooms[code];
     } else {
