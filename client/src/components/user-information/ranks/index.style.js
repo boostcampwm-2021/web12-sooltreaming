@@ -6,12 +6,10 @@ export const HeaderContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 2rem 0;
-
   img {
-    width: 9%;
-    height: 7%;
-    margin-bottom: 2rem;
+    flex: 0 0 auto;
+    width: 90px;
+    margin-bottom: 2.5rem;
   }
 `;
 
@@ -20,4 +18,5 @@ export const RankContainer = styled.div`
   width: 100%;
   height: 50%;
   justify-content: center;
+  margin: 3rem 0;
 `;
