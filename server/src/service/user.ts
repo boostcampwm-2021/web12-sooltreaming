@@ -65,9 +65,11 @@ export const updateUserImage = async (_id, image) => {
 
   if (prevImgUrl !== DEFAULT_PROFILE_IMAGE_URL && !prevImgUrl.includes(GITHUB_IMG_URL)) {
     const prevImgName = prevImgUrl.match(/(uploads[^:*?"<>|]+)/)[0];
+    const decodeName = decodeURIComponent(prevImgName);
+
     await S3.deleteObject({
       Bucket: NCP_BUCKET,
-      Key: prevImgName,
+      Key: decodeName,
     }).promise();
   }
 
