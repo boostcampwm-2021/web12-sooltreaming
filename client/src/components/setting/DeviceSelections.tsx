@@ -5,8 +5,12 @@ import { requestVideoInfo, requestAudioInfo, requestSpeakerInfo } from '@store/d
 import SettingDropdown from '@components/setting/SettingDropdown';
 
 const DeviceSelections: React.FC = (): React.ReactElement => {
-  const { videoInfo, audioInfo, speakerInfo, videoDevices, audioDevices, speakerDevices } =
-    useSelector((state: RootState) => state.device);
+  const videoInfo = useSelector((state: RootState) => state.device.videoInfo);
+  const audioInfo = useSelector((state: RootState) => state.device.audioInfo);
+  const speakerInfo = useSelector((state: RootState) => state.device.speakerInfo);
+  const videoDevices = useSelector((state: RootState) => state.device.videoDevices);
+  const audioDevices = useSelector((state: RootState) => state.device.audioDevices);
+  const speakerDevices = useSelector((state: RootState) => state.device.speakerDevices);
   const dispatch = useDispatch();
 
   return (
