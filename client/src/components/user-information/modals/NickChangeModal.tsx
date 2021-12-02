@@ -158,7 +158,7 @@ const NickChangeModal: React.FC = (): React.ReactElement => {
             placeholder={'닉네임을 입력해주세요.'}
             defaultValue={nickname}
             onChange={checkChanged}
-            maxLength={15}
+            maxLength={12}
           />
         </ModalContents>
         <ButtonContainer>

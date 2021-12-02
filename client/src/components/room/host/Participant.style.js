@@ -23,6 +23,10 @@ export const Profile = styled.div`
   height: 32px;
   display: flex;
   align-items: center;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-right: 8px;
+
   & > img {
     width: 30px;
     height: 30px;
@@ -31,8 +35,17 @@ export const Profile = styled.div`
     user-select: none;
     margin-right: 10px;
   }
+
   & > div {
     margin: auto 0;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 `;
 
