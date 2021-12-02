@@ -26,8 +26,8 @@ const OtherVideo: React.FC<OtherVideoPropType> = ({
   useUpdateSpeaker(otherRef);
   useToggleSpeaker(otherRef);
   useUpdateStream(otherRef, otherStream);
-  const { isVideoOn, isAudioOn } = usersDevices[sid];
-  const imgUrl = users[sid].imgUrl;
+  const { isVideoOn, isAudioOn } = usersDevices[sid] ?? {};
+  const { nickname, imgUrl } = users[sid] ?? {};
 
   return (
     <CameraContainer className={className}>
@@ -36,7 +36,7 @@ const OtherVideo: React.FC<OtherVideoPropType> = ({
         <ProfileImage src={imgUrl} />
       </ImageBox>
       <Name>
-        {users[sid].nickname}
+        {nickname}
         {!isAudioOn && (
           <>
             <MicIcon width={8} height={18} stroke={'red'} />
