@@ -20,7 +20,7 @@ const control = ({ io, socket, rooms, targetInfo }: SocketPropType): SocketPropT
     const state = rooms[code].isOpen;
     if (state) {
       rooms[code].waiters.forEach((sid) => {
-        io.to(sid).emit(TICKET_FAILURE, { message: '방장이 방을 닫았습니다.' });
+        io.to(sid).emit(TICKET_FAILURE, { message: ERROR.CLOSE_ROOM });
       });
       rooms[code].waiters = [];
     }
