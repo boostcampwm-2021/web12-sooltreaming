@@ -31,6 +31,7 @@ export const DB_PASSWORD = process.env.DB_PASSWORD;
 
 export const GITHUB_ID = process.env.GITHUB_ID;
 export const GITHUB_SECRET = process.env.GITHUB_SECRET;
+export const GITHUB_IMG_URL = 'https://avatars.githubusercontent.com';
 
 export const NAVER_ID = process.env.NAVER_ID;
 export const NAVER_SECRET = process.env.NAVER_SECRET;
@@ -46,6 +47,8 @@ export const STATUS_VOTE_VOTING = 'STATUS_VOTE_VOTING';
 export const NCP_ACCESS_KEY = process.env.NCP_ACCESS_KEY;
 export const NCP_SECRET_KEY = process.env.NCP_SECRET_KEY;
 export const NCP_REGION = process.env.NCP_REGION;
+
+export const IMG_DELETE_TIME = 1000 * 60 * 5;
 
 export const LOG_EVENT = Object.freeze({
   CLOSEUP_ON: 'closeupCount',
