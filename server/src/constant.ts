@@ -58,6 +58,10 @@ export const LOG_EVENT = Object.freeze({
   EXIT: 'totalSeconds',
 });
 
+export const SUCCESS = {
+  message: 'success',
+};
+
 export const ERROR = {
   SESSION_EXPIRE: '로그인을 다시 해주세요 ヽ(^。^)丿',
   NOT_EXIST_USER: '사용자가 존재하지 않습니다. ヽ( ຶ▮ ຶ)ﾉ!!!',
@@ -69,6 +73,9 @@ export const ERROR = {
   EXIST_FRIEND_REQUEST: '♡ 상대방이 이미 칭구 걸었지용가리 ☆～（ゝ。∂）♡',
   PERMISSION_DENIED: '(;´・`)> 권한이 없습니다.',
   UNAUTHORIZED_ROOM: '(;´・`)> 입장이 제한된 방입니다.',
+
+  CLOSE_ROOM: '(;´・`)> 방장이 방을 닫았습니다.',
+  DELETED_ROOM: '방이 사라졌습니다. ヽ( ຶ▮ ຶ)ﾉ!!!',
 };
 
 export const KEYWORDS = [
