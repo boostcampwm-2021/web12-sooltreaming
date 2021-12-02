@@ -9,12 +9,12 @@ export const loginWithSession = async () => {
   } else throw new Error(status.toString());
 };
 
-export const logoutAPI = async (history) => {
+export const logoutAPI = async (callback) => {
   await request.get({
     url: '/auth/logout',
     options: { redirect: 'manual' as RequestRedirect },
   });
-  history.push('/login');
+  callback();
 };
 
 export const getUserInformation = async (id) => {
