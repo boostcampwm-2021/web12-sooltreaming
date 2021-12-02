@@ -1,7 +1,7 @@
 import User from '@models/User';
 import NicknameLog from '@models/NicknameLog';
 import { userCount } from '@utils/userCount';
-import { LOG_EVENT, ERROR } from '@src/constant';
+import { LOG_EVENT, ERROR, GITHUB_IMG_URL } from '@src/constant';
 import { DEFAULT_PROFILE_IMAGE_URL } from 'sooltreaming-domain/constant/addition';
 import { CustomError } from '@utils/error';
 import { NCP_ACCESS_KEY, NCP_SECRET_KEY, NCP_REGION } from '@src/constant';
@@ -61,6 +61,16 @@ export const updateNickname = async (_id, nickname) => {
 };
 
 export const updateUserImage = async (_id, image) => {
+  const { imgUrl: prevImgUrl } = await User.findOne({ _id }).select('imgUrl').exec();
+
+  if (prevImgUrl !== DEFAULT_PROFILE_IMAGE_URL && !prevImgUrl.includes(GITHUB_IMG_URL)) {
+    const prevImgName = prevImgUrl.match(/(uploads[^:*?"<>|]+)/)[0];
+    await S3.deleteObject({
+      Bucket: NCP_BUCKET,
+      Key: prevImgName,
+    }).promise();
+  }
+
   if (!image) {
     image = DEFAULT_PROFILE_IMAGE_URL;
   } else {
