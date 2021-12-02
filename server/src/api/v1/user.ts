@@ -2,12 +2,7 @@ import express from 'express';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
 import AWS from 'aws-sdk';
-import {
-  getUserInformation,
-  postUserImage,
-  patchUserNickname,
-  patchTotalSeconds,
-} from '@controller/user';
+import { getUserInformation, postUserImage, patchUserNickname } from '@controller/user';
 
 import { NCP_ACCESS_KEY, NCP_SECRET_KEY, NCP_REGION } from '@src/constant';
 import { NCP_ENDPOINT, NCP_BUCKET } from 'sooltreaming-domain/constant/addition';
@@ -40,6 +35,5 @@ const router = express.Router();
 router.get('/', getUserInformation);
 router.post('/image', upload.single('image'), postUserImage);
 router.patch('/nickname', patchUserNickname);
-router.patch('/exit', patchTotalSeconds);
 
 export default router;

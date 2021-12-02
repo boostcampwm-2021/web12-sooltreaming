@@ -1,10 +1,5 @@
 import { CustomError, errorWrapper } from '@utils/error';
-import {
-  getUserInfoService,
-  updateNickname,
-  updateTotalSeconds,
-  updateUserImage,
-} from '@service/user';
+import { getUserInfoService, updateNickname, updateUserImage } from '@service/user';
 import { ERROR, SUCCESS } from '@src/constant';
 
 export const getUserInformation = errorWrapper(async (req, res, next): Promise<void> => {
@@ -39,16 +34,3 @@ export const patchUserNickname = errorWrapper(async (req, res, next): Promise<vo
     message: SUCCESS.message,
   });
 });
-
-export const patchTotalSeconds = async (req, res, next): Promise<void> => {
-  if (!req.user) return res.status(200).json({});
-  const _id = req.user._id;
-  const { startTime } = req.session;
-  const { exitTime } = req.body;
-  if (!startTime || !exitTime) throw new CustomError(400, ERROR.INVALID_DATA);
-  await updateTotalSeconds(_id, startTime, exitTime);
-
-  req.session.startTime = new Date().getTime();
-
-  res.status(200).json({ message: SUCCESS.message });
-};

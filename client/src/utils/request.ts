@@ -31,6 +31,7 @@ const customFetch =
 
     const resolve = await fetch(`${BASE_URL}${url}${query_string}`, init);
     const { status } = resolve;
+    if (!status) return resolve;
     const json = await resolve.json();
     return { json, status };
   };
