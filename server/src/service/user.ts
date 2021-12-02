@@ -4,6 +4,34 @@ import { userCount } from '@utils/userCount';
 import { LOG_EVENT, ERROR } from '@src/constant';
 import { DEFAULT_PROFILE_IMAGE_URL } from 'sooltreaming-domain/constant/addition';
 import { CustomError } from '@utils/error';
+import { NCP_ACCESS_KEY, NCP_SECRET_KEY, NCP_REGION } from '@src/constant';
+import { NCP_ENDPOINT, NCP_BUCKET } from 'sooltreaming-domain/constant/addition';
+import AWS from 'aws-sdk';
+import multer from 'multer';
+import multerS3 from 'multer-s3';
+
+const S3 = new AWS.S3({
+  endpoint: NCP_ENDPOINT,
+  region: NCP_REGION,
+  credentials: {
+    accessKeyId: NCP_ACCESS_KEY,
+    secretAccessKey: NCP_SECRET_KEY,
+  },
+});
+
+const storage = multerS3({
+  s3: S3,
+  bucket: NCP_BUCKET,
+  contentType: multerS3.AUTO_CONTENT_TYPE,
+  acl: 'public-read',
+  key: (req, file, cb) => {
+    cb(null, `uploads/${Date.now()}__${file.originalname}`);
+  },
+});
+
+export const upload = multer({
+  storage: storage,
+});
 
 export const createLog = async (
   _id: string,
