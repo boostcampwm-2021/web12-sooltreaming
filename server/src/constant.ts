@@ -48,6 +48,8 @@ export const NCP_ACCESS_KEY = process.env.NCP_ACCESS_KEY;
 export const NCP_SECRET_KEY = process.env.NCP_SECRET_KEY;
 export const NCP_REGION = process.env.NCP_REGION;
 
+export const IMG_DELETE_TIME = 1000 * 60 * 5;
+
 export const LOG_EVENT = Object.freeze({
   CLOSEUP_ON: 'closeupCount',
   CHAT_SENDING: 'chatCount',

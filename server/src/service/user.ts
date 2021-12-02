@@ -9,6 +9,7 @@ import {
   NCP_ACCESS_KEY,
   NCP_SECRET_KEY,
   NCP_REGION,
+  IMG_DELETE_TIME,
 } from '@src/constant';
 import {
   DEFAULT_PROFILE_IMAGE_URL,
@@ -71,17 +72,7 @@ export const updateNickname = async (_id, nickname) => {
 };
 
 export const updateUserImage = async (_id, image) => {
-  const { imgUrl: prevImgUrl } = await User.findOne({ _id }).select('imgUrl').exec();
-
-  if (prevImgUrl !== DEFAULT_PROFILE_IMAGE_URL && !prevImgUrl.includes(GITHUB_IMG_URL)) {
-    const prevImgName = prevImgUrl.match(/(uploads[^:*?"<>|]+)/)[0];
-    const decodeName = decodeURIComponent(prevImgName);
-
-    await S3.deleteObject({
-      Bucket: NCP_BUCKET,
-      Key: decodeName,
-    }).promise();
-  }
+  await deletePrevImg(_id);
 
   if (!image) {
     image = DEFAULT_PROFILE_IMAGE_URL;
@@ -102,4 +93,20 @@ export const updateUserImage = async (_id, image) => {
 export const updateTotalSeconds = async (_id, startTime, exitTime) => {
   const value = Math.floor((exitTime - startTime) / 1000);
   await createLog(_id, 'EXIT', value);
+};
+
+const deletePrevImg = async (_id) => {
+  const { imgUrl: prevImgUrl } = await User.findOne({ _id }).select('imgUrl').exec();
+
+  if (prevImgUrl === DEFAULT_PROFILE_IMAGE_URL || prevImgUrl.includes(GITHUB_IMG_URL)) return;
+
+  const prevImgName = prevImgUrl.match(/(uploads[^:*?"<>|]+)/)[0];
+  const decodeName = decodeURIComponent(prevImgName);
+
+  setTimeout(async () => {
+    await S3.deleteObject({
+      Bucket: NCP_BUCKET,
+      Key: decodeName,
+    }).promise();
+  }, IMG_DELETE_TIME);
 };
