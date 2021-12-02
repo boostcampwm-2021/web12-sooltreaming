@@ -59,16 +59,16 @@ export const LOG_EVENT = Object.freeze({
 });
 
 export const ERROR = {
-  SESSION_EXPIRE: '로그인을 다시 해주세요!',
-  NOT_EXIST_USER: '사용자가 존재하지 않습니다.',
-  NOT_EXIST_ROOM: '존재하지 않는 방입니다.',
-  NOT_EXIST_REQUEST: '엥 님 손 절 당했을 지 도, ,., . ?',
-  INVALID_ID: '올바르지 않은 ID 입니다.',
-  INVALID_DATA: '올바르지 않은 데이터입니다.',
-  INVALID_TYPE: '올바르지 않은 타입입니다.',
-  EXIST_FRIEND_REQUEST: '♡ 상대방이 이미 칭구 걸었지용가리 ^0^ ♡',
-  PERMISSION_DENIED: '권한이 없습니다.',
-  UNAUTHORIZED_ROOM: '입장이 제한된 방입니다.',
+  SESSION_EXPIRE: '로그인을 다시 해주세요 ヽ(^。^)丿',
+  NOT_EXIST_USER: '사용자가 존재하지 않습니다. ヽ( ຶ▮ ຶ)ﾉ!!!',
+  NOT_EXIST_ROOM: '(;´・`)> 존재하지 않는 방입니다.',
+  NOT_EXIST_REQUEST: '(;° ロ°) 엥 님 손 절 당했을 지 도, ,., . ?',
+  INVALID_ID: '올바르지 않은 ID 입니다. ヽ( ຶ▮ ຶ)ﾉ!!!',
+  INVALID_DATA: '올바르지 않은 데이터입니다. ヽ( ຶ▮ ຶ)ﾉ!!!',
+  INVALID_TYPE: '올바르지 않은 타입입니다. ヽ( ຶ▮ ຶ)ﾉ!!!',
+  EXIST_FRIEND_REQUEST: '♡ 상대방이 이미 칭구 걸었지용가리 ☆～（ゝ。∂）♡',
+  PERMISSION_DENIED: '(;´・`)> 권한이 없습니다.',
+  UNAUTHORIZED_ROOM: '(;´・`)> 입장이 제한된 방입니다.',
 };
 
 export const KEYWORDS = [
