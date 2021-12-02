@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, BTN_STYLE, Z_INDEX } from '@constant/style';
+import { COLOR, BTN_STYLE } from '@constant/style';
 
 export const Contents = styled.div`
   width: 400px;

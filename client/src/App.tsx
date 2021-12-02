@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import GlobalStyle from '@src/GlobalStyle';
 import ErrorToast from '@components/custom/ErrorToast';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';

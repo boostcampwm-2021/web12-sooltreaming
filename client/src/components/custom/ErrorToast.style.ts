@@ -26,7 +26,6 @@ export const ErrorToastBox = styled.div`
   position: fixed;
   left: 100%;
   bottom: 100px;
-  min-width: 200px;
   border: 2px solid ${COLOR.error};
   padding: 15px 25px;
 
