@@ -9,6 +9,14 @@ export const loginWithSession = async () => {
   } else throw new Error(status.toString());
 };
 
+export const logoutAPI = async (history) => {
+  await request.get({
+    url: '/auth/logout',
+    options: { redirect: 'manual' as RequestRedirect },
+  });
+  history.push('/login');
+};
+
 export const getUserInformation = async (id) => {
   const { status, json } = await request.get({ url: '/user', query: { id } });
   if (status < 400) {

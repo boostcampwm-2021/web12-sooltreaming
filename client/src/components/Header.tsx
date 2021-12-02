@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { HumanIcon, LogoutIcon } from '@components/icons';
 import { useHistory } from 'react-router-dom';
+import { logoutAPI } from '@api/user';
 
 const Header: React.FC = (): React.ReactElement => {
   const history = useHistory();
@@ -13,8 +14,9 @@ const Header: React.FC = (): React.ReactElement => {
     history.push(`/myPage/${id}`);
   };
 
-  const logout = async (e) => {
+  const logout = (e) => {
     e.stopPropagation();
+    logoutAPI(history);
   };
 
   return (
@@ -28,11 +30,9 @@ const Header: React.FC = (): React.ReactElement => {
           {!imgUrl ? <HumanIcon /> : <img src={imgUrl} alt="프로필사진" />}
         </div>
         <span>{nickname || 'judangs'}</span>
-        <a href="http://localhost:5000/api/v1/auth/logout">
-          <LogoutContainer onClick={logout}>
-            <LogoutIcon />
-          </LogoutContainer>
-        </a>
+        <LogoutContainer onClick={logout}>
+          <LogoutIcon />
+        </LogoutContainer>
       </UserLink>
     </LineContainer>
   );
