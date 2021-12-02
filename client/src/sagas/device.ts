@@ -1,16 +1,18 @@
 import { call, put, all, fork, takeLatest, select } from 'redux-saga/effects';
 import {
-  SET_VIDEO_POWER,
-  setVideoPower,
   REQUEST_INIT_INFO,
   requestInitInfo,
   successInitInfo,
   REQUEST_VIDEO_INFO,
   requestVideoInfo,
   successVideoInfo,
+  SET_VIDEO_POWER,
+  setVideoPower,
   REQUEST_AUDIO_INFO,
   requestAudioInfo,
   successAudioInfo,
+  SET_AUDIO_POWER,
+  setAudioPower,
 } from '@store/device';
 import customRTC from '@utils/customRTC';
 import type { DeviceInitTypes } from '@ts-types/store';
@@ -128,6 +130,31 @@ function* watchAudioInfo() {
   yield takeLatest(REQUEST_AUDIO_INFO, changeAudioInfo);
 }
 
+function* changeAudioOn(action: ReturnType<typeof setAudioPower>) {
+  try {
+    const { isAudioOn } = action.payload;
+    const { stream, audioInfo } = yield select((state) => state.device);
+    if (!isAudioOn) return stream.getAudioTracks().forEach((track) => track.stop());
+
+    const result: { stream: MediaStream } = yield call(loadAudioStream, {
+      audioInfo,
+      stream,
+    });
+    yield put(successAudioInfo(result));
+  } catch ({ message }) {
+    console.error(message);
+  }
+}
+function* watchAudioOn() {
+  yield takeLatest(SET_AUDIO_POWER, changeAudioOn);
+}
+
 export default function* userSaga() {
-  yield all([fork(watchInitInfo), fork(watchVideoInfo), fork(watchVideoOn), fork(watchAudioInfo)]);
+  yield all([
+    fork(watchInitInfo),
+    fork(watchVideoInfo),
+    fork(watchVideoOn),
+    fork(watchAudioInfo),
+    fork(watchAudioOn),
+  ]);
 }
