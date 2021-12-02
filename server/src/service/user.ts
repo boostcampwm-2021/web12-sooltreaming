@@ -1,11 +1,21 @@
 import User from '@models/User';
 import NicknameLog from '@models/NicknameLog';
 import { userCount } from '@utils/userCount';
-import { LOG_EVENT, ERROR, GITHUB_IMG_URL } from '@src/constant';
-import { DEFAULT_PROFILE_IMAGE_URL } from 'sooltreaming-domain/constant/addition';
 import { CustomError } from '@utils/error';
-import { NCP_ACCESS_KEY, NCP_SECRET_KEY, NCP_REGION } from '@src/constant';
-import { NCP_ENDPOINT, NCP_BUCKET } from 'sooltreaming-domain/constant/addition';
+import {
+  LOG_EVENT,
+  ERROR,
+  GITHUB_IMG_URL,
+  NCP_ACCESS_KEY,
+  NCP_SECRET_KEY,
+  NCP_REGION,
+} from '@src/constant';
+import {
+  DEFAULT_PROFILE_IMAGE_URL,
+  NCP_ENDPOINT,
+  NCP_BUCKET,
+} from 'sooltreaming-domain/constant/addition';
+
 import AWS from 'aws-sdk';
 import multer from 'multer';
 import multerS3 from 'multer-s3';
