@@ -13,9 +13,10 @@ const initialState: DeviceStateType = {
   speakerDevices: [],
   stream: new MediaStream(),
   isLoading: true,
+  isVideoLoading: false,
+  isAudioLoading: false,
 };
 
-//
 export const [SET_VIDEO_POWER, setVideoPower] =
   createAction<{ isVideoOn: boolean }>('SET_VIDEO_POWER');
 export const [SET_AUDIO_POWER, setAudioPower] =
@@ -37,6 +38,8 @@ export const [REQUEST_INIT_INFO, requestInitInfo] = createAction<{}>('REQUEST_IN
 export const [SUCCESS_INIT_INFO, successInitInfo] =
   createAction<DeviceInitTypes>('SUCCESS_INIT_INFO');
 
+export const [FALSE_ONOFF_LOADING, falseOnOffLoading] = createAction<{}>('FALSE_ONOFF_LOADING');
+
 type deviceAction =
   | ReturnType<typeof setVideoPower>
   | ReturnType<typeof setAudioPower>
@@ -55,19 +58,23 @@ function deviceReducer(
 ): DeviceStateType {
   switch (action.type) {
     case SET_VIDEO_POWER: {
+      if (state.isAudioLoading) return { ...state };
       const { isVideoOn } = action.payload as { isVideoOn: boolean };
       state.stream.getVideoTracks().forEach((track) => (track.enabled = isVideoOn));
       return {
         ...state,
         isVideoOn,
+        isVideoLoading: true,
       };
     }
     case SET_AUDIO_POWER: {
+      if (state.isVideoLoading) return { ...state };
       const { isAudioOn } = action.payload as { isAudioOn: boolean };
       state.stream.getAudioTracks().forEach((track) => (track.enabled = isAudioOn));
       return {
         ...state,
         isAudioOn,
+        isAudioLoading: true,
       };
     }
     case SET_SPEAKER_POWER: {
@@ -103,6 +110,7 @@ function deviceReducer(
       return {
         ...state,
         stream,
+        isVideoLoading: false,
       };
     }
     case SUCCESS_AUDIO_INFO: {
@@ -110,6 +118,14 @@ function deviceReducer(
       return {
         ...state,
         stream,
+        isAudioLoading: false,
+      };
+    }
+    case FALSE_ONOFF_LOADING: {
+      return {
+        ...state,
+        isVideoLoading: false,
+        isAudioLoading: false,
       };
     }
     case REQUEST_INIT_INFO: {
