@@ -1,5 +1,5 @@
 import React from 'react';
-import { LineContainer, LogoLink, UserLink, LogoutContainer } from './Header.style.js';
+import { LineContainer, LogoLink, RightBox, UserLink, LogoutContainer } from './Header.style.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '@src/store';
 import { HumanIcon, LogoutIcon } from '@components/icons';
@@ -30,15 +30,17 @@ const Header: React.FC = (): React.ReactElement => {
         <img src={'/images/logo.png'} alt="로고" />
         <span>Sooltreaming</span>
       </LogoLink>
-      <UserLink onClick={goToMyPage}>
-        <div className="User-Profile">
-          {!imgUrl ? <HumanIcon /> : <img src={imgUrl} alt="프로필사진" />}
-        </div>
-        <span>{nickname || 'judangs'}</span>
+      <RightBox>
+        <UserLink onClick={goToMyPage}>
+          <div className="User-Profile">
+            {!imgUrl ? <HumanIcon /> : <img src={imgUrl} alt="프로필사진" />}
+          </div>
+          <span>{nickname || 'judangs'}</span>
+        </UserLink>
         <LogoutContainer onClick={logout}>
           <LogoutIcon />
         </LogoutContainer>
-      </UserLink>
+      </RightBox>
     </LineContainer>
   );
 };

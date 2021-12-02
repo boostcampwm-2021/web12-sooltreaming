@@ -7,8 +7,7 @@ import {
 } from 'sooltreaming-domain/constant/socketEvent';
 
 const stream = (socket: Socket) => (closure: any) => {
-  const { errorControl, updateOtherVideo, updateMyVideo, updateOtherAudio, updateMyAudio } =
-    closure;
+  const { updateOtherVideo, updateMyVideo, updateOtherAudio, updateMyAudio } = closure;
 
   socket.on(STREAM_CHANGE_VIDEO, ({ sid, isVideoOn }) => {
     if (sid === socket.id) return;

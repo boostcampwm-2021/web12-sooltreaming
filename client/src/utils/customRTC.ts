@@ -11,7 +11,7 @@ const customRTC = () => {
         track.stop();
         newStream.removeTrack(track);
       });
-      throw 'Got Permissioned!';
+      throw new Error('Got Permissioned!');
     } catch (e) {
       return true;
     }

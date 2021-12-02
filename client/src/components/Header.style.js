@@ -77,4 +77,17 @@ export const UserLink = styled.a`
   }
 `;
 
-export const LogoutContainer = styled.a``;
+export const RightBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const LogoutContainer = styled.a`
+  cursor: pointer;
+
+  &:hover svg {
+    width: 110%;
+    height: 110%;
+  }
+`;
