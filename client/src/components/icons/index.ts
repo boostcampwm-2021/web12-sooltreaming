@@ -39,6 +39,7 @@ import NicknameChangeIcon from '@components/icons/NicknameChangeIcon';
 import LiarGameIcon from '@components/icons/LiarGameIcon';
 import UpdownGameIcon from '@components/icons/UpdownGameIcon';
 import RandomPickGameIcon from '@components/icons/RandomPickGameIcon';
+import LogoutIcon from '@components/icons/LogoutIcon';
 
 export {
   HumanIcon,
@@ -76,4 +77,5 @@ export {
   LiarGameIcon,
   UpdownGameIcon,
   RandomPickGameIcon,
+  LogoutIcon,
 };
