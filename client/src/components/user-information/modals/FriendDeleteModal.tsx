@@ -6,7 +6,7 @@ import {
 } from '@components/user-information/modals/FriendDeleteModal.style';
 import { Header, Button } from '@components/user-information/modals/index.style';
 import Modal from '@components/custom/Modal';
-import { DeleteIcon, CancelIcon, DeleteFriendIcon } from '@src/components/icons';
+import { DeleteIcon, CancelIcon, DeleteFriendIcon } from '@components/icons';
 import { API } from '@api/index';
 import { useDispatch } from 'react-redux';
 import { deleteFriend } from '@store/friend';
@@ -21,7 +21,8 @@ const FriendDeleteModal: React.FC<FriendDeleteModalPropType> = ({
   const dispatch = useDispatch();
 
   const unfriend = async () => {
-    await API.call(API.TYPE.PATCH_UNFRIEND, id);
+    const result = await API.call(API.TYPE.PATCH_UNFRIEND, id);
+    if (!result) return;
     dispatch(deleteFriend(id));
     closeModal();
   };

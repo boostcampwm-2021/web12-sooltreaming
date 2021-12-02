@@ -18,7 +18,8 @@ const useFriendSocket = () => {
   };
 
   const onclickRequestFriend = async ({ sid, id, imgUrl, nickname }) => {
-    await API.call(API.TYPE.POST_FRIEND, id);
+    const result = await API.call(API.TYPE.POST_FRIEND, id);
+    if (!result) return;
     socket.sendFriendRequest({ sid, id: myId, imgUrl: myImgUrl, nickname: myNickname });
 
     dispatch(sendFriendRequest({ _id: id, imgUrl, nickname }));
