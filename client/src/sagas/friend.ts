@@ -14,16 +14,16 @@ import { API } from '@api/index';
 import type { FriendInfoType } from '@ts-types/store';
 
 const getFriendListAPI = async () => {
-  const data = await API.call(API.TYPE.GET_FRIEND);
-  return data;
+  const { friendList } = await API.call(API.TYPE.GET_FRIEND);
+  return friendList;
 };
 const getSendFriendListAPI = async () => {
-  const data = await API.call(API.TYPE.GET_SEND_FRIEND);
-  return data;
+  const { sendList } = await API.call(API.TYPE.GET_SEND_FRIEND);
+  return sendList;
 };
 const getReceiveFriendListAPI = async () => {
-  const data = await API.call(API.TYPE.GET_RECEIVE_FRIEND);
-  return data;
+  const { receiveList } = await API.call(API.TYPE.GET_RECEIVE_FRIEND);
+  return receiveList;
 };
 
 function* getFriendList() {

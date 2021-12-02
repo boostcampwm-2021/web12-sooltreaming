@@ -68,12 +68,19 @@ function friendReducer(
   action: friendAction,
 ): FriendStateType {
   switch (action.type) {
-    case FRIEND_LIST_SUCCESS:
+    case FRIEND_LIST_SUCCESS: {
       const friendList = action.payload as FriendInfoType[];
       return {
         ...state,
         friendList,
       };
+    }
+    case FRIEND_LIST_FAILURE: {
+      return {
+        ...state,
+        friendList: [],
+      };
+    }
     case SEND_FRIEND_LIST_SUCCESS: {
       const sendFriendList = action.payload as FriendInfoType[];
       return {
@@ -81,11 +88,23 @@ function friendReducer(
         sendFriendList,
       };
     }
+    case SEND_FRIEND_LIST_FAILURE: {
+      return {
+        ...state,
+        sendFriendList: [],
+      };
+    }
     case RECEIVE_FRIEND_LIST_SUCCESS: {
       const receiveFriendList = action.payload as FriendInfoType[];
       return {
         ...state,
         receiveFriendList,
+      };
+    }
+    case RECEIVE_FRIEND_LIST_FAILURE: {
+      return {
+        ...state,
+        receiveFriendList: [],
       };
     }
 
