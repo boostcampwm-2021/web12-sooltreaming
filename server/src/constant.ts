@@ -31,6 +31,7 @@ export const DB_PASSWORD = process.env.DB_PASSWORD;
 
 export const GITHUB_ID = process.env.GITHUB_ID;
 export const GITHUB_SECRET = process.env.GITHUB_SECRET;
+export const GITHUB_IMG_URL = 'https://avatars.githubusercontent.com';
 
 export const NAVER_ID = process.env.NAVER_ID;
 export const NAVER_SECRET = process.env.NAVER_SECRET;
