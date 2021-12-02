@@ -42,7 +42,7 @@ const Users: React.FC<UsersPropType> = ({
       {Object.entries(users)
         .filter(([key]) => key !== Socket.getSID())
         .map(([key, { imgUrl, nickname, id }]) => (
-          <UserList key={id}>
+          <UserList key={key}>
             <Profile>
               <img src={imgUrl} alt="다른 사람 프로필" />
               <div className="nickname">{nickname}</div>

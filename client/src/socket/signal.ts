@@ -109,11 +109,14 @@ const signal =
       const audioTrack = myStream.getAudioTracks()[0];
       Object.values(peerConnections).forEach((peer: any) => {
         const transceivers = peer.getTransceivers();
+        console.log(transceivers);
+
         const videoTransceivers = transceivers.find(
           ({ receiver }) => receiver.track?.kind === 'video',
         );
         const videoSender = videoTransceivers.sender;
         if (videoTrack && videoSender) videoSender.replaceTrack(videoTrack);
+
         const audioTransceivers = transceivers.find(
           ({ receiver }) => receiver.track?.kind === 'audio',
         );

@@ -11,7 +11,7 @@ const ParticipantController = ({ turnOffOtherVideo, turnOffOtherAudio }): React.
   return (
     <ColumnBox>
       {Object.entries(users).map(([sid, user]) => {
-        if (hostSID === sid) return <></>;
+        if (hostSID === sid) return null;
         return (
           <Participant
             key={`Participant-${sid}`}

@@ -12,6 +12,7 @@ import {
   successAudioInfo,
   SET_AUDIO_POWER,
   setAudioPower,
+  falseOnOffLoading,
 } from '@store/device';
 import customRTC from '@utils/customRTC';
 import type { DeviceInitTypes } from '@ts-types/store';
@@ -89,8 +90,12 @@ function* watchVideoInfo() {
 function* changeVideoOn(action: ReturnType<typeof setVideoPower>) {
   try {
     const { isVideoOn } = action.payload;
-    const { stream, videoInfo } = yield select((state) => state.device);
-    if (!isVideoOn) return stream.getVideoTracks().forEach((track) => track.stop());
+    const { stream, videoInfo, isAudioLoading } = yield select((state) => state.device);
+    if (isAudioLoading) return;
+    if (!isVideoOn) {
+      stream.getVideoTracks().forEach((track) => track.stop());
+      return yield put(falseOnOffLoading({}));
+    }
 
     const result: { stream: MediaStream } = yield call(loadVideoStream, {
       videoInfo,
@@ -139,8 +144,12 @@ function* watchAudioInfo() {
 function* changeAudioOn(action: ReturnType<typeof setAudioPower>) {
   try {
     const { isAudioOn } = action.payload;
-    const { stream, audioInfo } = yield select((state) => state.device);
-    if (!isAudioOn) return stream.getAudioTracks().forEach((track) => track.stop());
+    const { stream, audioInfo, isVideoLoading } = yield select((state) => state.device);
+    if (isVideoLoading) return;
+    if (!isAudioOn) {
+      stream.getAudioTracks().forEach((track) => track.stop());
+      return yield put(falseOnOffLoading({}));
+    }
 
     const result: { stream: MediaStream } = yield call(loadAudioStream, {
       audioInfo,
