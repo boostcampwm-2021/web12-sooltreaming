@@ -2,12 +2,15 @@ import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
 export const DeleteFriendPressSection = styled.div`
-  width: 640px;
-  padding: 30px 30px;
+  padding: 10px;
 
   display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  margin: 0;
   align-items: center;
+  & > div {
+    margin: 0 10px;
+  }
 `;
 
 export const DeleteIconWrapper = styled.div`
@@ -30,4 +33,12 @@ export const CancelIconWrapper = styled.div`
   path:first-child:active {
     fill: 10px solid ${COLOR.titleActive};
   }
+`;
+
+export const ModalContents = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
 `;
