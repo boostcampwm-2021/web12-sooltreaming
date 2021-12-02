@@ -1,5 +1,5 @@
-import { UpdownGameIcon, LiarGameIcon } from '@components/icons';
-import { LIAR, UP_DOWN } from 'sooltreaming-domain/constant/gameName';
+import { UpdownGameIcon, LiarGameIcon, RandomPickGameIcon } from '@components/icons';
+import { LIAR, UP_DOWN, RANDOM_PICK } from 'sooltreaming-domain/constant/gameName';
 
 export const gameList = [
   {
@@ -32,6 +32,19 @@ export const gameList = [
         <br />
         라이어를 맞히면 참가자 승리! <br />못 맞히면 라이어 승리!
         <br />
+        <br />
+        <br />※ 추가적인 벌칙, 승리는 참가자들이 자유롭게 정할 수 있습니다.
+      </div>
+    ),
+  },
+  {
+    icon: <RandomPickGameIcon />,
+    title: RANDOM_PICK,
+    content: (
+      <div>
+        랜덤픽 게임은 랜덤한 사람 1명을 뽑아주는 게임입니다. <br />
+        <br />
+        게임을 시작하면 방에 접속해있는 사람들 중 1명이 선정됩니다.
         <br />
         <br />※ 추가적인 벌칙, 승리는 참가자들이 자유롭게 정할 수 있습니다.
       </div>

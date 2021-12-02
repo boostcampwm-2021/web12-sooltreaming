@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { COLOR, BTN_STYLE } from '@constant/style';
 
-export const Contents = styled.div<{ keyword: String }>`
+export const Contents = styled.div<{
+  keyword: React.MutableRefObject<{ subject: string; keyword: string }>;
+}>`
   width: 400px;
   height: 200px;
   display: flex;
@@ -14,7 +16,14 @@ export const Contents = styled.div<{ keyword: String }>`
   .host {
     span {
       font-weight: 600;
-      color: ${COLOR.body};
+      color: ${COLOR.black};
+    }
+  }
+
+  .subject {
+    span {
+      font-weight: 600;
+      color: ${COLOR.black};
     }
   }
 
@@ -22,7 +31,9 @@ export const Contents = styled.div<{ keyword: String }>`
     span {
       font-weight: 600;
       ${(props) =>
-        props.keyword === '라이어' ? `color: ${COLOR.error3}` : `color: ${COLOR.titleActive}`};
+        props.keyword.current.keyword === '라이어'
+          ? `color: ${COLOR.error3}`
+          : `color: ${COLOR.titleActive}`};
     }
   }
 `;

@@ -31,6 +31,7 @@ export type RoomType = {
         id: string;
         nickname: string;
         imgURL: string;
+        enterTime: number;
       };
     };
     usersDevices: {

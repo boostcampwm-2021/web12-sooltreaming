@@ -73,5 +73,8 @@ export const UserLink = styled.a`
     font-size: 16px;
     line-height: 30px;
     cursor: pointer;
+    margin-right: 16px;
   }
 `;
+
+export const LogoutContainer = styled.a``;

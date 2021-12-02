@@ -48,8 +48,3 @@ export const updateUserImage = async (_id, image) => {
 
   return result.imgUrl;
 };
-
-export const updateTotalSeconds = async (_id, startTime, exitTime) => {
-  const value = Math.floor((exitTime - startTime) / 1000);
-  await createLog(_id, 'EXIT', value);
-};

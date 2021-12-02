@@ -55,7 +55,7 @@ export const LOG_EVENT = Object.freeze({
   STATUS_VOTE_EXECUTING: 'dieCount',
   CHEERS_BROADCAST: 'cheersCount',
   UPDOWN_START: 'starterCount',
-  EXIT: 'totalSeconds',
+  DISCONNECT_USER: 'totalSeconds',
 });
 
 export const ERROR = {
@@ -72,93 +72,361 @@ export const ERROR = {
 };
 
 export const KEYWORDS = [
-  '크레파스',
-  '고구마',
-  '감자',
-  '부스트캠프',
-  '코딩',
-  '스파게티',
-  '베스킨라빈스',
-  '식혜',
-  '컴퓨터',
-  '스마트폰',
-  '아이유',
-  '크롱',
-  '도라에몽',
-  '드론',
-  '수정과',
-  '카메라',
-  '기린',
-  '고양이',
-  '개',
-  '사자',
-  '늑대',
-  '양',
-  '김치',
-  '콩나물',
-  '항아리',
-  '모기',
-  '파리',
-  '지네',
-  '양말',
-  '노트북',
-  '애플',
-  '바나나',
-  '마우스',
-  '멀티탭',
-  '닌텐도',
-  '람보르기니',
-  '주전자',
-  '접착제',
-  '박사',
-  '경영학',
-  '철학',
-  '컴퓨터공학',
-  '자이언티',
-  '유튜브',
-  '떡볶이',
-  '어묵',
-  '삼겹살',
-  '차돌박이',
-  '고속도로',
-  '스타크래프트',
-  '축구',
-  '농구',
-  '야구',
-  '볼링',
-  '테니스',
-  '마리오',
-  '피아노',
-  '바이올린',
-  '드럼',
-  '마이크',
-  '큐브',
-  '트와이스',
-  '에스파',
-  '뉴발란스',
-  '나이키',
-  '아디다스',
-  '콘센트',
-  '시계',
-  '전자레인지',
-  '소파',
-  '창문',
-  '네이버',
-  '카카오',
-  '라인',
-  '배달의민족',
-  '구글',
-  '아마존',
-  '헤드폰',
-  'VR',
-  '비트코인',
-  '쓰레기통',
-  '소고기',
-  '양말',
-  '옷걸이',
-  '청하',
-  '대선',
-  '칵테일',
+  {
+    subject: '물건',
+    keyword: '크레파스',
+  },
+  {
+    subject: '음식',
+    keyword: '고구마',
+  },
+  {
+    subject: '음식',
+    keyword: '감자',
+  },
+  {
+    subject: 'IT',
+    keyword: '부스트캠프',
+  },
+  {
+    subject: 'IT',
+    keyword: '코딩',
+  },
+  {
+    subject: '음식',
+    keyword: '스파게티',
+  },
+  {
+    subject: '음식',
+    keyword: '베스킨라빈스',
+  },
+  {
+    subject: '음식',
+    keyword: '식혜',
+  },
+  {
+    subject: 'IT',
+    keyword: '컴퓨터',
+  },
+  {
+    subject: 'IT',
+    keyword: '스마트폰',
+  },
+  {
+    subject: 'IT',
+    keyword: '베스킨라빈스',
+  },
+  {
+    subject: '인물',
+    keyword: '아이유',
+  },
+  {
+    subject: '인물',
+    keyword: '크롱',
+  },
+  {
+    subject: '인물',
+    keyword: '도라에몽',
+  },
+  {
+    subject: 'IT',
+    keyword: '드론',
+  },
+  {
+    subject: '음식',
+    keyword: '수정과',
+  },
+  {
+    subject: 'IT',
+    keyword: '카메라',
+  },
+  {
+    subject: '동식물',
+    keyword: '기린',
+  },
+  {
+    subject: '동식물',
+    keyword: '고양이',
+  },
+  {
+    subject: '동식물',
+    keyword: '개',
+  },
+  {
+    subject: '동식물',
+    keyword: '사자',
+  },
+  {
+    subject: '동식물',
+    keyword: '늑대',
+  },
+  {
+    subject: '동식물',
+    keyword: '양',
+  },
+  {
+    subject: '음식',
+    keyword: '김치',
+  },
+  {
+    subject: '음식',
+    keyword: '콩나물',
+  },
+  {
+    subject: '물건',
+    keyword: '항아리',
+  },
+  {
+    subject: '동식물',
+    keyword: '모기',
+  },
+  {
+    subject: '동식물',
+    keyword: '파리',
+  },
+  {
+    subject: '물건',
+    keyword: '양말',
+  },
+  {
+    subject: 'IT',
+    keyword: '노트북',
+  },
+  {
+    subject: 'IT',
+    keyword: '애플',
+  },
+  {
+    subject: '음식',
+    keyword: '바나나',
+  },
+  {
+    subject: 'IT',
+    keyword: '마우스',
+  },
+  {
+    subject: '물건',
+    keyword: '멀티탭',
+  },
+  {
+    subject: 'IT',
+    keyword: '닌텐도',
+  },
+  {
+    subject: '물건',
+    keyword: '주전자',
+  },
+  {
+    subject: '물건',
+    keyword: '접착제',
+  },
+  {
+    subject: '교육',
+    keyword: '박사',
+  },
+  {
+    subject: '교육',
+    keyword: '경영학',
+  },
+  {
+    subject: '교육',
+    keyword: '철학',
+  },
+  {
+    subject: '교육',
+    keyword: '컴퓨터공학',
+  },
+  {
+    subject: 'IT',
+    keyword: '람보르기니',
+  },
+  {
+    subject: '인물',
+    keyword: '자이언티',
+  },
+  {
+    subject: 'IT',
+    keyword: '유튜브',
+  },
+  {
+    subject: '음식',
+    keyword: '떡볶이',
+  },
+  {
+    subject: '음식',
+    keyword: '어묵',
+  },
+  {
+    subject: '음식',
+    keyword: '삼겹살',
+  },
+  {
+    subject: '음식',
+    keyword: '차돌박이',
+  },
+  {
+    subject: '일상',
+    keyword: '고속도로',
+  },
+  {
+    subject: 'IT',
+    keyword: '스타크래프트',
+  },
+  {
+    subject: '일상',
+    keyword: '축구',
+  },
+  {
+    subject: '일상',
+    keyword: '농구',
+  },
+  {
+    subject: '일상',
+    keyword: '야구',
+  },
+  {
+    subject: '일상',
+    keyword: '볼링',
+  },
+  {
+    subject: '일상',
+    keyword: '테니스',
+  },
+  {
+    subject: '인물',
+    keyword: '마리오',
+  },
+  {
+    subject: '물건',
+    keyword: '피아노',
+  },
+  {
+    subject: '물건',
+    keyword: '바이올린',
+  },
+  {
+    subject: '물건',
+    keyword: '드럼',
+  },
+  {
+    subject: '물건',
+    keyword: '마이크',
+  },
+  {
+    subject: '물건',
+    keyword: '큐브',
+  },
+  {
+    subject: '인물',
+    keyword: '트와이스',
+  },
+  {
+    subject: '인물',
+    keyword: '에스파',
+  },
+  {
+    subject: '일상',
+    keyword: '뉴발란스',
+  },
+  {
+    subject: '일상',
+    keyword: '나이키',
+  },
+  {
+    subject: '일상',
+    keyword: '아디다스',
+  },
+  {
+    subject: '물건',
+    keyword: '콘센트',
+  },
+  {
+    subject: '물건',
+    keyword: '시계',
+  },
+  {
+    subject: '물건',
+    keyword: '전자레인지',
+  },
+  {
+    subject: '물건',
+    keyword: '소파',
+  },
+  {
+    subject: '물건',
+    keyword: '창문',
+  },
+  {
+    subject: 'IT',
+    keyword: '네이버',
+  },
+  {
+    subject: 'IT',
+    keyword: '카카오',
+  },
+  {
+    subject: 'IT',
+    keyword: '라인',
+  },
+  {
+    subject: 'IT',
+    keyword: '배달의민족',
+  },
+  {
+    subject: 'IT',
+    keyword: '구글',
+  },
+  {
+    subject: 'IT',
+    keyword: '아마존',
+  },
+  {
+    subject: '물건',
+    keyword: '헤드폰',
+  },
+  {
+    subject: 'IT',
+    keyword: 'VR',
+  },
+  {
+    subject: 'IT',
+    keyword: '비트코인',
+  },
+  {
+    subject: '물건',
+    keyword: '쓰레기통',
+  },
+  {
+    subject: '음식',
+    keyword: '소고기',
+  },
+  {
+    subject: '물건',
+    keyword: '옷걸이',
+  },
+  {
+    subject: '인물',
+    keyword: '청하',
+  },
+  {
+    subject: '음식',
+    keyword: '대선',
+  },
+  {
+    subject: '음식',
+    keyword: '참이슬',
+  },
+  {
+    subject: '음식',
+    keyword: '칵테일',
+  },
+  {
+    subject: '음식',
+    keyword: '부침개',
+  },
 ];
 
-export const LIAR_KEYWORD = '라이어';
+export const LIAR_KEYWORD = {
+  subject: '',
+  keyword: '라이어',
+};
