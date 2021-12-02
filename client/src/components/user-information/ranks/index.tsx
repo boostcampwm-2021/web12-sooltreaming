@@ -60,6 +60,11 @@ const Ranks: React.FC = (): React.ReactElement => {
           )}
           itemList={Object.keys(rankingMenuList)}
         />
+        <div className="announce">
+          <p>
+            ※ 랭킹은 <span>5분</span>마다 업데이트 됩니다.{' '}
+          </p>
+        </div>
       </HeaderContainer>
       <RankContainer>
         <RankingBox

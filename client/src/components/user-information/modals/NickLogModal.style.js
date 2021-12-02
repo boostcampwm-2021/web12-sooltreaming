@@ -5,6 +5,8 @@ export const ModalContents = styled.div`
   width: 500px;
   height: 300px;
   padding: 20px;
+  margin-left: 80px;
+  margin-right: 80px;
   margin-bottom: 40px;
   display: flex;
   flex-direction: column;

@@ -25,6 +25,7 @@ export const FriendList = styled.ul`
   width: 640px;
   margin: 0 0 40px 0;
   padding: 0;
+
   & > li {
     min-width: 250px;
     width: 250px;

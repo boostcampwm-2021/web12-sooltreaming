@@ -9,6 +9,7 @@ export const Container = styled.div`
   align-items: center;
 `;
 export const PersonalRankBox = styled.div`
+  width: 350px;
   flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
@@ -22,6 +23,17 @@ export const PersonalRankBox = styled.div`
   div {
     display: flex;
     justify-content: space-between;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-right: 8px;
+
+    .nickname span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
   }
 `;
 
