@@ -25,8 +25,8 @@ export const LogoLink = styled.a`
   color: ${COLOR.titleActive};
 
   & > img {
-    width: 55px;
-    height: 46px;
+    width: 53px;
+    height: 51px;
     -webkit-user-drag: none;
   }
   & > span {
