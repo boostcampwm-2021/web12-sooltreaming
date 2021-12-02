@@ -55,7 +55,7 @@ export const LOG_EVENT = Object.freeze({
   STATUS_VOTE_EXECUTING: 'dieCount',
   CHEERS_BROADCAST: 'cheersCount',
   UPDOWN_START: 'starterCount',
-  EXIT: 'totalSeconds',
+  DISCONNECT_USER: 'totalSeconds',
 });
 
 export const ERROR = {
