@@ -36,7 +36,7 @@ const Users: React.FC<UsersPropType> = ({
       <UserList>
         <Profile>
           <img src={myImgUrl} alt="내 프로필" />
-          <div>{myNickname}</div>
+          <div className="nickname">{myNickname}</div>
         </Profile>
       </UserList>
       {Object.entries(users)
@@ -45,7 +45,7 @@ const Users: React.FC<UsersPropType> = ({
           <UserList key={id}>
             <Profile>
               <img src={imgUrl} alt="다른 사람 프로필" />
-              <div>{nickname}</div>
+              <div className="nickname">{nickname}</div>
             </Profile>
             <div>
               <VoteButton onClick={() => (startVoteRef?.current ?? (() => {}))(key)}>

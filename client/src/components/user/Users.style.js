@@ -33,6 +33,7 @@ export const UserList = styled.li`
   ${BOX_SHADOW}
   margin-bottom: 15px;
   padding: 15px;
+
   & > div {
     display: flex;
   }
@@ -42,6 +43,10 @@ export const Profile = styled.div`
   width: 100%;
   height: 32px;
   display: flex;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  margin-right: 8px;
+
   & > img {
     width: 30px;
     height: 30px;
@@ -50,8 +55,17 @@ export const Profile = styled.div`
     user-select: none;
     margin-right: 10px;
   }
+
   & > div {
     margin: auto 0;
+  }
+
+  .nickname {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 `;
 
