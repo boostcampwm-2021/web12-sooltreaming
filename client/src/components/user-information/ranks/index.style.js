@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { COLOR } from '@constant/style';
 
 export const HeaderContainer = styled.div`
   width: 100%;
@@ -11,6 +12,15 @@ export const HeaderContainer = styled.div`
     width: 90px;
     margin-bottom: 2.5rem;
   }
+
+  .announce p {
+    font-weight: 600;
+
+    span {
+      font-weight: 600;
+      color: ${COLOR.error};
+    }
+  }
 `;
 
 export const RankContainer = styled.div`
@@ -18,5 +28,5 @@ export const RankContainer = styled.div`
   width: 100%;
   height: 50%;
   justify-content: center;
-  margin: 3rem 0;
+  margin: 2rem 0;
 `;
