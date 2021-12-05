@@ -26,43 +26,55 @@
 <br/>
 <br/>
 
-**코시국**에 어떻ㄱㅔ **술**을 드시고 계십ㄴ까 ❓
+<div align="center"> 
+<b>코시국</b>에 어떻ㄱㅔ <b>술</b>을 드시고 계십ㄴ까 ❓
+</div>
 
-**MT, OT** 그리ㅂ지 않으. 십니까 ❓
+<div align="center"> 
+<b>MT, OT</b> 그리ㅂ지 않으. 십니까 ❓
+</div>
 
-술 게임, 술자ㄹㅣ를 호시타ㅁ탐 기회를 노려온 당신의 **DRAEM**....
+<div align="center"> 
+술 게임, 술자ㄹㅣ를 호시타ㅁ탐 기회를 노려온 당신의 <b>DRAEM</b>....
+</div>
+
+</br>
 
 <div align="center">
 <img src="https://user-images.githubusercontent.com/14370441/138673328-6b8c55cb-14d3-48f8-956c-c78ee9ad1499.png"/>
 <h3>will be coe...m(?) TRUE......</h3>
 </div>
 
+<div align="center"> 
 저희 주.당.즈 가.
+</div>
 
+<div align="center"> 
 당신의 꾸믈. 이루어 드리겟. 습ㄴ;다.
+</div>
 
 <br/>
 
-<table>
+<table align="center">
   <tr>
     <td>
       <a href="https://github.com/yeon52">
-        <img src="https://avatars.githubusercontent.com/yeon52" width="100"/>
+        <img src="https://avatars.githubusercontent.com/yeon52" width="200"/>
       </a>
     </td>
     <td>
       <a href="https://github.com/alittlekitten">
-        <img src="https://avatars.githubusercontent.com/alittlekitten" width="100"/>
+        <img src="https://avatars.githubusercontent.com/alittlekitten" width="200"/>
       </a>
     </td>
     <td>
       <a href="https://github.com/jyo-jyo">
-        <img src="https://avatars.githubusercontent.com/jyo-jyo" width="100"/>
+        <img src="https://avatars.githubusercontent.com/jyo-jyo" width="200"/>
       </a>
     </td>
     <td>
       <a href="https://github.com/pyo-sh">
-        <img src="https://avatars.githubusercontent.com/pyo-sh" width="100"/>
+        <img src="https://avatars.githubusercontent.com/pyo-sh" width="200"/>
       </a>
     </td>
   </tr>
@@ -89,7 +101,7 @@
     </td>
   </tr>
 </table>
-<table>
+<table align="center">
   <tr>
     <td><span>기술 스택</span></td>
     <td>
@@ -128,16 +140,176 @@
 
 <br/>
 
+## 🎥 영상
+
+<table align="center">
+<thead>
+  <tr>
+    <th align="center">소개 영상</th>
+    <th align="center">데모 영상</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr>
+    <td>
+      <a href="https://www.youtube.com/watch?v=PennB8hPE0M">
+        <img src="https://user-images.githubusercontent.com/55688122/144752891-a069ea88-a8ee-4621-9a48-ba24a2feedae.png" width=400/>
+      </a>
+    </td>
+    <td>
+      <a href="https://youtu.be/VhBo6ukazes">
+        <img src="https://user-images.githubusercontent.com/55688122/144752893-6be27be7-aa4e-4757-9755-6514748cee04.png" width=400/>
+      </a>
+    </td>
+  </tr>
+  </tbody>
+<table>
+
+<br/>
+
 ## 👀 프로젝트 주요 기능
 
-<img src="https://user-images.githubusercontent.com/55688122/141358150-4e49f4bf-fa12-447f-a75a-e0ad526fb65f.png"/>
+<table align="center">
+<thead>
+  <tr>
+    <th align="center">화면</th>
+    <th align="center">기능</th>
+  </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144751721-150a8bb1-9e57-4031-9376-e0b09ac40336.gif" width=200/>
+      </td>
+      <td>
+        <b>화상 채팅 기능</b>
+        <div> 어디서든 모두와 함께 할 수 있는 실시간 화상 채팅 기능</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144751212-59478500-79c4-446b-be8d-3ead911b9b71.gif" width=200/>
+      </td>
+      <td>
+        <b>간단한 게임 기능</b>
+        <div>누구나 가볍게 즐길 수 있는 게임 기능</div>
+      </td>
+    </tr>
+     <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144752152-cb8addfd-0160-430e-98d7-25fc4db156d1.gif" width=200/>
+      </td>
+      <td>
+        <b>채팅 기능</b>
+        <div>여러 기능을 유연하게 사용하기 위해 텍스트 채팅 제공</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144752035-c17b5a7e-34a7-40cc-9843-d95faec5b032.gif" width=200/>
+      </td>
+      <td>
+        <b>클로즈업 기능</b>
+        <div>오늘 밤 주인공이 될 수 있다! 클로즈업 기능</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144750398-64cb2765-3da2-479b-b217-524a10028129.gif" width=200/>
+      </td>
+      <td>
+        <b>건배 기능</b>
+        <div>온라인 술자리의 어색함을 풀 수 있는 귀여운 애니메이션 기능!</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144749930-3eee0069-89a3-443b-ba22-7290abd7c28f.gif" width=200/>
+      </td>
+      <td>
+        <b>물음표 기능</b>
+        <div>의문을 마음껏 표출 할 수 있는 물음표 찍기 기능</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144750649-5d4da618-b8a4-4ea8-a6d9-2b8f12c7b99e.gif" width=200/>
+      </td>
+      <td>
+        <b>투표 기능</b>
+        <div>강제 클로즈업을 이용해 유쾌하게 술자리를 즐길 수 있는 투표 기능</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144748720-fc46d921-ff72-4c80-9ec2-b489deaa48bf.PNG" width=200/>
+      </td>
+      <td>
+        <b>통계 기능</b>
+        <div>얼마나 즐겼지? 통계 기능</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144748681-67c6f03b-c015-40e2-aa6c-266044412b93.gif" width=200/>
+      </td>
+      <td>
+        <b>랭킹 기능</b>
+        <div>당신의 우월함을 맘껏 뽐낼 수 있는 랭킹 기능</div>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <img src="https://user-images.githubusercontent.com/55688122/144748021-4f71bbba-87d5-452e-bd6f-1bc7c130bf6c.gif" width=200/>
+      </td>
+      <td>
+        <b>친구 기능</b>
+        <div>여기서는 내가 인싸?! 서로의 정보를 확인할 수 있는 친구 기능</div>
+      </td>
+    </tr>
+  </tbody>
+<table>
 
-## 🎨 [WireFrame](https://www.figma.com/file/A8f3IsRebQP2AAgRWnJ0cb/sooltreaming?node-id=0%3A1)
+<br/>
 
-![image](https://user-images.githubusercontent.com/55688122/139286653-6498c96e-7a74-4ad5-94c8-bdfcf06f73e7.png)
+## 🔗 링크
 
-## 📕 [Ground Rule](https://colossal-playroom-b51.notion.site/7f0b1f767ec845d5abfc20301c7fd76d)
-
-## 🎥 시연영상
-
-> 나중에
+<table align="center">
+<thead>
+  <tr>
+    <th colspan=5>
+      <a href="https://github.com/boostcampwm-2021/web12-sooltreaming/wiki">:house: Github Wiki Home</a>
+    </th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td align="center">
+      <a href="https://www.figma.com/file/A8f3IsRebQP2AAgRWnJ0cb/sooltreaming?node-id=0%3A1">🎨 WireFrame</a>
+    </td>
+    <td align="center">
+      <a href="https://colossal-playroom-b51.notion.site/v1-0-4-ebba1117a39945748a4084beb3ed2981">📕 Ground Rule</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/boostcampwm-2021/web12-sooltreaming/wiki/ERD">💾 ERD</a>
+    </td>
+    <td align="center">
+      <a href="https://docs.google.com/spreadsheets/d/187m_SCZjYQgVE-gV7ivEf6IChkJHlWkGVoMuhjdLxpw/edit?usp=sharing">🧶 Backlog</a>
+    </td>
+    <td align="center">
+      <a href="https://github.com/boostcampwm-2021/web12-sooltreaming/wiki/Skills">⚙ Skills</a>
+    </td>
+  </tr>
+    <tr>
+    <td align="center" colspan=2>
+      <a href="https://colossal-playroom-b51.notion.site/API-v1-0-0-de75cfe3dc544122a6a8f87cb838b94f">🔑 API Specification</a>
+    </td>
+    <td align="center">
+      <a href="https://colossal-playroom-b51.notion.site/4c5d5214de164a478f6958ad82f15a96">💡 Ideas</a>
+    </td>
+    <td align="center" colspan=2>
+      <a href="https://colossal-playroom-b51.notion.site/a992184cb061487497dd82558007568a">📂 Directory Structure</a>
+    </td>
+  </tr>
+</tbody>
+<table>
