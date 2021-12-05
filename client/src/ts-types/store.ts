@@ -10,6 +10,8 @@ export type DeviceStateType = {
   speakerDevices: MediaDeviceInfo[];
   stream: MediaStream;
   isLoading: boolean;
+  isVideoLoading: boolean;
+  isAudioLoading: boolean;
 };
 
 export type DeviceInitTypes = {

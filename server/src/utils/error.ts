@@ -16,8 +16,7 @@ const errorHandler = (error): Object => {
 export const errorWrapper = (fn): any => {
   return async (req, res, next): Promise<void> => {
     try {
-      // TODO
-      // if (!req.user) throw new CustomError(401, ERROR.SESSION_EXPIRE);
+      if (!req.user) throw new CustomError(401, ERROR.SESSION_EXPIRE);
       await fn(req, res, next);
     } catch (error) {
       next(errorHandler(error));

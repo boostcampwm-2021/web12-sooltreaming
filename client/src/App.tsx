@@ -1,8 +1,7 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import GlobalStyle from '@src/GlobalStyle';
 import ErrorToast from '@components/custom/ErrorToast';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { API } from '@src/api';
 import Loading from '@components/custom/Loading';
 const Lobby = lazy(() => import('@pages/Lobby'));
 const JoinRoom = lazy(() => import('@pages/JoinRoom'));
@@ -12,11 +11,6 @@ const CreateRoom = lazy(() => import('@pages/CreateRoom'));
 const UserPage = lazy(() => import('@pages/UserPage'));
 
 const App: React.FC = (): React.ReactElement => {
-  useEffect(() => {
-    window.addEventListener('beforeunload', () => {
-      API.call(API.TYPE.PATCH_TOTAL_SECONDS, new Date().getTime());
-    });
-  }, []);
   return (
     <>
       <GlobalStyle />

@@ -25,8 +25,8 @@ export const LogoLink = styled.a`
   color: ${COLOR.titleActive};
 
   & > img {
-    width: 55px;
-    height: 46px;
+    width: 53px;
+    height: 51px;
     -webkit-user-drag: none;
   }
   & > span {
@@ -73,5 +73,21 @@ export const UserLink = styled.a`
     font-size: 16px;
     line-height: 30px;
     cursor: pointer;
+    margin-right: 16px;
+  }
+`;
+
+export const RightBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const LogoutContainer = styled.a`
+  cursor: pointer;
+
+  &:hover svg {
+    width: 110%;
+    height: 110%;
   }
 `;

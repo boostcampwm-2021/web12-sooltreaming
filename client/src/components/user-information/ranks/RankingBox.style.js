@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import { COLOR } from '@constant/style';
 
 export const Container = styled.div`
-  width: 28%;
+  flex: 0 0 auto;
   height: 100%;
-  margin: 0 3rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 export const PersonalRankBox = styled.div`
+  width: 350px;
+  flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
-  width: 100%;
   padding: 1.2rem;
   img {
     width: 1.5rem;
@@ -23,6 +23,17 @@ export const PersonalRankBox = styled.div`
   div {
     display: flex;
     justify-content: space-between;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    margin-right: 8px;
+
+    .nickname span {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
   }
 `;
 
@@ -33,11 +44,11 @@ export const RankNum = styled.div`
 `;
 
 export const RankData = styled.div`
-  display: flex;
+  flex: 1 0 auto;
+  height: 100%;
   flex-direction: column;
   overflow-y: scroll;
-  width: 100%;
-  height: 100%;
+  margin: 0 2rem;
   .me {
     background-color: ${COLOR.primary2};
   }

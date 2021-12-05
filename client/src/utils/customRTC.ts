@@ -11,7 +11,7 @@ const customRTC = () => {
         track.stop();
         newStream.removeTrack(track);
       });
-      throw 'Got Permissioned!';
+      throw new Error('Got Permissioned!');
     } catch (e) {
       return true;
     }
@@ -57,7 +57,6 @@ const customRTC = () => {
       });
       const tracks = videoStream.getVideoTracks();
       if (!tracks?.length) return null;
-      tracks.forEach((t) => (t.enabled = false));
 
       return tracks[0];
     } catch (e) {
@@ -76,7 +75,6 @@ const customRTC = () => {
       });
       const tracks = audioTrack.getAudioTracks();
       if (!tracks?.length) return null;
-      tracks.forEach((t) => (t.enabled = false));
 
       return tracks[0];
     } catch (e) {
@@ -102,12 +100,54 @@ const customRTC = () => {
     });
   };
 
-  const createPeer = async (stream) => {
+  const createPeer = (stream) => {
     const peerConnection = createFreshPeer();
-    stream.getTracks().forEach((track) => {
-      peerConnection.addTrack(track, stream);
-    });
+
+    const audioTransceiver = peerConnection.addTransceiver('audio');
+    audioTransceiver.direction = 'sendrecv';
+    const audioSender = audioTransceiver.sender;
+    const audioTracks = stream.getAudioTracks();
+    if (audioTracks?.length) audioTracks.forEach((t) => audioSender.replaceTrack(t));
+
+    const videoTransceiver = peerConnection.addTransceiver('video');
+    videoTransceiver.direction = 'sendrecv';
+    const videoSender = videoTransceiver.sender;
+    const videoTracks = stream.getVideoTracks();
+    if (videoTracks?.length) videoTracks.forEach((t) => videoSender.replaceTrack(t));
+
     return peerConnection;
+  };
+
+  const setTransceivers = (peer, stream) => {
+    const transceivers = peer.getTransceivers();
+
+    const audioTransceiver = transceivers.find(({ receiver }) => receiver.track?.kind === 'audio');
+    audioTransceiver.direction = 'sendrecv';
+    const audioSender = audioTransceiver.sender;
+    const audioTracks = stream.getAudioTracks();
+    if (audioTracks?.length) audioTracks.forEach((t) => audioSender.replaceTrack(t));
+
+    const videoTransceiver = transceivers.find(({ receiver }) => receiver.track?.kind === 'video');
+    videoTransceiver.direction = 'sendrecv';
+    const videoSender = videoTransceiver.sender;
+    const videoTracks = stream.getVideoTracks();
+    if (videoTracks?.length) videoTracks.forEach((t) => videoSender.replaceTrack(t));
+
+    return;
+  };
+
+  const getStream = (peer) => {
+    const transceivers = peer.getTransceivers();
+
+    const audioTransceiver = transceivers.find(({ receiver }) => receiver.track?.kind === 'audio');
+    const audioReceiver = audioTransceiver.receiver;
+    const audioTrack = audioReceiver?.track;
+
+    const videoTransceiver = transceivers.find(({ receiver }) => receiver.track?.kind === 'video');
+    const videoReceiver = videoTransceiver.receiver;
+    const videoTrack = videoReceiver?.track;
+
+    return createStream({ videoTrack, audioTrack });
   };
 
   return {
@@ -118,7 +158,10 @@ const customRTC = () => {
     getVideoTrack,
     getAudioTrack,
     createStream,
+    createFreshPeer,
     createPeer,
+    setTransceivers,
+    getStream,
   };
 };
 

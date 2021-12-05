@@ -38,7 +38,6 @@ const signal =
 
     const disconnectedPeer = (sid) => (e) => {
       const state = e.target?.connectionState;
-      console.log(state);
       if (state !== 'disconnected') return;
       peerConnections[sid].close();
       delete peerConnections[sid];
@@ -60,7 +59,6 @@ const signal =
 
       const peer = await customRTC.createPeer(myStream);
       peer.addEventListener('icecandidate', sendCandidate(sid));
-      peer.addEventListener('addstream', addStream(sid));
       peer.addEventListener('connectionstatechange', redirectPeer({ sid, peer }));
       peer.addEventListener('connectionstatechange', disconnectedPeer(sid));
       peerConnections[sid] = peer;
@@ -76,15 +74,17 @@ const signal =
 
     // 이후에 접속한 사람의 Offer 받기
     socket.on(SIGNAL_OFFER, async ({ offer, targetSID }) => {
-      const peer = await customRTC.createPeer(myStream); // TODO : Stream 넣어야 됨
+      const peer = customRTC.createFreshPeer();
       peer.addEventListener('icecandidate', sendCandidate(targetSID));
-      peer.addEventListener('addstream', addStream(targetSID));
       peer.addEventListener('connectionstatechange', disconnectedPeer(targetSID));
       peerConnections[targetSID] = peer;
 
       await peer.setRemoteDescription(offer);
+      customRTC.setTransceivers(peer, myStream);
       const answer = await peer.createAnswer();
       await peer.setLocalDescription(answer);
+
+      addStream(targetSID)(customRTC.getStream(peer));
       socket.emit(SIGNAL_ANSWER, { answer, receiverSID: targetSID, senderSID: socket.id });
     });
 
@@ -93,6 +93,7 @@ const signal =
       const peer = peerConnections[targetSID];
       if (!peer) return;
       peer.setRemoteDescription(answer);
+      addStream(targetSID)(customRTC.getStream(peer));
     });
 
     // Candidate 받아서 처리
@@ -107,10 +108,19 @@ const signal =
       const videoTrack = myStream.getVideoTracks()[0];
       const audioTrack = myStream.getAudioTracks()[0];
       Object.values(peerConnections).forEach((peer: any) => {
-        const senders = peer.getSenders();
-        const videoSender = senders.find((sender) => sender.track.kind === 'video');
+        const transceivers = peer.getTransceivers();
+        console.log(transceivers);
+
+        const videoTransceivers = transceivers.find(
+          ({ receiver }) => receiver.track?.kind === 'video',
+        );
+        const videoSender = videoTransceivers.sender;
         if (videoTrack && videoSender) videoSender.replaceTrack(videoTrack);
-        const audioSender = senders.find((sender) => sender.track.kind === 'audio');
+
+        const audioTransceivers = transceivers.find(
+          ({ receiver }) => receiver.track?.kind === 'audio',
+        );
+        const audioSender = audioTransceivers.sender;
         if (audioTrack && audioSender) audioSender.replaceTrack(audioTrack);
       });
     };

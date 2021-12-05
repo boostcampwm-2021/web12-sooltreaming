@@ -16,7 +16,9 @@ const Information: React.FC<InformationPropType> = ({
 
   useEffect(() => {
     const requestGetUserInformation = async () => {
-      const { information, nicknameLog } = await API.call(API.TYPE.GET_USER_INFORMATION, id);
+      const result = await API.call(API.TYPE.GET_USER_INFORMATION, id);
+      if (!result) return;
+      const { information, nicknameLog } = result;
       setUserInformation(information);
       setNicknameLog(nicknameLog);
       setIsLoading(false);

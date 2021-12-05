@@ -31,7 +31,9 @@ const RankingBox: React.FC<RankingBoxPropType> = ({
             <div>
               <RankNum>{index + 1}</RankNum>
               <img src={userInfo.imgUrl} alt="프로필" />
-              <div>{userInfo.nickname}</div>
+              <div className="nickname">
+                <span>{userInfo.nickname}</span>
+              </div>
             </div>
             <div>{userInfo[nowSelect]}</div>
           </PersonalRankBox>

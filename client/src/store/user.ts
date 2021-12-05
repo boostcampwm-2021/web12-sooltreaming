@@ -17,6 +17,7 @@ export const [USER_LOGIN_FAILURE, userLoginFailure] =
 
 export const [SET_NICKNAME, setNickname] = createAction<string>('SET_NICKNAME');
 export const [SET_IMAGE, setImage] = createAction<string>('SET_IMAGE');
+export const [RESET_USER, resetUser] = createAction<{}>('RESET_USER');
 
 // Actions -- Types
 type userAction =
@@ -24,7 +25,8 @@ type userAction =
   | ReturnType<typeof userLoginSuccess>
   | ReturnType<typeof userLoginFailure>
   | ReturnType<typeof setNickname>
-  | ReturnType<typeof setImage>;
+  | ReturnType<typeof setImage>
+  | ReturnType<typeof resetUser>;
 
 // Reducer
 function userReducer(state: UserStateType = initialState, action: userAction): UserStateType {
@@ -55,18 +57,29 @@ function userReducer(state: UserStateType = initialState, action: userAction): U
         errorStatus: message,
       };
     }
-    case SET_NICKNAME:
+    case SET_NICKNAME: {
       const nickname = action.payload as string;
       return {
         ...state,
         nickname,
       };
-    case SET_IMAGE:
+    }
+    case SET_IMAGE: {
       const imgUrl = action.payload as string;
       return {
         ...state,
         imgUrl,
       };
+    }
+    case RESET_USER: {
+      return {
+        id: '',
+        imgUrl: '',
+        nickname: '',
+        isLoadingUser: false,
+        errorStatus: '',
+      };
+    }
     default:
       return state;
   }

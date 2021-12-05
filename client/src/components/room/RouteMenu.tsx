@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@src/store';
 import { SelectBox } from '@components/room/RouteMenu.style';
-import DeviceSelections from '@src/components/setting/DeviceSelections';
+import DeviceSelections from '@components/setting/DeviceSelections';
 import Chat from '@components/room/chat/';
 import Users from '@components/user/Users';
 import Host from '@components/room/host/';

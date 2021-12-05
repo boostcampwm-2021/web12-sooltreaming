@@ -23,20 +23,23 @@ const OtherVideo: React.FC<OtherVideoPropType> = ({
   const usersDevices = useSelector((state: RootState) => state.room.usersDevices);
 
   const otherRef = useRef<HTMLVideoElement>(null);
-  useUpdateSpeaker(otherRef);
-  useToggleSpeaker(otherRef);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  useUpdateSpeaker(audioRef);
+  useToggleSpeaker(audioRef);
   useUpdateStream(otherRef, otherStream);
-  const { isVideoOn, isAudioOn } = usersDevices[sid];
-  const imgUrl = users[sid].imgUrl;
+  useUpdateStream(audioRef, otherStream);
+  const { isVideoOn, isAudioOn } = usersDevices[sid] ?? {};
+  const { nickname, imgUrl } = users[sid] ?? {};
 
   return (
     <CameraContainer className={className}>
-      <Camera ref={otherRef} autoPlay playsInline />
+      <Camera ref={otherRef} autoPlay playsInline muted />
+      <audio ref={audioRef} autoPlay />
       <ImageBox isVideoOn={isVideoOn}>
         <ProfileImage src={imgUrl} />
       </ImageBox>
       <Name>
-        {users[sid].nickname}
+        {nickname}
         {!isAudioOn && (
           <>
             <MicIcon width={8} height={18} stroke={'red'} />

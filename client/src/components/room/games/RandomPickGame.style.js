@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLOR, BTN_STYLE, Z_INDEX } from '@constant/style';
+import { COLOR, BTN_STYLE } from '@constant/style';
 
 export const Contents = styled.div`
   width: 400px;
@@ -11,20 +11,18 @@ export const Contents = styled.div`
   padding: 20px;
   position: relative;
 
-  img {
-    position: absolute;
-    top: 40px;
+  .host {
+    span {
+      font-weight: 600;
+      color: ${COLOR.black};
+    }
   }
 
-  span {
-    font-weight: 600;
-    color: ${COLOR.black};
-  }
-
-  .random-num {
-    position: relative;
-    z-index: ${Z_INDEX.updownNum};
-    left: 5px;
+  .random-pick {
+    span {
+      font-weight: 600;
+      color: ${COLOR.error3};
+    }
   }
 `;
 

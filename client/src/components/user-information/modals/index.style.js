@@ -14,9 +14,16 @@ export const Header = styled.h2`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 28px;
+  overflow-x: hidden;
+  overflow-y: hidden;
 
-  & span {
+  span {
     color: ${COLOR.point};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-drag: none;
   }
 `;
 

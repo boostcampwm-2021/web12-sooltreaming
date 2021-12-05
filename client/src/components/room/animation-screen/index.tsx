@@ -52,7 +52,7 @@ const AnimationScreen: React.FC = (): React.ReactElement => {
   return (
     <Screen onContextMenu={onClickScreen} ref={screenRef}>
       {Object.entries(marks).map(([key, { x, y }]) => {
-        if (!screenRef.current) return;
+        if (!screenRef.current) return {};
         const { clientWidth, clientHeight } = screenRef.current;
         const clientX = x * clientWidth;
         const clientY = y * clientHeight;
