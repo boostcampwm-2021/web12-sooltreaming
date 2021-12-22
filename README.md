@@ -85,17 +85,17 @@
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/yeon52">
+      <a href="https://github.com/alittlekitten">
         J125_오석호
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/yeon52">
+      <a href="https://github.com/jyo-jyo">
         J200_조현정
       </a>
     </td>
     <td align="center">
-      <a href="https://github.com/yeon52">
+      <a href="https://github.com/pyo-sh">
         J212_표석훈
       </a>
     </td>
