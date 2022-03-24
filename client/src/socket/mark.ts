@@ -5,20 +5,22 @@ const mark = (socket: Socket) => (closure: any) => {
   const { setMarks, removeQuestionMark } = closure;
   let count = 0;
   let marks = {};
-  let frame;
+  let timeout;
 
   socket.on(MARK_BROADCAST, ({ x, y }) => {
     marks[++count] = { x, y };
-    if (frame) cancelAnimationFrame(frame);
-    frame = requestAnimationFrame(() => {
-      Object.keys(marks).forEach((cnt) => {
-        removeQuestionMark(cnt);
-      });
-      setMarks((prev) => {
-        return { ...prev, ...marks };
-      });
-      marks = {};
-    });
+    if (!timeout) {
+      timeout = setTimeout(() => {
+        timeout = null;
+        Object.keys(marks).forEach((cnt) => {
+          removeQuestionMark(cnt);
+        });
+        setMarks((prev) => {
+          return { ...prev, ...marks };
+        });
+        marks = {};
+      }, 100);
+    }
   });
 
   const addQuestionMark = (position) => {
