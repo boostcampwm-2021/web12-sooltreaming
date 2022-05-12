@@ -123,7 +123,7 @@
   <tr>
     <td>배포 페이지</td>
     <td>
-      <a href="https://sooltreaming.kro.kr/">
+      <a href="https://sooltreaming.herokuapp.com/">
         👉 배포 페이지 바로가기
       </a>
     </td>
